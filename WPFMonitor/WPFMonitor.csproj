@@ -1,0 +1,446 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">x86</Platform>
+    <ProductVersion>8.0.30703</ProductVersion>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>{66B51CF3-9C3E-40FB-83A5-3AAE159253CA}</ProjectGuid>
+    <OutputType>WinExe</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>WPFMonitor</RootNamespace>
+    <AssemblyName>WPFMonitor</AssemblyName>
+    <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
+    <TargetFrameworkProfile>
+    </TargetFrameworkProfile>
+    <FileAlignment>512</FileAlignment>
+    <ProjectTypeGuids>{60dc8134-eba5-43b8-bcc9-bb4bc16c2548};{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</ProjectTypeGuids>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|x86' ">
+    <PlatformTarget>x86</PlatformTarget>
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|x86' ">
+    <PlatformTarget>x86</PlatformTarget>
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="DockingLibrary, Version=1.0.4831.40602, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>Ref\DockingLibrary.dll</HintPath>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.Windows.Forms" />
+    <Reference Include="System.Xml" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="System.Xaml">
+      <RequiredTargetFramework>4.0</RequiredTargetFramework>
+    </Reference>
+    <Reference Include="WindowsBase" />
+    <Reference Include="PresentationCore" />
+    <Reference Include="PresentationFramework" />
+  </ItemGroup>
+  <ItemGroup>
+    <ApplicationDefinition Include="App.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </ApplicationDefinition>
+    <Compile Include="Core\Converter\BooleanToVisibilityConverter.cs" />
+    <Compile Include="Core\Model\Base\DelegateCommandBase.cs" />
+    <Compile Include="Core\Model\Base\EntityObject.cs" />
+    <Compile Include="Core\Model\Custom.cs" />
+    <Compile Include="Core\Uitl\Common.cs" />
+    <Compile Include="Core\Uitl\Converter.cs" />
+    <Compile Include="Core\Uitl\EditValidation.cs" />
+    <Compile Include="Core\Uitl\HotKey.cs" />
+    <Compile Include="Core\Uitl\Logger\ILogger.cs" />
+    <Compile Include="Core\Uitl\Logger\Logger.cs" />
+    <Compile Include="Core\Uitl\Logger\LoggerFactory.cs" />
+    <Compile Include="Core\Uitl\Logger\LoggerLevel.cs" />
+    <Compile Include="Core\Uitl\Logger\WriteFileLogger.cs" />
+    <Compile Include="Global.cs" />
+    <Compile Include="GlobalData.cs" />
+    <Compile Include="View\Alarm\AlarmSetRemoveView.xaml.cs">
+      <DependentUpon>AlarmSetRemoveView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="View\Alarm\AlramBindTimeEditView.xaml.cs">
+      <DependentUpon>AlramBindTimeEditView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="View\Alarm\AlramBindTimeListView.xaml.cs">
+      <DependentUpon>AlramBindTimeListView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="View\Alarm\FalseAlarmPolicyEditView.xaml.cs">
+      <DependentUpon>FalseAlarmPolicyEditView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="View\Alarm\FalseAlarmPolicyListView.xaml.cs">
+      <DependentUpon>FalseAlarmPolicyListView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="View\Alarm\InspectionEditView.xaml.cs">
+      <DependentUpon>InspectionEditView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="View\Alarm\InspectionListView.xaml.cs">
+      <DependentUpon>InspectionListView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="View\Alarm\KeyWordEditView.xaml.cs">
+      <DependentUpon>KeyWordEditView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="View\Alarm\KeyWordListView.xaml.cs">
+      <DependentUpon>KeyWordListView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="View\AlertAdmin\AlarmGroupMembersEditView.xaml.cs">
+      <DependentUpon>AlarmGroupMembersEditView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="View\AlertAdmin\AlarmGroupMembersListView.xaml.cs">
+      <DependentUpon>AlarmGroupMembersListView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="View\AlertAdmin\AlarmGroupsEditView.xaml.cs">
+      <DependentUpon>AlarmGroupsEditView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="View\AlertAdmin\AlarmGroupsListView.xaml.cs">
+      <DependentUpon>AlarmGroupsListView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="View\AlertAdmin\AlarmLevelSetEditView.xaml.cs">
+      <DependentUpon>AlarmLevelSetEditView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="View\AlertAdmin\AlarmLevelSetListView.xaml.cs">
+      <DependentUpon>AlarmLevelSetListView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="View\AlertAdmin\DisarmTimeEditView.xaml.cs">
+      <DependentUpon>DisarmTimeEditView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="View\AlertAdmin\DisarmTimeListView.xaml.cs">
+      <DependentUpon>DisarmTimeListView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="View\AlertAdmin\MainteEditView.xaml.cs">
+      <DependentUpon>MainteEditView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="View\AlertAdmin\MainteListView.xaml.cs">
+      <DependentUpon>MainteListView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="View\AlertAdmin\SchedulingEditView.xaml.cs">
+      <DependentUpon>SchedulingEditView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="View\AlertAdmin\SchedulingListView.xaml.cs">
+      <DependentUpon>SchedulingListView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="View\Linkage\LinkageSetEditView.xaml.cs">
+      <DependentUpon>LinkageSetEditView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="View\Linkage\LinkageSetListView.xaml.cs">
+      <DependentUpon>LinkageSetListView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="View\Linkage\TimeLinkageEditView.xaml.cs">
+      <DependentUpon>TimeLinkageEditView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="View\Linkage\TimeLinkageListView.xaml.cs">
+      <DependentUpon>TimeLinkageListView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="View\Sys\PasswordBoxBindingHelper.cs" />
+    <Compile Include="View\Sys\StationEdit.xaml.cs">
+      <DependentUpon>StationEdit.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="View\Sys\StationListView.xaml.cs">
+      <DependentUpon>StationListView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="View\Sys\UserEditView.xaml.cs">
+      <DependentUpon>UserEditView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="View\Sys\UserListView.xaml.cs">
+      <DependentUpon>UserListView.xaml</DependentUpon>
+    </Compile>
+    <Page Include="Controls\ScottLogic\PieChart\Legend.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Controls\ScottLogic\PieChart\PieChartLayout.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Controls\ScottLogic\PieChart\PiePlotter.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="MainWindow.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Compile Include="App.xaml.cs">
+      <DependentUpon>App.xaml</DependentUpon>
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Controls\QhQueueInfo.cs" />
+    <Compile Include="Controls\ScottLogic\BaseWPFHelpers.cs" />
+    <Compile Include="Controls\ScottLogic\PieChart\ColourConverter.cs" />
+    <Compile Include="Controls\ScottLogic\PieChart\IColorSelector.cs" />
+    <Compile Include="Controls\ScottLogic\PieChart\IndexedColourSelector.cs" />
+    <Compile Include="Controls\ScottLogic\PieChart\Legend.xaml.cs">
+      <DependentUpon>Legend.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Controls\ScottLogic\PieChart\LegendConverter.cs" />
+    <Compile Include="Controls\ScottLogic\PieChart\PieChartLayout.xaml.cs">
+      <DependentUpon>PieChartLayout.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Controls\ScottLogic\PieChart\PiePlotter.xaml.cs">
+      <DependentUpon>PiePlotter.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Controls\ScottLogic\Shapes\PiePiece.cs" />
+    <Compile Include="Controls\ScottLogic\Util\FormattingConverter.cs" />
+    <Compile Include="Controls\ScottLogic\Util\Utils.cs" />
+    <Compile Include="Core\ViewModel\Alarm\AlramBindTimeEditViewModel.cs" />
+    <Compile Include="Core\ViewModel\Alarm\AlramBindTimeListViewModel.cs" />
+    <Compile Include="Core\ViewModel\Alarm\FalseAlarmPolicyEditViewModel.cs" />
+    <Compile Include="Core\ViewModel\Alarm\FalseAlarmPolicyListViewModel.cs" />
+    <Compile Include="Core\ViewModel\Alarm\InspectionEditViewModel.cs" />
+    <Compile Include="Core\ViewModel\Alarm\InspectionListViewModel.cs" />
+    <Compile Include="Core\ViewModel\Alarm\KeyWordEditViewModel.cs" />
+    <Compile Include="Core\ViewModel\Alarm\KeyWordListViewModel.cs" />
+    <Compile Include="Core\ViewModel\AlertAdmin\AlarmGroupMembersEditViewModel.cs" />
+    <Compile Include="Core\ViewModel\AlertAdmin\AlarmGroupMembersListViewModel.cs" />
+    <Compile Include="Core\ViewModel\AlertAdmin\AlarmGroupsEditViewModel.cs" />
+    <Compile Include="Core\ViewModel\AlertAdmin\AlarmGroupsListViewModel.cs" />
+    <Compile Include="Core\ViewModel\AlertAdmin\AlarmLevelSetEditViewModel.cs" />
+    <Compile Include="Core\ViewModel\AlertAdmin\AlarmLevelSetListViewModel.cs" />
+    <Compile Include="Core\ViewModel\AlertAdmin\DisarmTimeEditViewModel.cs" />
+    <Compile Include="Core\ViewModel\AlertAdmin\DisarmTimeListViewModel.cs" />
+    <Compile Include="Core\ViewModel\AlertAdmin\MainteEditViewModel.cs" />
+    <Compile Include="Core\ViewModel\AlertAdmin\MainteListViewModel.cs" />
+    <Compile Include="Core\ViewModel\AlertAdmin\SchedulingEditViewModel.cs" />
+    <Compile Include="Core\ViewModel\AlertAdmin\SchedulingListViewModel.cs" />
+    <Compile Include="Core\ViewModel\EditBaseViewModel.cs" />
+    <Compile Include="Core\ViewModel\Linkage\LinkageSetEditViewModel.cs" />
+    <Compile Include="Core\ViewModel\Linkage\LinkageSetListViewModel.cs" />
+    <Compile Include="Core\ViewModel\Linkage\TimeLinkageEditViewModel.cs" />
+    <Compile Include="Core\ViewModel\Linkage\TimeLinkageListViewModel.cs" />
+    <Compile Include="Core\ViewModel\ListBaseViewModel.cs" />
+    <Compile Include="Core\ViewModel\LoginViewModel.cs" />
+    <Compile Include="Core\ViewModel\MainViewModel.cs" />
+    <Compile Include="Core\ViewModel\Sys\StationEditViewModel.cs" />
+    <Compile Include="Core\ViewModel\Sys\StationListViewModel.cs" />
+    <Compile Include="Core\ViewModel\Sys\UserEditViewModel.cs" />
+    <Compile Include="Core\ViewModel\Sys\UserListViewModel.cs" />
+    <Compile Include="MainWindow.xaml.cs">
+      <DependentUpon>MainWindow.xaml</DependentUpon>
+      <SubType>Code</SubType>
+    </Compile>
+    <Page Include="View\Alarm\AlarmSetRemoveView.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="View\Alarm\AlramBindTimeEditView.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="View\Alarm\AlramBindTimeListView.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="View\Alarm\FalseAlarmPolicyEditView.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="View\Alarm\FalseAlarmPolicyListView.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="View\Alarm\InspectionEditView.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="View\Alarm\InspectionListView.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="View\Alarm\KeyWordEditView.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="View\Alarm\KeyWordListView.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="View\AlertAdmin\AlarmGroupMembersEditView.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="View\AlertAdmin\AlarmGroupMembersListView.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="View\AlertAdmin\AlarmGroupsEditView.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="View\AlertAdmin\AlarmGroupsListView.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="View\AlertAdmin\AlarmLevelSetEditView.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="View\AlertAdmin\AlarmLevelSetListView.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="View\AlertAdmin\DisarmTimeEditView.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="View\AlertAdmin\DisarmTimeListView.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="View\AlertAdmin\MainteEditView.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="View\AlertAdmin\MainteListView.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="View\AlertAdmin\SchedulingEditView.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="View\AlertAdmin\SchedulingListView.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="View\Linkage\LinkageSetEditView.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="View\Linkage\LinkageSetListView.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="View\Linkage\TimeLinkageEditView.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="View\Linkage\TimeLinkageListView.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="View\Sys\StationEdit.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="View\Sys\StationListView.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="View\Sys\UserEditView.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="View\Sys\UserListView.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Properties\AssemblyInfo.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Properties\Resources.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Resources.resx</DependentUpon>
+    </Compile>
+    <Compile Include="Properties\Settings.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DependentUpon>Settings.settings</DependentUpon>
+      <DesignTimeSharedInput>True</DesignTimeSharedInput>
+    </Compile>
+    <EmbeddedResource Include="Properties\Resources.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>Resources.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+    <None Include="App.config" />
+    <None Include="Properties\Settings.settings">
+      <Generator>SettingsSingleFileGenerator</Generator>
+      <LastGenOutput>Settings.Designer.cs</LastGenOutput>
+    </None>
+    <AppDesigner Include="Properties\" />
+    <None Include="Resources\Images\Thumbs.db" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\WPFMonitor.Common\WPFMonitor.Common.csproj">
+      <Project>{0BE0625C-C890-4E6F-81CB-F849205FD622}</Project>
+      <Name>WPFMonitor.Common</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\WPFMonitor.Core\WPFMonitor.Core.csproj">
+      <Project>{5C91A0B5-5EE1-4DC3-943B-46E772DB95F2}</Project>
+      <Name>WPFMonitor.Core</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\WPFMonitor.DAL\WPFMonitor.DAL.csproj">
+      <Project>{4C11C627-E39C-4475-B121-9E333FC8606E}</Project>
+      <Name>WPFMonitor.DAL</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\WPFMonitor.Library\WPFMonitor.Library.csproj">
+      <Project>{09055D53-46BA-48F6-91B4-032BFC429695}</Project>
+      <Name>WPFMonitor.Library</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\WPFMonitor.Model\WPFMonitor.Model.csproj">
+      <Project>{3DF7637B-5685-4DE3-816D-A19B99D7A7FA}</Project>
+      <Name>WPFMonitor.Model</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Ref\DockingLibrary.dll" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\Images\arrow.png" />
+    <Resource Include="Resources\Images\background.jpg" />
+    <Resource Include="Resources\Images\call.png" />
+    <Resource Include="Resources\Images\close.png" />
+    <Resource Include="Resources\Images\collapsed.jpg" />
+    <Resource Include="Resources\Images\evaluation.png" />
+    <Resource Include="Resources\Images\expanded.jpg" />
+    <Resource Include="Resources\Images\lock.png" />
+    <Resource Include="Resources\Images\maximize.png" />
+    <Resource Include="Resources\Images\minimize.jpg" />
+    <Resource Include="Resources\Images\next.png" />
+    <Resource Include="Resources\Images\pause.png" />
+    <Resource Include="Resources\Images\person.png" />
+    <Resource Include="Resources\Images\recall.png" />
+    <Resource Include="Resources\Images\restore.png" />
+    <Resource Include="Resources\Images\resume.png" />
+    <Resource Include="Resources\Images\setting.png" />
+    <Resource Include="Resources\Images\special.png" />
+    <Resource Include="Resources\Images\stop.png" />
+    <Resource Include="Resources\Images\transfer.png" />
+    <Resource Include="Resources\Images\wait.png" />
+    <Resource Include="Resources\Images\welcome.png" />
+    <Resource Include="Resources\temp\index.jpg" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Core\Graph\" />
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>

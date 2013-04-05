@@ -1,0 +1,50 @@
+﻿<Window x:Class="WPFMonitor.View.Linkage.TimeLinkageEditView"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+         xmlns:vr="clr-namespace:WPFMonitor.Core.Uitl"
+         Title="时间联动设置" Height="237" Width="339" WindowStartupLocation="CenterOwner" 
+        ShowInTaskbar="False" ResizeMode="NoResize">
+
+    <Grid Name="gridContent">
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="130"/>
+            <ColumnDefinition/>
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="10"/>
+            <RowDefinition Height="30"/>
+            <RowDefinition Height="30"/>
+            <RowDefinition Height="30"/>
+            <RowDefinition Height="30"/>
+            <RowDefinition/>
+            <RowDefinition Height="30"/>
+        </Grid.RowDefinitions>
+
+
+        <TextBlock  Text="联动机房名称：" Style="{StaticResource lblStyle}" Grid.Row="1"/>
+        <ComboBox ItemsSource="{Binding StationORList}"  SelectedItem="{Binding SelectStationOR, Mode=TwoWay}" Grid.Row="1"
+                Grid.Column="1" DisplayMemberPath="Stationname"  Style="{StaticResource EditCBStyle}"  x:Name="cbStation" />
+
+        <TextBlock  Text="联动设备名称：" Style="{StaticResource lblStyle}" Grid.Row="2"/>
+        <ComboBox  ItemsSource="{Binding DeviceORList}"  SelectedItem="{Binding SelectDeviceOR, Mode=TwoWay}"  Grid.Row="2"
+                Grid.Column="1" DisplayMemberPath="Devicename" Style="{StaticResource EditCBStyle}"  Name="cbDeviceID"/>
+
+        <TextBlock  Text="联动通道名称：" Style="{StaticResource lblStyle}" Grid.Row="3"/>
+        <ComboBox ItemsSource="{Binding ChannelORList}" SelectedItem="{Binding SelectChannelOR, Mode=TwoWay}"  Grid.Row="3"
+               Grid.Column="1" DisplayMemberPath="Channelname" Style="{StaticResource EditCBStyle}" Name="cbChanncel"/>
+
+        <TextBlock  Text="联动时间：" Style="{StaticResource lblStyle}" Grid.Row="4"/>
+        <TextBox   Style="{StaticResource txtStyle}" Text="{Binding TimeLinkageObj.Triggertime, Mode=TwoWay}" Grid.Row="4" Grid.Column="1"></TextBox>
+
+
+
+        <WrapPanel Grid.Row="6" Grid.ColumnSpan="2"  HorizontalAlignment="Center" VerticalAlignment="Center">
+            <Button  x:Name="OKButton" Command="{Binding OKCommand}" Style="{StaticResource editButtonStyle}" Height="23" Width="65" 
+                     IsDefault="True" Content="确定" />
+
+            <Button  x:Name="CancelButton"    Style="{StaticResource editButtonStyle}"
+                 Height="23" Width="65" IsCancel="True" Content="取消" />
+        </WrapPanel>
+    </Grid>
+</Window>
+
