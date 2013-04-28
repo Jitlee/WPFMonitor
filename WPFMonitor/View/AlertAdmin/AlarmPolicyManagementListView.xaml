@@ -1,0 +1,36 @@
+﻿<custom:DockableContent x:Class="WPFMonitor.View.AlertAdmin.AlarmPolicyManagementListView"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+         xmlns:custom="clr-namespace:DockingLibrary;assembly=DockingLibrary"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        Title="StationListView" Height="634" Width="882"
+        xmlns:my="clr-namespace:WPFMonitor.View.AlertAdmin">
+    <Grid  Background="Transparent" IsManipulationEnabled="False" IsItemsHost="False">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="30"></RowDefinition>
+            <RowDefinition Height="*" />
+        </Grid.RowDefinitions>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="200"/>
+            <ColumnDefinition/>
+        </Grid.ColumnDefinitions>
+
+        <WrapPanel Grid.ColumnSpan="2">
+            <TextBlock  Text="站点：" Foreground="White" Style="{StaticResource lblStyle}" Grid.Row="0"/>
+            <ComboBox ItemsSource="{Binding StationORList}"  SelectedItem="{Binding SelectStationOR, Mode=TwoWay}"
+                      Grid.Row="1"  DisplayMemberPath="Stationname"  Style="{StaticResource EditCBStyle}"  x:Name="cbStation" />
+        </WrapPanel>
+
+        <Grid Grid.Row="1">
+            <TreeView  x:Name="listDevices" >
+                
+            </TreeView>
+        </Grid>
+
+        <Grid Name="gridContent" Grid.Row="1" Background="White" Grid.Column="1">
+            <my:UserControl1 x:Name="_ManagementList" />
+        </Grid>
+
+
+    </Grid>
+</custom:DockableContent>
+

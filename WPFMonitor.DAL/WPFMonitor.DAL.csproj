@@ -74,15 +74,22 @@
     <Compile Include="AlertAdmin\AlarmLevelSetDA.cs" />
     <Compile Include="AlertAdmin\AlarmPolicyManagementDA.cs" />
     <Compile Include="AlertAdmin\DisarmTimeDA.cs" />
+    <Compile Include="AlertAdmin\EventTypeDA.cs" />
+    <Compile Include="AlertAdmin\LightAlarmDA.cs" />
     <Compile Include="AlertAdmin\MainteDA.cs" />
     <Compile Include="AlertAdmin\SchedulingDA.cs" />
     <Compile Include="DALBase.cs" />
     <Compile Include="Linkage\LinkageSetDA.cs" />
     <Compile Include="Linkage\TimeLinkageDA.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="SerMonitor\AlertLogReportDA.cs" />
+    <Compile Include="SerMonitor\DailyreportDA.cs" />
+    <Compile Include="SerMonitor\IntervalReportDA.cs" />
+    <Compile Include="SerMonitor\ReportDao.cs" />
     <Compile Include="Sys\DeviceAndTypeDA.cs" />
     <Compile Include="Sys\DeviceDA.cs" />
     <Compile Include="Sys\StationDA.cs" />
+    <Compile Include="Sys\SysParaDA.cs" />
     <Compile Include="Sys\UserDA.cs" />
   </ItemGroup>
   <ItemGroup>

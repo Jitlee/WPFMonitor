@@ -66,11 +66,16 @@ namespace WPFMonitor.Model.AlertAdmin
         }
 
         /// <summary>
+        /// 是否选中
+        /// </summary>
+        public bool IsSelected { get; set; }
+
+        /// <summary>
         /// DisarmTime构造函数
         /// </summary>
         public DisarmTimeOR()
         {
-
+            IsSelected = false;
         }
 
         /// <summary>
@@ -78,6 +83,8 @@ namespace WPFMonitor.Model.AlertAdmin
         /// </summary>
         public DisarmTimeOR(DataRow row)
         {
+            IsSelected = false;
+
             // 
             _Disarmid = Convert.ToInt32(row["DisarmID"]);
             // 撤防名称

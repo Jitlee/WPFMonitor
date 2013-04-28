@@ -151,7 +151,7 @@ namespace WPFMonitor.Core.ViewModel.Linkage
             if (SelectDeviceOR == null)
                 return;
 
-            var v = _DeviceDA.selectChannels(SelectDeviceOR.Deviceid.ToString());
+            var v = _DeviceDA.selectChannels(SelectDeviceOR.Deviceid);
             foreach (ChannelOR obj in v)
             {
                 ChannelORList.Add(obj);
@@ -220,7 +220,7 @@ namespace WPFMonitor.Core.ViewModel.Linkage
             if (SelectLinkageDeviceOR == null)
                 return;
             
-            var v = _DeviceDA.selectChannels(SelectLinkageDeviceOR.Deviceid.ToString());
+            var v = _DeviceDA.selectChannels(SelectLinkageDeviceOR.Deviceid);
             foreach (ChannelOR obj in v)
             {
                 ChannelLinkageORList.Add(obj);

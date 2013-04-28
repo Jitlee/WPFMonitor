@@ -23,7 +23,7 @@ using System.Windows.Markup;
 // 如果此项目向 COM 公开，则下列 GUID 用于类型库的 ID
 [assembly: Guid("175da8f1-5251-40c8-b8d3-3e4c2ae1a891")]
 
-[assembly: XmlnsDefinition("http://www.monitor.com/wpf/library", "WPFMonitor.Library")]
+//[assembly: XmlnsDefinition("http://www.monitor.com/wpf/library", "WPFMonitor.Library")]
 
 // 程序集的版本信息由下面四个值组成:
 //

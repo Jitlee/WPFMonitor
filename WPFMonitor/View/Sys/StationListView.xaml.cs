@@ -13,7 +13,5 @@ namespace WPFMonitor.View.Sys
             InitializeComponent();
             this.DataContext = new StationListViewModel();
         }
-
-       
     }
 }

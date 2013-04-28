@@ -3,6 +3,32 @@ using System.Data;
 
 namespace WPFMonitor.Model.Sys
 {
+    public class DeviceObj
+    {
+        public int nDeviceID;
+
+        public int DeviceID
+        {
+            get { return nDeviceID; }
+            set { nDeviceID = value; }
+        }
+        public string strDeviceName;
+
+        public string DeviceName
+        {
+            get { return strDeviceName; }
+            set { strDeviceName = value; }
+        }
+        public int nStationID;
+        public int nCommunicateType;
+        public int nCommunicateID;
+        public string strSubAddr;
+        public int nDeviceTypeID;
+        public string strParseDLL;
+        public string strTypeName;
+
+        public string UserId;
+    }
     /// <summary>
     /// 
     /// </summary>
@@ -264,6 +290,27 @@ namespace WPFMonitor.Model.Sys
 
         }
 
+    }
+
+    public class DeviceAddTypeOR : DeviceOR
+    {
+        private int _DeviceTypeID;
+        /// <summary>
+        /// 设备类型
+        /// </summary>
+        public int DeviceTypeID
+        {
+            get { return _DeviceTypeID; }
+            set { _DeviceTypeID = value;
+            NotifyPropertyChanged("DeviceTypeID");
+            }
+        }
+
+        public DeviceAddTypeOR(DataRow dr)
+            : base(dr)
+        {
+            DeviceTypeID = Convert.ToInt32(dr["DeviceTypeID"]);
+        }
     }
 }
 

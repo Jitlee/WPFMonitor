@@ -1,0 +1,147 @@
+﻿<UserControl x:Class="WPFMonitor.View.AlertAdmin.UserControl1"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             mc:Ignorable="d" 
+             d:DesignHeight="800" d:DesignWidth="800">
+    <Grid Name="gridContent">
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="130"/>
+            <ColumnDefinition Width="280"/>
+            <ColumnDefinition Width="110"/>
+            <ColumnDefinition  />
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="10"/>
+            <RowDefinition Height="30"/>
+            <RowDefinition Height="30"/>
+            <RowDefinition Height="30"/>
+            <RowDefinition Height="30"/>
+            <RowDefinition Height="30"/>
+            <RowDefinition Height="30"/>
+            <RowDefinition Height="30"/>
+            <RowDefinition Height="30"/>
+            <RowDefinition Height="30"/>
+            <RowDefinition Height="30"/>
+            <RowDefinition Height="30"/>
+            <RowDefinition Height="30"/>
+            <RowDefinition Height="30"/>
+            <RowDefinition Height="30"/>
+            <RowDefinition Height="30"/>
+            <RowDefinition/>
+            <RowDefinition Height="30"/>
+        </Grid.RowDefinitions>
+
+        <TextBlock  Text="机房名称：" Style="{StaticResource lblStyle}" Grid.Column="0"  Grid.Row="1"/>
+        <TextBox   Style="{StaticResource txtStyle}" Text="{Binding AlarmPolicyManagementObj.StationName, Mode=TwoWay}"
+                 IsEnabled="False"  Grid.Row="1" Grid.Column="1"></TextBox>
+
+        <TextBlock  Text="设备类型：" Style="{StaticResource lblStyle}" Grid.Column="2"  Grid.Row="1"/>
+        <TextBox   Style="{StaticResource txtStyle}" Text="{Binding AlarmPolicyManagementObj.DevicetypeName, Mode=TwoWay}"
+                IsEnabled="False"    Grid.Row="1" Grid.Column="3"></TextBox>
+
+        <TextBlock  Text="设备名称：" Style="{StaticResource lblStyle}" Grid.Column="0"  Grid.Row="2"/>
+        <TextBox   Style="{StaticResource txtStyle}" Text="{Binding AlarmPolicyManagementObj.DeviceName, Mode=TwoWay}" 
+                IsEnabled="False"    Grid.Row="2" Grid.Column="1"></TextBox>
+        <TextBlock  Text="通道：" Style="{StaticResource lblStyle}" Grid.Column="2"  Grid.Row="2"/>
+        <TextBox   Style="{StaticResource txtStyle}" Text="{Binding AlarmPolicyManagementObj.DeviceChannelName, Mode=TwoWay}" 
+                 IsEnabled="False"   Grid.Row="2" Grid.Column="3"></TextBox>
+
+
+        <TextBlock  Text="测点类型：" Style="{StaticResource lblStyle}" Grid.Row="3"/>
+        <TextBox   Style="{StaticResource txtStyle}" Text="{Binding AlarmPolicyManagementObj.ValuetypeShow, Mode=TwoWay}"
+                IsEnabled="False"    Grid.Row="3" Grid.Column="1"></TextBox>
+
+        <TextBlock  Text="报警条件：" Style="{StaticResource lblStyle}" Grid.Row="4" Grid.Column="0" />
+
+        <TextBlock  Text="高限：" Style="{StaticResource lblStyle}" Grid.Row="5" Grid.Column="0" />
+        <WrapPanel Grid.Row="5" Grid.Column="1">
+            <TextBox  IsEnabled="{Binding Path=IsSwitchEnable}"  Style="{StaticResource txtStyle}" Text="{Binding AlarmPolicyManagementObj.Maxvalue, Mode=TwoWay}"></TextBox>
+            <CheckBox IsEnabled="{Binding Path=IsSwitchEnable}" IsChecked="{Binding AlarmPolicyManagementObj.Maxtiggertype, Mode=TwoWay}" 
+                   VerticalAlignment="Center"   Content="高于高限触发"></CheckBox>
+        </WrapPanel>
+        <TextBlock  Text="事件：" Style="{StaticResource lblStyle}" Grid.Row="5"  Grid.Column="2"/>
+        <ComboBox ItemsSource="{Binding EventTypeList}"  SelectedItem="{Binding SelectHiEventTypeOR, Mode=TwoWay}"
+             IsEnabled="{Binding Path=IsSwitchEnable}"     Grid.Row="5" Grid.Column="3"   DisplayMemberPath="Eventname" 
+                  Style="{StaticResource EditCBStyle}" />
+        
+
+        <TextBlock  Text="低限：" Style="{StaticResource lblStyle}" Grid.Row="6"/>
+        <WrapPanel Grid.Row="6" Grid.Column="1">
+            <TextBox  IsEnabled="{Binding Path=IsSwitchEnable}"  Style="{StaticResource txtStyle}" Text="{Binding AlarmPolicyManagementObj.Minvalue, Mode=TwoWay}" Grid.Row="9" Grid.Column="1"></TextBox>
+            <CheckBox IsEnabled="{Binding Path=IsSwitchEnable}" IsChecked="{Binding AlarmPolicyManagementObj.Mintiggertype, Mode=TwoWay}"
+                   VerticalAlignment="Center"    Content="低于触发"></CheckBox>
+        </WrapPanel>
+        <TextBlock  Text="事件：" Style="{StaticResource lblStyle}" Grid.Row="6"  Grid.Column="2"/>
+        <ComboBox ItemsSource="{Binding EventTypeList}"  SelectedItem="{Binding SelectLoEventTypeOR, Mode=TwoWay}"
+                IsEnabled="{Binding Path=IsSwitchEnable}"   Grid.Row="6" Grid.Column="3"   DisplayMemberPath="Eventname"  Style="{StaticResource EditCBStyle}" />
+
+        <TextBlock  Text="开关量告警值：" Style="{StaticResource lblStyle}" Grid.Row="7"/>
+        <ComboBox  ItemsSource="{Binding SwitchvalueArr}" SelectedItem="{Binding selectSwitchvalue, Mode=TwoWay}"  
+                IsEnabled="{Binding Path=IsMoNiEnable}"  Style="{StaticResource EditCBStyle}"  Grid.Row="7" Grid.Column="1">
+        </ComboBox>
+
+        <TextBlock  Text="事件：" Style="{StaticResource lblStyle}" Grid.Row="7"  Grid.Column="2"/>
+        <ComboBox ItemsSource="{Binding EventTypeList}"  SelectedItem="{Binding SelectSwitchEventTypeOR, Mode=TwoWay}"
+                IsEnabled="{Binding Path=IsMoNiEnable}"   Grid.Row="7" Grid.Column="3"   DisplayMemberPath="Eventname"  Style="{StaticResource EditCBStyle}" />
+        
+        <!--<TextBox   Style="{StaticResource txtStyle}" Text="{Binding AlarmPolicyManagementObj.Eventid, Mode=TwoWay}"
+             IsEnabled="{Binding Path=IsMoNiEnable}"      Grid.Row="7" Grid.Column="3"></TextBox>-->
+
+        <TextBlock  Text="告警次数：" Style="{StaticResource lblStyle}" Grid.Row="8"/>
+        <TextBox   Style="{StaticResource txtStyle}" Text="{Binding AlarmPolicyManagementObj.Alarmtimes, Mode=TwoWay}"
+                   Grid.Row="8" Grid.Column="1"></TextBox>
+
+        <TextBlock  Text="报警过滤次数：" Style="{StaticResource lblStyle}" Grid.Row="8"  Grid.Column="2"/>
+        <TextBox   Style="{StaticResource txtStyle}" Text="{Binding AlarmPolicyManagementObj.Alarmfiltertimes, Mode=TwoWay}"
+                   Grid.Row="8" Grid.Column="3"></TextBox>
+
+
+        <TextBlock  Text="电话报警语音文件：" Style="{StaticResource lblStyle}" Grid.Row="9"/>
+        <TextBox   Style="{StaticResource txtStyle}" Text="{Binding AlarmPolicyManagementObj.Alarmaudiofile, Mode=TwoWay}"
+                   Grid.Row="9" Grid.Column="1"></TextBox>
+
+        <TextBlock  Text="电话解除语音文件：" Style="{StaticResource lblStyle}" Grid.Row="10"/>
+        <TextBox   Style="{StaticResource txtStyle}" Text="{Binding AlarmPolicyManagementObj.Disalarmaudiofile, Mode=TwoWay}"
+                   Grid.Row="10" Grid.Column="1"></TextBox>
+
+        <TextBlock  Text="短信邮件语音报警内容：" Style="{StaticResource lblStyle}" Grid.Row="11"/>
+        <TextBox   Style="{StaticResource txtStyle}" Text="{Binding AlarmPolicyManagementObj.Smsmsg, Mode=TwoWay}"
+                   Grid.Row="11" Grid.Column="1"></TextBox>
+
+        <CheckBox IsChecked="False"  Content="默认报警内容" HorizontalAlignment="Right" VerticalAlignment="Center"
+                  Margin="3" Grid.Row="12" x:Name="cbDefultMsg"></CheckBox>
+        <WrapPanel      Grid.Row="12" Grid.Column="1">
+            <TextBox   Style="{StaticResource txtStyle}" Text="{Binding Path=DefaultSmsMsg, Mode=TwoWay}"
+                       IsEnabled="{Binding ElementName=cbDefultMsg, Path=IsChecked}"  ></TextBox>
+
+            <Button  x:Name="OKButton1" Command="{Binding SmsMsgCommand}"  Height="23" Width="85" 
+          IsEnabled="{Binding ElementName=cbDefultMsg, Path=IsChecked}"   IsDefault="True" Content="修改默认内容" />
+        </WrapPanel>
+
+        
+
+        <TextBlock  Text="报警时声光告警器：" Style="{StaticResource lblStyle}" Grid.Row="13"/>
+        <ComboBox ItemsSource="{Binding LightAlarmList}"  SelectedItem="{Binding SelectLightAlarmOR, Mode=TwoWay}"
+                  Grid.Row="13" Grid.Column="1"   DisplayMemberPath="Lightname"  Style="{StaticResource EditCBStyle}" />
+        
+        <TextBlock  Text="解除时声光告警器：" Style="{StaticResource lblStyle}" Grid.Row="14"/>
+        <ComboBox ItemsSource="{Binding LightAlarmList}"  SelectedItem="{Binding SelectReleaseLightAlarmOR, Mode=TwoWay}"
+                  Grid.Row="14" Grid.Column="1"   DisplayMemberPath="Lightname"  Style="{StaticResource EditCBStyle}" />
+        
+        <TextBlock  Text="启用本策略：" Style="{StaticResource lblStyle}" Grid.Row="15"/>
+        <CheckBox    IsChecked="{Binding AlarmPolicyManagementObj.IsenableBool, Mode=TwoWay}"
+               VerticalAlignment="Center"     Grid.Row="15" Grid.Column="1"/>
+
+
+
+        <WrapPanel Grid.Row="17" Grid.ColumnSpan="3"  HorizontalAlignment="Center" VerticalAlignment="Center">
+            <Button  x:Name="OKButton" Command="{Binding OKCommand}" Style="{StaticResource editButtonStyle}" Height="23" Width="65" 
+                     IsEnabled="{Binding Path=SaveEnable}" IsDefault="True" Content="保存" />
+
+            <Button  x:Name="CancelButton"    Style="{StaticResource editButtonStyle}"  Command="{Binding DeleteCommand}"
+                IsEnabled="{Binding Path=DeleteEnable}" Height="23" Width="65"  Content="删除" />
+        </WrapPanel>
+    </Grid>
+</UserControl>
