@@ -101,9 +101,6 @@ namespace WPFMonitor.DAL.Sys
 
         
        #region 报警管理
-       //select 
-//*,dbo.F_ISExisAlarmPolicy({0},{1},{2},Channelno) as ISHavePolice from t_Channel
-//select * from t_Channel
 
        public ObservableCollection<DeviceAddTypeOR> GetAllGenerdDevice(string nStationID)
        {

@@ -56,12 +56,12 @@
 
             <TextBlock Grid.Column="2"  Grid.Row="0"  Text="设备：" Style="{StaticResource tbLable}"/>
             <ComboBox Grid.Column="3"  Grid.Row="0" DisplayMemberPath="Devicename"  ItemsSource="{Binding DeviceORList}"  
-                   Width="180"    SelectedItem="{Binding SelectDeviceOR, Mode=TwoWay}" Style="{StaticResource CBStyle}"
-                      SelectionChanged="cbDeviceID_SelectionChanged" />
+                  x:Name="cbDevice"  Width="140"    SelectedItem="{Binding SelectDeviceOR, Mode=TwoWay}" Style="{StaticResource CBStyle}"
+                    IsEnabled="{Binding  Path=DeviceEnable}"   SelectionChanged="cbDeviceID_SelectionChanged" />
 
             <TextBlock  Grid.Column="4"  Grid.Row="0" Text="测点：" Style="{StaticResource tbLable}"/>
             <ComboBox Grid.Column="5"  Grid.Row="0"  ItemsSource="{Binding ChannelORList}"  SelectedItem="{Binding SelectChannelOR, Mode=TwoWay}"
-              Style="{StaticResource CBStyle}"/>
+              DisplayMemberPath="Channelname" x:Name="cbChanncel" IsEnabled="{Binding Path=ChanncelEnable}" Style="{StaticResource CBStyle}"/>
 
 
             <TextBlock   Grid.Column="0"  Grid.Row="1" Text="开始日期：" Style="{StaticResource tbLable}"/>
@@ -73,25 +73,17 @@
             <DatePicker Grid.Column="3"  Grid.Row="1"  SelectedDate="{Binding Path=EndDate,Mode=TwoWay}"></DatePicker>
 
             <TextBlock   Grid.Column="4"  Grid.Row="1"  Text="报表类型：" Style="{StaticResource tbLable}"/>
-            <WrapPanel  Grid.Row="1"   Grid.Column="5" >               
-            <ComboBox  ItemsSource="{Binding EventLists}"  SelectedItem="{Binding SelectEventOR, Mode=TwoWay}" 
-              DisplayMemberPath="cbReportType" Style="{StaticResource CBStyle}"/>
+            <WrapPanel  Grid.Row="1"   Grid.Column="5" >
+                <ComboBox  ItemsSource="{Binding ReportTypeList}"  SelectedItem="{Binding SelectReportType, Mode=TwoWay}" 
+              DisplayMemberPath="Name" Style="{StaticResource CBStyle}" SelectionChanged="ComboBox_SelectionChanged" />
+                
             <Button   Grid.Column="4" Width="40" Height="26" VerticalAlignment="Center"  HorizontalAlignment="Left" 
-                      Grid.Row="2"  Content="查询" Click="Button_Click"></Button>
+                     Margin="3"  Grid.Row="2"  Content="查询" Click="Button_Click"></Button>
             </WrapPanel>
             
         </Grid>
-        <DataGrid Name="dg"  Grid.Row="1"  Style="{StaticResource ListDataGridStyle}"   ItemsSource="{Binding AlarmLogS}">
-            <DataGrid.Columns>
-                <DataGridTextColumn Header="机房名"  Width="80*" Binding="{Binding Path=StationName}" />
-                <DataGridTextColumn Header="事件名称"  Width="80*" Binding="{Binding Path=EventsName}" />
-                <DataGridTextColumn Header="级别"  Width="80*" Binding="{Binding Path=AlarmLevel}" />
-                <DataGridTextColumn Header="发生时间"  Width="80*" Binding="{Binding Path=HappenTime}" />
-                <DataGridTextColumn Header="报警类型"  Width="80*" Binding="{Binding Path=AlarmType}" />
-                <DataGridTextColumn Header="设备"  Width="80*" Binding="{Binding Path=DeviceName}" />
-                <DataGridTextColumn Header="内容"  Width="80*" Binding="{Binding Path=Content}" />
-                <DataGridTextColumn Header="策略ID"  Width="80*" Binding="{Binding Path=MonitorValue}" />
-            </DataGrid.Columns>
+        <DataGrid Name="dg" AutoGenerateColumns="True"  Grid.Row="1"  Style="{StaticResource ListDataGridStyle}">
+
         </DataGrid>
     </Grid>
 </custom:DockableContent>

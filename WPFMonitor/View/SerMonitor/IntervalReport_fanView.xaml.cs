@@ -45,11 +45,6 @@ namespace WPFMonitor.View.SerMonitor
             if (!string.IsNullOrEmpty(dr["AvgValue"].ToString()))
                 sravg = Convert.ToDouble(dr["AvgValue"]);
         }
-
-        //chtServerBuytime.Series["srMain"].Points.DataBindXY(dt.Rows, "Time", dt.Rows, "MinValue");
-        //chtServerBuytime.Series["srMax"].Points.DataBindXY(dt.Rows, "Time", dt.Rows, "MaxValue");
-        //chtServerBuytime.Series["sravg"].Points.DataBindXY(dt.Rows, "Time", dt.Rows, "AvgValue");
-        //chtServerBuytime.Series["srMain"]["DrawingStyle"] = "Cylinder";
     }
 
  
@@ -124,6 +119,8 @@ namespace WPFMonitor.View.SerMonitor
             {
                 DeviceORList.Add(obj);
             }
+            if (DeviceORList.Count > 0)
+                SelectDeviceOR = DeviceORList.First();
         }
         //设备类型
         ObservableCollection<DeviceTypeOR> _DeviceTypeORList = new ObservableCollection<DeviceTypeOR>();

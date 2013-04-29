@@ -22,7 +22,7 @@
             <RowDefinition Height="*"/>
         </Grid.RowDefinitions>
 
-        <Grid Background="White">
+        <Grid>
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="90"/>
                 <ColumnDefinition/>
@@ -54,16 +54,16 @@
 
             <TextBlock  Text="时间：" Style="{StaticResource tbLable}" Grid.Column="2" Grid.Row="1"/>
             <WrapPanel Grid.Column="3" Grid.Row="1">
-                <DatePicker  Name="txtStartData"  Width="80"/>
+                <DatePicker  Name="txtStartData"  Width="100"/>
                 <TextBlock  HorizontalAlignment="Center"  Text="-"></TextBlock>
-                <DatePicker Name="txtEndData"  Width="80"/>
+                <DatePicker Name="txtEndData"  Width="100"/>
             </WrapPanel>
 
             <TextBlock  Text="统计类型：" Style="{StaticResource tbLable}" Grid.Column="4" Grid.Row="1"/>
             <WrapPanel Grid.Column="5" Grid.Row="1"  >
             <ComboBox  ItemsSource="{Binding ReportType}"  SelectedItem="{Binding SelectReport, Mode=TwoWay}"
                  Grid.Column="5" Grid.Row="1"   Style="{StaticResource EditCBStyle}"/>
-            <Button Content="查询" Click="Button_Click"></Button>
+            <Button Content="统计" Margin="3" Click="Button_Click"></Button>
             </WrapPanel>
         </Grid>
 

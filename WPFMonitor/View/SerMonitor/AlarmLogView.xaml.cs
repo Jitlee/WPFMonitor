@@ -36,9 +36,9 @@ namespace WPFMonitor.View.SerMonitor
        
         public void Init()
         {
-            StartDate = Convert.ToDateTime("2011-10-01");
+            StartDate = DateTime.Now.AddDays(-7); // Convert.ToDateTime("2011-10-01");
             StartTime = "00:00:00";
-            EndDate = Convert.ToDateTime("2011-10-15");
+            EndDate = DateTime.Now; // Convert.ToDateTime("2011-10-15");
             EndTime = "23:59:59";
 
             AlarmLogS = new ObservableCollection<AlarmLogOR>();

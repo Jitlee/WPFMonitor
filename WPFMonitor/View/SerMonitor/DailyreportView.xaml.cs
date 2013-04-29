@@ -43,7 +43,7 @@ namespace WPFMonitor.View.SerMonitor
             {
                 SelectStationOR = StationORList.First();
             }
-            StartDate = Convert.ToDateTime("2011-10-02");// DateTime.Now;
+            StartDate = DateTime.Now;// Convert.ToDateTime("2011-10-02");// DateTime.Now;
         }
 
         #region 树处理

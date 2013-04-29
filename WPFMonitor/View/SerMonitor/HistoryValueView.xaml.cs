@@ -17,6 +17,7 @@ using WPFMonitor.Model.Sys;
 using WPFMonitor.DAL.Sys;
 using System.Data;
 using WPFMonitor.DAL.SerMonitor;
+using System.ComponentModel;
 
 namespace WPFMonitor.View.SerMonitor
 {
@@ -28,17 +29,21 @@ namespace WPFMonitor.View.SerMonitor
         public DateTime StartDate { get; set; }
         public DateTime EndDate { get; set; }
 
+
+
+
         public HistoryValueView()
         {
             InitializeComponent();
             this.DataContext = new HistoryValueViewModel();
 
-            StartDate = Convert.ToDateTime("2011-10-01");
-            EndDate = Convert.ToDateTime("2011-10-15");
+            StartDate = DateTime.Now.AddDays(-7);// Convert.ToDateTime("2011-01-01");
+            EndDate = DateTime.Now;// Convert.ToDateTime("2012-10-15");
 
             Init();
             this.DataContext = this;
         }
+        #region 初使化
         private void Init()
         {
             DeviceORList = new ObservableCollection<DeviceOR>();
@@ -50,6 +55,40 @@ namespace WPFMonitor.View.SerMonitor
             {
                 StationORList.Add(obj);
             }
+            SelectStationOR = StationORList.First();
+
+            ReportTypeList = new ObservableCollection<ReportType>();
+            //                                                通道  设备
+            ReportType mRep = new ReportType(0, "设备历史报表",false,true);
+            ReportTypeList.Add(mRep);
+            SelectReportType = mRep;
+
+            mRep = new ReportType(1, "测点历史报表", true, true);
+            ReportTypeList.Add(mRep);
+
+            mRep = new ReportType(2, "报警历史报表", false, false);
+            ReportTypeList.Add(mRep);
+
+            mRep = new ReportType(3, "数据月报表", false, true);
+            ReportTypeList.Add(mRep);
+
+            mRep = new ReportType(4, "数据年报表", false, true);
+            ReportTypeList.Add(mRep);
+        }
+        public ObservableCollection<ReportType> ReportTypeList { get; set; }
+        public ReportType SelectReportType { get; set; }
+        public bool ChanncelEnable { get; set; }
+        public bool DeviceEnable { get; set; }
+        private void ComboBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            NotifyPropertyChanged("ReportTypeList");
+            NotifyPropertyChanged("SelectReportType");
+
+
+            ChanncelEnable=SelectReportType.ChanncelEnable;
+            DeviceEnable = SelectReportType.DeviceEnable;
+            cbDevice.IsEnabled = DeviceEnable;
+            cbChanncel.IsEnabled = ChanncelEnable;
         }
 
         public ObservableCollection<StationOR> StationORList { get; set; }
@@ -87,6 +126,7 @@ namespace WPFMonitor.View.SerMonitor
             DeviceORList.Insert(0, objTemp);
             SelectDeviceOR = objTemp;
         }
+
         public void cbDeviceID_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
             SelectChannelOR = null;
@@ -102,28 +142,137 @@ namespace WPFMonitor.View.SerMonitor
                 ChannelORList.Add(obj);
             }
         }
+        #endregion
+        public  ObservableCollection<object> ListDevice;
 
+        public Dictionary<string, string> Dir { get; set; }
+        
         private void Button_Click(object sender, RoutedEventArgs e)
         {
+            if (ListDevice == null)
+                ListDevice = new ObservableCollection<object>();
+            else
+                ListDevice.Clear();
+
+            if (Dir == null)
+                Dir = new Dictionary<string, string>();
+            else
+                Dir.Clear();
+
             DataTable thisdt = GetAllDataTable();
+            if (thisdt == null)
+                return;
+
+            
+
+            bool isCN = false;
+            if (SelectReportType != null)
+            { 
+
+                if (SelectReportType.index == 0)
+                {
+                    Dir.Add("DeviceName", "设备");
+                    Dir.Add("ChannelName", "测点");
+                    Dir.Add("MonitorValue", "观测值");
+                    Dir.Add("MonitorTime", "观测时间");
+
+                    foreach (DataRow dr in thisdt.Rows)
+                    {
+                        ListDevice.Add(new DeviceHistoryOR(dr));
+                    }
+                }
+                else if (SelectReportType.index == 3 || SelectReportType.index == 4)
+                {
+                    Dir.Add("deviceno", "设备ID");
+
+                    Dir.Add("devicename", "设备名");
+                    Dir.Add("channelno", "测点ID");
+
+                    Dir.Add("channelname", "测点名");
+                    Dir.Add("maxVal", "最大值");
+                    Dir.Add("minVal", "最小值");
+                    Dir.Add("avgVal", "平均值");
+                    Dir.Add("data", "日期");
+                    //isCN = true;
+                    foreach (DataRow dr in thisdt.Rows)
+                    {
+                        ListDevice.Add(new DeviceHistoryOR2(dr));
+                    }
+                }
+                else
+                {
+                    //isCN = true;
+
+                    Dir.Add("Content", "报警内容");
+                    Dir.Add("HappenTime", "发生时间");
+                    Dir.Add("DeviceName", "设备");
+                    Dir.Add("RelieveTime", "解除时间");
+                    Dir.Add("AlarmLevel", "报警级别");
+                    Dir.Add("OperateUserID", "操作员ID");
+                    Dir.Add("PolicyID", "策略ID");
+                    Dir.Add("StationID", "机房名 ");
+                    foreach (DataRow dr in thisdt.Rows)
+                    {
+                        ListDevice.Add(new DeviceHistoryOR1(dr));
+                    }
+                }
+            }
+
+            
+            dg.Columns.Clear();
+            foreach (KeyValuePair<string, string> d in Dir)
+            {
+                DataGridTextColumn dgc = new DataGridTextColumn();
+                dgc.Header = d.Value;
+                if (!isCN)
+                    dgc.Binding = new Binding(d.Key);
+                else
+                    dgc.Binding = new Binding(d.Value);
+
+                dgc.MinWidth = 100;
+                dg.Columns.Add(dgc);
+            }
+
+            
+            dg.ItemsSource = ListDevice;
            
+            //int index=0;
+            //foreach (KeyValuePair<string, string> d in Dir)
+            //{
+                
+            //    dg.Columns[index].Header = d.Value;
+            //    index++;
+            //}
         }
+
+        #region Common
         public void AlertNormal(string msg)
         {
             MessageBox.Show(msg, "温馨提示", MessageBoxButton.OK, MessageBoxImage.Error);
         }
-        public ReportType SelectReportType { get; set; }
+        public event PropertyChangedEventHandler PropertyChanged;
+
+        protected void NotifyPropertyChanged(String info)
+        {
+            if (PropertyChanged != null)
+            {
+                PropertyChanged(this, new PropertyChangedEventArgs(info));
+            }
+        }
+        #endregion
 
         ReportDao m_reportDao = new ReportDao();
         public DataTable GetAllDataTable()
         {
             string strStartTime = string.Format("{0} 00:00:00", StartDate.ToString("yyyy-MM-dd"));
             string strEndTime = string.Format("{0} 23:59:59", EndDate.ToString("yyyy-MM-dd"));
+
             Info objInfo = new Info();
             objInfo.DeviceName = SelectDeviceOR.Devicename;
             objInfo.StationID =SelectStationOR.Stationid;
             objInfo.Begin = Convert.ToDateTime(strStartTime);
             objInfo.End = Convert.ToDateTime(strEndTime);
+
 
             if (SelectReportType != null)
             {
@@ -135,6 +284,8 @@ namespace WPFMonitor.View.SerMonitor
                             AlertNormal("请选择设备");
                             return null;
                         }
+                                  
+
                         if (SelectDeviceOR.Deviceid != -1)
                         {
                             objInfo.DeviceID = SelectDeviceOR.Deviceid;
@@ -162,10 +313,7 @@ namespace WPFMonitor.View.SerMonitor
                             AlertNormal("选择该报表类型时，不能选择\"所有设备\"");
                             return null;
                         }
-                        int ChannelNo = SelectChannelOR.Channelno;
-                        //
-
-
+                        int ChannelNo = SelectChannelOR.Channelno; 
                         DataTable dt = m_reportDao.GetChannelHistorReport(SelectDeviceOR.Devicename,
                             SelectDeviceOR.Deviceid, ChannelNo, objInfo.Begin, objInfo.End, objInfo.StationID);
                         return dt;
@@ -224,14 +372,13 @@ namespace WPFMonitor.View.SerMonitor
             }
             return null;
         }
+       
         private DataTable SerachThread(Info _Info)
-        {
+        { 
             DataTable thisdt = new DataTable();
             if (_Info.Type == 0)
             {
                 thisdt = m_reportDao.GetDeviceHistoryReport(_Info.DeviceName, _Info.DeviceID, _Info.Begin, _Info.End, _Info.StationID);
-
-
             }
             else if (_Info.Type == 1)
             {
@@ -243,30 +390,17 @@ namespace WPFMonitor.View.SerMonitor
                 //int b = 0;
                 foreach (DeviceObj m_obj in _Info.allDevices)
                 {
-                    //string str = "正在查询:";
-                    //str += m_obj.DeviceName.ToString() + ",时间为：" + _Info.Begin.ToShortDateString() + "到" + _Info.End.ToShortDateString();
-                    //statuc(str);
-                    DataTable Current = m_reportDao.GetDeviceHistoryReport(m_obj.DeviceName, m_obj.DeviceID, _Info.Begin, _Info.End, _Info.StationID);
+                    DataTable Current = m_reportDao.GetDeviceHistoryReport(m_obj.DeviceName, m_obj.DeviceID,
+                        _Info.Begin, _Info.End, _Info.StationID);
                     if (Current == null)
-                    {
-                        //statuc(str + "\r\n数据为空...");
-                        //System.Threading.Thread.Sleep(500);   
+                    {  
                         continue;
                     }
-                    //else
-                    //{
-                    //    statuc(str + "\r\n数据查询完毕...");
-                    //}
-                    //休息一段时间，让用户可以看见查询信息
-
-                    //UpdateDataGridView(Current);
-                    //continue;
                     if (m == 0)
                     {
                         if (Current != null)
                         {
                             thisdt = Current;
-                            //UpdateDataGridView(this.dt);
                             m++;
                         }
                     }
@@ -275,41 +409,84 @@ namespace WPFMonitor.View.SerMonitor
                         if (Current != null)
                         {
                             thisdt.Merge(Current);
-                            //this.dt = Current;
-                            //UpdateDataGridView(this.dt);
                             m++;
                         }
                     }
-                    //dgResult.DataSource = thisdt;
-                    //UpdateDataGridView(this.dt);
-                    //str += m_obj.DeviceName.ToString() + ",时间为：" + _Info.Begin.ToShortDateString() + "到" + _Info.End.ToShortDateString();
-                    //statuc(str);
-                    //currentvalue++;
-                    //string strmyvalue = ((100 / count) * currentvalue).ToString();
-                    //int myvalue = int.Parse(strmyvalue);
-                    //setbarvalue(myvalue);
-                    //if (b == _Info.allDevices.Count)
-                    //    statuc("查询完毕！！\r\n正在更新数据表...");
-                    //b++;
                 }
-                //setbarvalue(100);
-                //statuc("查询完毕！！\r\n正在更新数据表...");
                 m = 0;
             }
+            
             return thisdt;
-            //dgResult.DataSource = thisdt;
-            //dgResult.DataBind();
-            //释放线程
-            //setbarvalue(100);
-            //statuc("查询完毕！！\r\n正在更新数据表...");
-            //UpdateDataGridView(this.dt);
-            //if (dt != null)
-            //    statuc("更新完毕！！    本次数据查询共有数据行：" + this.dt.Rows.Count.ToString() + "条");
-            //else
-            //    statuc("更新完毕！！    本次数据查询共有数据行：0条");
-
-            //System.Threading.Thread.CurrentThread.Abort();
         }
+
+        #region 实体
+        public class DeviceHistoryOR
+        {
+            public string DeviceName { get; set; }
+            public string ChannelName { get; set; }
+            public string MonitorValue { get; set; }
+            public string MonitorTime { get; set; }
+
+            public DeviceHistoryOR(DataRow dr)
+            {
+                DeviceName = dr["DeviceName"].ToString();
+                ChannelName = dr["ChannelName"].ToString();
+                MonitorValue = dr["MonitorValue"].ToString();
+                MonitorTime = dr["MonitorTime"].ToString();
+            }
+        }
+
+        public class DeviceHistoryOR1
+        {
+            public string Content { get; set; }
+            public string HappenTime { get; set; }
+            public string DeviceName { get; set; }
+            public string RelieveTime { get; set; }
+            public string AlarmLevel { get; set; }
+            public string OperateUserID { get; set; }
+            public string PolicyID { get; set; }
+            public string StationID { get; set; }
+            public DeviceHistoryOR1(DataRow dr)
+            {
+                Content = dr["Content"].ToString();
+                HappenTime = dr["HappenTime"].ToString();
+                DeviceName = dr["DeviceName"].ToString();
+                RelieveTime = dr["RelieveTime"].ToString();
+                AlarmLevel = dr["AlarmLevel"].ToString();
+                OperateUserID = dr["OperateUserID"].ToString();
+                PolicyID = dr["PolicyID"].ToString();
+                StationID = dr["StationID"].ToString();
+            }
+        }
+        public class DeviceHistoryOR2
+        {
+            public string deviceno { get; set; }//", "设备ID");
+
+            public string devicename { get; set; }//", "设备名");
+            public string channelno { get; set; }//", "测点ID");
+
+            public string channelname { get; set; }//", "测点名");
+            public string maxVal { get; set; }//", "最大值");
+            public string minVal { get; set; }//", "最小值");
+            public string avgVal { get; set; }//", "平均值");
+            public string data { get; set; }//", "日期");
+
+            public DeviceHistoryOR2(DataRow dr)
+            {
+                deviceno = dr["设备ID"].ToString();
+
+                devicename = dr["设备名"].ToString();
+                channelno = dr["测点ID"].ToString();
+
+                channelname = dr["测点名"].ToString();
+                maxVal = dr["最大值"].ToString();
+                minVal = dr["最小值"].ToString();
+                avgVal = dr["平均值"].ToString();
+                data = dr["日期"].ToString();
+            }
+        }
+        #endregion
+
         private DataTable SerachMonthThread(object myInfo)
         {
 
@@ -317,15 +494,11 @@ namespace WPFMonitor.View.SerMonitor
             DataTable thisdt = new DataTable();
             if (_Info.Type == 0)
             {
-                //string str = "正在查询:";
-                //str += _Info.DeviceName.ToString() + ",时间为：" + _Info.Begin.ToShortDateString() + "到" + _Info.End.ToShortDateString();
-
                 thisdt = m_reportDao.GetDataMonthReport(_Info.StationID, _Info.DeviceName, _Info.DeviceID, _Info.Begin, _Info.End);
-
             }
             else if (_Info.Type == 1)
             {
-                int m = 0, currentvalue = 0;
+                int m = 0;
 
                 int count = _Info.allDevices.Count;
                 if (count == 0)
@@ -359,23 +532,38 @@ namespace WPFMonitor.View.SerMonitor
                 }
             }
             return thisdt;
-
-            //if (dt != null)
-            //    statuc("更新完毕！！    本次数据查询共有数据行：" + this.dt.Rows.Count.ToString() + "条");
-            //else
-            //    statuc("更新完毕！！    本次数据查询共有数据行：0条");
-
-            //System.Threading.Thread.CurrentThread.Abort();
         }
+
+        
+    }
+
+    public class ItemAlter
+    {
+        public string DeviceID { get; set; }
+        public string DeviceName { get; set; }
+
     }
 
     public class ReportType
     {
+
         public int index { get; set; }
         public string Name { get; set; }
 
         public bool ChanncelEnable { get; set; }
         public bool DeviceEnable { get; set; }
+
+        public ReportType(int _index, string _Name, bool _ChanncelEnable, bool _DeviceEnable)
+        {
+            index = _index;
+            Name = _Name;
+            ChanncelEnable = _ChanncelEnable;
+            DeviceEnable = _DeviceEnable;
+        }
+
+        public ReportType()
+        {
+        }
     }
 
     public class Info
