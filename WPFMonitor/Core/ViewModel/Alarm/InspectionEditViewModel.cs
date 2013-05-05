@@ -240,7 +240,7 @@ namespace WPFMonitor.Core.ViewModel.Alarm
 
         }
 
-        #region 站点、设备、通首管理
+        #region 站点、设备类型、 设备、通首管理
         DeviceAndTypeDA _DeviceDA = new DeviceAndTypeDA();
 
         //站点

@@ -50,6 +50,8 @@
     <Compile Include="AlertAdmin\AlarmLevelSetOR.cs" />
     <Compile Include="AlertAdmin\AlarmPolicyManagementOR.cs" />
     <Compile Include="AlertAdmin\DisarmTimeOR.cs" />
+    <Compile Include="AlertAdmin\EventTypeOR.cs" />
+    <Compile Include="AlertAdmin\LightAlarmOR.cs" />
     <Compile Include="AlertAdmin\MainteOR.cs" />
     <Compile Include="AlertAdmin\SchedulingOR.cs" />
     <Compile Include="ZTControls\t_Channel.cs" />
@@ -64,11 +66,14 @@
     <Compile Include="ORBase.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="ZTControls\t_ScreenLibrary.cs" />
+    <Compile Include="SerMonitor\AlarmLogOR.cs" />
     <Compile Include="StatusOR.cs" />
     <Compile Include="Sys\ChannelOR.cs" />
+    <Compile Include="Sys\DeviceChannelOR.cs" />
     <Compile Include="Sys\DeviceOR.cs" />
     <Compile Include="Sys\DeviceTypeOR.cs" />
     <Compile Include="Sys\StationOR.cs" />
+    <Compile Include="Sys\SysParaOR.cs" />
     <Compile Include="Sys\UserOR.cs" />
     <Compile Include="ZTControls\t_Control.cs" />
     <Compile Include="ZTControls\t_ControlProperty.cs" />

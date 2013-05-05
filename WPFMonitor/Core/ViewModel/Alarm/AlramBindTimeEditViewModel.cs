@@ -169,7 +169,7 @@ namespace WPFMonitor.Core.ViewModel.Alarm
             if (SelectDeviceOR == null)
                 return;
 
-            var v = _DeviceDA.selectChannels(SelectDeviceOR.Deviceid.ToString());
+            var v = _DeviceDA.selectChannels(SelectDeviceOR.Deviceid);
             foreach (ChannelOR obj in v)
             {
                 ChannelORList.Add(obj);

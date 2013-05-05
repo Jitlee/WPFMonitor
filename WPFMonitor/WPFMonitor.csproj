@@ -46,6 +46,7 @@
     <Reference Include="System.Drawing" />
     <Reference Include="System.Windows.Controls.Input.Toolkit, Version=3.5.40128.1, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL" />
     <Reference Include="System.Windows.Controls.Layout.Toolkit, Version=3.5.40128.1, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL" />
+    <Reference Include="System.Windows.Controls.DataVisualization.Toolkit, Version=3.5.40128.1, Culture=neutral, PublicKeyToken=31bf3856ad364e35" />
     <Reference Include="System.Windows.Forms" />
     <Reference Include="System.Xml" />
     <Reference Include="Microsoft.CSharp" />
@@ -59,6 +60,7 @@
     <Reference Include="PresentationCore" />
     <Reference Include="PresentationFramework" />
     <Reference Include="WPFToolkit, Version=3.5.40128.1, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL" />
+    <Reference Include="WPFToolkit, Version=3.5.40128.1, Culture=neutral, PublicKeyToken=31bf3856ad364e35" />
   </ItemGroup>
   <ItemGroup>
     <ApplicationDefinition Include="App.xaml">
@@ -78,8 +80,19 @@
     <Compile Include="Core\Uitl\Logger\LoggerFactory.cs" />
     <Compile Include="Core\Uitl\Logger\LoggerLevel.cs" />
     <Compile Include="Core\Uitl\Logger\WriteFileLogger.cs" />
+    <Compile Include="Core\ViewModel\AlertAdmin\AlarmPolicyManagementEditViewModel.cs" />
+    <Compile Include="Core\ViewModel\AlertAdmin\AlarmPolicyManagementListViewModel.cs" />
+    <Compile Include="Core\ViewModel\AlertAdmin\EventTypeEditViewModel.cs" />
+    <Compile Include="Core\ViewModel\AlertAdmin\EventTypeListViewModel.cs" />
+    <Compile Include="Core\ViewModel\SerMonitor\AlarmLogViewModel.cs" />
+    <Compile Include="Core\ViewModel\SerMonitor\DailyreportViewModel.cs" />
+    <Compile Include="Core\ViewModel\SerMonitor\HistoryValueViewModel.cs" />
+    <Compile Include="Core\ViewModel\SerMonitor\IntervalReport_fanViewModel.cs" />
     <Compile Include="Global.cs" />
     <Compile Include="GlobalData.cs" />
+    <Compile Include="test.xaml.cs">
+      <DependentUpon>test.xaml</DependentUpon>
+    </Compile>
     <Compile Include="View\Alarm\AlarmSetRemoveView.xaml.cs">
       <DependentUpon>AlarmSetRemoveView.xaml</DependentUpon>
     </Compile>
@@ -125,11 +138,20 @@
     <Compile Include="View\AlertAdmin\AlarmLevelSetListView.xaml.cs">
       <DependentUpon>AlarmLevelSetListView.xaml</DependentUpon>
     </Compile>
+    <Compile Include="View\AlertAdmin\AlarmPolicyManagementListView.xaml.cs">
+      <DependentUpon>AlarmPolicyManagementListView.xaml</DependentUpon>
+    </Compile>
     <Compile Include="View\AlertAdmin\DisarmTimeEditView.xaml.cs">
       <DependentUpon>DisarmTimeEditView.xaml</DependentUpon>
     </Compile>
     <Compile Include="View\AlertAdmin\DisarmTimeListView.xaml.cs">
       <DependentUpon>DisarmTimeListView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="View\AlertAdmin\EventTypeEditView.xaml.cs">
+      <DependentUpon>EventTypeEditView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="View\AlertAdmin\EventTypeListView.xaml.cs">
+      <DependentUpon>EventTypeListView.xaml</DependentUpon>
     </Compile>
     <Compile Include="View\AlertAdmin\MainteEditView.xaml.cs">
       <DependentUpon>MainteEditView.xaml</DependentUpon>
@@ -143,6 +165,9 @@
     <Compile Include="View\AlertAdmin\SchedulingListView.xaml.cs">
       <DependentUpon>SchedulingListView.xaml</DependentUpon>
     </Compile>
+    <Compile Include="View\AlertAdmin\UserControl1.xaml.cs">
+      <DependentUpon>UserControl1.xaml</DependentUpon>
+    </Compile>
     <Compile Include="View\Linkage\LinkageSetEditView.xaml.cs">
       <DependentUpon>LinkageSetEditView.xaml</DependentUpon>
     </Compile>
@@ -154,6 +179,24 @@
     </Compile>
     <Compile Include="View\Linkage\TimeLinkageListView.xaml.cs">
       <DependentUpon>TimeLinkageListView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="View\SerMonitor\AlarmLogView.xaml.cs">
+      <DependentUpon>AlarmLogView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="View\SerMonitor\Convert\CheckBoxConvert.cs" />
+    <Compile Include="View\SerMonitor\Convert\LineDataPointDTConverter.cs" />
+    <Compile Include="View\SerMonitor\Convert\LineToolTipConverter.cs" />
+    <Compile Include="View\SerMonitor\Convert\LineXDTConverter.cs" />
+    <Compile Include="View\SerMonitor\Convert\LineYConverter.cs" />
+    <Compile Include="View\SerMonitor\Convert\LineYLineColor.cs" />
+    <Compile Include="View\SerMonitor\DailyreportView.xaml.cs">
+      <DependentUpon>DailyreportView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="View\SerMonitor\HistoryValueView.xaml.cs">
+      <DependentUpon>HistoryValueView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="View\SerMonitor\IntervalReport_fanView.xaml.cs">
+      <DependentUpon>IntervalReport_fanView.xaml</DependentUpon>
     </Compile>
     <Compile Include="View\Sys\PasswordBoxBindingHelper.cs" />
     <Compile Include="View\Sys\StationEdit.xaml.cs">
@@ -251,6 +294,10 @@
       <DependentUpon>MainWindow.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
+    <Page Include="test.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="View\Alarm\AlarmSetRemoveView.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
@@ -311,11 +358,23 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
+    <Page Include="View\AlertAdmin\AlarmPolicyManagementListView.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
     <Page Include="View\AlertAdmin\DisarmTimeEditView.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
     <Page Include="View\AlertAdmin\DisarmTimeListView.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="View\AlertAdmin\EventTypeEditView.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="View\AlertAdmin\EventTypeListView.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
@@ -335,6 +394,10 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
+    <Page Include="View\AlertAdmin\UserControl1.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="View\Linkage\LinkageSetEditView.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
@@ -350,6 +413,22 @@
     <Page Include="View\Linkage\TimeLinkageListView.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
+    </Page>
+    <Page Include="View\SerMonitor\AlarmLogView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="View\SerMonitor\DailyreportView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="View\SerMonitor\HistoryValueView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="View\SerMonitor\IntervalReport_fanView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="View\Sys\StationEdit.xaml">
       <Generator>MSBuild:Compile</Generator>

@@ -1,0 +1,111 @@
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Data;
+
+namespace WPFMonitor.DAL.SerMonitor
+{
+    public class IntervalReportDA : DALBase
+    {
+        public IntervalReportDA()
+        {
+            db = MoniBase;
+        }
+
+        public bool GetAllHistoryChannelValue(string devName, int nDeviceID, DateTime begin, DateTime end, int StationID, int ChannelNO)
+        {
+            //string sdel = "delete from t_ChannelHistoryValuetemp";
+            //objDB.ExecuteNonResult(sdel);
+
+            // 以1970年为限，（年份－1970）×12+月份为数值，一直循环到结束时间
+            int t1 = (begin.Year - 1970) * 12 + begin.Month - 1;
+            int t2 = (end.Year - 1970) * 12 + end.Month - 1;
+            int t = 0;
+            //bool bFirst = true;
+            //DataTable result = null;
+            for (t = t1; t <= t2; t++)
+            {
+                int year = t / 12 + 1970;
+                int month = t % 12 + 1;
+
+                // 生成表名
+                string strmonth = string.Format("{0:00}", month);// 00001234
+                string targetTable = "t_" + StationID.ToString().Trim() + "_" + devName + "_" + Convert.ToString(year) + "_" + strmonth;
+
+                //string tableName2 = targetTable;
+                string tableNametemp = "\"" + targetTable + "\"";
+                string tableName2 = "";
+                foreach (char c in tableNametemp)
+                {
+                    if (c == '(' || c == ')')
+                    {
+                        tableName2 += new string('/', 1);
+                    }
+                    tableName2 += new string(c, 1);
+                }
+
+                string strSQL = "SELECT count(*) FROM dbo.sysobjects WHERE id = OBJECT_ID(N'" + tableName2 + "') AND OBJECTPROPERTY(id, N'IsUserTable') = 1";
+                string s = db.ExecuteScalar(strSQL).ToString();
+                if (s == "" || Convert.ToInt32(s) <= 0)
+                    continue;
+
+
+                // 根据表名和时间返回数据
+                string time1 = begin.ToString("yyyy-MM-dd HH:mm:ss");
+                string time2 = end.ToString("yyyy-MM-dd HH:mm:ss");
+                string strdev = Convert.ToString(nDeviceID);
+                
+                string strSql = string.Format("insert into t_ChannelHistoryValuetemp select t1.DataID,t1.DeviceID,t1.ChannelNo,0 as ChanenlSubNo,t1.MonitorValue,t1.MonitorTime,t1.StationID,t1.Info from {0} t1,t_Device t2, t_Channel t3 where t1.DeviceID=t2.DeviceID and t3.deviceid=t1.deviceid and t3.channelno = t1.channelno and t1.DeviceID={1} and t1.MonitorTime between '{2}' and '{3}' and t1.StationID={4} and t1.ChannelNo={5}", tableName2, nDeviceID, time1, time2, StationID, ChannelNO);
+                
+                db.ExecuteNoQuery(strSql);
+            }
+
+
+            return true;
+        }
+
+        public DataTable GetInertvalDateTime(string beginTime, string endTime)
+        {
+            string sql = string.Format("select date=convert(varchar(10),dateadd(dd,number,'{0}'),120)  "
+                                        + "from master..spt_values  "
+                                        + "where type='p' and dateadd(dd,number,'{1}')<'{2}'  ", beginTime, beginTime, endTime);
+            DataTable dt = db.ExecuteQuery(sql);
+            return dt;
+        }
+
+        public DataTable GetInertvalDateTimeMonth(string beginTime, string endTime)
+        {
+            string sql = string.Format(@"select date=convert(varchar(10),dateadd(mm,number,'{0}'),120) from master..spt_values 
+ where type='p' and dateadd(mm,number,'{1}')<'{2}'  ", beginTime, beginTime, endTime);
+            DataTable dt = db.ExecuteQuery(sql);
+            return dt;
+        }
+
+        public DataTable GetDayChannelValue(int Year, int Month, int Day, int DeviceID, int ChannelNO, int StationID)
+        {
+            string sql = string.Format("select avg(MonitorValue) as AvgValue,min(MonitorValue) as MinValue,max(MonitorValue) as MaxValue from t_ChannelHistoryValuetemp  where DeviceID={0} and ChannelNo={1}     "
+                            + "and StationID={2} and   datepart(year,MonitorTime) = {3} and datepart(month,MonitorTime) = {4} and datepart(day,MonitorTime)={5} ",
+                            DeviceID, ChannelNO, StationID, Year, Month, Day);
+            DataTable dt = db.ExecuteQuery(sql);
+            return dt;
+        }
+
+        public DataTable GetDayChannelValue(int Year, int Month, int DeviceID, int ChannelNO, int StationID)
+        {
+            string sql = string.Format("select avg(MonitorValue) as AvgValue,min(MonitorValue) as MinValue,max(MonitorValue) as MaxValue from t_ChannelHistoryValuetemp  where DeviceID={0} and ChannelNo={1}     "
+                            + "and StationID={2} and  datepart(year,MonitorTime) = {3} and datepart(month,MonitorTime) = {4}",
+                            DeviceID, ChannelNO, StationID, Year, Month);
+            DataTable dt = db.ExecuteQuery(sql);
+            return dt;
+        }
+
+        public bool DeleteTemp()
+        {
+            string sql = "delete from t_ChannelHistoryValuetemp";
+            db.ExecuteNoQuery(sql);
+            return true;
+        }
+
+    }
+}

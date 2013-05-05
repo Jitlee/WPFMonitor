@@ -17,6 +17,7 @@ using WPFMonitor.View.Alarm;
 using WPFMonitor.View.AlertAdmin;
 using WPFMonitor.View.Linkage;
 using WPFMonitor.View.TPControls;
+using WPFMonitor.View.SerMonitor;
 
 namespace WPFMonitor
 {
@@ -29,6 +30,10 @@ namespace WPFMonitor
         readonly ControlWindow _controlWindow = new ControlWindow();
         public MainWindow()
         {
+            //test t = new test();
+            //t.ShowDialog();
+            //return;
+
             InitializeComponent();
             Global._MainWindow = this;
             ThemeFactory.ChangeTheme("Leather");
@@ -102,10 +107,10 @@ namespace WPFMonitor
                         break;
                     //二级 [报警管理]-[ 报警管理]
                     case "EventTypeList"://[事件定义]
-                        //mWindow = new EventTypeListView();
+                        mWindow = new EventTypeListView();
                         break;
                     case "AlarmPolicyManagementList"://[报警策略管理]
-                        //mWindow = new AlarmPolicyManagementListView();
+                        mWindow = new AlarmPolicyManagementListView();
                         break;
                     case "AlarmLevelSet":
                         mWindow = new AlarmLevelSetListView();
@@ -190,13 +195,16 @@ namespace WPFMonitor
                 {
                     //一级  [监控管理]
                     case "AlarmLog"://[设备联动设置]
-                        mWindow = new LinkageSetListView();
+                        mWindow = new AlarmLogView();
                         break;
                     case "Dailyreport"://[历史曲线]
+                        mWindow = new DailyreportView();
                         break;
                     case "IntervalReport"://[统计报表]
+                        mWindow = new IntervalReport_fanView();
                         break;
                     case "HistoryValue"://[历史值查询]
+                        mWindow = new HistoryValueView();
                         break;
                 }
 

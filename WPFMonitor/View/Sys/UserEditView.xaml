@@ -26,8 +26,8 @@
         <TextBlock  Text="密码：" Style="{StaticResource lblStyle}" Grid.Row="1"/>
         <PasswordBox Helpers:PasswordBoxBindingHelper.IsPasswordBindingEnabled="True" 
                      Helpers:PasswordBoxBindingHelper.BindedPassword= "{Binding Path=UserObj.Userpsw, 
-            Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"              
-            HorizontalAlignment="Left" Width="130"  VerticalAlignment="Center" 
+            Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+            HorizontalAlignment="Left" Width="170"  VerticalAlignment="Center" 
                        Grid.Row="1" Grid.Column="1"></PasswordBox>
 
         <TextBlock  Text="用户类型：" Style="{StaticResource lblStyle}" Grid.Row="2"/>

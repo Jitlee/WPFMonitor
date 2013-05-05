@@ -55,7 +55,7 @@ namespace WPFMonitor.DAL.Sys
             return dt;
         }
 
-        public StationOR selectARowDate(string m_id)
+        public StationOR selectARowDate(int m_id)
         {
             string sql = string.Format("select * from t_Station where  Stationid='{0}'", m_id);
             DataTable dt = null;

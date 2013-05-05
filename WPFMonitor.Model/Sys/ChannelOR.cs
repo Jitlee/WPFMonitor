@@ -3,6 +3,55 @@ using System.Data;
 
 namespace WPFMonitor.Model.Sys
 {
+
+    public class ChannelManagementOR : ChannelOR
+    {
+        private int _StationID;
+        /// <summary>
+        /// 站点
+        /// </summary>
+        public int StationID
+        {
+            get { return _StationID; }
+            set { _StationID = value; }
+        }
+        
+        private int _DeviceTypeID;
+        /// <summary>
+        /// 设备类型
+        /// </summary>
+        public int DeviceTypeID
+        {
+            get { return _DeviceTypeID; }
+            set { _DeviceTypeID = value; }
+        }
+
+
+
+
+        private bool _ISHavePolice;
+        /// <summary>
+        /// 是否定义了策略
+        /// </summary>
+        public bool ISHavePolice
+        {
+            get { return _ISHavePolice; }
+            set { _ISHavePolice = value; }
+        }
+
+        public ChannelManagementOR(DataRow dr)
+            : base(dr)
+        {
+            if (DBNull.Value != dr["ISHavePolice"])
+                ISHavePolice = Convert.ToBoolean(dr["ISHavePolice"]);
+        }
+
+        public ChannelManagementOR()
+        {
+
+        }
+    }
+
     /// <summary>
     /// 
     /// </summary>
@@ -108,11 +157,16 @@ namespace WPFMonitor.Model.Sys
         }
 
         /// <summary>
+        /// 是否被选中
+        /// </summary>
+        public bool IsHaveSelect { get; set; }
+
+        /// <summary>
         /// Channel构造函数
         /// </summary>
         public ChannelOR()
         {
-
+            IsHaveSelect = false;
         }
 
         /// <summary>
@@ -120,6 +174,8 @@ namespace WPFMonitor.Model.Sys
         /// </summary>
         public ChannelOR(DataRow row)
         {
+            IsHaveSelect = false;
+
             // 
             _Deviceid = Convert.ToInt32(row["DeviceID"]);
             // 

@@ -54,11 +54,27 @@ namespace WPFMonitor.Model.AlertAdmin
         public string StationName { get; set; }
 
         /// <summary>
+        /// 显示名称 站点-分组名
+        /// </summary>
+        public string ShowAllName
+        {
+            get
+            {
+                return string.Format("{0}-{1}", StationName, Groupname);
+            }
+        }
+
+        /// <summary>
+        /// 是否选中
+        /// </summary>
+        public bool IsSelected { get; set; }
+
+        /// <summary>
         /// AlarmGroups构造函数
         /// </summary>
         public AlarmGroupsOR()
         {
-
+            IsSelected = false;
         }
 
         /// <summary>
@@ -66,6 +82,8 @@ namespace WPFMonitor.Model.AlertAdmin
         /// </summary>
         public AlarmGroupsOR(DataRow row)
         {
+            IsSelected = false;
+
             // 
             _Alarmgroupsid = Convert.ToInt32(row["AlarmGroupsID"]);
             // 站点
