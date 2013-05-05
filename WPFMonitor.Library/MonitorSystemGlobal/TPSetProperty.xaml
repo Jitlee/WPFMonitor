@@ -1,0 +1,17 @@
+﻿<Window x:Class="WPFMonitor.Library.MonitorSystemGlobal.TPSetProperty"
+           xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation" 
+           xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+           Width="347" Height="136" 
+           Title="拓扑关系">
+    <Grid x:Name="LayoutRoot" Margin="2">
+        <Grid.RowDefinitions>
+            <RowDefinition />
+            <RowDefinition Height="Auto" />
+        </Grid.RowDefinitions>
+
+        <Button x:Name="CancelButton" Content="取消" Click="CancelButton_Click" Width="75" Height="23" HorizontalAlignment="Right" Margin="0,12,0,0" Grid.Row="1" />
+        <Button x:Name="OKButton" Content="保存" Click="OKButton_Click" Width="75" Height="23" HorizontalAlignment="Right" Margin="0,12,79,0" Grid.Row="1" />
+        <TextBlock Height="20" HorizontalAlignment="Left" Margin="24,24,0,0" Name="关联的" Text="关联的场景：" VerticalAlignment="Top" Width="66" />
+        <ComboBox Height="23" HorizontalAlignment="Left" Margin="96,20,0,0" Name="cbScreenList" VerticalAlignment="Top" Width="187" />
+    </Grid>
+</Window>

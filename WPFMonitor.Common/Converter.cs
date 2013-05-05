@@ -5,7 +5,7 @@ using System.Text;
 using System.Diagnostics;
 using System.Text.RegularExpressions;
 
-namespace EasyCodeword.Utilities
+namespace WPFMonitor
 {
     /// <summary>
     /// 常用对象转换帮助类
@@ -75,7 +75,7 @@ namespace EasyCodeword.Utilities
         /// <param name="o">要转换的字符串对象</param>
         /// <param name="defaultValue">默认值</param>
         /// <returns>返回转化好的值</returns>
-        public static int ToInt(object o, int defaultValue = default(int))
+        public static int ToInt32(object o, int defaultValue = default(int))
         {
             if (null != o)
             {

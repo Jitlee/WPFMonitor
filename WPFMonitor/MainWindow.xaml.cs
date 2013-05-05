@@ -16,6 +16,7 @@ using WPFMonitor.View.Sys;
 using WPFMonitor.View.Alarm;
 using WPFMonitor.View.AlertAdmin;
 using WPFMonitor.View.Linkage;
+using WPFMonitor.View.TPControls;
 
 namespace WPFMonitor
 {
@@ -24,6 +25,8 @@ namespace WPFMonitor
     /// </summary>
     public partial class MainWindow : Window
     {
+        readonly ScreenTreeWindow _screenTreeWindow = new ScreenTreeWindow();
+        readonly ControlWindow _controlWindow = new ControlWindow();
         public MainWindow()
         {
             InitializeComponent();
@@ -31,11 +34,12 @@ namespace WPFMonitor
             ThemeFactory.ChangeTheme("Leather");
             return;
         }
+
         private void dockManager_Loaded(object sender, RoutedEventArgs e)
         {
-
+            _screenTreeWindow.Show(dockManager, AnchorStyle.Left);
+            _controlWindow.Show(dockManager, AnchorStyle.Left);
         }
-      
 
         #region 菜单事件
         

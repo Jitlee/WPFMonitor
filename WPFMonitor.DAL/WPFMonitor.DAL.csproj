@@ -77,13 +77,30 @@
     <Compile Include="AlertAdmin\MainteDA.cs" />
     <Compile Include="AlertAdmin\SchedulingDA.cs" />
     <Compile Include="DALBase.cs" />
+    <Compile Include="GetData\CustomException.cs" />
+    <Compile Include="GetData\DataColunmInfo.cs" />
+    <Compile Include="GetData\DataSetData.cs" />
+    <Compile Include="GetData\DataTableInfo.cs" />
+    <Compile Include="GetData\GetData.cs" />
+    <Compile Include="ZTControls\ChannelDA.cs" />
+    <Compile Include="ZTControls\DeviceDA.cs" />
+    <Compile Include="ZTControls\ElementPropertyLibraryDA.cs" />
+    <Compile Include="ZTControls\ElementLibraryDA.cs" />
+    <Compile Include="ZTControls\ElementRealTimeLineDA.cs" />
     <Compile Include="Linkage\LinkageSetDA.cs" />
     <Compile Include="Linkage\TimeLinkageDA.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="ZTControls\ScreenLibraryDA.cs" />
     <Compile Include="Sys\DeviceAndTypeDA.cs" />
     <Compile Include="Sys\DeviceDA.cs" />
     <Compile Include="Sys\StationDA.cs" />
     <Compile Include="Sys\UserDA.cs" />
+    <Compile Include="ZTControls\ControlDA.cs" />
+    <Compile Include="ZTControls\ControlPropertyDA.cs" />
+    <Compile Include="ZTControls\ElementDA.cs" />
+    <Compile Include="ZTControls\ElementPropertyDA.cs" />
+    <Compile Include="ZTControls\GalleryClassificationDA.cs" />
+    <Compile Include="ZTControls\ScreenDA.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Ref\DBUtility.dll" />
@@ -94,6 +111,10 @@
     <None Include="Ref\Microsoft.Practices.Unity.dll" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\WPFMonitor.Common\WPFMonitor.Common.csproj">
+      <Project>{0BE0625C-C890-4E6F-81CB-F849205FD622}</Project>
+      <Name>WPFMonitor.Common</Name>
+    </ProjectReference>
     <ProjectReference Include="..\WPFMonitor.Model\WPFMonitor.Model.csproj">
       <Project>{3DF7637B-5685-4DE3-816D-A19B99D7A7FA}</Project>
       <Name>WPFMonitor.Model</Name>

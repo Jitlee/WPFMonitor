@@ -44,6 +44,8 @@
     <Reference Include="System" />
     <Reference Include="System.Data" />
     <Reference Include="System.Drawing" />
+    <Reference Include="System.Windows.Controls.Input.Toolkit, Version=3.5.40128.1, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL" />
+    <Reference Include="System.Windows.Controls.Layout.Toolkit, Version=3.5.40128.1, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL" />
     <Reference Include="System.Windows.Forms" />
     <Reference Include="System.Xml" />
     <Reference Include="Microsoft.CSharp" />
@@ -56,6 +58,7 @@
     <Reference Include="WindowsBase" />
     <Reference Include="PresentationCore" />
     <Reference Include="PresentationFramework" />
+    <Reference Include="WPFToolkit, Version=3.5.40128.1, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL" />
   </ItemGroup>
   <ItemGroup>
     <ApplicationDefinition Include="App.xaml">
@@ -164,6 +167,15 @@
     </Compile>
     <Compile Include="View\Sys\UserListView.xaml.cs">
       <DependentUpon>UserListView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="View\TPControls\ControlWindow.xaml.cs">
+      <DependentUpon>ControlWindow.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="View\TPControls\LoadScreen.xaml.cs">
+      <DependentUpon>LoadScreen.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="View\TPControls\ScreenTreeWindow.xaml.cs">
+      <DependentUpon>ScreenTreeWindow.xaml</DependentUpon>
     </Compile>
     <Page Include="Controls\ScottLogic\PieChart\Legend.xaml">
       <Generator>MSBuild:Compile</Generator>
@@ -355,6 +367,18 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
+    <Page Include="View\TPControls\ControlWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="View\TPControls\LoadScreen.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="View\TPControls\ScreenTreeWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Properties\AssemblyInfo.cs">
@@ -434,6 +458,72 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Core\Graph\" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\TPControls\A.jpg" />
+    <Resource Include="Resources\TPControls\AirConditionerMonitor.jpg" />
+    <Resource Include="Resources\TPControls\Button.jpg" />
+    <Resource Include="Resources\TPControls\can_move.png" />
+    <Resource Include="Resources\TPControls\Close.jpg" />
+    <Resource Include="Resources\TPControls\Close1.jpg" />
+    <Resource Include="Resources\TPControls\CommonDigital.jpg" />
+    <Resource Include="Resources\TPControls\company.jpg" />
+    <Resource Include="Resources\TPControls\Digital.jpg" />
+    <Resource Include="Resources\TPControls\DLBiaoPan.jpg" />
+    <Resource Include="Resources\TPControls\DY300BiaoPan.jpg" />
+    <Resource Include="Resources\TPControls\DY500BiaoPan.jpg" />
+    <Resource Include="Resources\TPControls\FireControlMonitor.jpg" />
+    <Resource Include="Resources\TPControls\firewall.jpg" />
+    <Resource Include="Resources\TPControls\FoldLine.jpg" />
+    <Resource Include="Resources\TPControls\GateMonitor.jpg" />
+    <Resource Include="Resources\TPControls\icongreen.ico" />
+    <Resource Include="Resources\TPControls\iconleft.ico" />
+    <Resource Include="Resources\TPControls\iconmainweb.ico" />
+    <Resource Include="Resources\TPControls\iconred.ico" />
+    <Resource Include="Resources\TPControls\iconrigh.ico" />
+    <Resource Include="Resources\TPControls\image.ico" />
+    <Resource Include="Resources\TPControls\LeakageMonitor.jpg" />
+    <Resource Include="Resources\TPControls\Line.jpg" />
+    <Resource Include="Resources\TPControls\Monitor.jpg" />
+    <Resource Include="Resources\TPControls\MyButton.JPG" />
+    <Resource Include="Resources\TPControls\myline.jpg" />
+    <Resource Include="Resources\TPControls\Near.jpg" />
+    <Resource Include="Resources\TPControls\Near2.jpg" />
+    <Resource Include="Resources\TPControls\old___image.ico" />
+    <Resource Include="Resources\TPControls\Open.jpg" />
+    <Resource Include="Resources\TPControls\Open1.jpg" />
+    <Resource Include="Resources\TPControls\point.jpg" />
+    <Resource Include="Resources\TPControls\PowerControl.jpg" />
+    <Resource Include="Resources\TPControls\PowerMonitor.jpg" />
+    <Resource Include="Resources\TPControls\qingyuan.jpg" />
+    <Resource Include="Resources\TPControls\route.jpg" />
+    <Resource Include="Resources\TPControls\route2.jpg" />
+    <Resource Include="Resources\TPControls\Server.jpg" />
+    <Resource Include="Resources\TPControls\Structure.JPG" />
+    <Resource Include="Resources\TPControls\SubNet.jpg" />
+    <Resource Include="Resources\TPControls\switch.jpg" />
+    <Resource Include="Resources\TPControls\TempAndLumMonitor.jpg" />
+    <Resource Include="Resources\TPControls\Temprary.jpg" />
+    <Resource Include="Resources\TPControls\Text.jpg" />
+    <Resource Include="Resources\TPControls\UPS.jpg" />
+    <Resource Include="Resources\TPControls\UPSMonitor.jpg" />
+    <Resource Include="Resources\TPControls\VideoMonitor.jpg" />
+    <Resource Include="Resources\TPControls\WindowVideo.JPG" />
+    <Resource Include="Resources\TPControls\停止录像.JPG" />
+    <Resource Include="Resources\TPControls\停止运动检测.JPG" />
+    <Resource Include="Resources\TPControls\关于.JPG" />
+    <Resource Include="Resources\TPControls\开关量.jpg" />
+    <Resource Include="Resources\TPControls\开始录像.JPG" />
+    <Resource Include="Resources\TPControls\开始运动检测.JPG" />
+    <Resource Include="Resources\TPControls\整流充电器.jpg" />
+    <Resource Include="Resources\TPControls\旁路.jpg" />
+    <Resource Include="Resources\TPControls\查询.JPG" />
+    <Resource Include="Resources\TPControls\模块.jpg" />
+    <Resource Include="Resources\TPControls\温湿度.jpg" />
+    <Resource Include="Resources\TPControls\监控主机.jpg" />
+    <Resource Include="Resources\TPControls\空调.jpg" />
+    <Resource Include="Resources\TPControls\负载.jpg" />
+    <Resource Include="Resources\TPControls\逆变器.jpg" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

@@ -1,0 +1,67 @@
+﻿<dock:DockableContent
+    x:Class="WPFMonitor.View.TPControls.LoadScreen"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:dock="clr-namespace:DockingLibrary;assembly=DockingLibrary"
+    xmlns:libs="http://www.monitor.com/wpf/library"
+    Title="LoadScreen" Height="300" Width="300">
+    <Grid
+                Name="GridScreen"
+                Background="Silver"
+                Grid.Row="2">
+        <Canvas
+                    Background="Beige"
+                    x:Name="csScreen"
+                    VerticalAlignment="Top"
+                    HorizontalAlignment="Left">
+            <Canvas.RenderTransform>
+                <TransformGroup>
+                    <ScaleTransform x:Name="CanvasScaleTransform"/>
+                    <TranslateTransform x:Name="CanvasTranslateTransform"/>
+                </TransformGroup>
+            </Canvas.RenderTransform>
+        </Canvas>
+        <Canvas
+                    x:Name="AddElementCanvas"
+                    Visibility="Collapsed"
+                    VerticalAlignment="Top"
+                    HorizontalAlignment="Left"
+                    Background="Transparent">
+            <Rectangle x:Name="AddElementRectangle" Stroke="Black" StrokeThickness="1" StrokeDashArray="5,5" Visibility="Collapsed"/>
+        </Canvas>
+        <Border
+                    BorderBrush="Black"
+                    BorderThickness="1"
+                    Background="Silver"
+                    Height="150"
+                    Width="200"
+                    HorizontalAlignment="Right"
+                    VerticalAlignment="Bottom"
+                    x:Name="ThumbnailBorder"
+                    MouseLeftButtonDown="ThumbnailBorder_MouseLeftButtonDown"
+                    Visibility="{Binding ElementName=ThumbnailToggleButton, Path=IsChecked, Converter={StaticResource BooleanToVisibilityConverter}}">
+            <Border.Clip>
+                <RectangleGeometry Rect="0,0,200,150"/>
+            </Border.Clip>
+            <Grid>
+                <Canvas
+                            x:Name="ThumbnailCanvas"
+                            Background="Beige"
+                            HorizontalAlignment="Center"
+                            VerticalAlignment="Center">
+                    <Rectangle
+                                Fill="#85000000"
+                                Stroke="Blue"
+                                StrokeThickness="1"
+                                x:Name="ThumbnailRectangle"/>
+                </Canvas>
+                <TextBlock
+                            x:Name="ScaleTextBlock"
+                            VerticalAlignment="Top"
+                            HorizontalAlignment="Right"
+                            Text="100%"
+                            IsHitTestVisible="False"/>
+            </Grid>
+        </Border>
+    </Grid>
+</dock:DockableContent>

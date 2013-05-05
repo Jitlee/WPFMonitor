@@ -1,0 +1,54 @@
+﻿<dock:DockableContent x:Class="WPFMonitor.View.TPControls.ControlWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:dock="clr-namespace:DockingLibrary;assembly=DockingLibrary"
+        xmlns:libs="http://www.monitor.com/wpf/library"
+        xmlns:layout="clr-namespace:System.Windows.Controls;assembly=System.Windows.Controls.Layout.Toolkit"
+        Title="ControlWindow" Height="300" Width="300">
+    <dock:DockableContent.Resources>
+        <Style TargetType="ListBox">
+            <Setter Property="ItemContainerStyle">
+                <Setter.Value>
+                    <Style TargetType="ListBoxItem">
+                        <Setter Property="Template">
+                            <Setter.Value>
+                                <ControlTemplate TargetType="ListBoxItem">
+                                    <Border
+                                        Background="{TemplateBinding Background}"
+                                        BorderBrush="{TemplateBinding BorderBrush}"
+                                        BorderThickness="1">
+                                        <StackPanel Orientation="Horizontal">
+                                            <Image Height="16" Width="16" Source="{Binding Path=ImageURL, Converter={x:Static libs:ImagePathConverter.Instance}, ConverterParameter=/WPFMonitor;component/Resources/TPControls/\{0\}}" />
+                                            <TextBlock Text="{Binding ControlCaption}"/>
+                                        </StackPanel>
+                                    </Border>
+                                    <ControlTemplate.Triggers>
+                                        <Trigger Property="IsMouseOver" Value="True">
+                                            <Setter Property="Background" Value="#FFBADDE9"/>
+                                        </Trigger>
+                                        <Trigger Property="IsSelected" Value="True">
+                                            <Setter Property="Background" Value="#FFBADDE9"/>
+                                        </Trigger>
+                                    </ControlTemplate.Triggers>
+                                </ControlTemplate>
+                            </Setter.Value>
+                        </Setter>
+                    </Style>
+                </Setter.Value>
+            </Setter>
+        </Style>
+    </dock:DockableContent.Resources>
+    <Grid>
+        <layout:Accordion VerticalAlignment="Stretch" VerticalContentAlignment="Stretch"  HorizontalAlignment="Stretch" HorizontalContentAlignment="Stretch">
+            <layout:AccordionItem Header="拓扑控件" HorizontalAlignment="Stretch" HorizontalContentAlignment="Stretch">
+                <ListBox x:Name="tpListBox" SelectionChanged="Control_SelectionChanged" ItemsSource="{Binding TPControls}"/>
+            </layout:AccordionItem>
+            <layout:AccordionItem Header="组态控件" HorizontalAlignment="Stretch" HorizontalContentAlignment="Stretch" >
+                <ListBox x:Name="ztListBox" SelectionChanged="Control_SelectionChanged" ItemsSource="{Binding ZTControls}"/>
+            </layout:AccordionItem>
+            <layout:AccordionItem Header="公共控件" HorizontalAlignment="Stretch" HorizontalContentAlignment="Stretch">
+                <ListBox x:Name="ggListBox" SelectionChanged="Control_SelectionChanged" ItemsSource="{Binding GGControls}"/>
+            </layout:AccordionItem>
+        </layout:Accordion>
+    </Grid>
+</dock:DockableContent>

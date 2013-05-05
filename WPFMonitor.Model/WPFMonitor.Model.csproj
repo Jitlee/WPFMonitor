@@ -52,16 +52,30 @@
     <Compile Include="AlertAdmin\DisarmTimeOR.cs" />
     <Compile Include="AlertAdmin\MainteOR.cs" />
     <Compile Include="AlertAdmin\SchedulingOR.cs" />
+    <Compile Include="ZTControls\t_Channel.cs" />
+    <Compile Include="ZTControls\t_Device.cs" />
+    <Compile Include="ZTControls\t_ElementPropertyLibrary.cs" />
+    <Compile Include="ZTControls\t_ElementLibrary.cs" />
+    <Compile Include="ZTControls\t_Element_RealTimeLine.cs" />
+    <Compile Include="FileModel.cs" />
+    <Compile Include="FileOption.cs" />
     <Compile Include="Linkage\LinkageSetOR.cs" />
     <Compile Include="Linkage\TimeLinkageOR.cs" />
     <Compile Include="ORBase.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="ZTControls\t_ScreenLibrary.cs" />
     <Compile Include="StatusOR.cs" />
     <Compile Include="Sys\ChannelOR.cs" />
     <Compile Include="Sys\DeviceOR.cs" />
     <Compile Include="Sys\DeviceTypeOR.cs" />
     <Compile Include="Sys\StationOR.cs" />
     <Compile Include="Sys\UserOR.cs" />
+    <Compile Include="ZTControls\t_Control.cs" />
+    <Compile Include="ZTControls\t_ControlProperty.cs" />
+    <Compile Include="ZTControls\t_Element.cs" />
+    <Compile Include="ZTControls\t_ElementProperty.cs" />
+    <Compile Include="ZTControls\t_GalleryClassification.cs" />
+    <Compile Include="ZTControls\t_Screen.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

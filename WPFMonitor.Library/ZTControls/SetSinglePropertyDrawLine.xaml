@@ -1,0 +1,58 @@
+﻿<Window x:Class="WPFMonitor.Library.ZTControls.SetSinglePropertyDrawLine"
+           xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation" 
+           xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+           Width="355" Height="375" 
+           Title="单值控件属性">
+    <Grid x:Name="LayoutRoot" Margin="2">
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="80"/>
+            <ColumnDefinition />
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition  Height="35" />
+            <RowDefinition  Height="35" />
+            <RowDefinition  Height="35" />
+            <RowDefinition Height="35"  />
+            <RowDefinition Height="70" />
+            <RowDefinition  Height="27" />
+            <RowDefinition  Height="35" />
+            <RowDefinition Height="35"  />
+            <RowDefinition     Height="Auto" />
+            <RowDefinition Height="11*" />
+        </Grid.RowDefinitions>
+
+        <TextBlock Height="20" HorizontalAlignment="Right" Grid.Row="0" Grid.Column="0"   Text="关联设备："  />
+        <ComboBox Height="23" HorizontalAlignment="Left" Grid.Row="0" Grid.Column="1" Name="cbDeviceID"  Width="150" SelectionChanged="cbDeviceID_SelectionChanged" />
+
+
+        <TextBlock Height="20" HorizontalAlignment="Right" Grid.Row="1" Grid.Column="0"   Text="关联通道："  />
+        <ComboBox Height="23" HorizontalAlignment="Left" DisplayMemberPath="ChannelName" Grid.Row="1" Grid.Column="1" Name="cbChanncel"  Width="150" />
+
+        <TextBlock Height="20" HorizontalAlignment="Right" Grid.Row="2" Grid.Column="0"   Text="控件所属层次："  />
+        <ComboBox Height="23" HorizontalAlignment="Left" Grid.Row="2" Grid.Column="1" Name="cbLayer"  Width="150">
+            <ComboBoxItem Content="1"  IsSelected="True" />
+            <ComboBoxItem Content="2" />
+            <ComboBoxItem Content="3" />
+            <ComboBoxItem Content="4" />
+        </ComboBox>
+        <TextBlock Height="20" HorizontalAlignment="Right" Grid.Row="3" Grid.Column="0"   Text="逻辑表达式："  />
+        <TextBox Height="23" HorizontalAlignment="Left" Grid.Row="3" Grid.Column="1" Name="txtBDS"  Width="150" />
+
+        <TextBlock  HorizontalAlignment="Center" Grid.Row="4" Grid.ColumnSpan="2" Foreground="Red" Margin="70,0,80,19">
+            注意:逻辑表达式不为空时,以逻辑表达式<LineBreak/>
+            为准,关联设备与通道的选择无效!!<LineBreak/>
+            例子: CHN[1,2,3]+CHN[1,2,4]表示<LineBreak/>
+            站点1设备2通道3和4的值相加
+        </TextBlock>
+
+        <Button x:Name="CancelButton"  Grid.Row="8" Grid.Column="1" Content="取消" Click="CancelButton_Click" Width="75" Height="23" HorizontalAlignment="Right" Margin="0,0,0,12" />
+        <Button x:Name="OKButton"  Grid.Row="8" Grid.Column="1" Content="确定" Click="OKButton_Click" Width="75" Height="23" HorizontalAlignment="Right" Margin="0,0,79,12" />
+        <CheckBox Content="区间运算" Grid.Column="1" Grid.Row="5" Name="cbFlot" Click="cbFlot_Click" Margin="0,0,0,8" />
+        <TextBlock Height="20" Name="float3" HorizontalAlignment="Right" Margin="0,0,0,15" Text="最小值：" Grid.Row="6" />
+        <TextBox HorizontalAlignment="Left"  Name="txtMin" Width="150" Grid.Column="1" Grid.Row="6" Margin="0,5,0,6" />
+        <TextBlock Height="20" Name="float4" HorizontalAlignment="Right" Margin="0,2,0,13" Text="最大值：" Grid.Row="7" />
+        <TextBox Height="23" HorizontalAlignment="Left" Margin="0,0,0,12" Name="txtMax" Width="150" Grid.Row="7" Grid.Column="1" />
+        <TextBlock Height="20" Name="float1" HorizontalAlignment="Right" Margin="0,6,56,4" Text="单位：M" Grid.Column="1" Grid.Row="6" />
+        <TextBlock Height="20" Name="float2" HorizontalAlignment="Right" Margin="0,2,56,8" Text="单位：M" Grid.Column="1" Grid.Row="7" />
+    </Grid>
+</Window>
