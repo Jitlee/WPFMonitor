@@ -42,7 +42,8 @@
        
 
         <TextBlock  Text="触动值：" Style="{StaticResource lblStyle}" Grid.Row="3"/>
-        <TextBox   Style="{StaticResource txtStyle}" Text="{Binding LinkageSetObj.Triggervalue, Mode=TwoWay}" Grid.Row="3" Grid.Column="1"></TextBox>
+        <TextBox   Style="{StaticResource txtStyle}" Text="{Binding LinkageSetObj.Triggervalue, Mode=TwoWay}" Grid.Row="3" 
+                   Grid.Column="1"></TextBox>
 
         <TextBlock  Text="联动机房名称：" Style="{StaticResource lblStyle}" Grid.Row="4"/>
         <ComboBox ItemsSource="{Binding StationLinkageORList}"  SelectedItem="{Binding SelectLinkageStationOR, Mode=TwoWay}" Grid.Row="4"

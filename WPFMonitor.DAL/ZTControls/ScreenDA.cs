@@ -36,9 +36,9 @@ namespace WPFMonitor.DAL.ZTControls
             return dt;
         }
 
-        public t_Screen selectARowDate(string m_id)
+        public t_Screen selectARowDate(int m_id)
         {
-            string sql = string.Format("select * from t_Screen where  Screenid='{0}'", m_id);
+            string sql = string.Format("select * from t_Screen where  Screenid={0}", m_id);
             DataTable dt = null;
             try
             {
@@ -55,7 +55,6 @@ namespace WPFMonitor.DAL.ZTControls
             DataRow dr = dt.Rows[0];
             t_Screen m_Scre = CreateScreen(dr);
             return m_Scre;
-
         }
 
 
@@ -83,17 +82,22 @@ namespace WPFMonitor.DAL.ZTControls
 
 
         #endregion
-
+        public int GetMaxID()
+        {
+            string sql = "select max(ScreenID) from t_Screen";
+            return Convert.ToInt32(db.ExecuteScalar(sql));
+        }
         #region 插入
         /// <summary>
         /// 插入t_Screen
         /// </summary>
         public virtual bool Insert(t_Screen screen)
         {
-            string sql = "insert into t_Screen (ScreenID, ScreenName, ImageURL, ParentScreenID, StationID, Flag, Width, Height, BackColor, AutoSize) values (@ScreenID, @ScreenName, @ImageURL, @ParentScreenID, @StationID, @Flag, @Width, @Height, @BackColor, @AutoSize)";
+            string sql = @"insert into t_Screen (ScreenName, ImageURL, ParentScreenID, StationID, Flag, Width, Height, BackColor, AutoSize)
+values ( @ScreenName, @ImageURL, @ParentScreenID, @StationID, @Flag, @Width, @Height, @BackColor, @AutoSize)";
             SqlParameter[] parameters = new SqlParameter[]
 			{
-				new SqlParameter("@ScreenID", SqlDbType.Int, 4, ParameterDirection.Input, false, 0, 0, "ScreenID", DataRowVersion.Default, screen.ScreenID),
+				//new SqlParameter("@ScreenID", SqlDbType.Int, 4, ParameterDirection.Input, false, 0, 0, "ScreenID", DataRowVersion.Default, screen.ScreenID),
 				new SqlParameter("@ScreenName", SqlDbType.VarChar, 64, ParameterDirection.Input, false, 0, 0, "ScreenName", DataRowVersion.Default, screen.ScreenName),
 				new SqlParameter("@ImageURL", SqlDbType.VarChar, 256, ParameterDirection.Input, false, 0, 0, "ImageURL", DataRowVersion.Default, screen.ImageURL),
 				new SqlParameter("@ParentScreenID", SqlDbType.Int, 4, ParameterDirection.Input, false, 0, 0, "ParentScreenID", DataRowVersion.Default, screen.ParentScreenID),
@@ -114,13 +118,13 @@ namespace WPFMonitor.DAL.ZTControls
         /// </summary>
         public virtual bool Update(t_Screen screen)
         {
-            string sql = "update t_Screen set  ScreenName = @ScreenName,  ImageURL = @ImageURL,  ParentScreenID = @ParentScreenID,  StationID = @StationID,  Flag = @Flag,  Width = @Width,  Height = @Height,  BackColor = @BackColor,  AutoSize = @AutoSize where  ScreenID = @ScreenID";
+            string sql = "update t_Screen set  ScreenName = @ScreenName,  ImageURL = @ImageURL,    StationID = @StationID,  Flag = @Flag,  Width = @Width,  Height = @Height,  BackColor = @BackColor,  AutoSize = @AutoSize where  ScreenID = @ScreenID";
             SqlParameter[] parameters = new SqlParameter[]
 			{
 				new SqlParameter("@ScreenID", SqlDbType.Int, 4, ParameterDirection.Input, false, 0, 0, "ScreenID", DataRowVersion.Default, screen.ScreenID),
 				new SqlParameter("@ScreenName", SqlDbType.VarChar, 64, ParameterDirection.Input, false, 0, 0, "ScreenName", DataRowVersion.Default, screen.ScreenName),
 				new SqlParameter("@ImageURL", SqlDbType.VarChar, 256, ParameterDirection.Input, false, 0, 0, "ImageURL", DataRowVersion.Default, screen.ImageURL),
-				new SqlParameter("@ParentScreenID", SqlDbType.Int, 4, ParameterDirection.Input, false, 0, 0, "ParentScreenID", DataRowVersion.Default, screen.ParentScreenID),
+				
 				new SqlParameter("@StationID", SqlDbType.Int, 4, ParameterDirection.Input, false, 0, 0, "StationID", DataRowVersion.Default, screen.StationID),
 				new SqlParameter("@Flag", SqlDbType.Int, 4, ParameterDirection.Input, false, 0, 0, "Flag", DataRowVersion.Default, screen.Flag),
 				new SqlParameter("@Width", SqlDbType.Int, 4, ParameterDirection.Input, false, 0, 0, "Width", DataRowVersion.Default, screen.Width),
@@ -136,17 +140,12 @@ namespace WPFMonitor.DAL.ZTControls
         /// <summary>
         /// 删除t_Screen
         /// </summary>
-        public virtual bool Delete(IList mlist)
+        public virtual bool Delete(int ID)
         {
-            if (mlist == null)
-                return false;
-            List<CommandList> listcmd = new List<CommandList>();
-            foreach (t_Screen obj in mlist)
-            {
-                string sql = string.Format(" delete from t_Screen where  Screenid = '{0}'", obj.ScreenID);
-                listcmd.Add(new CommandList() { strCommandText = sql, Type = CommandType.Text });
-            }
-            return db.ExecuteNoQueryTranPro(listcmd);
+            
+            string sql = string.Format(" delete from t_Screen where  Screenid = {0}",ID);                
+            
+            return db.ExecuteNoQuery(sql)==1;
         }
         #endregion
 
@@ -175,6 +174,17 @@ namespace WPFMonitor.DAL.ZTControls
                 // 
                 AutoSize = Converter.ToBoolean(row["AutoSize"]),
             };
+        }
+
+        public void CopyScreen(int newScreenID,int oldScreenID)
+        {
+            string procedureName = "P_CopyScreen";
+            SqlParameter[] parameters = new SqlParameter[]
+            {
+                new SqlParameter("@newScreenID", newScreenID)
+                ,new SqlParameter("@oldScreenID", oldScreenID)
+            };
+            db.ExecuteNoQueryProc(procedureName, parameters);
         }
     }
 }

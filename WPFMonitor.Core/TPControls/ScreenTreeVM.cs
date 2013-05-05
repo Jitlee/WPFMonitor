@@ -45,7 +45,13 @@ namespace WPFMonitor.Core.TPControls
         #endregion
 
         #region 公共方法 
-
+        public t_Screen GetScreen(int ScreenID)
+        {
+            var v = from f in AllScreens where f.ScreenID == ScreenID select f;
+            if (v.Count() > 0)
+                return v.First();
+            return null;
+        }
         #endregion
 
         #region 私有方法
@@ -73,5 +79,7 @@ namespace WPFMonitor.Core.TPControls
         }
 
         #endregion
+
+       
     }
 }
