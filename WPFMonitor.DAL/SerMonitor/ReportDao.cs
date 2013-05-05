@@ -13,7 +13,7 @@ namespace WPFMonitor.DAL.SerMonitor
 
         public ReportDao()
         {
-            db = MoniBase;
+            //db = MoniBase;
         }
 
        

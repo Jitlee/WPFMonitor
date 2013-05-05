@@ -10,7 +10,7 @@ namespace WPFMonitor.DAL.SerMonitor
     {
         public DailyreportDA()
         {
-            db = MoniBase;
+            //db = MoniBase;
         }
 
         //public IList<DeviceTypeObj> GetAllDeviceType()

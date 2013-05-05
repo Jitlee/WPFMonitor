@@ -10,7 +10,7 @@ namespace WPFMonitor.DAL.SerMonitor
     {
         public IntervalReportDA()
         {
-            db = MoniBase;
+            //db = MoniBase;
         }
 
         public bool GetAllHistoryChannelValue(string devName, int nDeviceID, DateTime begin, DateTime end, int StationID, int ChannelNO)
