@@ -331,21 +331,21 @@ NotifyPropertyChanged("ParentID");}
 		public t_Element(DataRow row)
 		{
 			// 
-			_ElementID = Convert.ToInt32(row["ElementID"]);
+			_ElementID = Converter.ToInt32(row["ElementID"]);
 			// 
 			_ElementName = row["ElementName"].ToString().Trim();
 			// 
-			_ControlID = Convert.ToInt32(row["ControlID"]);
+			_ControlID = Converter.ToInt32(row["ControlID"]);
 			// 
-			_ScreenX = Convert.ToInt32(row["ScreenX"]);
+			_ScreenX = Converter.ToInt32(row["ScreenX"]);
 			// 
-			_ScreenY = Convert.ToInt32(row["ScreenY"]);
+			_ScreenY = Converter.ToInt32(row["ScreenY"]);
 			// 
 			_TxtInfo = row["TxtInfo"].ToString().Trim();
 			// 
-			_Width = Convert.ToInt32(row["Width"]);
+			_Width = Converter.ToInt32(row["Width"]);
 			// 
-			_Height = Convert.ToInt32(row["Height"]);
+			_Height = Converter.ToInt32(row["Height"]);
 			// 
 			_ImageURL = row["ImageURL"].ToString().Trim();
 			// 
@@ -355,37 +355,37 @@ NotifyPropertyChanged("ParentID");}
 			// 
 			_ChildScreenID = row["ChildScreenID"].ToString().Trim();
 			// 
-			_DeviceID = Convert.ToInt32(row["DeviceID"]);
+			_DeviceID = Converter.ToInt32(row["DeviceID"]);
 			// 
-			_ChannelNo = Convert.ToInt32(row["ChannelNo"]);
+			_ChannelNo = Converter.ToInt32(row["ChannelNo"]);
 			// 
-			_ScreenID = Convert.ToInt32(row["ScreenID"]);
+			_ScreenID = Converter.ToInt32(row["ScreenID"]);
 			// 
 			_BackColor = row["BackColor"].ToString().Trim();
 			// 
-			_Transparent = Convert.ToInt32(row["Transparent"]);
+			_Transparent = Converter.ToInt32(row["Transparent"]);
 			// 
-			_oldX = Convert.ToInt32(row["oldX"]);
+			_oldX = Converter.ToInt32(row["oldX"]);
 			// 
-			_oldY = Convert.ToInt32(row["oldY"]);
+			_oldY = Converter.ToInt32(row["oldY"]);
 			// 
-			_Method = Convert.ToInt32(row["Method"]);
+			_Method = Converter.ToInt32(row["Method"]);
 			// 
-			_MinFloat = float.Parse(row["MinFloat"].ToString());
+            _MinFloat = Converter.ToFloat(row["MinFloat"]);
 			// 
-			_MaxFloat = float.Parse(row["MaxFloat"].ToString());
+            _MaxFloat = Converter.ToFloat(row["MaxFloat"]);
 			// 
-			_SerialNum = Convert.ToInt32(row["SerialNum"]);
+			_SerialNum = Converter.ToInt32(row["SerialNum"]);
 			// 
-			_TotalLength = float.Parse(row["TotalLength"].ToString());
+			_TotalLength = Converter.ToFloat(row["TotalLength"]);
 			// 
-			_LevelNo = Convert.ToInt32(row["LevelNo"]);
+			_LevelNo = Converter.ToInt32(row["LevelNo"]);
 			// 
 			_ComputeStr = row["ComputeStr"].ToString().Trim();
 			// 
 			_ElementType = row["ElementType"].ToString().Trim();
 			// 
-			_ParentID = Convert.ToInt32(row["ParentID"]);
+			_ParentID = Converter.ToInt32(row["ParentID"]);
 		}
 
 	public void Clone(t_Element obj){

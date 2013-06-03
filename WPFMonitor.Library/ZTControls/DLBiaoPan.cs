@@ -9,11 +9,12 @@ using System.Windows.Media;
 using System.Windows.Media.Animation;
 using System.Windows.Shapes;
 
-using WPFMonitor.Library.MonitorSystemGlobal;
+using MonitorSystem.MonitorSystemGlobal;
 using WPFMonitor.Model;
 using System.ComponentModel;
+using WPFMonitor.Model.ZTControls;
 
-namespace WPFMonitor.Library.ZTControls
+namespace MonitorSystem.ZTControls
 {
     /// <summary>
     /// 6	DLBiaoPan	2	DLBiaoPan.jpg	组态控件	圆盘
@@ -147,8 +148,8 @@ namespace WPFMonitor.Library.ZTControls
             this.Width = (double)ScreenElement.Width;
             this.Height = (double)ScreenElement.Height;
             Transparent = ScreenElement.Transparent.Value;
-            ForeColor = Common.StringToColor(ScreenElement.ForeColor);
-            BackColor = Common.StringToColor(ScreenElement.BackColor); 
+            ForeColor = Common1.StringToColor(ScreenElement.ForeColor);
+            BackColor = Common1.StringToColor(ScreenElement.BackColor); 
         }
 
         private string[] _browsableProperties = new[] { "Width", "Height", "Left", "Top", "FontFamily", "FontSize",
@@ -390,7 +391,7 @@ namespace WPFMonitor.Library.ZTControls
         private Ellipse _axisInnerEllipse = new Ellipse();
         private Ellipse _axisOuterEllipse = new Ellipse();
         private Path _arcPath = new Path();
-        private CompositeTransform _pointerTransform = new CompositeTransform();
+        private RotateTransform _pointerTransform = new RotateTransform();
 
         public DLBiaoPan()
         {
@@ -526,7 +527,7 @@ namespace WPFMonitor.Library.ZTControls
                 calibrationLine.SetValue(HeightProperty, keduLength);
                 calibrationLine.Fill = calibrationBrush;
                 calibrationLine.RenderTransformOrigin = origin;
-                calibrationLine.RenderTransform = new CompositeTransform() { Rotation = calibrationDegree, };
+                calibrationLine.RenderTransform = new RotateTransform() { Angle = calibrationDegree, };
                 _calibrationCanvas.Children.Add(calibrationLine);
                 calibrationDegree += degreePerKeDu;
             }
@@ -561,7 +562,7 @@ namespace WPFMonitor.Library.ZTControls
                 lableLine.SetValue(HeightProperty, standLength);
                 lableLine.Fill = labelBrush;
                 lableLine.RenderTransformOrigin = lableLineOrigin;
-                lableLine.RenderTransform = new CompositeTransform() { Rotation = lableLineDegree, };
+                lableLine.RenderTransform = new RotateTransform() { Angle = lableLineDegree, };
                 _calibrationCanvas.Children.Add(lableLine);
 
                 //绘制数值
@@ -576,7 +577,7 @@ namespace WPFMonitor.Library.ZTControls
                 grid.SetValue(Canvas.LeftProperty, centerX - label.ActualWidth / 2d);
                 grid.SetValue(Canvas.TopProperty, labelTop);
                 grid.RenderTransformOrigin = new Point(0.5d, (centerY - labelTop) / label.ActualHeight);
-                grid.RenderTransform = new CompositeTransform() { Rotation = lableLineDegree, };
+                grid.RenderTransform = new RotateTransform() { Angle = lableLineDegree, };
                 grid.Children.Add(label);
                 _calibrationCanvas.Children.Add(grid);
 
@@ -616,7 +617,7 @@ namespace WPFMonitor.Library.ZTControls
             pointerLine.Y2 = (height - heightSpan) / 1.25d;
             pointerLine.StrokeEndLineCap = PenLineCap.Triangle;
             pointerLine.RenderTransformOrigin = new Point(0.5d, 0d);
-            pointerLine.RenderTransform = new CompositeTransform();
+            pointerLine.RenderTransform = new RotateTransform();
             pointerLine.SetValue(Canvas.LeftProperty, centerX);
             pointerLine.SetValue(Canvas.TopProperty, centerY - pointerLine.Y2);
 
@@ -704,7 +705,7 @@ namespace WPFMonitor.Library.ZTControls
                 }
 
             var angle = (tureValue - minValue) * (720d - 2d * startDegree) / (maxValue - minValue) + startDegree;
-            _pointerTransform.Rotation = angle;
+            _pointerTransform.Angle = angle;
         }
 
         protected override Size MeasureOverride(Size availableSize)

@@ -1,0 +1,11 @@
+﻿<dock:DockableContent x:Class="WPFMonitor.View.TPControls.PropertyWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:libs="http://www.monitor.com/wpf/library"
+        Title="属性" Width="300"
+                      Background="White"
+        xmlns:dock="clr-namespace:DockingLibrary;assembly=DockingLibrary">
+    <Grid>
+        <libs:PropertyGrid x:Name="ControlPropertyGrid"/>
+    </Grid>
+</dock:DockableContent>

@@ -11,7 +11,7 @@ using System.Windows.Shapes;
 using System.ComponentModel;
 using System.Windows.Controls.Primitives;
 
-namespace WPFMonitor.Library.Controls
+namespace MonitorSystem.Controls
 {
     [TemplatePart(Name = "PART_Popup", Type = typeof(Popup))]
     [TemplatePart(Name = "PART_Mask", Type = typeof(FrameworkElement))]

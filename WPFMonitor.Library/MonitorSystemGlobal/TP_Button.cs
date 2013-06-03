@@ -15,7 +15,7 @@ using System.Windows.Shapes;
 using WPFMonitor.Model;
 using WPFMonitor.Model.ZTControls;
 
-namespace WPFMonitor.Library.MonitorSystemGlobal
+namespace MonitorSystem.MonitorSystemGlobal
 {
     public class ScreenAddShowName
     {
@@ -272,7 +272,7 @@ namespace WPFMonitor.Library.MonitorSystemGlobal
                 }
                 else if (pro.PropertyName == "HaveEdge")
                 {
-                    HaveEdge =Common.ConvertToBool( pro.PropertyValue);
+                    HaveEdge =Common1.ConvertToBool( pro.PropertyValue);
                 }
             }
         }

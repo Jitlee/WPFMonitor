@@ -12,11 +12,11 @@ using System.Windows.Media;
 using System.Windows.Media.Animation;
 using System.Windows.Shapes;
 using System.Windows.Threading;
-using WPFMonitor.Library.MonitorSystemGlobal;
+using MonitorSystem.MonitorSystemGlobal;
 using WPFMonitor.Model;
 using WPFMonitor.Model.ZTControls;
 
-namespace WPFMonitor.Library.ZTControls
+namespace MonitorSystem.ZTControls
 {
     /// <summary>
     /// 44	RealTimeCurve	2	Text.jpg		实时曲线
@@ -164,8 +164,8 @@ namespace WPFMonitor.Library.ZTControls
             picCurveShow.Width = this.Width = (double)ScreenElement.Width;
             picCurveShow.Height=this.Height = (double)ScreenElement.Height;
             
-            ForeColor = Common.StringToColor(ScreenElement.ForeColor);
-            BackColor = Common.StringToColor(ScreenElement.BackColor); 
+            ForeColor = Common1.StringToColor(ScreenElement.ForeColor);
+            BackColor = Common1.StringToColor(ScreenElement.BackColor); 
         }
 
         public List<t_ElementProperty> GetProperty()
@@ -805,7 +805,7 @@ namespace WPFMonitor.Library.ZTControls
        
         #endregion
 
-        string _ReGuid = System.Guid.NewGuid().ToString();
+        string _ReGuid ="N" + System.Guid.NewGuid().ToString("N");
         /// <summary>
         /// 刷新背景网格线，显示曲线
         /// </summary>

@@ -11,11 +11,12 @@ using System.Windows.Media.Animation;
 using System.Windows.Shapes;
 using WPFMonitor.Model;
 using System.ComponentModel;
-using WPFMonitor.Library.Controls;
+using MonitorSystem.Controls;
 using System.Windows.Media.Imaging;
 using System.Windows.Data;
+using WPFMonitor.Model.ZTControls;
 
-namespace WPFMonitor.Library.MonitorSystemGlobal
+namespace MonitorSystem.MonitorSystemGlobal
 {
     public partial class BackgroundControl : MonitorControl
     {
@@ -342,9 +343,7 @@ namespace WPFMonitor.Library.MonitorSystemGlobal
 
         private void BackgroundControl_Selected(object sender, EventArgs e)
         {
-            PropertyMain.Instance.ControlPropertyGrid.SelectedObject = null;
-            PropertyMain.Instance.ControlPropertyGrid.BrowsableProperties = this.BrowsableProperties;
-            PropertyMain.Instance.ControlPropertyGrid.SelectedObject = this.GetRootControl(); 
+            BackgroundControl.OnUpdatePropertyGrid(this.BrowsableProperties, this.GetRootControl());
         }
 
         public bool Contains(double left, double top)
@@ -393,7 +392,7 @@ namespace WPFMonitor.Library.MonitorSystemGlobal
                 AdornerLayer.Unselected += OnUnselected;
                 AdornerLayer.AllToolTip = false;
 
-                var children = BackgroundCanvas.Children.ToArray();
+                var children = BackgroundCanvas.Children.OfType<MonitorControl>().ToArray();
                 foreach (var child in children)
                 {
                     var monitor = child as MonitorControl;
@@ -422,7 +421,7 @@ namespace WPFMonitor.Library.MonitorSystemGlobal
                 AdornerLayer.Dispose();
                 AdornerLayer = null;
 
-                var children = BackgroundCanvas.Children.ToArray();
+                var children = BackgroundCanvas.Children.OfType<MonitorControl>().ToArray();
                 foreach (var child in children)
                 {
                     var monitor = child as MonitorControl;
@@ -483,11 +482,11 @@ namespace WPFMonitor.Library.MonitorSystemGlobal
 
                 if (name == "FromColor".ToUpper())
                 {
-                    FromColor = Common.StringToColor(value);
+                    FromColor = Common1.StringToColor(value);
                 }
                 else if (name == "ToColor".ToUpper())
                 {
-                    ToColor = Common.StringToColor(value);
+                    ToColor = Common1.StringToColor(value);
                 }
                 else if (name == "FillDirection".ToUpper())
                 {
@@ -507,7 +506,7 @@ namespace WPFMonitor.Library.MonitorSystemGlobal
                 }
                 else if (name == "Stroke".ToUpper())
                 {
-                    Stroke = Common.StringToColor(value);
+                    Stroke = Common1.StringToColor(value);
                 }
                 else if (name == "StrokeThickness".ToUpper())
                 {

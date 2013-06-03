@@ -12,7 +12,7 @@ using System.ComponentModel;
 using System.Reflection;
 using System.Collections.Generic;
 
-namespace WPFMonitor.Library.GetData
+namespace MonitorSystem.GetData
 {
     public class DataObject : INotifyPropertyChanged, IEditableObject
     {

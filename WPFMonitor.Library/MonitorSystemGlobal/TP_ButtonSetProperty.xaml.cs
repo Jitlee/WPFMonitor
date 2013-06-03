@@ -11,7 +11,7 @@ using System.Windows.Media.Animation;
 using System.Windows.Shapes;
 using System.Collections.ObjectModel;
 
-namespace WPFMonitor.Library.MonitorSystemGlobal
+namespace MonitorSystem.MonitorSystemGlobal
 {
     public partial class TP_ButtonSetProperty : Window
     {
@@ -33,6 +33,7 @@ namespace WPFMonitor.Library.MonitorSystemGlobal
         {
             BaseCtl.SetChildScreen(ListScreenShow);
             this.DialogResult = true;
+            Close();
         }
 
         public void BindList()
@@ -43,6 +44,7 @@ namespace WPFMonitor.Library.MonitorSystemGlobal
         private void CancelButton_Click(object sender, RoutedEventArgs e)
         {
             this.DialogResult = false;
+            Close();
         }
 
         private void btnAdd_Click(object sender, RoutedEventArgs e)

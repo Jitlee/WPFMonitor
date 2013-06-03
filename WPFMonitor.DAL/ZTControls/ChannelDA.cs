@@ -58,6 +58,27 @@ t_Channel m_Chan=new t_Channel(dr);
 
 }
 
+public List<t_Channel> selectBy(int deviceID)
+{
+    string sql = "select * from t_Channel where DeviceID=" + deviceID;
+
+    DataTable dt = null;
+    try
+    {
+        dt = db.ExecuteQuery(sql);
+    }
+    catch (Exception ex)
+    {
+        throw ex;
+    }
+    List<t_Channel> _List = new List<t_Channel>();
+    foreach (DataRow dr in dt.Rows)
+    {
+        t_Channel obj = new t_Channel(dr);
+        _List.Add(obj);
+    }
+    return _List;
+}
 
         public ObservableCollection<t_Channel> selectAllDate()
         {

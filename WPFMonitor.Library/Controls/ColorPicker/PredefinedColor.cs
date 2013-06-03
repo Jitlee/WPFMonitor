@@ -10,7 +10,7 @@ using System.Windows.Media.Animation;
 using System.Windows.Shapes;
 using System.Collections.Generic;
 
-namespace WPFMonitor.Library.Controls
+namespace MonitorSystem.Controls
 {
     public class PredefinedColor
     {

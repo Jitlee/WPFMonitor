@@ -8,11 +8,11 @@ using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Animation;
 using System.Windows.Shapes;
-using WPFMonitor.Library.MonitorSystemGlobal;
+using MonitorSystem.MonitorSystemGlobal;
 using System.ComponentModel;
 using System.Windows.Media.Imaging;
 
-namespace WPFMonitor.Library.ZTControls
+namespace MonitorSystem.ZTControls
 {
     /// <summary>
     /// 53	InputTextBox	2	Text.jpg	组态控件	输入框
@@ -120,14 +120,14 @@ namespace WPFMonitor.Library.ZTControls
                     string value = pro.PropertyValue.Trim();
                     if (string.Compare(name, "BackColor", StringComparison.OrdinalIgnoreCase) == 0)
                     {
-                        BackColor = Common.StringToColor(value);
+                        BackColor = Common1.StringToColor(value);
                     }
                     else if (string.Compare(name, "Font", StringComparison.OrdinalIgnoreCase) == 0)
                     {
                     }
                     else if (string.Compare(name, "ForeColor", StringComparison.OrdinalIgnoreCase) == 0)
                     {
-                        ForeColor = Common.StringToColor(value);
+                        ForeColor = Common1.StringToColor(value);
                     }
                     else if (name == "MyScrollBars".ToUpper())
                     {
@@ -257,7 +257,7 @@ namespace WPFMonitor.Library.ZTControls
 
         private Grid _grid = new Grid();
         private TextBox _textBox = new TextBox();
-        private Image _moveImage = new Image() { Height = 32d, Width = 32d, Source = new BitmapImage(new Uri("/WPFMonitor.Library;component/Images/ControlsImg/can_move.png", UriKind.RelativeOrAbsolute)), HorizontalAlignment = HorizontalAlignment.Right, VerticalAlignment = VerticalAlignment.Bottom, Margin = new Thickness(3d), Cursor = Cursors.Hand };
+        private Image _moveImage = new Image() { Height = 32d, Width = 32d, Source = new BitmapImage(new Uri("/MonitorSystem;component/Images/ControlsImg/can_move.png", UriKind.RelativeOrAbsolute)), HorizontalAlignment = HorizontalAlignment.Right, VerticalAlignment = VerticalAlignment.Bottom, Margin = new Thickness(3d), Cursor = Cursors.Hand };
 
         public InputTextBox()
         {

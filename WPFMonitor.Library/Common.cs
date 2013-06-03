@@ -6,9 +6,9 @@ using System.Windows.Media;
 using WPFMonitor.Model;
 using WPFMonitor.Model.ZTControls;
 
-namespace WPFMonitor.Library
+namespace MonitorSystem
 {
-    internal static class Common
+    public static class Common1
     {
         public static Color StringToColor(string htmlColr, Color defualtColor = default(Color))
         {

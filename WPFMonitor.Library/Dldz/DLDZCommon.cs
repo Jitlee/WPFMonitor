@@ -9,7 +9,7 @@ using System.Windows.Media;
 using System.Windows.Media.Animation;
 using System.Windows.Shapes;
 
-namespace WPFMonitor.Library.Dldz
+namespace MonitorSystem.Dldz
 {
     public class DLDZCommon
     {
@@ -31,7 +31,7 @@ namespace WPFMonitor.Library.Dldz
         /// <summary>
         /// 电力电子填充颜色
         /// </summary>
-        public static Color DLDZFilleColor2 = Common.StringToColor("RGB(0,215,215)");
+        public static Color DLDZFilleColor2 = Common1.StringToColor("RGB(0,215,215)");
         
         
     }

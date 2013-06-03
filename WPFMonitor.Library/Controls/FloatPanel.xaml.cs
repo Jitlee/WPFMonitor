@@ -11,7 +11,7 @@ using System.Windows.Media.Animation;
 using System.Windows.Shapes;
 using System.Windows.Media.Effects;
 
-namespace WPFMonitor.Library.Controls
+namespace MonitorSystem.Controls
 {
     public partial class FloatPanel : ContentControl
     {

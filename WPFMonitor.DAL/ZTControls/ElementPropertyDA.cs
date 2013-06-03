@@ -21,6 +21,19 @@ namespace WPFMonitor.DAL.ZTControls
 
         #region 查询
 
+        public List<t_ElementProperty> SelectBy(int elementID)
+        {
+            return db.ExecuteQuery("select * from t_ElementProperty where ElementID = @ElementID",
+                new[]
+                {
+                    new SqlParameter("@ElementID", elementID),
+                })
+                .Rows
+                .OfType<DataRow>()
+                .Select(r => new t_ElementProperty(r))
+                .ToList();
+        }
+
         public static List<t_ElementProperty> SelectByElementID(int elementID)
         {
             if (!_caches.ContainsKey(elementID))
@@ -81,8 +94,29 @@ namespace WPFMonitor.DAL.ZTControls
 
         }
 
+        public List<t_ElementProperty> selectByScreenID(int screenID)
+        {
+            string sql = "select * from t_ElementProperty where exists(select 0 from t_element where t_element.ScreenID=" + screenID.ToString() + ")";
 
-        public ObservableCollection<t_ElementProperty> selectAllDate()
+            DataTable dt = null;
+            try
+            {
+                dt = db.ExecuteQuery(sql);
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+            List<t_ElementProperty> _List = new List<t_ElementProperty>();
+            foreach (DataRow dr in dt.Rows)
+            {
+                t_ElementProperty obj = new t_ElementProperty(dr);
+                _List.Add(obj);
+            }
+            return _List;
+        }
+
+        public List<t_ElementProperty> selectAllDate()
         {
             string sql = "select * from t_ElementProperty";
 
@@ -95,7 +129,7 @@ namespace WPFMonitor.DAL.ZTControls
             {
                 throw ex;
             }
-            ObservableCollection<t_ElementProperty> _List = new ObservableCollection<t_ElementProperty>();
+            List<t_ElementProperty> _List = new List<t_ElementProperty>();
             foreach (DataRow dr in dt.Rows)
             {
                 t_ElementProperty obj = new t_ElementProperty(dr);
@@ -160,6 +194,12 @@ namespace WPFMonitor.DAL.ZTControls
                 listcmd.Add(new CommandList() { strCommandText = sql, Type = CommandType.Text });
             }
             return db.ExecuteNoQueryTranPro(listcmd);
+        }
+
+        public virtual bool Delete(int elementID)
+        {
+            string sql = string.Format(" delete from t_ElementProperty where  Elementid = '{0}'", elementID);
+            return db.ExecuteNoQuery(sql) > 0;
         }
         #endregion
     }

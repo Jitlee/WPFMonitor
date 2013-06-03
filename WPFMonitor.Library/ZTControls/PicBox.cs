@@ -11,12 +11,12 @@ using System.Windows.Media;
 using System.Windows.Media.Animation;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
-using WPFMonitor.Library.Controls;
-using WPFMonitor.Library.MonitorSystemGlobal;
+using MonitorSystem.Controls;
+using MonitorSystem.MonitorSystemGlobal;
 using WPFMonitor.Model;
 using WPFMonitor.Model.ZTControls;
 
-namespace WPFMonitor.Library.ZTControls
+namespace MonitorSystem.ZTControls
 {
     /// <summary>
     /// 45	PicBox	2	Text.jpg		窗口式背景控件
@@ -64,7 +64,8 @@ namespace WPFMonitor.Library.ZTControls
         /// </summary>
         private void AlertWindow()
         {
-            HtmlPage.Window.Invoke("ShowDoubleCurve"); 
+            //HtmlPage.Window.Invoke("ShowDoubleCurve"); 
+            throw new Exception();
         }
         #endregion
 
@@ -82,11 +83,11 @@ namespace WPFMonitor.Library.ZTControls
                 }
                 else if (name == "OpenOrNot".ToUpper())
                 {
-                    _OpenOrNot =Common.ConvertToBool(value);
+                    _OpenOrNot =Common1.ConvertToBool(value);
                 }
                 else if (name == "PicInBack".ToUpper())
                 {
-                    _PicInBack = Common.ConvertToBool(value);
+                    _PicInBack = Common1.ConvertToBool(value);
                 }
             }
             FullRect();
@@ -226,18 +227,17 @@ namespace WPFMonitor.Library.ZTControls
 
         private void FullRect()
         {
-            throw new Exception();
-            //if (string.IsNullOrEmpty(_BackImageName))
-            //{
-            //    return;
-            //}
-            ////显示背景
-            //string gbUrl = string.Format("{0}/Upload/Pic/{1}", Common.TopUrl(), _BackImageName);
-            //BitmapImage bitmap = new BitmapImage(new Uri(gbUrl, UriKind.Absolute));
-            //ImageBrush img = new ImageBrush();
-            //img.ImageSource = bitmap;
-            //img.Stretch = Stretch.Fill;
-            //mRect.Background = img;
+            if (!System.IO.File.Exists(_BackImageName))
+            {
+                return;
+            }
+            //显示背景
+            string gbUrl = _BackImageName;
+            BitmapImage bitmap = new BitmapImage(new Uri(gbUrl, UriKind.Absolute));
+            ImageBrush img = new ImageBrush();
+            img.ImageSource = bitmap;
+            img.Stretch = Stretch.Fill;
+            mRect.Background = img;
         }
         
 

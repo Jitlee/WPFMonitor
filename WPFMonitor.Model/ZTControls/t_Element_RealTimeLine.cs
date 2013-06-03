@@ -268,21 +268,21 @@ NotifyPropertyChanged("StartTime");}
 			// 
 			_ID = row["ID"].ToString().Trim();
 			// 场景ID
-			_ScreenID = Convert.ToInt32(row["ScreenID"]);
+			_ScreenID = Converter.ToInt32(row["ScreenID"]);
 			// 无素ID
-			_ElementID = Convert.ToInt32(row["ElementID"]);
+			_ElementID = Converter.ToInt32(row["ElementID"]);
 			// 线类型
-			_LineType = Convert.ToInt32(row["LineType"]);
+			_LineType = Converter.ToInt32(row["LineType"]);
 			// 线名称
 			_LineName = row["LineName"].ToString().Trim();
 			// 取值()
-			_LineCZ = Convert.ToInt32(row["LineCZ"]);
+			_LineCZ = Converter.ToInt32(row["LineCZ"]);
 			// 类型(直线、阶梯线)
-			_LineShowType = Convert.ToInt32(row["LineShowType"]);
+			_LineShowType = Converter.ToInt32(row["LineShowType"]);
 			// 样式
-			_LineStyle = Convert.ToInt32(row["LineStyle"]);
+			_LineStyle = Converter.ToInt32(row["LineStyle"]);
 			// 标记,不画点
-			_LinepointBJ = Convert.ToInt32(row["LinePointBJ"]);
+			_LinepointBJ = Converter.ToInt32(row["LinePointBJ"]);
 			// 线颜色
 			_LineColor = row["LineColor"].ToString().Trim();
 			// 最小值
@@ -290,11 +290,11 @@ NotifyPropertyChanged("StartTime");}
 			// 最大值
 			_MaxValue = row["MaxValue"].ToString().Trim();
 			// 小数位长度
-			_ValueDecimal = Convert.ToInt32(row["ValueDecimal"]);
+			_ValueDecimal = Converter.ToInt32(row["ValueDecimal"]);
 			// 显示格式
 			_ShowFormat = row["ShowFormat"].ToString().Trim();
 			// 时间长度
-			_TimeLen = Convert.ToInt32(row["TimeLen"]);
+			_TimeLen = Converter.ToInt32(row["TimeLen"]);
 			// 时间长度类型
 			_TimeLenType = row["TimeLenType"].ToString().Trim();
 			// 时间采样周期
@@ -302,13 +302,13 @@ NotifyPropertyChanged("StartTime");}
 			// 采样周期类型
 			_LineCYZQType = row["LineCYZQType"].ToString().Trim();
 			// 取值设备ID
-			_DeviceID = Convert.ToInt32(row["DeviceID"]);
+			_DeviceID = Converter.ToInt32(row["DeviceID"]);
 			// 取值设备通道
-			_ChannelNo = Convert.ToInt32(row["ChannelNo"]);
+			_ChannelNo = Converter.ToInt32(row["ChannelNo"]);
 			// 取值表达试
 			_ComputeStr = row["ComputeStr"].ToString().Trim();
 			// 开始时间
-			_StartTime = Convert.ToDateTime(row["StartTime"]);
+			_StartTime = Converter.ToDateTime(row["StartTime"]);
 		}
 
 	public void Clone(t_Element_RealTimeLine obj){

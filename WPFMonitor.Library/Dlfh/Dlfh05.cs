@@ -8,11 +8,11 @@ using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Animation;
 using System.Windows.Shapes;
-using WPFMonitor.Library.MonitorSystemGlobal;
-using WPFMonitor.Model;
+using MonitorSystem.MonitorSystemGlobal;
+using WPFMonitor.Model.ZTControls;
 using System.ComponentModel;
 
-namespace WPFMonitor.Library.Dlfh
+namespace MonitorSystem.Dlfh
 {
     public class Dlfh05 : MonitorControl
     {
@@ -112,7 +112,7 @@ namespace WPFMonitor.Library.Dlfh
                 }
                 else if (name == "GroundWireColor".ToUpper())
                 {
-                    _GroundWireColor = Common.StringToColor(value);
+                    _GroundWireColor = Common1.StringToColor(value);
                 }
                 else if (name == "GroundWireWidth".ToUpper())
                 {
@@ -120,7 +120,7 @@ namespace WPFMonitor.Library.Dlfh
                 }
                 else if (name == "LineColor".ToUpper())
                 {
-                    _LineColor = Common.StringToColor(value);
+                    _LineColor = Common1.StringToColor(value);
                 }
                 else if (name == "LineWidth".ToUpper())
                 {
@@ -138,8 +138,8 @@ namespace WPFMonitor.Library.Dlfh
             this.Height = (double)ScreenElement.Height;
             Transparent = ScreenElement.Transparent.Value;
 
-            BackColor = Common.StringToColor(ScreenElement.BackColor);
-            ForeColor = Common.StringToColor(ScreenElement.ForeColor);
+            BackColor = Common1.StringToColor(ScreenElement.BackColor);
+            ForeColor = Common1.StringToColor(ScreenElement.ForeColor);
         }
 
 
@@ -221,7 +221,7 @@ namespace WPFMonitor.Library.Dlfh
 
         private static readonly DependencyProperty GroundWireColorProperty = DependencyProperty.Register("GroundWireColor",
       typeof(int), typeof(Dlfh05), new PropertyMetadata(0));
-        Color _GroundWireColor = Common.StringToColor("#FFFA0000");
+        Color _GroundWireColor = Common1.StringToColor("#FFFA0000");
         [DefaultValue("#FFFA0000"), Description("接地线颜色"), Category("我的属性")]
         public Color GroundWireColor
         {

@@ -11,11 +11,12 @@ using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Animation;
 using System.Windows.Shapes;
-using WPFMonitor.DAL;
 using WPFMonitor.Model;
 using WPFMonitor.Model.ZTControls;
+using WPFMonitor.DAL.ZTControls;
+using System.Threading.Tasks;
 
-namespace WPFMonitor.Library.ZTControls
+namespace MonitorSystem.ZTControls
 {
     public partial class SetSingleProperty : Window, INotifyPropertyChanged
     {
@@ -70,16 +71,20 @@ namespace WPFMonitor.Library.ZTControls
             get { return _IsOK; }
         }
         #endregion
-        MonitorServers _dataContext = new MonitorServers();
-        CV _DataCV = new CV();
+        //MonitorServers _dataContext = new MonitorServers();
+        //CV _DataCV = new CV();
+        DeviceDA _da = new DeviceDA();
+        ChannelDA _cda = new ChannelDA();
         public SetSingleProperty()
         {
             InitializeComponent();
-            _dataContext = LoadScreen._DataContext;
-            _DataCV = LoadScreen._DataCV;
+            //_dataContext = LoadScreen._DataContext;
+            //_DataCV = LoadScreen._DataCV;
             //cbDeviceID.ItemsSource = _dataContext.t_Devices;
-            Devices = new ObservableCollection<t_Device>(_DataCV.t_Devices);
+            //Devices = new ObservableCollection<t_Device>(_DataCV.t_Devices);
             cbDeviceID.DisplayMemberPath = "DeviceName";
+
+            _devices = _da.selectAllDate();
             //查询
             this.DataContext = this;
         }
@@ -151,19 +156,26 @@ namespace WPFMonitor.Library.ZTControls
 
         private void LoadChanncel(int deviceid)
         {
-            _DataCV.Load(_DataCV.GetT_ChannelQuery().Where(a => a.DeviceID == deviceid),
-                LoadChanncelCommplete, deviceid);
+            Task.Factory.StartNew(() =>
+            {
+                try
+                {
+                    var channels = _cda.selectBy(deviceid);
+                    Dispatcher.Invoke(new Action(() =>
+                    {
+                        LoadChanncelCommplete(channels);
+                    }));
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show("LoadChanncel出错了" + ex.Message);
+                }
+            });
         }
 
-        private void LoadChanncelCommplete(LoadOperation<t_Channel> result)
+        private void LoadChanncelCommplete(List<t_Channel> result)
         {
-            if (result.HasError)
-            {
-                MessageBox.Show(result.Error.Message, "出错啦！", MessageBoxButton.OK);
-                return;
-            }
-            
-            var v = result.Entities;
+            var v = result;
             if (v.Count() > 0)
             {
                 //cbChanncel.ItemsSource = v;
@@ -197,14 +209,14 @@ namespace WPFMonitor.Library.ZTControls
             _ChanncelID = ((t_Channel)cbChanncel.SelectedValue).ChannelNo;
             _LevelNo =int.Parse( ((ComboBoxItem)cbLayer.SelectedItem).Content.ToString());
             _ComputeStr = txtBDS.Text;
-
-            this.DialogResult = true;
+            _IsOK = true;
+            Close();
         }
 
         private void CancelButton_Click(object sender, RoutedEventArgs e)
         {
             _IsOK = false;
-            this.DialogResult = false;
+            Close();
         }
 
     
@@ -217,6 +229,13 @@ namespace WPFMonitor.Library.ZTControls
         }
 
         public event PropertyChangedEventHandler  PropertyChanged;
+
+        protected override void OnClosing(System.ComponentModel.CancelEventArgs e)
+        {
+            Hide();
+            e.Cancel = true;
+            base.OnClosing(e);
+        }
     }
 }
 

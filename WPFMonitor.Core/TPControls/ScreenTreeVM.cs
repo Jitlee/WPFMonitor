@@ -50,7 +50,7 @@ namespace WPFMonitor.Core.TPControls
 
         #region 私有方法
 
-        private void Load()
+        public void Load()
         {
             _allScreens = new DAL.ZTControls.ScreenDA().selectAllDate();
             List<t_Screen> _list = new List<t_Screen>();

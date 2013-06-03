@@ -10,7 +10,7 @@ using System.Windows.Media.Animation;
 using System.Windows.Shapes;
 using System.ComponentModel;
 
-namespace WPFMonitor.Library.Controls
+namespace MonitorSystem.Controls
 {
 	public class Car : INotifyPropertyChanged
 	{

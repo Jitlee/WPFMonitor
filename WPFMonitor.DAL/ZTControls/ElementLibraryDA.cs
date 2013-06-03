@@ -35,7 +35,7 @@ int returnC = 0;try
   return dt;
 }
 
-public t_ElementLibrary selectARowDate(string m_id)
+public t_Element_Library selectARowDate(string m_id)
 {string sql = string.Format("select * from t_Element_Library where  Elementid='{0}'",m_id);
   DataTable dt = null;
 try
@@ -51,13 +51,13 @@ if (dt == null)
 if (dt.Rows.Count == 0)
 return null;
 DataRow dr = dt.Rows[0];
-t_ElementLibrary m_Elem=new t_ElementLibrary(dr); 
+t_Element_Library m_Elem=new t_Element_Library(dr); 
  return m_Elem;
 
 }
 
 
-        public ObservableCollection<t_ElementLibrary> selectAllDate()
+        public List<t_Element_Library> selectAllDate()
         {
             string sql = "select * from t_Element_Library";
            
@@ -70,10 +70,10 @@ t_ElementLibrary m_Elem=new t_ElementLibrary(dr);
             {
                 throw ex;
             }
-            ObservableCollection<t_ElementLibrary> _List = new ObservableCollection<t_ElementLibrary>();
+            List<t_Element_Library> _List = new List<t_Element_Library>();
             foreach (DataRow dr in dt.Rows)
             {
-                t_ElementLibrary obj = new t_ElementLibrary(dr);
+                t_Element_Library obj = new t_Element_Library(dr);
                 _List.Add(obj);
             }
             return _List;
@@ -86,7 +86,7 @@ t_ElementLibrary m_Elem=new t_ElementLibrary(dr);
 		/// <summary>
 		/// 插入t_Element_Library
 		/// </summary>
-		public virtual bool Insert(t_ElementLibrary elementLibrary)
+		public virtual bool Insert(t_Element_Library elementLibrary)
 		{
 			string sql = "insert into t_Element_Library (ElementID, ElementName, ControlID, ScreenX, ScreenY, TxtInfo, Width, Height, ImageURL, ForeColor, Font, ChildScreenID, DeviceID, ChannelNo, ScreenID, BackColor, Transparent, oldX, oldY, Method, MinFloat, MaxFloat, SerialNum, TotalLength) values (@ElementID, @ElementName, @ControlID, @ScreenX, @ScreenY, @TxtInfo, @Width, @Height, @ImageURL, @ForeColor, @Font, @ChildScreenID, @DeviceID, @ChannelNo, @ScreenID, @BackColor, @Transparent, @oldX, @oldY, @Method, @MinFloat, @MaxFloat, @SerialNum, @TotalLength)";
 			SqlParameter [] parameters = new SqlParameter[]
@@ -124,7 +124,7 @@ t_ElementLibrary m_Elem=new t_ElementLibrary(dr);
 		/// <summary>
 		/// 更新t_Element_Library
 		/// </summary>
-		public virtual bool Update(t_ElementLibrary elementLibrary)
+		public virtual bool Update(t_Element_Library elementLibrary)
 		{
 			string sql = "update t_Element_Library set  ElementName = @ElementName,  ControlID = @ControlID,  ScreenX = @ScreenX,  ScreenY = @ScreenY,  TxtInfo = @TxtInfo,  Width = @Width,  Height = @Height,  ImageURL = @ImageURL,  ForeColor = @ForeColor,  Font = @Font,  ChildScreenID = @ChildScreenID,  DeviceID = @DeviceID,  ChannelNo = @ChannelNo,  ScreenID = @ScreenID,  BackColor = @BackColor,  Transparent = @Transparent,  oldX = @oldX,  oldY = @oldY,  Method = @Method,  MinFloat = @MinFloat,  MaxFloat = @MaxFloat,  SerialNum = @SerialNum,  TotalLength = @TotalLength where  ElementID = @ElementID";
 			SqlParameter [] parameters = new SqlParameter[]
@@ -166,7 +166,7 @@ t_ElementLibrary m_Elem=new t_ElementLibrary(dr);
             if (mlist == null)
                 return false;
             List<CommandList> listcmd = new List<CommandList>();
-            foreach (t_ElementLibrary obj in mlist)
+            foreach (t_Element_Library obj in mlist)
             {
                 string sql = string.Format(" delete from t_Element_Library where  Elementid = '{0}'", obj.Elementid);
                 listcmd.Add(new CommandList() { strCommandText = sql, Type = CommandType.Text });

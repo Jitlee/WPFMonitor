@@ -2,7 +2,7 @@
 using System.ComponentModel;
 using System.Globalization;
 
-namespace WPFMonitor.Library.Controls.Converters
+namespace MonitorSystem.Controls.Converters
 {
 	public class BooleanConverter : TypeConverter
 	{
@@ -18,7 +18,7 @@ namespace WPFMonitor.Library.Controls.Converters
 				string str = ((string)value).Trim();
 				try
 				{
-					return Common.ConvertToBool(str);
+					return Common1.ConvertToBool(str);
 				}
 				catch (FormatException exception)
 				{

@@ -35,7 +35,7 @@ int returnC = 0;try
   return dt;
 }
 
-public t_ElementPropertyLibrary selectARowDate(string m_id)
+public t_ElementProperty_Library selectARowDate(string m_id)
 {string sql = string.Format("select * from t_ElementProperty_Library where  Elementid='{0}'",m_id);
   DataTable dt = null;
 try
@@ -51,13 +51,13 @@ if (dt == null)
 if (dt.Rows.Count == 0)
 return null;
 DataRow dr = dt.Rows[0];
-t_ElementPropertyLibrary m_Elem=new t_ElementPropertyLibrary(dr); 
+t_ElementProperty_Library m_Elem=new t_ElementProperty_Library(dr); 
  return m_Elem;
 
 }
 
 
-        public ObservableCollection<t_ElementPropertyLibrary> selectAllDate()
+        public List<t_ElementProperty_Library> selectAllDate()
         {
             string sql = "select * from t_ElementProperty_Library";
            
@@ -70,10 +70,10 @@ t_ElementPropertyLibrary m_Elem=new t_ElementPropertyLibrary(dr);
             {
                 throw ex;
             }
-            ObservableCollection<t_ElementPropertyLibrary> _List = new ObservableCollection<t_ElementPropertyLibrary>();
+            List<t_ElementProperty_Library> _List = new List<t_ElementProperty_Library>();
             foreach (DataRow dr in dt.Rows)
             {
-                t_ElementPropertyLibrary obj = new t_ElementPropertyLibrary(dr);
+                t_ElementProperty_Library obj = new t_ElementProperty_Library(dr);
                 _List.Add(obj);
             }
             return _List;
@@ -86,7 +86,7 @@ t_ElementPropertyLibrary m_Elem=new t_ElementPropertyLibrary(dr);
 		/// <summary>
 		/// 插入t_ElementProperty_Library
 		/// </summary>
-		public virtual bool Insert(t_ElementPropertyLibrary elementPropertyLibrary)
+		public virtual bool Insert(t_ElementProperty_Library elementPropertyLibrary)
 		{
 			string sql = "insert into t_ElementProperty_Library (ElementID, PropertyNo, PropertyValue, Caption, PropertyName) values (@ElementID, @PropertyNo, @PropertyValue, @Caption, @PropertyName)";
 			SqlParameter [] parameters = new SqlParameter[]
@@ -105,7 +105,7 @@ t_ElementPropertyLibrary m_Elem=new t_ElementPropertyLibrary(dr);
 		/// <summary>
 		/// 更新t_ElementProperty_Library
 		/// </summary>
-		public virtual bool Update(t_ElementPropertyLibrary elementPropertyLibrary)
+		public virtual bool Update(t_ElementProperty_Library elementPropertyLibrary)
 		{
 			string sql = "update t_ElementProperty_Library set  PropertyNo = @PropertyNo,  PropertyValue = @PropertyValue,  Caption = @Caption,  PropertyName = @PropertyName where  ElementID = @ElementID";
 			SqlParameter [] parameters = new SqlParameter[]
@@ -128,7 +128,7 @@ t_ElementPropertyLibrary m_Elem=new t_ElementPropertyLibrary(dr);
             if (mlist == null)
                 return false;
             List<CommandList> listcmd = new List<CommandList>();
-            foreach (t_ElementPropertyLibrary obj in mlist)
+            foreach (t_ElementProperty_Library obj in mlist)
             {
                 string sql = string.Format(" delete from t_ElementProperty_Library where  Elementid = '{0}'", obj.Elementid);
                 listcmd.Add(new CommandList() { strCommandText = sql, Type = CommandType.Text });

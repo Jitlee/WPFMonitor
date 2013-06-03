@@ -4,7 +4,7 @@ using System.Globalization;
 using System.Windows;
 using System.Windows.Media;
 
-namespace WPFMonitor.Library.Controls.Converters
+namespace MonitorSystem.Controls.Converters
 {
     public class FontFamilyConverter : TypeConverter
 	{
@@ -20,7 +20,7 @@ namespace WPFMonitor.Library.Controls.Converters
                
 
 				string str = ((string)value).Trim();
-                str = Common.GetFontEn(str);
+                str = Common1.GetFontEn(str);
 				try
 				{
                     return new FontFamily(str);

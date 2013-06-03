@@ -10,7 +10,7 @@ using System.Windows.Media;
 using System.Windows.Media.Animation;
 using System.Windows.Shapes;
 
-namespace WPFMonitor.Library.Gallery
+namespace MonitorSystem.Gallery
 {
     public partial class PointerControl : UserControl
     {

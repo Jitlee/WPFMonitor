@@ -8,11 +8,11 @@ using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Animation;
 using System.Windows.Shapes;
-using WPFMonitor.Library.MonitorSystemGlobal;
-using WPFMonitor.Model;
+using MonitorSystem.MonitorSystemGlobal;
+using WPFMonitor.Model.ZTControls;
 using System.ComponentModel;
 
-namespace WPFMonitor.Library.Dlfh
+namespace MonitorSystem.Dlfh
 {
     /// <summary>
     /// 电力符号 12 电抗器2
@@ -135,7 +135,7 @@ namespace WPFMonitor.Library.Dlfh
                 }
                 else if (name == "LineColor".ToUpper())
                 {
-                    _LineColor = Common.StringToColor(value);
+                    _LineColor = Common1.StringToColor(value);
                 }
                 else if (name == "LineWidth".ToUpper())
                 {
@@ -154,8 +154,8 @@ namespace WPFMonitor.Library.Dlfh
             this.Height = (double)ScreenElement.Height;
             Transparent = ScreenElement.Transparent.Value;
 
-            BackColor = Common.StringToColor(ScreenElement.BackColor);
-            ForeColor = Common.StringToColor(ScreenElement.ForeColor);
+            BackColor = Common1.StringToColor(ScreenElement.BackColor);
+            ForeColor = Common1.StringToColor(ScreenElement.ForeColor);
         }
 
 
@@ -252,7 +252,7 @@ namespace WPFMonitor.Library.Dlfh
 
         private static readonly DependencyProperty LineColorProperty = DependencyProperty.Register("LineColor",
       typeof(int), typeof(Dlfh14), new PropertyMetadata(0));
-        Color _LineColor = Common.StringToColor("#FFED1212");
+        Color _LineColor = Common1.StringToColor("#FFED1212");
         [DefaultValue(""), Description("电抗器颜色"), Category("我的属性")]
         public Color LineColor
         {

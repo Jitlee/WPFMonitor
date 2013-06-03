@@ -7,11 +7,12 @@ using System.Windows.Controls;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 
-using WPFMonitor.Library.MonitorSystemGlobal;
+using MonitorSystem.MonitorSystemGlobal;
 using WPFMonitor.Model.ZTControls;
 using WPFMonitor.DAL.ZTControls;
+using System.IO;
 
-namespace WPFMonitor.Library
+namespace MonitorSystem
 {
     public class ScreenView : Canvas
     {
@@ -218,15 +219,18 @@ namespace WPFMonitor.Library
         #endregion
 
         #region 私有方法
-        
+
         private void SetScreenImg(string strImg, bool resize = false)
         {
-            var gbUrl = WPFMonitor.Common.GetAppPath("\\Upload\\ImageMap\\", strImg);
-            var bitmap = new BitmapImage(new Uri(gbUrl, UriKind.RelativeOrAbsolute));
+            var gbUrl = WPFMonitor.Common.GetAppPath("Upload\\ImageMap", strImg);
+            if (File.Exists(gbUrl))
+            {
+                var bitmap = new BitmapImage(new Uri(gbUrl, UriKind.RelativeOrAbsolute));
 
-            var imgB = new ImageBrush() { Stretch = Stretch.UniformToFill };
-            imgB.ImageSource = bitmap;
-            this.Background = imgB;
+                var imgB = new ImageBrush() { Stretch = Stretch.UniformToFill };
+                imgB.ImageSource = bitmap;
+                this.Background = imgB;
+            }
         }
 
         private void ShowElements(List<t_Element> lsitElement, Canvas canvas, MonitorControl parentContol = null)

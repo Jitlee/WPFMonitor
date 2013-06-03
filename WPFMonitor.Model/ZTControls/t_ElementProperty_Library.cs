@@ -6,7 +6,7 @@ namespace WPFMonitor.Model.ZTControls
     /// <summary>
     /// 
     /// </summary>
-    public class t_ElementPropertyLibrary: ORBase
+    public class t_ElementProperty_Library: ORBase
     {
        
 		private int _Elementid;
@@ -67,7 +67,7 @@ NotifyPropertyChanged("Propertyname");}
 		/// <summary>
 		/// ElementPropertyLibrary构造函数
 		/// </summary>
-		public t_ElementPropertyLibrary()
+		public t_ElementProperty_Library()
 		{
 
 		}
@@ -75,7 +75,7 @@ NotifyPropertyChanged("Propertyname");}
 		/// <summary>
 		/// ElementPropertyLibrary构造函数
 		/// </summary>
-		public t_ElementPropertyLibrary(DataRow row)
+		public t_ElementProperty_Library(DataRow row)
 		{
 			// 
 			_Elementid = Convert.ToInt32(row["ElementID"]);
@@ -89,7 +89,7 @@ NotifyPropertyChanged("Propertyname");}
 			_Propertyname = row["PropertyName"].ToString().Trim();
 		}
 
-	public void Clone(t_ElementPropertyLibrary obj){
+	public void Clone(t_ElementProperty_Library obj){
 //
 Elementid = obj.Elementid;
 //

@@ -12,13 +12,18 @@ using WPFMonitor.Model;
 using WPFMonitor.Model.ZTControls;
 using WPFMonitor.DAL.ZTControls;
 
-namespace WPFMonitor.Library.MonitorSystemGlobal
+namespace MonitorSystem.MonitorSystemGlobal
 {
     public abstract partial class MonitorControl : UserControl
     {
+        public static Type GetType(string name)
+        {
+            return Type.GetType(name);
+        }
+
         public static Action<string[], object> UpdatePropertyGrid { get; set; }
 
-        internal static void OnUpdatePropertyGrid(string[] properties, object propertyObject)
+        public static void OnUpdatePropertyGrid(string[] properties, object propertyObject)
         {
             UpdatePropertyGrid(properties, propertyObject);
         }
@@ -37,36 +42,33 @@ namespace WPFMonitor.Library.MonitorSystemGlobal
             return InitElement(control);
         }
 
-        public static Action<Canvas, t_Element, ElementSate, List<t_ElementProperty>> LoadElement { get; set; }
+        public static Func<Canvas, t_Element, ElementSate, List<t_ElementProperty>, MonitorControl> LoadElement { get; set; }
 
-        protected void OnLoadElement(Canvas canvas, t_Element element, ElementSate state, List<t_ElementProperty> properties)
+        public MonitorControl OnLoadElement(Canvas canvas, t_Element element, ElementSate state, List<t_ElementProperty> properties)
         {
             if (null != LoadElement)
             {
-                LoadElement(canvas, element, state, properties);
+                return LoadElement(canvas, element, state, properties);
             }
+            return null;
         }
 
-        public static EventHandler<LoadScreenEventArgs> LoadScreen { get; set; }
+        public static Action<t_Screen> LoadScreen { get; set; }
 
         protected void OnLoadScreen(object sender, t_Screen screen)
         {
             if (null != LoadScreen)
             {
-                LoadScreen(sender, new LoadScreenEventArgs(screen));
+                LoadScreen(screen);
             }
         }
 
-        private static List<t_Screen> _screenList;
+        public static Func<List<t_Screen>> GetScreenList { get; set; }
         public static List<t_Screen> ScreenList
         {
             get
             {
-                if (null != _screenList)
-                {
-                    _screenList = new ScreenDA().selectAllDate();
-                }
-                return _screenList;
+                return GetScreenList();
             }
         }
 
@@ -83,7 +85,7 @@ namespace WPFMonitor.Library.MonitorSystemGlobal
             get { return _allowToolTip; }
             set { _allowToolTip = value; }
         }
-
+        public int ID { get; set; }
         public bool IsDesignMode { get { return null != AdornerLayer; } }
         public Adorner AdornerLayer { get; protected set; }
         public abstract void DesignMode();
@@ -109,13 +111,13 @@ namespace WPFMonitor.Library.MonitorSystemGlobal
             get
             {
 
-                SetFont();
+                //SetFont();
                 return _ScreenElement;
             }
             set
             {
                 _ScreenElement = value;
-                GetFont(value.Font);
+                //GetFont(value.Font);
             }
         }
         #region 字体处理
@@ -123,7 +125,7 @@ namespace WPFMonitor.Library.MonitorSystemGlobal
         {
             //[Font: Name=宋体, Size=15.75, Units=3, GdiCharSet=134, GdiVerticalFont=False]
             string s = string.Format("[Font: Name={0}, Size={1}, Units=3, GdiCharSet=134, GdiVerticalFont=False]",
-                                   Common.GetFontCN(this.FontFamily.Source),
+                                   Common1.GetFontCN(this.FontFamily.Source),
                                   this.FontSize.ToString());
             if (_ScreenElement != null)
                 _ScreenElement.Font = s;
@@ -164,7 +166,7 @@ namespace WPFMonitor.Library.MonitorSystemGlobal
                     }
                 }
                 this.FontSize = fontSize;
-                this.FontFamily = new FontFamily(Common.GetFontEn(Name));
+                this.FontFamily = new FontFamily(Common1.GetFontEn(Name));
             }
         }
         #endregion
@@ -193,17 +195,20 @@ namespace WPFMonitor.Library.MonitorSystemGlobal
             }
             if (ListElementProp == null)
             {
-                ListElementProp = new List<t_ElementProperty>();
-                var elementProperties = new ControlPropertyDA().SelectByControlId(ScreenElement.ControlID.Value);
-                foreach (t_ControlProperty elementProperty in elementProperties)
+                ListElementProp = new ElementPropertyDA().SelectBy(ScreenElement.ElementID);
+                if (ListElementProp.Count == 0)
                 {
-                    t_ElementProperty tt = new t_ElementProperty();
-                    tt.Caption = elementProperty.Caption;
-                    tt.ElementID = ScreenElement.ElementID;
-                    tt.PropertyNo = elementProperty.PropertyNo;
-                    tt.PropertyValue = elementProperty.DefaultValue;
-                    tt.PropertyName = elementProperty.PropertyName;
-                    ListElementProp.Add(tt);
+                    var elementProperties = new ControlPropertyDA().SelectByControlId(ScreenElement.ControlID.Value);
+                    foreach (t_ControlProperty elementProperty in elementProperties)
+                    {
+                        t_ElementProperty tt = new t_ElementProperty();
+                        tt.Caption = elementProperty.Caption;
+                        tt.ElementID = ScreenElement.ElementID;
+                        tt.PropertyNo = elementProperty.PropertyNo;
+                        tt.PropertyValue = elementProperty.DefaultValue;
+                        tt.PropertyName = elementProperty.PropertyName;
+                        ListElementProp.Add(tt);
+                    }
                 }
             }
 
@@ -240,7 +245,7 @@ namespace WPFMonitor.Library.MonitorSystemGlobal
         public double Translate
         {
             get { return (double)GetValue(OpacityProperty) * 100d; }
-            set { SetValue(OpacityProperty, value / 100d); }
+            set { SetValue(OpacityProperty, value / 100d); this.ScreenElement.Transparent = (int)(value / 100d); }
         }
 
 
@@ -248,13 +253,13 @@ namespace WPFMonitor.Library.MonitorSystemGlobal
         public double Left
         {
             get { return (double)GetValue(Canvas.LeftProperty); }
-            set { SetValue(Canvas.LeftProperty, value); AdornerLayer.SetValue(Canvas.LeftProperty, value); }
+            set { SetValue(Canvas.LeftProperty, value); AdornerLayer.SetValue(Canvas.LeftProperty, value); this.ScreenElement.ScreenX = (int)value; }
         }
         [DefaultValue(""), Description("距上面位置高度")]
         public double Top
         {
             get { return (double)GetValue(Canvas.TopProperty); }
-            set { SetValue(Canvas.TopProperty, value); AdornerLayer.SetValue(Canvas.TopProperty, value); }
+            set { SetValue(Canvas.TopProperty, value); AdornerLayer.SetValue(Canvas.TopProperty, value); this.ScreenElement.ScreenY = (int)value; }
         }
 
         public MonitorControl()

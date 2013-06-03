@@ -166,19 +166,19 @@ NotifyPropertyChanged("Port");}
 		public t_Device(DataRow row)
 		{
 			// 
-			_DeviceID = Convert.ToInt32(row["DeviceID"]);
+			_DeviceID = Converter.ToInt32(row["DeviceID"]);
 			// 
 			_DeviceName = row["DeviceName"].ToString().Trim();
 			// 
-			_CommunicateType = Convert.ToInt32(row["CommunicateType"]);
+			_CommunicateType = Converter.ToInt32(row["CommunicateType"]);
 			// 
-			_CommunicateID = Convert.ToInt32(row["CommunicateID"]);
+			_CommunicateID = Converter.ToInt32(row["CommunicateID"]);
 			// 
 			_SubAddr = row["SubAddr"].ToString().Trim();
 			// 
-			_DeviceTypeID = Convert.ToInt32(row["DeviceTypeID"]);
+			_DeviceTypeID = Converter.ToInt32(row["DeviceTypeID"]);
 			// 
-			_StationID = Convert.ToInt32(row["StationID"]);
+			_StationID = Converter.ToInt32(row["StationID"]);
 			// 
 			_StationName = row["StationName"].ToString().Trim();
 			// 
@@ -188,9 +188,9 @@ NotifyPropertyChanged("Port");}
 			// 
 			_Password = row["Password"].ToString().Trim();
 			// 
-			_Enable = Convert.ToInt32(row["Enable"]);
+			_Enable = Converter.ToInt32(row["Enable"]);
 			// 
-			_Port = Convert.ToInt32(row["Port"]);
+			_Port = Converter.ToInt32(row["Port"]);
 		}
 
 	public void Clone(t_Device obj){

@@ -9,13 +9,13 @@ using System.Windows.Media;
 using System.Windows.Media.Animation;
 using System.Windows.Shapes;
 
-namespace WPFMonitor.Library.Dqfh
+namespace MonitorSystem.Dqfh
 {
     public class DQFHCommon
     {
 
-        public static Color DQFHFilleColor = Common.StringToColor("RGB(75,62,40)");
-        public static Color DQFHFilleColor2 = Common.StringToColor("RGB(211,209,209)");
+        public static Color DQFHFilleColor = Common1.StringToColor("RGB(75,62,40)");
+        public static Color DQFHFilleColor2 = Common1.StringToColor("RGB(211,209,209)");
 
         /// <summary>
         /// 电力电子线条颜色

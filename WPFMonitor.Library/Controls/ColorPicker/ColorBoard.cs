@@ -10,7 +10,7 @@ using System.Windows.Media;
 using System.Windows.Shapes;
 using System.Globalization;
 
-namespace WPFMonitor.Library.Controls
+namespace MonitorSystem.Controls
 {
     public class ColorBoard : Control
     {

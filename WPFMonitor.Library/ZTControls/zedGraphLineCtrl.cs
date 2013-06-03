@@ -13,12 +13,12 @@ using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Animation;
 using System.Windows.Shapes;
-using WPFMonitor.Library.GetData;
-using WPFMonitor.Library.MonitorSystemGlobal;
+using MonitorSystem.GetData;
+using MonitorSystem.MonitorSystemGlobal;
 using WPFMonitor.Model;
 using WPFMonitor.Model.ZTControls;
 
-namespace WPFMonitor.Library.ZTControls
+namespace MonitorSystem.ZTControls
 {
     /// <summary>
     /// 59	zedGraphLineCtrl 2 Text.jpg	组态控件	点线图
@@ -282,7 +282,7 @@ namespace WPFMonitor.Library.ZTControls
        // ObservableCollection<MyDataService.DataTableInfo> _tables;
         private void GetData(string sql, object userState)
         {
-            throw new Exception();
+            //throw new Exception();
             //var ws = WCF.GetService();
             ////string _ConnectString = "server=.;database=MonitorDemo2;uid=sa;pwd=sa";
             //ws.GetDataSetDataCompleted += new EventHandler<MyDataService.GetDataSetDataCompletedEventArgs>(ws_GetDataSetDataCompleted);

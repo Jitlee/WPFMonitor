@@ -10,7 +10,7 @@ using System.Windows.Media;
 using System.Windows.Media.Animation;
 using System.Windows.Shapes;
 
-namespace WPFMonitor.Library.Controls
+namespace MonitorSystem.Controls
 {
     public class PredefinedColorItem : Control
     {
@@ -83,14 +83,14 @@ namespace WPFMonitor.Library.Controls
         {
             if (rectangleColor != null)
             {
-                if (rectangleColor.Fill is SolidColorBrush)
-                {
-                    (rectangleColor.Fill as SolidColorBrush).Color = Color;
-                }
-                else
-                {
+                //if (rectangleColor.Fill is SolidColorBrush)
+                //{
+                //    (rectangleColor.Fill as SolidColorBrush).Color = Color;
+                //}
+                //else
+                //{
                     rectangleColor.Fill = new SolidColorBrush(Color);
-                }
+                //}
             }
         }
     }

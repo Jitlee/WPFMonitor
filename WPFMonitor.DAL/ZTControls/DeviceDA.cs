@@ -18,6 +18,29 @@ namespace WPFMonitor.DAL.ZTControls
     {
         
 		#region 查询
+
+        public List<t_Device> GetDevicesByStationId(int stationId)
+        {
+            string sql = "select * from t_Device where StationID = " + stationId;
+
+            DataTable dt = null;
+            try
+            {
+                dt = db.ExecuteQuery(sql);
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+            List<t_Device> _List = new List<t_Device>();
+            foreach (DataRow dr in dt.Rows)
+            {
+                t_Device obj = new t_Device(dr);
+                _List.Add(obj);
+            }
+            return _List;
+        }
+
 public DataTable selectAllDateByWhere(int pageCrrent, int pageSize, out int pageCount, string where)
 {
 string sql = "select * from t_Device";
@@ -58,6 +81,27 @@ t_Device m_Devi=new t_Device(dr);
 
 }
 
+public ObservableCollection<t_Device> selectBy(int deviceID)
+{
+    string sql = "select * from t_Device WHERE DeviceID=" + deviceID;
+
+    DataTable dt = null;
+    try
+    {
+        dt = db.ExecuteQuery(sql);
+    }
+    catch (Exception ex)
+    {
+        throw ex;
+    }
+    ObservableCollection<t_Device> _List = new ObservableCollection<t_Device>();
+    foreach (DataRow dr in dt.Rows)
+    {
+        t_Device obj = new t_Device(dr);
+        _List.Add(obj);
+    }
+    return _List;
+}
 
         public ObservableCollection<t_Device> selectAllDate()
         {

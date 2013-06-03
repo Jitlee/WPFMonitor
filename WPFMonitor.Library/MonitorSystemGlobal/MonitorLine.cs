@@ -12,8 +12,9 @@ using System.Collections.Generic;
 using System.Linq;
 using WPFMonitor.Model;
 using System.ComponentModel;
+using WPFMonitor.Model.ZTControls;
 
-namespace WPFMonitor.Library.MonitorSystemGlobal
+namespace MonitorSystem.MonitorSystemGlobal
 {
     public class MonitorLine : MonitorControl
     {
@@ -210,7 +211,7 @@ namespace WPFMonitor.Library.MonitorSystemGlobal
             this.Width = (double)ScreenElement.Width;
             this.Height = (double)ScreenElement.Height;
 
-             ForeColor = Common.StringToColor(ScreenElement.ForeColor);
+             ForeColor = Common1.StringToColor(ScreenElement.ForeColor);
              Transparent = ScreenElement.Transparent.Value;
         }
 

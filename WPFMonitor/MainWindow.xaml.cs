@@ -18,6 +18,8 @@ using WPFMonitor.View.AlertAdmin;
 using WPFMonitor.View.Linkage;
 using WPFMonitor.View.TPControls;
 using WPFMonitor.View.SerMonitor;
+using MonitorSystem.MonitorSystemGlobal;
+using WPFMonitor.Core.TPControls;
 
 namespace WPFMonitor
 {
@@ -28,6 +30,10 @@ namespace WPFMonitor
     {
         readonly ScreenTreeWindow _screenTreeWindow = new ScreenTreeWindow();
         readonly ControlWindow _controlWindow = new ControlWindow();
+        readonly LoadScreen _loadScreen = new LoadScreen();
+        readonly PropertyWindow _propertyWindow = new PropertyWindow();
+        readonly GalleryWindow _galleryWindow = new GalleryWindow() { FloatingWindowSize = new Size(600, 200),};
+
         public MainWindow()
         {
             //test t = new test();
@@ -42,8 +48,83 @@ namespace WPFMonitor
 
         private void dockManager_Loaded(object sender, RoutedEventArgs e)
         {
-            _screenTreeWindow.Show(dockManager, AnchorStyle.Left);
-            _controlWindow.Show(dockManager, AnchorStyle.Left);
+            var s = ScreenTreeVM.Instance;
+
+            _loadScreen.ShowAsDocument(dockManager);
+
+            MonitorControl.UpdatePropertyGrid = (properties, o) => 
+            {
+                _propertyWindow.ControlPropertyGrid.SelectedObject = o;
+                _propertyWindow.ControlPropertyGrid.BrowsableProperties = properties;
+            };
+            MonitorControl.GetMainCanvas = () =>
+                {
+                    return _loadScreen.csScreen;
+                };
+
+            MonitorControl.InitElement = (ctrl) =>
+                {
+                    return _loadScreen.InitElement(ctrl);
+                };
+
+            MonitorControl.LoadElement = (c, obj, eleStae, listObj) =>
+                {
+                    return _loadScreen.ShowElement(c, obj, eleStae, listObj);
+                };
+
+            MonitorControl.LoadScreen = (sc) =>
+                {
+                    _loadScreen.LoadSence(sc);
+                };
+
+            MonitorControl.GetScreenList = () =>
+                {
+                    return ScreenTreeVM.Instance.AllScreens;
+                };
+
+            _loadScreen.ResetSelected = () =>
+            {
+                _controlWindow.ResetSelected();
+                _galleryWindow.ResetSelected();
+            };
+
+            _loadScreen.TP = () =>
+            {
+                _galleryWindow.Show(dockManager, AnchorStyle.Bottom);
+                _propertyWindow.Show(dockManager, AnchorStyle.Left);
+                _screenTreeWindow.Show(dockManager, AnchorStyle.Left);
+                _controlWindow.Show(dockManager, AnchorStyle.Left);
+                //_galleryWindow.ShowAsFloatingWindow(dockManager, true);
+            };
+
+            _loadScreen.ZTExit = () => {
+                _propertyWindow.Hide();
+                _screenTreeWindow.Hide();
+                _controlWindow.Hide();
+                _galleryWindow.Hide();
+            };
+
+            _loadScreen.DesignVisilityChanged = () => {
+                //if (_galleryWindow.Visibility != Visibility.Visible)
+                //{
+                //    _galleryWindow.ShowAsFloatingWindow(dockManager, true);
+                //}
+                //else
+                //{
+                //    _galleryWindow.Hide();
+                //}
+            };
+
+            _loadScreen.GalleryVisibilityChanged = () => {
+                //if (_galleryWindow.Visibility != Visibility.Visible)
+                //{
+                //    _galleryWindow.ShowAsFloatingWindow(dockManager, true);
+                //}
+                //else
+                //{
+                //    _galleryWindow.Hide();
+                //}
+            };
         }
 
         #region 菜单事件

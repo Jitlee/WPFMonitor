@@ -4,64 +4,168 @@
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:dock="clr-namespace:DockingLibrary;assembly=DockingLibrary"
     xmlns:libs="http://www.monitor.com/wpf/library"
-    Title="LoadScreen" Height="300" Width="300">
-    <Grid
+    xmlns:core="http://www.monitor.com/wpf/core"
+    xmlns:converters="clr-namespace:WPFMonitor.Core.Converter"
+    xmlns:xceed="clr-namespace:Xceed.Wpf.Toolkit;assembly=Xceed.Wpf.Toolkit"
+    Title="场景" Height="300" Width="300">
+    <dock:DockableContent.Resources>
+        <converters:BooleanToVisibilityConverter x:Key="BooleanToVisibilityConverter"/>
+    </dock:DockableContent.Resources>
+    <Grid>
+        <Grid x:Name="gdContent" Background="Beige" ShowGridLines="False" Margin="0">
+            <Grid.RowDefinitions >
+                <RowDefinition Height="30"  />
+                <RowDefinition Height="35"  />
+                <RowDefinition Height="*"/>
+            </Grid.RowDefinitions>
+            <Border Grid.Row="0">
+                <Border.Background>
+                    <LinearGradientBrush StartPoint="0,0" EndPoint="0,1">
+                        <GradientStop Color="#FFFAFAFA" Offset="0"/>
+                        <GradientStop Color="#FFF4F4F4" Offset="1"/>
+                    </LinearGradientBrush>
+                </Border.Background>
+                <Menu x:Name="MainScript" VerticalAlignment="Center" Background="{x:Null}">
+                    <MenuItem x:Name="ZTMenuScriptItem" Header="组态设计">
+                        <MenuItem x:Name="TPMenuScriptItem" Header="拓扑组态" Icon="/WPFMonitor;component/Resources/Images/Common/拓扑组态.jpg" Click="TP_Click"/>
+                    </MenuItem>
+                    <MenuItem x:Name="OpartionMenuScriptItem" Header="操作" Visibility="Collapsed">
+                        <MenuItem x:Name="SaveCurrentSenceMenuScriptItem" Icon="/WPFMonitor;component/Resources/Images/Common/保存场景.jpg" Header="保存当前场景" Click="SaveCurrentSence_Click"/>
+                        <MenuItem x:Name="ZTExitMenuScriptItem" Header="退出组态" Icon="/WPFMonitor;component/Resources/Images/Common/退出.JPG" Click="ZTExit_Click"/>
+                    </MenuItem>
+                    <MenuItem x:Name="AllSencesMenuScriptItem" Header="所有场景"/>
+                </Menu>
+            </Border>
+            <TextBox Opacity="0" Height="0" Width="0" x:Name="HideFocusElement"/>
+            <Grid  Background="#e5eff8" Name="wrapPanel1"  Grid.Row="1">
+                <StackPanel  HorizontalAlignment="Left" VerticalAlignment="Center" Orientation="Horizontal">
+                    <libs:ImageButton Height="23"  VerticalAlignment="Center" Width="75" Content="首页" Margin="5,0" Image="/WPFMonitor;component/Resources/Images/Common/首页_工具条.jpg" Click="Home_Click"/>
+                    <libs:ImageButton Height="23"  VerticalAlignment="Center" Width="75" Content="后退" Margin="5,0" Image="/WPFMonitor;component/Resources/Images/Common/prev.JPG" Click="Back_Click"/>
+                    <libs:ImageButton x:Name="DesignButton"  VerticalAlignment="Center" Height="23" Width="75" Content="设计" Margin="5,0" Image="/WPFMonitor;component/Resources/Images/design.png" Click="DesignButton_Click" Visibility="Collapsed"/>
+                    <libs:ImageButton x:Name="GalleryButton"  VerticalAlignment="Center" Height="23" Width="75" Content="图库" Margin="5,0" Image="/WPFMonitor;component/Resources/Images/gallery.png" Click="GalleryButton_Click" Visibility="Collapsed"/>
+                </StackPanel>
+                <TextBlock
+                    Margin="5,5"
+                    HorizontalAlignment="Right"
+                    VerticalAlignment="Center"
+                    Name="lblShowMsg" />
+            </Grid>
+            <Grid
                 Name="GridScreen"
                 Background="Silver"
-                Grid.Row="2">
-        <Canvas
-                    Background="Beige"
-                    x:Name="csScreen"
-                    VerticalAlignment="Top"
-                    HorizontalAlignment="Left">
-            <Canvas.RenderTransform>
-                <TransformGroup>
-                    <ScaleTransform x:Name="CanvasScaleTransform"/>
-                    <TranslateTransform x:Name="CanvasTranslateTransform"/>
-                </TransformGroup>
-            </Canvas.RenderTransform>
-        </Canvas>
-        <Canvas
-                    x:Name="AddElementCanvas"
-                    Visibility="Collapsed"
-                    VerticalAlignment="Top"
-                    HorizontalAlignment="Left"
-                    Background="Transparent">
-            <Rectangle x:Name="AddElementRectangle" Stroke="Black" StrokeThickness="1" StrokeDashArray="5,5" Visibility="Collapsed"/>
-        </Canvas>
-        <Border
-                    BorderBrush="Black"
-                    BorderThickness="1"
-                    Background="Silver"
-                    Height="150"
-                    Width="200"
-                    HorizontalAlignment="Right"
-                    VerticalAlignment="Bottom"
-                    x:Name="ThumbnailBorder"
-                    MouseLeftButtonDown="ThumbnailBorder_MouseLeftButtonDown"
-                    Visibility="{Binding ElementName=ThumbnailToggleButton, Path=IsChecked, Converter={StaticResource BooleanToVisibilityConverter}}">
-            <Border.Clip>
-                <RectangleGeometry Rect="0,0,200,150"/>
-            </Border.Clip>
-            <Grid>
+                Grid.Row="2"
+                SizeChanged="GridScreen_SizeChanged">
                 <Canvas
-                            x:Name="ThumbnailCanvas"
-                            Background="Beige"
-                            HorizontalAlignment="Center"
-                            VerticalAlignment="Center">
-                    <Rectangle
-                                Fill="#85000000"
-                                Stroke="Blue"
-                                StrokeThickness="1"
-                                x:Name="ThumbnailRectangle"/>
+                    Background="Beige"
+                    x:Name="csScreen">
+                    <Canvas.RenderTransform>
+                        <TransformGroup>
+                            <ScaleTransform x:Name="CanvasScaleTransform"/>
+                            <TranslateTransform x:Name="CanvasTranslateTransform"/>
+                        </TransformGroup>
+                    </Canvas.RenderTransform>
                 </Canvas>
-                <TextBlock
-                            x:Name="ScaleTextBlock"
-                            VerticalAlignment="Top"
-                            HorizontalAlignment="Right"
-                            Text="100%"
-                            IsHitTestVisible="False"/>
+                <Canvas
+                        x:Name="AddElementCanvas"
+                        Visibility="Collapsed"
+                        VerticalAlignment="Top"
+                        HorizontalAlignment="Left"
+                        Background="Transparent">
+                    <Rectangle x:Name="AddElementRectangle" Stroke="Black" StrokeThickness="1" StrokeDashArray="5,5" Visibility="Collapsed"/>
+                </Canvas>
+                <Border
+                        BorderBrush="Black"
+                        BorderThickness="1"
+                        Background="Silver"
+                        Height="150"
+                        Width="200"
+                        HorizontalAlignment="Right"
+                        VerticalAlignment="Bottom"
+                        x:Name="ThumbnailBorder"
+                        MouseLeftButtonDown="ThumbnailBorder_MouseLeftButtonDown"
+                        Visibility="{Binding ElementName=ThumbnailToggleButton, Path=IsChecked, Converter={StaticResource BooleanToVisibilityConverter}}">
+                    <Border.Clip>
+                        <RectangleGeometry Rect="0,0,200,150"/>
+                    </Border.Clip>
+                    <Grid>
+                        <Canvas
+                                x:Name="ThumbnailCanvas"
+                                Background="Beige"
+                                HorizontalAlignment="Center"
+                                VerticalAlignment="Center">
+                            <libs:ScreenView x:Name="_ScreenView"/>
+                            <Rectangle
+                                    Fill="#85000000"
+                                    Stroke="Blue"
+                                    StrokeThickness="1"
+                                    x:Name="ThumbnailRectangle"/>
+                        </Canvas>
+                        <TextBlock
+                                x:Name="ScaleTextBlock"
+                                VerticalAlignment="Top"
+                                HorizontalAlignment="Right"
+                                Text="100%"
+                                IsHitTestVisible="False"/>
+                    </Grid>
+                </Border>
+
+                <ToggleButton
+                        HorizontalAlignment="Right"
+                        VerticalAlignment="Bottom"
+                        x:Name="ThumbnailToggleButton"
+                        Grid.Row="2">
+                    <ToggleButton.Style>
+                        <Style TargetType="ToggleButton">
+                            <Setter Property="Background" Value="#FF1F3B53"/>
+                            <Setter Property="Foreground" Value="#FF000000"/>
+                            <Setter Property="Padding" Value="3"/>
+                            <Setter Property="BorderThickness" Value="1"/>
+                            <Setter Property="BorderBrush">
+                                <Setter.Value>
+                                    <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
+                                        <GradientStop Color="#FFA3AEB9" Offset="0"/>
+                                        <GradientStop Color="#FF8399A9" Offset="0.375"/>
+                                        <GradientStop Color="#FF718597" Offset="0.375"/>
+                                        <GradientStop Color="#FF617584" Offset="1"/>
+                                    </LinearGradientBrush>
+                                </Setter.Value>
+                            </Setter>
+                            <Setter Property="Template">
+                                <Setter.Value>
+                                    <ControlTemplate TargetType="ToggleButton">
+                                        <Grid>
+                                            <Border
+                                                    Background="{TemplateBinding Background}"
+                                                    BorderBrush="{TemplateBinding BorderBrush}"
+                                                    BorderThickness="{TemplateBinding BorderThickness}">
+                                                <Path x:Name="path"
+                                                          Margin="3"
+                                                          Data="M0.45235771,0.74170661 L19.917377,19.711002 M0.45768556,0.28899786 L0.43631038,12.921068 M0.082622245,0.74776787 L12.565722,0.78140163"
+                                                          Fill="#FFF4F4F5"
+                                                          Stroke="Black"
+                                                          UseLayoutRounding="False"
+                                                          Width="10" Height="10" RenderTransformOrigin="0.5,0.5">
+                                                </Path>
+                                            </Border>
+                                        </Grid>
+                                        <ControlTemplate.Triggers>
+                                            <Trigger Property="IsChecked" Value="True">
+                                                <Setter TargetName="path" Property="RenderTransform">
+                                                    <Setter.Value>
+                                                        <RotateTransform Angle="180"/>
+                                                    </Setter.Value>
+                                                </Setter>
+                                            </Trigger>
+                                        </ControlTemplate.Triggers>
+                                    </ControlTemplate>
+                                </Setter.Value>
+                            </Setter>
+                        </Style>
+                    </ToggleButton.Style>
+                </ToggleButton>
             </Grid>
-        </Border>
+        </Grid>
+
+        <xceed:BusyIndicator x:Name="tbWait"/>
     </Grid>
 </dock:DockableContent>

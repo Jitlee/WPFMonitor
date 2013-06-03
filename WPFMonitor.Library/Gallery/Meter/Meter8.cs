@@ -9,11 +9,12 @@ using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Animation;
 using System.Windows.Shapes;
-using WPFMonitor.Library.MonitorSystemGlobal;
-using WPFMonitor.Library.ZTControls;
+using MonitorSystem.MonitorSystemGlobal;
+using MonitorSystem.ZTControls;
 using WPFMonitor.Model;
+using WPFMonitor.Model.ZTControls;
 
-namespace WPFMonitor.Library.Gallery.Meter
+namespace MonitorSystem.Gallery.Meter
 {
     /// <summary>
     /// 仪表8
@@ -137,7 +138,7 @@ namespace WPFMonitor.Library.Gallery.Meter
                 }
                 else if (name == "ScaleColor")
                 {
-                    ScaleColor = Common.StringToColor(value);
+                    ScaleColor = Common1.StringToColor(value);
                 }
             }
         }
@@ -150,8 +151,8 @@ namespace WPFMonitor.Library.Gallery.Meter
             this.Width = (double)ScreenElement.Width;
             this.Height = (double)ScreenElement.Height;
 
-            //BackColor = Common.StringToColor(ScreenElement.BackColor);
-            ForeColor = Common.StringToColor(ScreenElement.ForeColor);
+            //BackColor = Common1.StringToColor(ScreenElement.BackColor);
+            ForeColor = Common1.StringToColor(ScreenElement.ForeColor);
             //Transparent = ScreenElement.Transparent.Value;
         }
 

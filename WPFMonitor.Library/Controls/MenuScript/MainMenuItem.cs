@@ -6,7 +6,7 @@ using System.Windows.Controls.Primitives;
 using System.Windows.Input;
 using System.Windows.Media;
 
-namespace WPFMonitor.Library.Controls
+namespace MonitorSystem.Controls
 {
     [TemplatePart(Name = "PART_Button", Type = typeof(ToggleButton))]
     [TemplatePart(Name = "PART_Popup", Type = typeof(Popup))]

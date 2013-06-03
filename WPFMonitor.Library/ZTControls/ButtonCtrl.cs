@@ -7,12 +7,12 @@ using System.Windows.Controls;
 using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
-using WPFMonitor.Library.Controls;
-using WPFMonitor.Library.MonitorSystemGlobal;
+using MonitorSystem.Controls;
+using MonitorSystem.MonitorSystemGlobal;
 using WPFMonitor.Model;
 using WPFMonitor.Model.ZTControls;
 
-namespace WPFMonitor.Library.ZTControls
+namespace MonitorSystem.ZTControls
 {
     /// <summary>
     /// 51	ButtonCtrl	2	MyButton.jpg	组态控件	跳转按钮
@@ -96,7 +96,7 @@ namespace WPFMonitor.Library.ZTControls
                 if (attr.Length == 2)
                 {
                     int Scrennid = Convert.ToInt32(attr[1]);
-                    var vSelectScreen=LoadScreen.listScreen.Where(a => a.ScreenID == Scrennid);
+                    var vSelectScreen = MonitorControl.ScreenList.Where(a => a.ScreenID == Scrennid);
                     if(vSelectScreen.Count()==0)
                     {
                         continue;
@@ -152,7 +152,7 @@ namespace WPFMonitor.Library.ZTControls
                     if (name == "BackColor".ToUpper())
                     {
                         //this.button1.BackColor = GetColorFromStr(value);
-                        BackColor = Common.StringToColor(value);
+                        BackColor = Common1.StringToColor(value);
                     }
                     else
                     {
@@ -164,7 +164,7 @@ namespace WPFMonitor.Library.ZTControls
                             if (name == "ForeColor".ToUpper())
                             {
                                 //this.button1.ForeColor = GetColorFromStr(value);
-                                ForeColor = Common.StringToColor(value);
+                                ForeColor = Common1.StringToColor(value);
                             }
 
                             else if (name == "MyText".ToUpper())
@@ -420,8 +420,10 @@ namespace WPFMonitor.Library.ZTControls
 
         public void OnBackImageNameChanged(string oldValue, string newValue)
         {
-            throw new Exception();
-            //_image.Source = new BitmapImage(new Uri(Application.Current.Host.Source, string.Concat("../Upload/Pic/", newValue.Trim('/'))));
+            if (System.IO.File.Exists(newValue))
+            {
+                _image.Source = new BitmapImage(new Uri(newValue, UriKind.Absolute));
+            }
         }
 
         #endregion
@@ -485,7 +487,8 @@ namespace WPFMonitor.Library.ZTControls
 
         private void ShowName(t_Screen screen)
         {
-            LoadScreen.Load(screen);
+            //LoadScreen.Load(screen);
+            OnLoadScreen(this, screen);
         }
 
         private void SetTextImageRelation()

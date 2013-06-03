@@ -89,6 +89,25 @@ namespace WPFMonitor
         }
 
         /// <summary>
+        /// 将字符串对象转换成 float
+        /// </summary>
+        /// <param name="o">要转换的字符串对象</param>
+        /// <param name="defaultValue">默认值</param>
+        /// <returns>返回转化好的值</returns>
+        public static float ToFloat(object o, float defaultValue = default(float))
+        {
+            if (null != o)
+            {
+                float result;
+                if (float.TryParse(o.ToString(), out result))
+                {
+                    return result;
+                }
+            }
+            return defaultValue;
+        }
+
+        /// <summary>
         /// 将字符串对象转换成 Char
         /// </summary>
         /// <param name="o">要转换的字符串对象</param>

@@ -12,12 +12,12 @@ using System.Windows.Media.Animation;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
 using System.Windows.Threading;
-using WPFMonitor.Library.Controls;
-using WPFMonitor.Library.MonitorSystemGlobal;
+using MonitorSystem.Controls;
+using MonitorSystem.MonitorSystemGlobal;
 using WPFMonitor.Model;
 using WPFMonitor.Model.ZTControls;
 
-namespace WPFMonitor.Library.ZTControls
+namespace MonitorSystem.ZTControls
 {
     /// <summary>
     /// 56	DimorphismGraphCtrl	2	Text.jpg	组态控件	二态图
@@ -133,7 +133,7 @@ namespace WPFMonitor.Library.ZTControls
                 }
                 else if (name == "WhichBackImage".ToUpper())
                 {
-                    _WhichBackImage = Common.ConvertToBool(value);
+                    _WhichBackImage = Common1.ConvertToBool(value);
                 }
                 else if (name == "RefreshRate".ToUpper())
                 {
@@ -252,38 +252,36 @@ namespace WPFMonitor.Library.ZTControls
 
         private void ChangeImage()
         {
-            throw new Exception();
-            //string gbUrl = "";//
-            //if (_WhichBackImage)
-            //{
-            //    if (!string.IsNullOrEmpty(_BackImageName1))
-            //    {
-            //        gbUrl = string.Format("{0}/Upload/Pic/{1}", Common.TopUrl(), _BackImageName1);
-            //    }
-            //    _WhichBackImage = false;
-            //}
-            //else
-            //{
-            //    if (!string.IsNullOrEmpty(_BackImageName2))
-            //    {
-            //        gbUrl = string.Format("{0}/Upload/Pic/{1}", Common.TopUrl(), _BackImageName2);
-            //    }
-            //    _WhichBackImage = true;
-            //}
-            ////显示背景
-            //if (gbUrl == "")
-            //{
-            //    PaintBackground();
-            //}
-            //else
-            //{
-            //    BitmapImage bitmap = new BitmapImage(new Uri(gbUrl, UriKind.Absolute));
-            //    ImageBrush img = new ImageBrush();
-            //    img.ImageSource = bitmap;
-            //    img.Stretch = Stretch.Fill;
-            //    mRect.Background = img;
-            //}
-
+            string gbUrl = "";//
+            if (_WhichBackImage)
+            {
+                if (System.IO.File.Exists(_BackImageName1))
+                {
+                    gbUrl = _BackImageName1;
+                }
+                _WhichBackImage = false;
+            }
+            else
+            {
+                if (System.IO.File.Exists(_BackImageName2))
+                {
+                    gbUrl = _BackImageName2;
+                }
+                _WhichBackImage = true;
+            }
+            //显示背景
+            if (gbUrl == "")
+            {
+                PaintBackground();
+            }
+            else
+            {
+                BitmapImage bitmap = new BitmapImage(new Uri(gbUrl, UriKind.Absolute));
+                ImageBrush img = new ImageBrush();
+                img.ImageSource = bitmap;
+                img.Stretch = Stretch.Fill;
+                mRect.Background = img;
+            }
         }
 
         private void PaintBackground()

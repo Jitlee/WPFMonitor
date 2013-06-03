@@ -14,11 +14,11 @@ using System.Windows.Media;
 using System.Windows.Media.Animation;
 using System.Windows.Shapes;
 using WPFMonitor.DAL;
-using WPFMonitor.Library.MonitorSystemGlobal;
+using MonitorSystem.MonitorSystemGlobal;
 using WPFMonitor.Model;
 using WPFMonitor.Model.ZTControls;
 
-namespace WPFMonitor.Library.ZTControls
+namespace MonitorSystem.ZTControls
 {
     /// <summary>
     /// 55	TableCtrl	2	MyButton.jpg	组态控件	表格
@@ -258,7 +258,7 @@ namespace WPFMonitor.Library.ZTControls
       #region 从wcf中加载数据
         private void GetData(string sql, object userState)
         {
-            throw new Exception();
+            //throw new Exception();
             //var ws = WCF.GetService();
 
             //ws.GetDataSetDataCompleted += new EventHandler<MyDataService.GetDataSetDataCompletedEventArgs>(ws_GetDataSetDataCompleted);

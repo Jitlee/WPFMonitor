@@ -8,12 +8,13 @@ using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Animation;
 using System.Windows.Shapes;
-using WPFMonitor.Library.MonitorSystemGlobal;
+using MonitorSystem.MonitorSystemGlobal;
 using System.ComponentModel;
 using System.Windows.Media.Imaging;
 using WPFMonitor.Model;
+using WPFMonitor.Model.ZTControls;
 
-namespace WPFMonitor.Library.ZTControls
+namespace MonitorSystem.ZTControls
 {
     /// <summary>
     /// 28	DetailSwitch	2	DetailSwitch.jpg	组态控件	普通开关
@@ -22,7 +23,7 @@ namespace WPFMonitor.Library.ZTControls
     {
         public override void SetChannelValue(float fValue)
         {
-            OpenOrNot = Common.ConvertToBool(fValue.ToString());
+            OpenOrNot = Common1.ConvertToBool(fValue.ToString());
         }
 
         public override void DesignMode()
@@ -113,11 +114,11 @@ namespace WPFMonitor.Library.ZTControls
                 string value = pro.PropertyValue;
                 if (name == "OpenOrNot".ToUpper())
                 {
-                    OpenOrNot = Common.ConvertToBool(value);
+                    OpenOrNot = Common1.ConvertToBool(value);
                 }
                 else if (name == "IsRightDirect".ToUpper())
                 {
-                    IsRightDirect = Common.ConvertToBool(value);
+                    IsRightDirect = Common1.ConvertToBool(value);
                 }
             }
         }
@@ -129,7 +130,7 @@ namespace WPFMonitor.Library.ZTControls
             this.Width = (double)ScreenElement.Width;
             this.Height = (double)ScreenElement.Height;
             Transparent = ScreenElement.Transparent.Value;
-            ForeColor = Common.StringToColor(ScreenElement.ForeColor); 
+            ForeColor = Common1.StringToColor(ScreenElement.ForeColor); 
         }
 
         private string[] _browsableProperties = new[] {"Width", "Height", "Left", "Top", "FontFamily", "FontSize", "Location", "Size", "Font", "ForeColor", 
@@ -283,8 +284,8 @@ namespace WPFMonitor.Library.ZTControls
 
         private void Paint()
         {
-            var iOpen = "/WPFMonitor.Library;component/Images/ControlsImg/Open.jpg";
-            var iClose = "/WPFMonitor.Library;component/Images/ControlsImg/Close.jpg";
+            var iOpen = "/MonitorSystem;component/Images/ControlsImg/Open.jpg";
+            var iClose = "/MonitorSystem;component/Images/ControlsImg/Close.jpg";
             _image.Source = new BitmapImage(new Uri(iOpen, UriKind.RelativeOrAbsolute));
             if (IsRightDirect)
             {

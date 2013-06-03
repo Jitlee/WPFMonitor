@@ -1,0 +1,33 @@
+﻿<dock:DockableContent x:Class="WPFMonitor.View.TPControls.GalleryWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:dock="clr-namespace:DockingLibrary;assembly=DockingLibrary"
+    xmlns:xceed="clr-namespace:Xceed.Wpf.Toolkit;assembly=Xceed.Wpf.Toolkit"
+        Title="图库" Height="300" Width="600">
+    <Grid x:Name="LayoutRoot" Background="White">
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="150"/>
+            <ColumnDefinition Width="*"/>
+        </Grid.ColumnDefinitions>
+        <ListBox
+            x:Name="GalleryClassificationListBox"
+            DisplayMemberPath="Name"
+            SelectionChanged="GalleryClassificationListBox_SelectionChanged"/>
+        <ListBox
+            x:Name="GalleryListBox"
+            Grid.Column="1"
+            SelectionChanged="GalleryListBox_SelectionChanged"
+            MouseDoubleClick="GalleryListBox_MouseDoubleClick"
+            ScrollViewer.HorizontalScrollBarVisibility="Disabled">
+            <ListBox.ItemsPanel>
+                <ItemsPanelTemplate>
+                    <WrapPanel/>
+                </ItemsPanelTemplate>
+            </ListBox.ItemsPanel>
+        </ListBox>
+        <xceed:BusyIndicator
+            x:Name="LoadingBusyIndicator"
+            Grid.ColumnSpan="2"
+            BusyContent="正在安装"/>
+    </Grid>
+</dock:DockableContent>

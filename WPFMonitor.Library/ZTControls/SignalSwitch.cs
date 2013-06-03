@@ -8,11 +8,12 @@ using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Animation;
 using System.Windows.Shapes;
-using WPFMonitor.Library.MonitorSystemGlobal;
+using MonitorSystem.MonitorSystemGlobal;
 using System.ComponentModel;
 using WPFMonitor.Model;
+using WPFMonitor.Model.ZTControls;
 
-namespace WPFMonitor.Library.ZTControls
+namespace MonitorSystem.ZTControls
 {
     /// <summary>
     /// 20	SignalSwitch	2	SignalSwitch.jpg	组态控件	图形开关
@@ -21,7 +22,7 @@ namespace WPFMonitor.Library.ZTControls
     {
         public override void SetChannelValue(float fValue)
         {
-            OpenOrNot = Common.ConvertToBool(fValue.ToString());
+            OpenOrNot = Common1.ConvertToBool(fValue.ToString());
             if (IsFlash)
             {
                 if (OpenOrNot == FlashLogic)
@@ -120,19 +121,19 @@ namespace WPFMonitor.Library.ZTControls
 
                 if (name == "TrueColor".ToUpper())
                 {
-                    TrueColor = Common.StringToColor(value);
+                    TrueColor = Common1.StringToColor(value);
                 }
                 else if (name == "FalseColor".ToUpper())
                 {
-                    FalseColor = Common.StringToColor( value);
+                    FalseColor = Common1.StringToColor( value);
                 }
                 else if (name == "IsFlash".ToUpper())
                 {
-                    IsFlash = Common.ConvertToBool(value);
+                    IsFlash = Common1.ConvertToBool(value);
                 }
                 else if (name == "FlashLogic".ToUpper())
                 {
-                    FlashLogic = Common.ConvertToBool(value);
+                    FlashLogic = Common1.ConvertToBool(value);
                 }
                 else if (name == "Style".ToUpper())
                 {
@@ -140,7 +141,7 @@ namespace WPFMonitor.Library.ZTControls
                 }
                 else if (name == "OpenOrNot".ToUpper())
                 {
-                    OpenOrNot =Common.ConvertToBool(value);
+                    OpenOrNot =Common1.ConvertToBool(value);
                 }
             }
             

@@ -11,10 +11,11 @@ using System.Windows.Media;
 using System.Windows.Media.Animation;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
-using WPFMonitor.Library.MonitorSystemGlobal;
+using MonitorSystem.MonitorSystemGlobal;
 using WPFMonitor.Model;
+using WPFMonitor.Model.ZTControls;
 
-namespace WPFMonitor.Library.ZTControls
+namespace MonitorSystem.ZTControls
 {
     /// <summary>
     /// 24	DrawLine	2	LeakageMonitor.jpg	组态控件	漏水绳
@@ -59,7 +60,7 @@ namespace WPFMonitor.Library.ZTControls
                 tpp.LevelNo = this.ScreenElement.LevelNo.Value;
                 tpp.ComputeStr = this.ScreenElement.ComputeStr;
 
-                tpp.Method = this.ScreenElement.Method.Value;
+                tpp.Method = this.ScreenElement.Method;
                 tpp.MinFloat = this.ScreenElement.MinFloat.Value;
                 tpp.MaxFloat = this.ScreenElement.MaxFloat.Value;
             }
@@ -147,7 +148,7 @@ namespace WPFMonitor.Library.ZTControls
                 this.SetValue(Canvas.TopProperty, (double)ScreenElement.ScreenY);
                 Transparent = ScreenElement.Transparent.Value;
 
-                _BackColor = Common.StringToColor(ScreenElement.BackColor);
+                _BackColor = Common1.StringToColor(ScreenElement.BackColor);
 
                 this.Width = _Canv.Width = (double)ScreenElement.Width;
                 this.Height = _Canv.Height = (double)ScreenElement.Height;
@@ -176,11 +177,11 @@ namespace WPFMonitor.Library.ZTControls
 
                 if (name == "LeftOrNot".ToUpper())
                 {
-                    leftOrNot = Common.ConvertToBool(value);
+                    leftOrNot = Common1.ConvertToBool(value);
                 }
                 else if (name == "GoodOrNot".ToUpper())
                 {
-                    goodOrNot = Common.ConvertToBool(value);
+                    goodOrNot = Common1.ConvertToBool(value);
                 }
                 else if (name == "LineWidths".ToUpper())
                 {
@@ -188,7 +189,7 @@ namespace WPFMonitor.Library.ZTControls
                 }
                 if (name == "Beeline".ToUpper())
                 {
-                    beeline = Common.ConvertToBool(value);
+                    beeline = Common1.ConvertToBool(value);
                 }
                 else if (name == "EdgeSize".ToUpper())
                 {
@@ -201,7 +202,7 @@ namespace WPFMonitor.Library.ZTControls
 
                 else if (name == "IsRightDirect".ToUpper())
                 {
-                    isRightDirect = Common.ConvertToBool(value);
+                    isRightDirect = Common1.ConvertToBool(value);
                 }
             }
 
@@ -363,273 +364,272 @@ namespace WPFMonitor.Library.ZTControls
 
         private void DrawLine_Paint()
         {
-            throw new Exception();
-            //_Canv.Children.Clear();
+            _Canv.Children.Clear();
 
-            //if (_Transparent == 1)
-            //{
-            //    _Canv.Background = new SolidColorBrush();
-            //}
-            //else
-            //{
-            //    _Canv.Background = new SolidColorBrush(_BackColor);
-            //}
+            if (_Transparent == 1)
+            {
+                _Canv.Background = new SolidColorBrush();
+            }
+            else
+            {
+                _Canv.Background = new SolidColorBrush(_BackColor);
+            }
 
-            //string gbUrl = string.Format("{0}/Pic/Near2.jpg", Common.TopUrl());
-            //BitmapImage bitmap = new BitmapImage(new Uri(gbUrl, UriKind.Absolute));
-            //ImageBrush near = new ImageBrush();
-            //near.ImageSource = bitmap;
-
-
-            //beeline = false;
-
-            ////位置0
-            //double ZerroPosi = 0;
-            //Rectangle rect = new Rectangle();
-            //rect.Width = lineWidths;
-            //rect.Height = lineWidths;
-            //rect.SetValue(Canvas.LeftProperty, ZerroPosi);
-            //rect.SetValue(Canvas.TopProperty, ZerroPosi);
-            //rect.SetValue(Canvas.ZIndexProperty, 500);
-            //_Canv.Children.Add(rect);
-
-            //Rectangle rect2 = new Rectangle();
-            ////rect2.Y = this.Height - lineWidths;
-            //rect2.Width = lineWidths;
-            ////rect2.X = 0;
-            //rect2.Height = lineWidths;
-            //rect2.SetValue(Canvas.LeftProperty, ZerroPosi);
-            //rect2.SetValue(Canvas.TopProperty, this.Height - lineWidths);
-            //rect2.SetValue(Canvas.ZIndexProperty, 500);
-            //_Canv.Children.Add(rect2);
-
-            //Rectangle rect3 = new Rectangle();
-            //rect3.Width = lineWidths;
-            //rect3.Height = lineWidths;
-            //rect3.SetValue(Canvas.LeftProperty, this.Width - lineWidths);
-            //rect3.SetValue(Canvas.TopProperty, ZerroPosi);
-            //rect3.SetValue(Canvas.ZIndexProperty, 500);
-            //_Canv.Children.Add(rect3);
-
-            //Rectangle rect4 = new Rectangle();
-            //rect4.Width = lineWidths;
-            //rect4.Height = lineWidths;
-            //rect4.SetValue(Canvas.LeftProperty, this.Width - lineWidths);
-            //rect4.SetValue(Canvas.TopProperty, this.Height - lineWidths);
-            //rect4.SetValue(Canvas.ZIndexProperty, 500);
-            //_Canv.Children.Add(rect4);
-
-            //if (beeline == false)
-            //{
-            //    // 2009-1-17
-            //    string[] allStr = edgeArray.Split(',');
-            //    int lineSize = edgeSize < this.Width ? (int)edgeSize : (int)this.Width;
-            //    Brush myBrush = new SolidColorBrush(Colors.Green);// Brushes.Green;
-            //    if (!goodOrNot)
-            //    {
-            //        // 2009-7-17取消闪动
-            //        m_flashStyle = 0;
-            //        // 2009-7-6
-            //        if (m_flashStyle == 0)
-            //        {
-            //            m_flashStyle = 1;
-
-            //            if (isRightDirect)
-            //                myBrush = new SolidColorBrush(Colors.Red);// Brushes.Red;
-            //            else
-            //                myBrush = new SolidColorBrush(Colors.Green);// Brushes.Green;
-            //        }
-            //        else
-            //        {
-            //            m_flashStyle = 0;
-            //            myBrush = new SolidColorBrush(Colors.Yellow);// Brushes.Yellow;
-            //        }
-            //    }
-            //    else
-            //    {
-            //        if (!isRightDirect)
-            //        {
-            //            if (ScreenElement.Method == 0)
-            //                myBrush = new SolidColorBrush(Colors.Red);//Brushes.Red;
-            //            else if (ScreenElement.Method == 1 && ScreenElement.MinFloat < digitalValue && digitalValue <= ScreenElement.MaxFloat)
-            //                myBrush = new SolidColorBrush(Colors.Red);//Brushes.Red;
-            //            else
-            //                myBrush = new SolidColorBrush(Colors.Green);//Brushes.Green;
-            //        }
-            //        else
-            //            myBrush = new SolidColorBrush(Colors.Blue);//Brushes.Blue;
-            //    }
-
-            //    //此处可修改myBrush的相关属性
-            //    //Pen tempPen = new Pen(Brushes.Red, 4);
-            //    //Pen tempPen = new Pen(myBrush, lineWidths);
-            //    foreach (string s in allStr)
-            //    {
-            //        //循环画的计数
-            //        int count;
-            //        //小边的每段长度
-            //        int lineWidth = 5;
-            //        //小边的流水线初始位置
-            //        int i = 10;
-            //        //间隔画小边的标志位
-            //        bool flag = true;
-            //        if (s == "1")
-            //        {
-            //            count = 0;
-            //            if (m_innerChangeStatus == 1)
-            //            {
-            //                //小边的流水线初始位置，三种状态下各有不同的初始位置，为配合整个矩形的情况
-            //                i = 0;
-            //            }
-            //            if (m_innerChangeStatus == 2)
-            //            {
-            //                i = (int)((this.Width / lineWidth) / 2);
-            //            }
-            //            if (m_innerChangeStatus == 3)
-            //            {
-            //                i = (int)(this.Width / lineWidth);
-            //            }
-            //            rect2.Fill = near;
-            //            for (int j = 0; count < ((this.Width / lineWidth) - 3); count++)
-            //            {
-            //                j = i;
-            //                i += lineWidth;
-            //                if (flag)
-            //                {
-            //                    if (i > this.Width)
-            //                        break;
-            //                    Line li = new Line();
-            //                    li.X1 = j + 10;
-            //                    li.X2 = (double)i;
-            //                    li.Y1 = li.Y2 = lineWidths / 2;
-            //                    li.Stroke = myBrush;
-            //                    li.StrokeThickness = lineWidths;
-            //                    _Canv.Children.Add(li);
-            //                    flag = false;
-            //                }
-            //                else flag = true;
-            //            }
-
-            //        }
-            //        else if (s == "2")
-            //        {
-            //            count = 0;
-            //            if (m_innerChangeStatus == 1)
-            //            {
-            //                i = (int)(this.Width / lineWidth);
-            //            }
-            //            if (m_innerChangeStatus == 2)
-            //            {
-            //                i = (int)((this.Width / lineWidth) / 2);
-            //            }
-            //            if (m_innerChangeStatus == 3)
-            //            {
-            //                i = 0;
-            //            }
-            //            rect4.Fill = near;
-            //            for (int j = 0; count < (this.Height / lineWidth) - 3; count++)
-            //            {
-            //                j = i;
-            //                i += lineWidth;
-            //                if (flag)
-            //                {
-            //                    if (i > this.Height)
-            //                        break;
-            //                    Line li = new Line();
-            //                    li.Y1 = (double)j;
-            //                    li.X1 = li.X2 = lineWidths / 2;
-            //                    li.Y2 = (double)i;
-            //                    li.Stroke = myBrush;
-            //                    li.StrokeThickness = lineWidths;
-            //                    _Canv.Children.Add(li);
-            //                    flag = false;
-            //                }
-            //                else flag = true;
-            //            }
-
-            //        }
-            //        else if (s == "3")
-            //        {
-            //            count = 0;
-            //            if (m_innerChangeStatus == 1)
-            //            {
-            //                i = (int)(this.Width / lineWidth) / 2;
-
-            //            }
-            //            if (m_innerChangeStatus == 2)
-            //            {
-            //                i = (int)(this.Width / lineWidth);
-            //            }
-            //            if (m_innerChangeStatus == 3)
-            //            {
-            //                i = 0;
-            //            }
-            //            rect.Fill = near;
-            //            for (int j = 0; count < (this.Height / lineWidth) - 3; count++)
-            //            {
-            //                j = i;
-            //                i += lineWidth;
-            //                if (flag)
-            //                {
-            //                    if (i > this.Height)
-            //                        break;
-
-            //                    Line li = new Line();
-            //                    //li.X1 = this.Width;
-            //                    li.Y1 = (double)j;
-            //                    li.X1 = li.X2 = this.Width - (lineWidths / 2);
-            //                    li.Y2 = (double)i;
-            //                    li.Stroke = myBrush;
-            //                    li.StrokeThickness = lineWidths;
-            //                    _Canv.Children.Add(li);
-            //                    flag = false;
-            //                }
-            //                else flag = true;
-            //            }
+            string gbUrl = "/MonitorSystem.ZTControls;component/ZTControls/Near2.jpg";
+            BitmapImage bitmap = new BitmapImage(new Uri(gbUrl, UriKind.Relative));
+            ImageBrush near = new ImageBrush();
+            near.ImageSource = bitmap;
 
 
-            //        }
-            //        else if (s == "4")//
-            //        {
-            //            count = 0;
-            //            if (m_innerChangeStatus == 1)
-            //            {
-            //                i = 0;
-            //            }
-            //            if (m_innerChangeStatus == 2)
-            //            {
-            //                i = (int)((this.Width / lineWidth) / 2);
-            //            }
-            //            if (m_innerChangeStatus == 3)
-            //            {
-            //                i = (int)(this.Width / lineWidth);
-            //            }
-            //            rect3.Fill = near;
-            //            for (int j = 0; count < ((this.Width / lineWidth) - 4); count++)
-            //            {
-            //                j = i;
-            //                i += lineWidth;
-            //                if (flag)
-            //                {
-            //                    if (i > this.Width)
-            //                        break;
-            //                    Line li = new Line();
-            //                    li.X1 = (double)(j + 10);
-            //                    //li.Y1 = this.Height;
-            //                    li.X2 = (double)i;
-            //                    li.Y1 = li.Y2 = this.Height - (lineWidths / 2);
-            //                    li.Stroke = myBrush;
-            //                    li.StrokeThickness = lineWidths;
-            //                    //ToolTipService.SetToolTip(li, string.Format("44x1={0},y1={1},x2={2},y2={3}", li.X1, li.Y1, li.X2, li.Y2));
-            //                    _Canv.Children.Add(li);
+            beeline = false;
 
-            //                    flag = false;
-            //                }
-            //                else flag = true;
-            //            }//for
-            //        }//4
-            //    }
-            //}
+            //位置0
+            double ZerroPosi = 0;
+            Rectangle rect = new Rectangle();
+            rect.Width = lineWidths;
+            rect.Height = lineWidths;
+            rect.SetValue(Canvas.LeftProperty, ZerroPosi);
+            rect.SetValue(Canvas.TopProperty, ZerroPosi);
+            rect.SetValue(Canvas.ZIndexProperty, 500);
+            _Canv.Children.Add(rect);
+
+            Rectangle rect2 = new Rectangle();
+            //rect2.Y = this.Height - lineWidths;
+            rect2.Width = lineWidths;
+            //rect2.X = 0;
+            rect2.Height = lineWidths;
+            rect2.SetValue(Canvas.LeftProperty, ZerroPosi);
+            rect2.SetValue(Canvas.TopProperty, this.Height - lineWidths);
+            rect2.SetValue(Canvas.ZIndexProperty, 500);
+            _Canv.Children.Add(rect2);
+
+            Rectangle rect3 = new Rectangle();
+            rect3.Width = lineWidths;
+            rect3.Height = lineWidths;
+            rect3.SetValue(Canvas.LeftProperty, this.Width - lineWidths);
+            rect3.SetValue(Canvas.TopProperty, ZerroPosi);
+            rect3.SetValue(Canvas.ZIndexProperty, 500);
+            _Canv.Children.Add(rect3);
+
+            Rectangle rect4 = new Rectangle();
+            rect4.Width = lineWidths;
+            rect4.Height = lineWidths;
+            rect4.SetValue(Canvas.LeftProperty, this.Width - lineWidths);
+            rect4.SetValue(Canvas.TopProperty, this.Height - lineWidths);
+            rect4.SetValue(Canvas.ZIndexProperty, 500);
+            _Canv.Children.Add(rect4);
+
+            if (beeline == false)
+            {
+                // 2009-1-17
+                string[] allStr = edgeArray.Split(',');
+                int lineSize = edgeSize < this.Width ? (int)edgeSize : (int)this.Width;
+                Brush myBrush = new SolidColorBrush(Colors.Green);// Brushes.Green;
+                if (!goodOrNot)
+                {
+                    // 2009-7-17取消闪动
+                    m_flashStyle = 0;
+                    // 2009-7-6
+                    if (m_flashStyle == 0)
+                    {
+                        m_flashStyle = 1;
+
+                        if (isRightDirect)
+                            myBrush = new SolidColorBrush(Colors.Red);// Brushes.Red;
+                        else
+                            myBrush = new SolidColorBrush(Colors.Green);// Brushes.Green;
+                    }
+                    else
+                    {
+                        m_flashStyle = 0;
+                        myBrush = new SolidColorBrush(Colors.Yellow);// Brushes.Yellow;
+                    }
+                }
+                else
+                {
+                    if (!isRightDirect)
+                    {
+                        if (ScreenElement.Method == 0)
+                            myBrush = new SolidColorBrush(Colors.Red);//Brushes.Red;
+                        else if (ScreenElement.Method == 1 && ScreenElement.MinFloat < digitalValue && digitalValue <= ScreenElement.MaxFloat)
+                            myBrush = new SolidColorBrush(Colors.Red);//Brushes.Red;
+                        else
+                            myBrush = new SolidColorBrush(Colors.Green);//Brushes.Green;
+                    }
+                    else
+                        myBrush = new SolidColorBrush(Colors.Blue);//Brushes.Blue;
+                }
+
+                //此处可修改myBrush的相关属性
+                //Pen tempPen = new Pen(Brushes.Red, 4);
+                //Pen tempPen = new Pen(myBrush, lineWidths);
+                foreach (string s in allStr)
+                {
+                    //循环画的计数
+                    int count;
+                    //小边的每段长度
+                    int lineWidth = 5;
+                    //小边的流水线初始位置
+                    int i = 10;
+                    //间隔画小边的标志位
+                    bool flag = true;
+                    if (s == "1")
+                    {
+                        count = 0;
+                        if (m_innerChangeStatus == 1)
+                        {
+                            //小边的流水线初始位置，三种状态下各有不同的初始位置，为配合整个矩形的情况
+                            i = 0;
+                        }
+                        if (m_innerChangeStatus == 2)
+                        {
+                            i = (int)((this.Width / lineWidth) / 2);
+                        }
+                        if (m_innerChangeStatus == 3)
+                        {
+                            i = (int)(this.Width / lineWidth);
+                        }
+                        rect2.Fill = near;
+                        for (int j = 0; count < ((this.Width / lineWidth) - 3); count++)
+                        {
+                            j = i;
+                            i += lineWidth;
+                            if (flag)
+                            {
+                                if (i > this.Width)
+                                    break;
+                                Line li = new Line();
+                                li.X1 = j + 10;
+                                li.X2 = (double)i;
+                                li.Y1 = li.Y2 = lineWidths / 2;
+                                li.Stroke = myBrush;
+                                li.StrokeThickness = lineWidths;
+                                _Canv.Children.Add(li);
+                                flag = false;
+                            }
+                            else flag = true;
+                        }
+
+                    }
+                    else if (s == "2")
+                    {
+                        count = 0;
+                        if (m_innerChangeStatus == 1)
+                        {
+                            i = (int)(this.Width / lineWidth);
+                        }
+                        if (m_innerChangeStatus == 2)
+                        {
+                            i = (int)((this.Width / lineWidth) / 2);
+                        }
+                        if (m_innerChangeStatus == 3)
+                        {
+                            i = 0;
+                        }
+                        rect4.Fill = near;
+                        for (int j = 0; count < (this.Height / lineWidth) - 3; count++)
+                        {
+                            j = i;
+                            i += lineWidth;
+                            if (flag)
+                            {
+                                if (i > this.Height)
+                                    break;
+                                Line li = new Line();
+                                li.Y1 = (double)j;
+                                li.X1 = li.X2 = lineWidths / 2;
+                                li.Y2 = (double)i;
+                                li.Stroke = myBrush;
+                                li.StrokeThickness = lineWidths;
+                                _Canv.Children.Add(li);
+                                flag = false;
+                            }
+                            else flag = true;
+                        }
+
+                    }
+                    else if (s == "3")
+                    {
+                        count = 0;
+                        if (m_innerChangeStatus == 1)
+                        {
+                            i = (int)(this.Width / lineWidth) / 2;
+
+                        }
+                        if (m_innerChangeStatus == 2)
+                        {
+                            i = (int)(this.Width / lineWidth);
+                        }
+                        if (m_innerChangeStatus == 3)
+                        {
+                            i = 0;
+                        }
+                        rect.Fill = near;
+                        for (int j = 0; count < (this.Height / lineWidth) - 3; count++)
+                        {
+                            j = i;
+                            i += lineWidth;
+                            if (flag)
+                            {
+                                if (i > this.Height)
+                                    break;
+
+                                Line li = new Line();
+                                //li.X1 = this.Width;
+                                li.Y1 = (double)j;
+                                li.X1 = li.X2 = this.Width - (lineWidths / 2);
+                                li.Y2 = (double)i;
+                                li.Stroke = myBrush;
+                                li.StrokeThickness = lineWidths;
+                                _Canv.Children.Add(li);
+                                flag = false;
+                            }
+                            else flag = true;
+                        }
+
+
+                    }
+                    else if (s == "4")//
+                    {
+                        count = 0;
+                        if (m_innerChangeStatus == 1)
+                        {
+                            i = 0;
+                        }
+                        if (m_innerChangeStatus == 2)
+                        {
+                            i = (int)((this.Width / lineWidth) / 2);
+                        }
+                        if (m_innerChangeStatus == 3)
+                        {
+                            i = (int)(this.Width / lineWidth);
+                        }
+                        rect3.Fill = near;
+                        for (int j = 0; count < ((this.Width / lineWidth) - 4); count++)
+                        {
+                            j = i;
+                            i += lineWidth;
+                            if (flag)
+                            {
+                                if (i > this.Width)
+                                    break;
+                                Line li = new Line();
+                                li.X1 = (double)(j + 10);
+                                //li.Y1 = this.Height;
+                                li.X2 = (double)i;
+                                li.Y1 = li.Y2 = this.Height - (lineWidths / 2);
+                                li.Stroke = myBrush;
+                                li.StrokeThickness = lineWidths;
+                                //ToolTipService.SetToolTip(li, string.Format("44x1={0},y1={1},x2={2},y2={3}", li.X1, li.Y1, li.X2, li.Y2));
+                                _Canv.Children.Add(li);
+
+                                flag = false;
+                            }
+                            else flag = true;
+                        }//for
+                    }//4
+                }
+            }
         }
 
     }

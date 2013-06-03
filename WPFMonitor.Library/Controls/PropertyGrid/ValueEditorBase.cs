@@ -3,7 +3,7 @@ using System.Windows.Controls;
 using System.Windows.Media;
 using System;
 
-namespace WPFMonitor.Library.Controls
+namespace MonitorSystem.Controls
 {
 	public abstract class ValueEditorBase : ContentControl, IPropertyValueEditor
 	{

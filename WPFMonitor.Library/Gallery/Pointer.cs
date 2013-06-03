@@ -8,9 +8,9 @@ using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Animation;
 using System.Windows.Shapes;
-using WPFMonitor.Library.MonitorSystemGlobal;
+using MonitorSystem.MonitorSystemGlobal;
 
-namespace WPFMonitor.Library.Gallery
+namespace MonitorSystem.Gallery
 {
     /// <summary>
     /// 图库的指针类

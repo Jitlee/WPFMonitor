@@ -2,7 +2,7 @@
 using System.ComponentModel;
 using System.Globalization;
 
-namespace WPFMonitor.Library.Controls.Converters
+namespace MonitorSystem.Controls.Converters
 {
 	public class CharConverter : TypeConverter
 	{

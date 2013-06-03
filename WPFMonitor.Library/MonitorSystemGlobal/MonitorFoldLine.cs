@@ -13,7 +13,7 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using WPFMonitor.Model.ZTControls;
 
-namespace WPFMonitor.Library.MonitorSystemGlobal
+namespace MonitorSystem.MonitorSystemGlobal
 {
     public class MonitorFoldLine: MonitorControl
     {
@@ -217,7 +217,7 @@ namespace WPFMonitor.Library.MonitorSystemGlobal
             {
                 if (pro.PropertyName == "IsRightDirect")
                 {
-                    _IsRightDirect = Common.ConvertToBool(pro.PropertyValue);
+                    _IsRightDirect = Common1.ConvertToBool(pro.PropertyValue);
                 }
                 else if (pro.PropertyName == "EdgeSize")
                 {

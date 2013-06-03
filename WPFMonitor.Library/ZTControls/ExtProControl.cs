@@ -6,12 +6,12 @@ using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
-using WPFMonitor.Library.MonitorSystemGlobal;
+using MonitorSystem.MonitorSystemGlobal;
 using WPFMonitor.Model;
 using System.Windows.Input;
-using WPFMonitor.Library.Controls;
+using MonitorSystem.Controls;
 
-namespace WPFMonitor.Library.ZTControls
+namespace MonitorSystem.ZTControls
 {
     /// <summary>
     /// 50	ExtProControl	2	Text.jpg	组态控件	外部应用程序新版
@@ -76,7 +76,7 @@ namespace WPFMonitor.Library.ZTControls
                     string value = pro.PropertyValue.Trim();
                     if (name == "BackColor".ToUpper())
                     {
-                        BackColor = Common.StringToColor(value);
+                        BackColor = Common1.StringToColor(value);
                     }
                     else if (name == "Font".ToUpper())
                     { 
@@ -84,7 +84,7 @@ namespace WPFMonitor.Library.ZTControls
                     }
                     else if (name == "ForeColor".ToUpper())
                     {
-                        ForeColor = Common.StringToColor(value);
+                        ForeColor = Common1.StringToColor(value);
                     }
                     else if (name == "ExtPath".ToUpper())
                     {
@@ -340,8 +340,11 @@ namespace WPFMonitor.Library.ZTControls
 
         public void OnBackImageNameChanged(string oldValue, string newValue)
         {
-            throw new Exception();
             //_image.Source = new BitmapImage(new Uri(Application.Current.Host.Source, string.Concat("../Upload/Pic/ButtonImage/", newValue.Trim('/'))));
+            if (System.IO.File.Exists(newValue))
+            {
+                _image.Source = new BitmapImage(new Uri(newValue, UriKind.Absolute));
+            }
         }
 
         public static readonly DependencyProperty ExtPathProperty =

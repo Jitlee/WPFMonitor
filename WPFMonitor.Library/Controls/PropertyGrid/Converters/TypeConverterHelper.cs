@@ -3,7 +3,7 @@ using System.ComponentModel;
 using System.Windows;
 using System.Windows.Media;
 
-namespace WPFMonitor.Library.Controls.Converters
+namespace MonitorSystem.Controls.Converters
 {
 	public class TypeConverterHelper
 	{

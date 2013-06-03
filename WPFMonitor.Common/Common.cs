@@ -7,26 +7,46 @@ namespace WPFMonitor
 {
     public class Common
     {
-        public readonly static string ApplicationDataPath = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData), "EasyCodeword");
-
-        public readonly static string TempFile = GetAppPath("tmp");
+        public readonly static string AppPath = AppDomain.CurrentDomain.BaseDirectory;
 
         public static string GetAppPath(string path)
         {
-            if (!Directory.Exists(ApplicationDataPath))
+            if (!Directory.Exists(AppPath))
             {
-                Directory.CreateDirectory(ApplicationDataPath);
+                Directory.CreateDirectory(AppPath);
             }
-            return Path.Combine(ApplicationDataPath, path);
+            return Path.Combine(AppPath, path);
         }
 
         public static string GetAppPath(string path1, string path2)
         {
-            if (!Directory.Exists(ApplicationDataPath))
+            if (!Directory.Exists(AppPath))
             {
-                Directory.CreateDirectory(ApplicationDataPath);
+                Directory.CreateDirectory(AppPath);
             }
-            return Path.Combine(Path.Combine(ApplicationDataPath, path1), path2);
+            return Path.Combine(Path.Combine(AppPath, path1), path2);
+        }
+
+        public readonly static string AppDataPath = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData), "EasyCodeword");
+
+        public readonly static string TempFile = GetAppPath("tmp");
+
+        public static string GetAppDataPath(string path)
+        {
+            if (!Directory.Exists(AppDataPath))
+            {
+                Directory.CreateDirectory(AppDataPath);
+            }
+            return Path.Combine(AppDataPath, path);
+        }
+
+        public static string GetAppDataPath(string path1, string path2)
+        {
+            if (!Directory.Exists(AppDataPath))
+            {
+                Directory.CreateDirectory(AppDataPath);
+            }
+            return Path.Combine(Path.Combine(AppDataPath, path1), path2);
         }
 
 

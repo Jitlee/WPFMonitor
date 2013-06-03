@@ -8,11 +8,12 @@ using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Animation;
 using System.Windows.Shapes;
-using WPFMonitor.Library.MonitorSystemGlobal;
+using MonitorSystem.MonitorSystemGlobal;
 using System.ComponentModel;
 using WPFMonitor.Model;
+using WPFMonitor.Model.ZTControls;
 
-namespace WPFMonitor.Library.ZTControls
+namespace MonitorSystem.ZTControls
 {
     /// <summary>
     /// 7	DigitalBiaoPan	2	Digital.jpg	组态控件	数字表盘
@@ -144,8 +145,8 @@ namespace WPFMonitor.Library.ZTControls
             this.Width = (double)ScreenElement.Width;
             this.Height = (double)ScreenElement.Height;
             Transparent = ScreenElement.Transparent.Value;
-            ForeColor = Common.StringToColor(ScreenElement.ForeColor);
-            BackColor = Common.StringToColor(ScreenElement.BackColor); 
+            ForeColor = Common1.StringToColor(ScreenElement.ForeColor);
+            BackColor = Common1.StringToColor(ScreenElement.BackColor); 
         }
 
         private string[] _browsableProperties = new[] { "Width", "Height", "Left", "Top", "FontFamily", "FontSize",
@@ -338,6 +339,13 @@ namespace WPFMonitor.Library.ZTControls
             _path.Fill = new SolidColorBrush(ForeColor);
 
             PaintBackground();
+
+            this.SizeChanged += new SizeChangedEventHandler(DigitalBiaoPan_SizeChanged);
+        }
+
+        void DigitalBiaoPan_SizeChanged(object sender, SizeChangedEventArgs e)
+        {
+            Paint(e.NewSize);
         }
 
         private void PaintBackground()
@@ -428,10 +436,10 @@ namespace WPFMonitor.Library.ZTControls
             ssd.DrawString(formatNum, sizef.Y, (finalSize.Width - sizef.X * 1.45d) / 2d, (finalSize.Height - sizef.Y * 1.35d) / 2d);
         }
 
-        protected override Size MeasureOverride(Size availableSize)
-        {
-            Paint(availableSize);
-            return base.MeasureOverride(availableSize);
-        }
+        //protected override Size MeasureOverride(Size availableSize)
+        //{
+        //    Paint(availableSize);
+        //    return base.MeasureOverride(availableSize);
+        //}
     }
 }

@@ -1,6 +1,6 @@
 ﻿
 
-namespace WPFMonitor.Library.Controls
+namespace MonitorSystem.Controls
 {
     using System.Windows.Controls;
     using System.Windows;

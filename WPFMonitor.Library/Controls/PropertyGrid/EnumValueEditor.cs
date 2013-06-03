@@ -1,9 +1,9 @@
 ﻿
-namespace WPFMonitor.Library.Controls
+namespace MonitorSystem.Controls
 {
 	#region Using Directives
 	using System.Windows.Controls;
-	using WPFMonitor.Library.Controls.Converters;
+	using MonitorSystem.Controls.Converters;
 
 	#endregion
 

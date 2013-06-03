@@ -14,7 +14,7 @@ using WPFMonitor.Model;
 using System.ComponentModel;
 using WPFMonitor.Model.ZTControls;
 
-namespace WPFMonitor.Library.MonitorSystemGlobal
+namespace MonitorSystem.MonitorSystemGlobal
 {
     public class MonitorText : MonitorControl
     {
@@ -178,7 +178,7 @@ namespace WPFMonitor.Library.MonitorSystemGlobal
             {
                 if (pro.PropertyName == "LinearChange")
                 {
-                    LinearChange = Common.ConvertToBool(pro.PropertyValue);
+                    LinearChange = Common1.ConvertToBool(pro.PropertyValue);
                 }
                 else if (pro.PropertyName == "FromColor")
                 {

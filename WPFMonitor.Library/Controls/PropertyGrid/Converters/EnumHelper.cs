@@ -6,7 +6,7 @@ using System.Reflection;
 //Inspired by the bloh entry http://www.dolittle.com/blogs/einar/archive/2008/01/13/missing-enum-getvalues-when-doing-silverlight-for-instance.aspx
 
 
-namespace WPFMonitor.Library.Controls.Converters
+namespace MonitorSystem.Controls.Converters
 {
 	public static class EnumHelper
 	{

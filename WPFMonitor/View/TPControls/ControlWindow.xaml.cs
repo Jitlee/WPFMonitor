@@ -12,6 +12,7 @@ using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
 using DockingLibrary;
 using WPFMonitor.Core.TPControls;
+using WPFMonitor.Model.ZTControls;
 
 namespace WPFMonitor.View.TPControls
 {
@@ -20,10 +21,12 @@ namespace WPFMonitor.View.TPControls
     /// </summary>
     public partial class ControlWindow : DockableContent
     {
+        public static ControlWindow Instance { get; private set; }
         public ControlWindow()
         {
             InitializeComponent();
             this.Loaded += new RoutedEventHandler(ControlWindow_Loaded);
+            Instance = this;
         }
 
         void ControlWindow_Loaded(object sender, RoutedEventArgs e)
@@ -33,7 +36,58 @@ namespace WPFMonitor.View.TPControls
 
         void Control_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
+            if ((sender as ListBox).SelectedIndex < 1)
+            {
+                LoadScreen._instance.UnAddElementModel();
+            }
+            else
+            {
+                GalleryWindow.Instance.ResetSelected();
+                LoadScreen._instance.AddElementModel();
+            }
+        }
 
+        public t_Control GetSelected()
+        {
+            ListBox listBox = null;
+            if (accordion.SelectedIndex == 0)
+            {
+                listBox = tpListBox;
+            }
+            else if (accordion.SelectedIndex == 1)
+            {
+                listBox = ztListBox;
+            }
+            else if (accordion.SelectedIndex == 2)
+            {
+                listBox = ggListBox;
+            }
+            if (null != listBox && listBox.SelectedIndex > 0)
+            {
+                return listBox.SelectedItem as t_Control;
+            }
+            return null;
+        }
+
+        public void ResetSelected()
+        {
+            if (null != tpListBox && tpListBox.Items.Count > 0)
+            {
+                tpListBox.SelectedIndex = 0;
+            }
+            if (null != ztListBox && ztListBox.Items.Count > 0)
+            {
+                ztListBox.SelectedIndex = 0;
+            }
+            if (null != ggListBox && ggListBox.Items.Count > 0)
+            {
+                ggListBox.SelectedIndex = 0;
+            }
+        }
+
+        private void accordion_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            ResetSelected();
         }
     }
 }

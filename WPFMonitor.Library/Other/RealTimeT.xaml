@@ -1,0 +1,313 @@
+﻿<MyPage:MonitorControl x:Class="MonitorSystem.Other.RealTimeT"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    mc:Ignorable="d"
+    xmlns:MyPage="clr-namespace:MonitorSystem.MonitorSystemGlobal"
+    d:DesignHeight="447" d:DesignWidth="700" xmlns:my="clr-namespace:MonitorSystem.Other">
+
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="4"/>
+            <ColumnDefinition/>
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="20"/>
+            <RowDefinition Height="3"/>
+            <RowDefinition/>
+        </Grid.RowDefinitions>
+            <Polygon Grid.Row="0" Grid.Column="1" x:Name="TopTit"></Polygon>
+            <Canvas Background="Aqua" x:Name="bgLeft" Grid.RowSpan="3">
+            <TextBlock Text="趋势曲线" Canvas.Left="15" FontSize="14" Canvas.Top="5"></TextBlock>
+            </Canvas>
+        <!--用于边框-->
+            <Grid  Background="Aqua" x:Name="GridMain" Grid.Row="2" Grid.Column="1">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition/>
+                <ColumnDefinition Width="4"/>
+            </Grid.ColumnDefinitions>
+            <Grid.RowDefinitions >
+                <RowDefinition  Height="4"/>
+                <RowDefinition Height="4"/>
+                <RowDefinition/>
+                <RowDefinition Height="5"/>
+            </Grid.RowDefinitions>
+                
+            <Grid x:Name="LayoutRoot" Background="Beige"   Grid.Row="2">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition />
+                    <ColumnDefinition Width="20"/>
+                    <ColumnDefinition Width="20"/>
+                    <ColumnDefinition Width="70" />
+                </Grid.ColumnDefinitions>
+                <Grid.RowDefinitions>
+                    <RowDefinition></RowDefinition>
+                    <RowDefinition     Height="50"></RowDefinition>
+                    <RowDefinition Height="65"></RowDefinition>
+                </Grid.RowDefinitions>
+
+                <Grid x:Name="gdMain" Grid.Row="0"  Grid.Column="0" >
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition    />
+                        <ColumnDefinition Width="75" />
+                    </Grid.ColumnDefinitions>
+                    <!--用于装X轴和Y轴-->
+                    <Canvas x:Name="_CanvasZ" Grid.Row="0"  Grid.Column="0"  Canvas.ZIndex="2" Canvas.Top="5"></Canvas>
+                    <Canvas x:Name="_Canvas" Grid.Row="0"   Grid.Column="0" Canvas.ZIndex="1" Canvas.Top="5"></Canvas>
+                    <Grid Grid.Column="1" x:Name="LineList">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="5"/>
+                            <ColumnDefinition/>
+                            <ColumnDefinition Width="5"/>
+                        </Grid.ColumnDefinitions>
+                        <Grid.RowDefinitions>
+                            <RowDefinition/>
+                            <RowDefinition Height="30"/>
+                        </Grid.RowDefinitions>
+                        <!--放所有线列表-->
+                        <Grid x:Name="gdLineDefine" Grid.Column="1">
+                            <Grid.RowDefinitions>
+                            </Grid.RowDefinitions>
+                        </Grid>
+                        <my:RealLineShow Grid.Column="1" Grid.Row="1" ChangeLineShow="RealLineShow_ChangeLineShow" />
+                        <!--<TextBlock Text="所有典线" Grid.Column="1" Grid.Row="1"></TextBlock>-->
+                    </Grid>
+                </Grid>
+
+                <!--右边滚动条-->
+                <Grid Grid.Row="0"   Grid.Column="1">
+                    <Grid.RowDefinitions>
+                        <RowDefinition  Height="25"/>
+                        <RowDefinition/>
+                    </Grid.RowDefinitions>
+                    <Border Grid.Row="1" BorderThickness="1"  BorderBrush="#9F9FFF">
+                        <Grid >
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="40"/>
+                                <RowDefinition Height="40"/>
+                                <RowDefinition/>
+                                <RowDefinition Height="40"/>
+                                <RowDefinition Height="40"/>
+                            </Grid.RowDefinitions>
+                            <my:JTControl Grid.Row="0" JTType="3"  x:Name="jTControl1"  Click="GDClick"/>
+                            <my:JTControl Grid.Row="1" JTType="2"  x:Name="jTControl2"  Click="GDClick"/>
+                            <my:JTControl Grid.Row="2" JTType="4" x:Name="jtCenter" />
+                            <my:JTControl Grid.Row="3" JTType="1"  x:Name="jTControl3"  Click="GDClick"/>
+                            <my:JTControl Grid.Row="4" JTType="0"  x:Name="jTControl4"  Click="GDClick"/>
+                        </Grid>
+                    </Border>
+                </Grid>
+
+                <!--最左边设置-->
+                <Grid Grid.Row="0" Grid.Column="3" Grid.RowSpan="3">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="20"/>
+                        <RowDefinition></RowDefinition>
+                        <RowDefinition Height="20"/>
+                        <RowDefinition></RowDefinition>
+                    </Grid.RowDefinitions>
+                    <!---   取值范围  X轴时间   -->
+                    <Grid  x:Name="GridCZFY" Background="Aqua"  Grid.Row="1">
+                        <Grid.RowDefinitions>
+                            <RowDefinition  Height="25"/>
+                            <RowDefinition/>
+                            <RowDefinition/>
+                            <RowDefinition/>
+                            <RowDefinition/>
+                            <RowDefinition/>
+                            <RowDefinition/>
+                            <RowDefinition/>
+                            <RowDefinition Height="6"/>
+                        </Grid.RowDefinitions>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="4"/>
+                            <ColumnDefinition/>
+                            <ColumnDefinition  Width="6"/>
+                        </Grid.ColumnDefinitions>
+                        <TextBlock Text="取值范围" Grid.Row="0" Grid.Column="1" Canvas.Top="10" FontSize="14"  TextAlignment="Center"></TextBlock>
+                        <Button x:Name="btnhh24" Grid.Row="1" Grid.Column="1"  Content="24小时" Click="btnhh24_Click"></Button>
+                        <Button x:Name="btnhh6" Grid.Row="2"  Grid.Column="1" Content="6小时" Click="btnhh6_Click"></Button>
+                        <Button x:Name="btnhh1" Grid.Row="3" Grid.Column="1"  Content="1小时" Click="btnhh1_Click"></Button>
+                        <Button x:Name="btnMi30" Grid.Row="4" Grid.Column="1"  Content="30分钟" Click="btnMi30_Click"></Button>
+                        <Button x:Name="btnMi15" Grid.Row="5" Grid.Column="1" Content="15分钟" Click="btnMi15_Click"></Button>
+                        <Button x:Name="btnMi5" Grid.Row="6" Grid.Column="1" Content="5分钟" Click="btnMi5_Click"></Button>
+                        <Button x:Name="btnMi1" Grid.Row="7" Grid.Column="1" Content="1分钟" Click="btnMi1_Click"></Button>
+                    </Grid>
+
+                    <!---   曲线缩放   -->
+                    <Grid x:Name="GridSF" Grid.Row="3" Grid.Column="1" Background="Aqua">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="4"/>
+                            <ColumnDefinition/>
+                            <ColumnDefinition  Width="6"/>
+                        </Grid.ColumnDefinitions>
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="25"/>
+                            <RowDefinition/>
+                            <RowDefinition/>
+                            <RowDefinition/>
+                            <RowDefinition/>
+                            <RowDefinition/>
+                            <RowDefinition/>
+                            <RowDefinition/>
+                            <RowDefinition/>
+                            <RowDefinition Height="4"/>
+                        </Grid.RowDefinitions>
+                        <TextBlock  Grid.Row="0" Grid.Column="1" Text="曲线缩放" FontSize="14"  TextAlignment="Center"></TextBlock>
+                        <Button x:Name="btnYS" Grid.Row="1" Grid.Column="1" Content="原始" Click="btnYS_Click"></Button>
+                        <Button x:Name="btn2B" Grid.Row="2" Grid.Column="1" Content="两倍" Click="btn2B_Click"></Button>
+                        <Button x:Name="btn4B" Grid.Row="3" Grid.Column="1" Content="四倍" Click="btn4B_Click"></Button>
+                        <Button x:Name="btn8B" Grid.Row="4" Grid.Column="1" Content="八倍" Click="btn8B_Click"></Button>
+                        <TextBlock Text="倍数" Grid.Row="5" Grid.Column="1" FontSize="12" TextAlignment="Center"></TextBlock>
+                        <my:InputObj Grid.Row="6" Grid.Column="1" DataType="Double"  x:Name="intputSFPer"/>
+                        <Button x:Name="btnSF" Grid.Row="7" Grid.Column="1" Content="缩放" Click="btnSF_Click" VerticalAlignment="Top"></Button>
+                        <Button x:Name="btnHF" Grid.Row="8" Grid.Column="1" Content="恢复" Click="btnHF_Click"></Button>
+                    </Grid>
+                </Grid>
+
+                <!--下面滚动条-->
+                <Grid  Grid.Row="1" Grid.Column="0">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="5"/>
+                        <RowDefinition/>
+                        <RowDefinition Height="20"/>
+                    </Grid.RowDefinitions>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="20"/>
+                        <ColumnDefinition/>
+                        <ColumnDefinition Width="3"/>
+                        <ColumnDefinition Width="40"/>
+                        <ColumnDefinition Width="5"/>
+                    </Grid.ColumnDefinitions>
+                    <Border  Grid.Column="1" Grid.Row="1" BorderThickness="1" BorderBrush="#9F9FFF">
+                        <Grid >
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition   Width="40"/>
+                                <ColumnDefinition Width="40"/>
+                                <ColumnDefinition/>
+                                <ColumnDefinition Width="40"/>
+                                <ColumnDefinition Width="40"/>
+                            </Grid.ColumnDefinitions>
+                            <my:JTControl Grid.Column="0" JTType="5"  x:Name="jTXControl1"  Click="GDClick"/>
+                            <my:JTControl Grid.Column="1" JTType="6"  x:Name="jTXControl2"  Click="GDClick"/>
+                            <my:JTControl Grid.Column="2" JTType="4" x:Name="jtXCenter"  />
+                            <my:JTControl Grid.Column="3" JTType="7"  x:Name="jTXControl3"  Click="GDClick"/>
+                            <my:JTControl Grid.Column="4" JTType="8"  x:Name="jTXControl4"  Click="GDClick"/>
+                        </Grid>
+                    </Border>
+                    <Button x:Name="btnRun" Grid.Column="3" Grid.Row="1" Click="btnRun_Click"  Content="运行"></Button>
+                </Grid>
+
+                <!--最下面的设置-->
+                <Grid x:Name="gridBouutomSet" Grid.Column="0" Grid.Row="2" Grid.ColumnSpan="2" Background="Aqua">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition />
+                        <ColumnDefinition Width="8"/>
+                        <ColumnDefinition/>
+                        <ColumnDefinition Width="3"/>
+                    </Grid.ColumnDefinitions>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="8"/>
+                        <RowDefinition/>
+                        <RowDefinition Height="7"/>
+                    </Grid.RowDefinitions>
+                    <!--左边设置-->
+                    <Border Grid.Row="1"  BorderThickness="1" BorderBrush="White">
+                        <Grid >
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="50"/>
+                                <ColumnDefinition Width="40"/>
+                                <ColumnDefinition Width="15"/>
+                                <ColumnDefinition/>
+                                <ColumnDefinition Width="15"/>
+                                <ColumnDefinition/>
+                                <ColumnDefinition Width="15"/>
+                                <ColumnDefinition/>
+                                <ColumnDefinition Width="15"/>
+                                <ColumnDefinition/>
+                                <ColumnDefinition Width="15"/>
+                                <ColumnDefinition/>
+                                <ColumnDefinition Width="15"/>
+                            </Grid.ColumnDefinitions>
+                            <Grid.RowDefinitions>
+                                <RowDefinition/>
+                                <RowDefinition/>
+                            </Grid.RowDefinitions>
+                            <!--第一行-->
+                            <TextBlock Text="起始时间" Grid.Column="0"></TextBlock>
+                            <my:InputObj Grid.Column="1" x:Name="inputYear" MaxValue="2050"   DataValue="0"   DataType="int"/>
+                            <TextBlock Text="年" Grid.Column="2"></TextBlock>
+                            <my:InputObj Grid.Column="3" x:Name="inputMonth"  MaxValue="12"  DataValue="0"   DataType="int"/>
+                            <TextBlock Text="月" Grid.Column="4"></TextBlock>
+                            <my:InputObj Grid.Column="5" x:Name="inputDay" MaxValue="31"   DataValue="0"   DataType="int"/>
+                            <TextBlock Text="日" Grid.Column="6"></TextBlock>
+                            <my:InputObj Grid.Column="7" x:Name="inputHour" MaxValue="23"   DataValue="0"   DataType="int"/>
+                            <TextBlock Text="时" Grid.Column="8"></TextBlock>
+                            <my:InputObj Grid.Column="9" x:Name="inputMi" MaxValue="59"  DataValue="0"   DataType="int"/>
+                            <TextBlock Text="分" Grid.Column="10"></TextBlock>
+                            <my:InputObj Grid.Column="11" x:Name="inputSec" MaxValue="59"  DataValue="0"   DataType="int"/>
+                            <TextBlock Text="秒" Grid.Column="12"></TextBlock>
+                            <!--第二行-->
+                            <TextBlock Text="时间范围" Grid.Column="0" Grid.Row="1"></TextBlock>
+                            <my:InputObj Grid.Column="1" x:Name="inputEHour" Grid.Row="1" MaxValue="23"    DataValue="0"   DataType="int"/>
+                            <TextBlock Text="时" Grid.Column="2" Grid.Row="1"></TextBlock>
+                            <my:InputObj Grid.Column="3" x:Name="inputEMi" Grid.Row="1"  MaxValue="59" DataValue="0"   DataType="int"/>
+                            <TextBlock Text="分" Grid.Column="4" Grid.Row="1"></TextBlock>
+                            <my:InputObj Grid.Column="5" x:Name="inputESec"  Grid.Row="1"  MaxValue="59"  DataValue="0"   DataType="int"/>
+                            <TextBlock Text="秒" Grid.Column="6" Grid.Row="1"></TextBlock>
+                            <Button x:Name="btnSD" Grid.Row="1" Grid.Column="8" Grid.ColumnSpan="3"  Click="btnSD_Click" Content="设定"></Button>
+                        </Grid>
+                    </Border>
+                    <!--右边设置-->
+                    <Border  Grid.Column="2" Grid.Row="1"   BorderThickness="1" BorderBrush="White">
+                        <Grid>
+                            <Grid.RowDefinitions>
+                                <RowDefinition/>
+                                <RowDefinition/>
+                            </Grid.RowDefinitions>
+                            <Grid >
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="60"/>
+                                    <ColumnDefinition/>
+                                    <ColumnDefinition/>
+                                    <ColumnDefinition/>
+                                    <ColumnDefinition/>
+                                    <ColumnDefinition/>
+                                    <ColumnDefinition Width="5"/>
+                                </Grid.ColumnDefinitions>
+                                <TextBlock Text="曲线名称：" Grid.Column="0"></TextBlock>
+                                <my:InputObj Grid.Column="1"  x:Name="qxname"   DataValue=""   DataType="string"/>
+                                <Button Grid.Column="2" Content="显示" x:Name="btnShow" Click="btnShow_Click"></Button>
+                                <Button Grid.Column="3" Content="隐藏" x:Name="btnHide" Click="btnHide_Click"></Button>
+                                <Button Grid.Column="4" Content="删除" x:Name="btnDelete" Click="btnDelete_Click"></Button>
+                                <Button Grid.Column="5" Content="单轴" x:Name="btnDZ"></Button>
+                            </Grid>
+                            <Grid Grid.Row="1">
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition/>
+                                    <ColumnDefinition/>
+                                    <ColumnDefinition/>
+                                    <ColumnDefinition/>
+                                    <ColumnDefinition Width="5"/>
+                                </Grid.ColumnDefinitions>
+                                <Button Grid.Column="0" Content="百分比" x:Name="btnBFB"></Button>
+                                <Button Grid.Column="1" Content="曲线时间" x:Name="btnQXSJ"  Click="btnQXSJ_Click"></Button>
+                                <Button Grid.Column="2" Content="曲线属性" x:Name="btnQxSX" Click="btnQxSX_Click"></Button>
+                                <Button Grid.Column="3" Content="左轴" x:Name="btnZZ"></Button>
+                            </Grid>
+                        </Grid>
+
+                    </Border>
+                </Grid>
+
+            </Grid>
+
+        </Grid>
+        
+    </Grid>
+        
+
+    
+    
+</MyPage:MonitorControl>

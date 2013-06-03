@@ -10,11 +10,11 @@ using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Animation;
 using System.Windows.Shapes;
-using WPFMonitor.Library.MonitorSystemGlobal;
+using MonitorSystem.MonitorSystemGlobal;
 using WPFMonitor.Model;
 using WPFMonitor.Model.ZTControls;
 
-namespace WPFMonitor.Library.ZTControls
+namespace MonitorSystem.ZTControls
 {
     /// <summary>
     /// 3	MyLine	2	Line.jpg	组态控件	曲线
@@ -132,8 +132,8 @@ namespace WPFMonitor.Library.ZTControls
             Transparent = ScreenElement.Transparent.Value;
             picCurveShow.Width = this.Width = (double)ScreenElement.Width;
             picCurveShow.Height = this.Height = (double)ScreenElement.Height;
-            _ForeColor = Common.StringToColor(ScreenElement.ForeColor);
-            _BackColor = Common.StringToColor(ScreenElement.BackColor);
+            _ForeColor = Common1.StringToColor(ScreenElement.ForeColor);
+            _BackColor = Common1.StringToColor(ScreenElement.BackColor);
         }
 
         public List<t_ElementProperty> GetProperty()
@@ -172,15 +172,15 @@ namespace WPFMonitor.Library.ZTControls
                 }
                 else if (name == "DataZone".ToUpper())
                 {
-                    _dataZone= Common.StringToColor(value);
+                    _dataZone= Common1.StringToColor(value);
                 }
                 else if (name == "DottedLine".ToUpper())
                 {
-                    dottedLine = Common.ConvertToBool(value);
+                    dottedLine = Common1.ConvertToBool(value);
                 }
                 else if (name == "LineColor".ToUpper())
                 {
-                    _lineColor = Common.StringToColor(value);
+                    _lineColor = Common1.StringToColor(value);
                 }
                 else if (name == "Range".ToUpper())
                 {

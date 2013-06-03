@@ -57,7 +57,7 @@ t_GalleryClassification m_Gall=new t_GalleryClassification(dr);
 }
 
 
-        public ObservableCollection<t_GalleryClassification> selectAllDate()
+        public List<t_GalleryClassification> selectAllDate()
         {
             string sql = "select * from t_GalleryClassification";
            
@@ -70,7 +70,7 @@ t_GalleryClassification m_Gall=new t_GalleryClassification(dr);
             {
                 throw ex;
             }
-            ObservableCollection<t_GalleryClassification> _List = new ObservableCollection<t_GalleryClassification>();
+            List<t_GalleryClassification> _List = new List<t_GalleryClassification>();
             foreach (DataRow dr in dt.Rows)
             {
                 t_GalleryClassification obj = new t_GalleryClassification(dr);

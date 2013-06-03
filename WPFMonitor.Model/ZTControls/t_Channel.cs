@@ -111,7 +111,7 @@ NotifyPropertyChanged("ChannelParam");}
 			// 
 			_Value1Name = row["Value1_Name"].ToString().Trim();
 			// 
-			_CurrentValue = float.Parse(row["CurrentValue"].ToString());
+			_CurrentValue = Converter.ToFloat(row["CurrentValue"]);
 			// 
 			_ChannelParam = row["ChannelParam"].ToString().Trim();
 		}

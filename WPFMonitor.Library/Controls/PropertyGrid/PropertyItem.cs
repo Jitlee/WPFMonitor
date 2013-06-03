@@ -1,12 +1,12 @@
 ﻿
-namespace WPFMonitor.Library.Controls
+namespace MonitorSystem.Controls
 {
 	#region Using Directives
 	using System;
 	using System.ComponentModel;
 	using System.Linq;
 	using System.Reflection;
-	using WPFMonitor.Library.Controls.Converters;
+	using MonitorSystem.Controls.Converters;
 	#endregion
 
 	#region PropertyItem

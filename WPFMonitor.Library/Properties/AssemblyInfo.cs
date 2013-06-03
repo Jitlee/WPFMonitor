@@ -2,15 +2,16 @@
 using System.Runtime.CompilerServices;
 using System.Runtime.InteropServices;
 using System.Windows.Markup;
+using System.Windows;
 
 // 有关程序集的常规信息通过以下
 // 特性集控制。更改这些特性值可修改
 // 与程序集关联的信息。
-[assembly: AssemblyTitle("WPFMonitor.Library")]
+[assembly: AssemblyTitle("MonitorSystem")]
 [assembly: AssemblyDescription("")]
 [assembly: AssemblyConfiguration("")]
 [assembly: AssemblyCompany("")]
-[assembly: AssemblyProduct("WPFMonitor.Library")]
+[assembly: AssemblyProduct("MonitorSystem")]
 [assembly: AssemblyCopyright("Copyright ©  2013")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]
@@ -23,8 +24,19 @@ using System.Windows.Markup;
 // 如果此项目向 COM 公开，则下列 GUID 用于类型库的 ID
 [assembly: Guid("175da8f1-5251-40c8-b8d3-3e4c2ae1a891")]
 
-[assembly: XmlnsDefinition("http://www.monitor.com/wpf/library", "WPFMonitor.Library")]
-[assembly: XmlnsDefinition("http://www.monitor.com/wpf/library", "WPFMonitor.Library.Converters")]
+[assembly: XmlnsDefinition("http://www.monitor.com/wpf/library", "MonitorSystem")]
+[assembly: XmlnsDefinition("http://www.monitor.com/wpf/library", "MonitorSystem.Converters")]
+[assembly: XmlnsDefinition("http://www.monitor.com/wpf/library", "MonitorSystem.Controls")]
+[assembly: XmlnsDefinition("http://www.monitor.com/wpf/library", "MonitorSystem.Other")]
+
+[assembly: ThemeInfo(
+    ResourceDictionaryLocation.SourceAssembly, //where theme specific resource dictionaries are located
+    //(used if a resource is not found in the page, 
+    // or application resource dictionaries)
+    ResourceDictionaryLocation.SourceAssembly //where the generic resource dictionary is located
+    //(used if a resource is not found in the page, 
+    // app, or any theme specific resource dictionaries)
+)]
 
 // 程序集的版本信息由下面四个值组成:
 //

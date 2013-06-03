@@ -8,11 +8,11 @@ using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Animation;
 using System.Windows.Shapes;
-using WPFMonitor.Library.MonitorSystemGlobal;
-using WPFMonitor.Model;
+using MonitorSystem.MonitorSystemGlobal;
+using WPFMonitor.Model.ZTControls;
 using System.ComponentModel;
 
-namespace WPFMonitor.Library.Dldz
+namespace MonitorSystem.Dldz
 {
     public class Dldz04 : MonitorControl
     {
@@ -138,8 +138,8 @@ namespace WPFMonitor.Library.Dldz
             this.Height = (double)ScreenElement.Height;
             Transparent = ScreenElement.Transparent.Value;
 
-            BackColor = Common.StringToColor(ScreenElement.BackColor);
-            ForeColor = Common.StringToColor(ScreenElement.ForeColor);
+            BackColor = Common1.StringToColor(ScreenElement.BackColor);
+            ForeColor = Common1.StringToColor(ScreenElement.ForeColor);
         }
 
 

@@ -14,7 +14,7 @@
 //using System.Linq;
 //using System.Xml.Linq;
 
-//namespace WPFMonitor.Library.GetData
+//namespace MonitorSystem.GetData
 //{
 //    public class TemplateManager
 //    {

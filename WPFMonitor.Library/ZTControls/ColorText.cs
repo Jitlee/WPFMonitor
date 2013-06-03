@@ -10,10 +10,10 @@ using System.Windows.Media.Animation;
 using System.Windows.Shapes;
 using System.ComponentModel;
 using WPFMonitor.Model;
-using WPFMonitor.Library.ZTControls;
-using WPFMonitor.Library.MonitorSystemGlobal;
+using MonitorSystem.ZTControls;
+using MonitorSystem.MonitorSystemGlobal;
 
-namespace WPFMonitor.Library.ZTControls
+namespace MonitorSystem.ZTControls
 {
     /// <summary>
     /// 34	ColorText	2	Text.jpg	组态控件	状态文字
@@ -23,7 +23,7 @@ namespace WPFMonitor.Library.ZTControls
 
         public override void SetChannelValue(float fValue)
         {
-            OpenOrNot = Common.ConvertToBool(fValue.ToString());
+            OpenOrNot = Common1.ConvertToBool(fValue.ToString());
         }
 
         public override void DesignMode()
@@ -117,7 +117,7 @@ namespace WPFMonitor.Library.ZTControls
                     string value = ep.PropertyValue.Trim();
                     if (name == "OpenOrNot".ToUpper())
                     {
-                        OpenOrNot = Common.ConvertToBool(value);
+                        OpenOrNot = Common1.ConvertToBool(value);
                     }
                     else if (name == "OpenText".ToUpper())
                     {
@@ -130,11 +130,11 @@ namespace WPFMonitor.Library.ZTControls
                     // 2009-6-29
                     else if (name == "TrueColor".ToUpper())
                     {
-                        TrueColor = Common.StringToColor(value);
+                        TrueColor = Common1.StringToColor(value);
                     }
                     else if (name == "FalseColor".ToUpper())
                     {
-                        FalseColor = Common.StringToColor(value);
+                        FalseColor = Common1.StringToColor(value);
                     }
                 }
                 //this.Invalidate();
@@ -152,8 +152,8 @@ namespace WPFMonitor.Library.ZTControls
             this.Height = (double)ScreenElement.Height;
             Transparent = ScreenElement.Transparent.Value;
 
-            ForeColor = Common.StringToColor(ScreenElement.ForeColor);
-            BackColor = Common.StringToColor(ScreenElement.BackColor);
+            ForeColor = Common1.StringToColor(ScreenElement.ForeColor);
+            BackColor = Common1.StringToColor(ScreenElement.BackColor);
         }
 
         private string[] _browsableProperties = new string[] {"Width", "Height", "Left", "Top", "FontFamily", "FontSize",

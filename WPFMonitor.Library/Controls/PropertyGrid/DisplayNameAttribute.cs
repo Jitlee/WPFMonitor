@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace WPFMonitor.Library.Controls
+namespace MonitorSystem.Controls
 {
 	[AttributeUsage(AttributeTargets.Property, AllowMultiple = false, Inherited = true)]
 	public class DisplayNameAttribute : Attribute

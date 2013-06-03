@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using WPFMonitor.Model.ZTControls;
 
-namespace WPFMonitor.Library.MonitorSystemGlobal
+namespace MonitorSystem.MonitorSystemGlobal
 {
     public class LoadScreenEventArgs : EventArgs
     {

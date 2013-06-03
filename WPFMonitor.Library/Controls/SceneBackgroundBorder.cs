@@ -3,7 +3,7 @@ using System.Windows.Controls;
 using System.Windows.Media;
 using System.IO;
 
-namespace WPFMonitor.Library.Controls
+namespace MonitorSystem.Controls
 {
     public class SceneBackgroundPanel : Grid
     {

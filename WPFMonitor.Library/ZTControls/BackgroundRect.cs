@@ -10,12 +10,12 @@ using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Animation;
 using System.Windows.Shapes;
-using WPFMonitor.Library.MonitorSystemGlobal;
+using MonitorSystem.MonitorSystemGlobal;
 using WPFMonitor.Model;
 using WPFMonitor.Model.ZTControls;
 
 
-namespace WPFMonitor.Library.ZTControls
+namespace MonitorSystem.ZTControls
 {
     /// <summary>
     /// 32	BackgroundRect	2	Text.jpg	组态控件	背景框
@@ -72,7 +72,8 @@ namespace WPFMonitor.Library.ZTControls
         /// </summary>
         private void AlertWindow()
         {
-            HtmlPage.Window.Invoke("ShowDoubleCurve"); 
+            //HtmlPage.Window.Invoke("ShowDoubleCurve"); 
+            throw new Exception();
         }
         #endregion
 
@@ -90,11 +91,11 @@ namespace WPFMonitor.Library.ZTControls
                 }
                 else if (name == "FromColor".ToUpper())
                 {
-                    _FromColor = Common.StringToColor(value);
+                    _FromColor = Common1.StringToColor(value);
                 }
                 else if (name == "ToColor".ToUpper())
                 {
-                    _ToColor = Common.StringToColor(value);
+                    _ToColor = Common1.StringToColor(value);
                 }
                 FullRect();
             }

@@ -3,7 +3,7 @@ using System.Windows.Controls;
 using System.Windows.Media;
 using System.Windows;
 
-namespace WPFMonitor.Library.Controls
+namespace MonitorSystem.Controls
 {
 	public static class EditorService
 	{

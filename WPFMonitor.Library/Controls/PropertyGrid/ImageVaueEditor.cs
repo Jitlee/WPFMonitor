@@ -10,8 +10,10 @@ using System.Windows.Media.Animation;
 using System.Windows.Shapes;
 using System.Text.RegularExpressions;
 using WPFMonitor.DAL;
+using WPFMonitor.Library.Controls.ImagesManager;
+using Microsoft.Win32;
 
-namespace WPFMonitor.Library.Controls
+namespace MonitorSystem.Controls
 {
     public class ImageVaueEditor : ValueEditorBase
     {
@@ -70,27 +72,26 @@ namespace WPFMonitor.Library.Controls
 
         private void UpdateLabel(object value)
         {
-            throw new Exception();
-            //if (null != value)
-            //{
-            //    var url = value.ToString();
-            //    _text.Text = url;
-            //    _text.Foreground = _blackBrush;
-            //    _removeButton.IsEnabled = true;
-            //    if (!string.IsNullOrEmpty(_attribute.Path))
-            //    {
-            //        // 文件夹固定
-            //        _image.Source = ImagePathConverter.Convert(string.Concat(_attribute.Path, "\\", url));
-            //        return;
-            //    }
-            //}
-            //else
-            //{
-            //    _text.Text = "没有图片";
-            //    _text.Foreground = _grayBrush;
-            //    _removeButton.IsEnabled = false;
-            //}
-            //_image.Source = ImagePathConverter.Convert(value);
+            if (null != value)
+            {
+                var url = value.ToString();
+                _text.Text = url;
+                _text.Foreground = _blackBrush;
+                _removeButton.IsEnabled = true;
+                if (!string.IsNullOrEmpty(_attribute.Path))
+                {
+                    // 文件夹固定
+                    _image.Source = ImagePathConverter.Convert(string.Concat(_attribute.Path, "\\", url));
+                    return;
+                }
+            }
+            else
+            {
+                _text.Text = "没有图片";
+                _text.Foreground = _grayBrush;
+                _removeButton.IsEnabled = false;
+            }
+            _image.Source = ImagePathConverter.Convert(value);
         }
 
         void property_ValueError(object sender, ExceptionEventArgs e)
@@ -108,8 +109,14 @@ namespace WPFMonitor.Library.Controls
 
         void BroswerButton_Click(object sender, RoutedEventArgs e)
         {
-            throw new Exception();
             //new ImagesBrowseWindow(ImageSelection_Changed, _attribute.Path, _attribute.OnlyImage).Show();
+            OpenFileDialog dlg = new OpenFileDialog();
+            dlg.Filter = "图片(*.jpg;*.bmp;*.png)|*.jpg;*.bmp;*.png";
+            if (dlg.ShowDialog() == true)
+            {
+                Property.Value = dlg.FileName;
+            }
+            _removeButton.IsEnabled = true;
         }
 
         void RemoveButton_Click(object sender, RoutedEventArgs e)

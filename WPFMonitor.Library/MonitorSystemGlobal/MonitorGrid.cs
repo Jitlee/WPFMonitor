@@ -13,7 +13,7 @@ using System.Windows.Shapes;
 using WPFMonitor.Model;
 using WPFMonitor.Model.ZTControls;
 
-namespace WPFMonitor.Library.MonitorSystemGlobal
+namespace MonitorSystem.MonitorSystemGlobal
 {
     public class MonitorGrid: MonitorControl
     {

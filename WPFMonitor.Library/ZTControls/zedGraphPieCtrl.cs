@@ -8,17 +8,17 @@ using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Animation;
 using System.Windows.Shapes;
-using WPFMonitor.Library.MonitorSystemGlobal;
+using MonitorSystem.MonitorSystemGlobal;
 using WPFMonitor.Model;
 using System.Collections.Generic;
 using System.Windows.Controls.DataVisualization.Charting;
 using System.Collections;
-using WPFMonitor.Library.GetData;
+using MonitorSystem.GetData;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
 using WPFMonitor.Model.ZTControls;
 
-namespace WPFMonitor.Library.ZTControls
+namespace MonitorSystem.ZTControls
 {
     /// <summary>
     /// 57	zedGraphPieCtrl	2	Text.jpg	组态控件	饼图
@@ -235,7 +235,7 @@ namespace WPFMonitor.Library.ZTControls
         //ObservableCollection<MyDataService.DataTableInfo> _tables;
         private void GetData(string sql, object userState)
         {
-            throw new Exception();
+            //throw new Exception();
             //var ws = WCF.GetService();
             //ws.GetDataSetDataCompleted += new EventHandler<MyDataService.GetDataSetDataCompletedEventArgs>(ws_GetDataSetDataCompleted);
             //ws.GetDataSetDataAsync(_ConnectString, sql, userState);

@@ -11,11 +11,11 @@ using System.Windows.Media;
 using System.Windows.Media.Animation;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
-using WPFMonitor.Library.Controls;
+using MonitorSystem.Controls;
 using WPFMonitor.Model;
 using WPFMonitor.Model.ZTControls;
 
-namespace WPFMonitor.Library.MonitorSystemGlobal
+namespace MonitorSystem.MonitorSystemGlobal
 {
     public partial class ToolTipControl : MonitorControl
     {
@@ -190,32 +190,31 @@ namespace WPFMonitor.Library.MonitorSystemGlobal
 
         private void UpdateBackground()
         {
-            throw new Exception();
-            //if (string.IsNullOrEmpty(BackImage))
-            //{
-            //    var brush = new LinearGradientBrush();
-            //    if (ColorDirection == Orientation.Horizontal)
-            //    {
-            //        brush.StartPoint = new Point();
-            //        brush.EndPoint = new Point(0d, 1d);
-            //    }
-            //    else
-            //    {
-            //        brush.StartPoint = new Point();
-            //        brush.EndPoint = new Point(1d, 0d);
-            //    }
-            //    brush.GradientStops.Add(new GradientStop() { Offset = 0d, Color = FromColor });
-            //    brush.GradientStops.Add(new GradientStop() { Offset = 1d, Color = ToColor });
-            //    _borderPath.Fill = brush;
-            //}
-            //else
-            //{
-            //    _borderPath.Fill = new ImageBrush()
-            //    {
-            //        Stretch = Stretch.UniformToFill,
-            //        ImageSource = new BitmapImage(new Uri(Application.Current.Host.Source, string.Concat("../Upload/Pic/", BackImage.Trim('/'))))
-            //    };
-            //}
+            if (string.IsNullOrEmpty(BackImage) && System.IO.File.Exists(BackImage))
+            {
+                var brush = new LinearGradientBrush();
+                if (ColorDirection == Orientation.Horizontal)
+                {
+                    brush.StartPoint = new Point();
+                    brush.EndPoint = new Point(0d, 1d);
+                }
+                else
+                {
+                    brush.StartPoint = new Point();
+                    brush.EndPoint = new Point(1d, 0d);
+                }
+                brush.GradientStops.Add(new GradientStop() { Offset = 0d, Color = FromColor });
+                brush.GradientStops.Add(new GradientStop() { Offset = 1d, Color = ToColor });
+                _borderPath.Fill = brush;
+            }
+            else
+            {
+                _borderPath.Fill = new ImageBrush()
+                {
+                    Stretch = Stretch.UniformToFill,
+                    ImageSource = new BitmapImage(new Uri(BackImage, UriKind.Absolute)),
+                };
+            }
         }
 
         #endregion
@@ -693,11 +692,11 @@ namespace WPFMonitor.Library.MonitorSystemGlobal
 
                 if (name == "FromColor".ToUpper())
                 {
-                    FromColor = Common.StringToColor(value);
+                    FromColor = Common1.StringToColor(value);
                 }
                 else if (name == "ToColor".ToUpper())
                 {
-                    ToColor = Common.StringToColor(value);
+                    ToColor = Common1.StringToColor(value);
                 }
                 else if (name == "FillDirection".ToUpper())
                 {
@@ -717,7 +716,7 @@ namespace WPFMonitor.Library.MonitorSystemGlobal
                 }
                 else if (name == "Stroke".ToUpper())
                 {
-                    Stroke = Common.StringToColor(value);
+                    Stroke = Common1.StringToColor(value);
                 }
                 else if (name == "StrokeThickness".ToUpper())
                 {

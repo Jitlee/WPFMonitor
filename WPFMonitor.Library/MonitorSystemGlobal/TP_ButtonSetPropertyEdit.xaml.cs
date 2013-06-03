@@ -12,7 +12,7 @@ using System.Windows.Shapes;
 using WPFMonitor.Model;
 using WPFMonitor.Model.ZTControls;
 
-namespace WPFMonitor.Library.MonitorSystemGlobal
+namespace MonitorSystem.MonitorSystemGlobal
 {
     public partial class TP_ButtonSetPropertyEdit : Window
     {
@@ -78,11 +78,13 @@ namespace WPFMonitor.Library.MonitorSystemGlobal
                 //_ContentX.gvList.sh
             }
             this.DialogResult = true;
+            Close();
         }
 
         private void CancelButton_Click(object sender, RoutedEventArgs e)
         {
             this.DialogResult = false;
+            Close();
         }
     }
 }

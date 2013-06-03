@@ -68,7 +68,7 @@ t_ControlProperty m_Cont=new t_ControlProperty(dr);
 }
 
 
-        public ObservableCollection<t_ControlProperty> selectAllDate()
+        public List<t_ControlProperty> selectAllDate()
         {
             string sql = "select * from t_ControlProperty";
            
@@ -81,7 +81,7 @@ t_ControlProperty m_Cont=new t_ControlProperty(dr);
             {
                 throw ex;
             }
-            ObservableCollection<t_ControlProperty> _List = new ObservableCollection<t_ControlProperty>();
+            List<t_ControlProperty> _List = new List<t_ControlProperty>();
             foreach (DataRow dr in dt.Rows)
             {
                 t_ControlProperty obj = new t_ControlProperty(dr);

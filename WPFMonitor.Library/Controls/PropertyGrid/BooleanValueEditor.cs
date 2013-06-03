@@ -1,5 +1,5 @@
 ﻿
-namespace WPFMonitor.Library.Controls
+namespace MonitorSystem.Controls
 {
 	#region Using Directives
 	using System.Windows.Controls;

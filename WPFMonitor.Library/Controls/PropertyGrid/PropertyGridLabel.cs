@@ -1,6 +1,6 @@
 ﻿using System.Windows.Controls;
 
-namespace WPFMonitor.Library.Controls
+namespace MonitorSystem.Controls
 {
 	public class PropertyGridLabel : ContentControl
 	{

@@ -4,7 +4,7 @@ using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Media;
 
-namespace WPFMonitor.Library.Controls
+namespace MonitorSystem.Controls
 {
 	public class DateTimeValueEditor : ValueEditorBase
 	{

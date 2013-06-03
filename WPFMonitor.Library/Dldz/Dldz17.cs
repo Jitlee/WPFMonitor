@@ -8,11 +8,11 @@ using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Animation;
 using System.Windows.Shapes;
-using WPFMonitor.Library.MonitorSystemGlobal;
+using MonitorSystem.MonitorSystemGlobal;
 using System.ComponentModel;
-using WPFMonitor.Model;
+using WPFMonitor.Model.ZTControls;
 
-namespace WPFMonitor.Library.Dldz
+namespace MonitorSystem.Dldz
 {
     /// <summary>
     /// 电力电子14
@@ -163,8 +163,8 @@ namespace WPFMonitor.Library.Dldz
             this.Height = (double)ScreenElement.Height;
             Transparent = ScreenElement.Transparent.Value;
 
-            BackColor = Common.StringToColor(ScreenElement.BackColor);
-            ForeColor = Common.StringToColor(ScreenElement.ForeColor);
+            BackColor = Common1.StringToColor(ScreenElement.BackColor);
+            ForeColor = Common1.StringToColor(ScreenElement.ForeColor);
         }
 
 

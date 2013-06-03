@@ -10,10 +10,11 @@ using System.Windows.Media.Animation;
 using System.Windows.Shapes;
 using WPFMonitor.Model;
 using System.Linq;
-using WPFMonitor.Library.MonitorSystemGlobal;
+using MonitorSystem.MonitorSystemGlobal;
 using System.ComponentModel;
+using WPFMonitor.Model.ZTControls;
 
-namespace WPFMonitor.Library.ZTControls
+namespace MonitorSystem.ZTControls
 {
     /// <summary>
     /// 温度计实体类
@@ -125,11 +126,11 @@ namespace WPFMonitor.Library.ZTControls
                 }
                 else if (name == "BlankColor".ToUpper())
                 {
-                    BlankColor = Common.StringToColor(value);
+                    BlankColor = Common1.StringToColor(value);
                 }
                 else if (name == "DataZoneColor".ToUpper())
                 {
-                    DataZoneColor = Common.StringToColor(value);
+                    DataZoneColor = Common1.StringToColor(value);
                 }
                 else if (name == "Range".ToUpper())
                 {
@@ -146,8 +147,8 @@ namespace WPFMonitor.Library.ZTControls
             this.Width = (double)ScreenElement.Width;
             this.Height = (double)ScreenElement.Height;
 
-            BackColor = Common.StringToColor(ScreenElement.BackColor);
-            ForeColor = Common.StringToColor(ScreenElement.ForeColor);
+            BackColor = Common1.StringToColor(ScreenElement.BackColor);
+            ForeColor = Common1.StringToColor(ScreenElement.ForeColor);
             Transparent = ScreenElement.Transparent.Value;
         }
 

@@ -13,7 +13,7 @@ using System.Windows.Controls.Primitives;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
 
-namespace WPFMonitor.Library.Controls
+namespace MonitorSystem.Controls
 {
     public class ColorPicker : Control
     {
@@ -62,8 +62,8 @@ namespace WPFMonitor.Library.Controls
         private TextBox textBoxColor;
 
         private Popup popupDropDown;
-        private Canvas canvasOutside;
-        private Canvas canvasOutsidePopup;
+        private Grid canvasOutside;
+        private Grid canvasOutsidePopup;
         private ColorBoard colorBoard;
 
         private void InitializeColorBoard()
@@ -72,7 +72,7 @@ namespace WPFMonitor.Library.Controls
             colorBoard.IsTabStop = true;
             colorBoard.MouseLeftButtonDown += new MouseButtonEventHandler(ColorBoard_MouseLeftButtonDown);
             colorBoard.KeyDown += new KeyEventHandler(ColorBoard_KeyDown);
-            colorBoard.SizeChanged += new SizeChangedEventHandler(ColorBoard_SizeChanged);
+            //colorBoard.SizeChanged += new SizeChangedEventHandler(ColorBoard_SizeChanged);
             colorBoard.DoneClicked += new RoutedEventHandler(ColorBoard_DoneClicked);
         }
 
@@ -87,10 +87,10 @@ namespace WPFMonitor.Library.Controls
         private void ColorBoard_KeyDown(object sender, KeyEventArgs e)
         {
         }
-        private void ColorBoard_SizeChanged(object sender, SizeChangedEventArgs e)
-        {
-            SetPopupPosition();
-        }
+        //private void ColorBoard_SizeChanged(object sender, SizeChangedEventArgs e)
+        //{
+        //    SetPopupPosition();
+        //}
         private void SetPopupPosition()
         {
             var win = Window.GetWindow(this);
@@ -105,83 +105,83 @@ namespace WPFMonitor.Library.Controls
 
                 if (rootElement != null)
                 {
-                    GeneralTransform transform = rootElement.TransformToVisual(null);
-                    if (transform != null)
-                    {
-                        Point point00 = transform.Transform( new Point(0.0, 0.0));
-                        Point point10 = transform.Transform( new Point(1.0, 0.0));
-                        Point point01 = transform.Transform( new Point(0.0, 1.0));
+                    //GeneralTransform transform = rootElement.TransformToVisual(win);
+                    //if (transform != null)
+                    //{
+                    //    Point point00 = transform.Transform( new Point(0.0, 0.0));
+                    //    Point point10 = transform.Transform( new Point(1.0, 0.0));
+                    //    Point point01 = transform.Transform( new Point(0.0, 1.0));
 
-                        double x00 = point00.X;
-                        double y00 = point00.Y;
-                        double x = x00;
-                        double y = y00 + pickerheight;
+                    //    double x00 = point00.X;
+                    //    double y00 = point00.Y;
+                    //    double x = x00;
+                    //    double y = y00 + pickerheight;
 
-                        if (contentheight < (y + colorboardheight))
-                        {
-                            y = y00 - colorboardheight;
-                        }
-                        if (contentwidth < (x + colorboardwidth))
-                        {
-                            x = x00 + pickerwidth - colorboardwidth;
-                        }
+                    //    if (contentheight < (y + colorboardheight))
+                    //    {
+                    //        y = y00 - colorboardheight;
+                    //    }
+                    //    if (contentwidth < (x + colorboardwidth))
+                    //    {
+                    //        x = x00 + pickerwidth - colorboardwidth;
+                    //    }
 
-                        popupDropDown.HorizontalOffset = 0.0;
-                        popupDropDown.VerticalOffset = 0.0;
-                        canvasOutsidePopup.Width = contentwidth;
-                        canvasOutsidePopup.Height = contentheight;
-                        colorBoard.HorizontalAlignment = HorizontalAlignment.Left;
-                        colorBoard.VerticalAlignment = VerticalAlignment.Top;
-                        Canvas.SetLeft(colorBoard, x - x00);
-                        Canvas.SetTop(colorBoard, y - y00);
+                    //    popupDropDown.HorizontalOffset = 0.0;
+                    //    popupDropDown.VerticalOffset = 0.0;
+                    //    canvasOutsidePopup.Width = contentwidth;
+                    //    canvasOutsidePopup.Height = contentheight;
+                    //    colorBoard.HorizontalAlignment = HorizontalAlignment.Left;
+                    //    colorBoard.VerticalAlignment = VerticalAlignment.Top;
+                    //    Canvas.SetLeft(colorBoard, x - x00);
+                    //    Canvas.SetTop(colorBoard, y - y00);
 
-                        Matrix identity = Matrix.Identity;
-                        identity.M11 = point10.X - point00.X;
-                        identity.M12 = point10.Y - point00.Y;
-                        identity.M21 = point01.X - point00.X;
-                        identity.M22 = point01.Y - point00.Y;
-                        identity.OffsetX = point00.X;
-                        identity.OffsetY = point00.Y;
+                    //    Matrix identity = Matrix.Identity;
+                    //    identity.M11 = point10.X - point00.X;
+                    //    identity.M12 = point10.Y - point00.Y;
+                    //    identity.M21 = point01.X - point00.X;
+                    //    identity.M22 = point01.Y - point00.Y;
+                    //    identity.OffsetX = point00.X;
+                    //    identity.OffsetY = point00.Y;
 
-                        MatrixTransform matrixtransform = new MatrixTransform();
-                        InvertMatrix(ref identity);
+                    //    MatrixTransform matrixtransform = new MatrixTransform();
+                    //    InvertMatrix(ref identity);
 
-                        matrixtransform.Matrix = identity;
-                        canvasOutsidePopup.RenderTransform = matrixtransform;
-                    }
+                    //    matrixtransform.Matrix = identity;
+                    //    canvasOutsidePopup.RenderTransform = matrixtransform;
+                    //}
                 }
             }
         }
-        private bool InvertMatrix(ref Matrix matrix)
-        {
-            double d = (matrix.M11 * matrix.M22) - (matrix.M12 * matrix.M21);
-            if (d == 0.0)
-            {
-                return false;
-            }
+        //private bool InvertMatrix(ref Matrix matrix)
+        //{
+        //    double d = (matrix.M11 * matrix.M22) - (matrix.M12 * matrix.M21);
+        //    if (d == 0.0)
+        //    {
+        //        return false;
+        //    }
 
-            Matrix orgmatrix = matrix;
-            matrix.M11 = orgmatrix.M22 / d;
-            matrix.M12 = (-1.0 * orgmatrix.M12) / d;
-            matrix.M21 = (-1.0 * orgmatrix.M21) / d;
-            matrix.M22 = orgmatrix.M11 / d;
-            matrix.OffsetX = (orgmatrix.OffsetY * orgmatrix.M21 - orgmatrix.OffsetX * orgmatrix.M22) / d;
-            matrix.OffsetY = (orgmatrix.OffsetX * orgmatrix.M12 - orgmatrix.OffsetY * orgmatrix.M11) / d;
-            return true;
-        }
+        //    Matrix orgmatrix = matrix;
+        //    matrix.M11 = orgmatrix.M22 / d;
+        //    matrix.M12 = (-1.0 * orgmatrix.M12) / d;
+        //    matrix.M21 = (-1.0 * orgmatrix.M21) / d;
+        //    matrix.M22 = orgmatrix.M11 / d;
+        //    matrix.OffsetX = (orgmatrix.OffsetY * orgmatrix.M21 - orgmatrix.OffsetX * orgmatrix.M22) / d;
+        //    matrix.OffsetY = (orgmatrix.OffsetX * orgmatrix.M12 - orgmatrix.OffsetY * orgmatrix.M11) / d;
+        //    return true;
+        //}
 
         private void UpdateControls()
         {
             if (rectangleColor != null)
             {
-                if (rectangleColor.Fill is SolidColorBrush)
-                {
-                    (rectangleColor.Fill as SolidColorBrush).Color = Color;
-                }
-                else
-                {
+                //if (rectangleColor.Fill is SolidColorBrush)
+                //{
+                //    (rectangleColor.Fill as SolidColorBrush).Color = Color;
+                //}
+                //else
+                //{
                     rectangleColor.Fill = new SolidColorBrush(Color);
-                }
+                //}
             }
 
             if (textBoxColor != null)
@@ -210,11 +210,11 @@ namespace WPFMonitor.Library.Controls
             {
                 if (canvasOutside == null)
                 {
-                    canvasOutsidePopup = new Canvas();
+                    canvasOutsidePopup = new Grid();
                     canvasOutsidePopup.Background = new SolidColorBrush(Colors.Transparent);
                     canvasOutsidePopup.MouseLeftButtonDown += new MouseButtonEventHandler(canvasOutsidePopup_MouseLeftButtonDown);
 
-                    canvasOutside = new Canvas();
+                    canvasOutside = new Grid();
                     canvasOutside.Children.Add(canvasOutsidePopup);
                     canvasOutside.Children.Add(colorBoard);
                 }

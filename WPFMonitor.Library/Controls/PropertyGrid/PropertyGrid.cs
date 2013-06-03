@@ -1,5 +1,5 @@
 ﻿
-namespace WPFMonitor.Library.Controls
+namespace MonitorSystem.Controls
 {
 	#region Using Directives
     using System;
@@ -404,7 +404,7 @@ namespace WPFMonitor.Library.Controls
 			};
 			return new PropertyGridLabel()
 			{
-				Name = Guid.NewGuid().ToString("N"),
+                Name = "N" + Guid.NewGuid().ToString("N"),
 				Content = txt
 			};
 		}
@@ -412,7 +412,7 @@ namespace WPFMonitor.Library.Controls
 		{
 			StackPanel stp = new StackPanel()
 			{
-				Name = Guid.NewGuid().ToString("N"),
+                Name = "N" + Guid.NewGuid().ToString("N"),
 				HorizontalAlignment = HorizontalAlignment.Center,
 				VerticalAlignment = VerticalAlignment.Center
 			};
@@ -429,7 +429,7 @@ namespace WPFMonitor.Library.Controls
 		{
 			TextBlock txt = new TextBlock()
 			{
-				Name = Guid.NewGuid().ToString("N"),
+                Name = "N" + Guid.NewGuid().ToString("N"),
 				Text = category,
 				VerticalAlignment = VerticalAlignment.Center,
 				HorizontalAlignment = HorizontalAlignment.Left,
@@ -448,7 +448,7 @@ namespace WPFMonitor.Library.Controls
 		{
 			return new Border()
 			{
-				Name = Guid.NewGuid().ToString("N"),
+                Name = "N" + Guid.NewGuid().ToString("N"),
 				Margin = new Thickness(0),
 				BorderThickness = new Thickness(0),
 				Background = new SolidColorBrush(backgroundColor),
@@ -459,7 +459,7 @@ namespace WPFMonitor.Library.Controls
 		{
 			return new Border()
 			{
-				Name = Guid.NewGuid().ToString("N"),
+                Name = "N" + Guid.NewGuid().ToString("N"),
 				Margin = new Thickness(0),
 				BorderBrush = new SolidColorBrush(backgroundColor),
 				BorderThickness = new Thickness(0, 0, 1, 1),
@@ -471,7 +471,7 @@ namespace WPFMonitor.Library.Controls
 		{
 			Border brd = new Border()
 			{
-				Name = Guid.NewGuid().ToString("N"),
+                Name = "N" + Guid.NewGuid().ToString("N"),
 				Margin = new Thickness(1, 0, 0, 0),
 				BorderThickness = new Thickness(0, 0, 0, 1),
 				BorderBrush = new SolidColorBrush(backgroundColor)
@@ -485,7 +485,7 @@ namespace WPFMonitor.Library.Controls
 			//
 			Image img = new Image()
 			{
-				Name = Guid.NewGuid().ToString("N"),
+				Name = "N" + Guid.NewGuid().ToString("N"),
 				Source = new BitmapImage(new Uri(imageUri, UriKind.Relative)),
 				Height = 9,
 				Width = 9,

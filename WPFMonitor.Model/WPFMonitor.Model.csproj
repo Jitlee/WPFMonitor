@@ -54,10 +54,12 @@
     <Compile Include="AlertAdmin\LightAlarmOR.cs" />
     <Compile Include="AlertAdmin\MainteOR.cs" />
     <Compile Include="AlertAdmin\SchedulingOR.cs" />
+    <Compile Include="ZTControls\V_ScreenMonitorValue.cs" />
+    <Compile Include="ZTControls\t_MonitorSystemParam.cs" />
     <Compile Include="ZTControls\t_Channel.cs" />
     <Compile Include="ZTControls\t_Device.cs" />
-    <Compile Include="ZTControls\t_ElementPropertyLibrary.cs" />
-    <Compile Include="ZTControls\t_ElementLibrary.cs" />
+    <Compile Include="ZTControls\t_ElementProperty_Library.cs" />
+    <Compile Include="ZTControls\t_Element_Library.cs" />
     <Compile Include="ZTControls\t_Element_RealTimeLine.cs" />
     <Compile Include="FileModel.cs" />
     <Compile Include="FileOption.cs" />
@@ -81,6 +83,12 @@
     <Compile Include="ZTControls\t_ElementProperty.cs" />
     <Compile Include="ZTControls\t_GalleryClassification.cs" />
     <Compile Include="ZTControls\t_Screen.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\WPFMonitor.Common\WPFMonitor.Common.csproj">
+      <Project>{0BE0625C-C890-4E6F-81CB-F849205FD622}</Project>
+      <Name>WPFMonitor.Common</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

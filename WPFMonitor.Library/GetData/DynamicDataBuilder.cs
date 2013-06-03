@@ -8,7 +8,7 @@ using System.Xml.Linq;
 using System.Linq;
 using WPFMonitor.DAL.GetData;
 
-namespace WPFMonitor.Library.GetData
+namespace MonitorSystem.GetData
 {
     public class DynamicDataBuilder
     {

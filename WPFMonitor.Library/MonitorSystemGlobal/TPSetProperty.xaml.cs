@@ -2,7 +2,7 @@
 using WPFMonitor.Model.ZTControls;
 using WPFMonitor.DAL.ZTControls;
 
-namespace WPFMonitor.Library.MonitorSystemGlobal
+namespace MonitorSystem.MonitorSystemGlobal
 {
     public partial class TPSetProperty : Window
     {
@@ -50,13 +50,22 @@ namespace WPFMonitor.Library.MonitorSystemGlobal
             _Screen = (t_Screen)cbScreenList.SelectedItem;
             
             _IsOK = true;
-            this.DialogResult = true;
+            //this.DialogResult = true;
+            this.Close();
         }
 
         private void CancelButton_Click(object sender, RoutedEventArgs e)
         {
             _IsOK = false;
-            this.DialogResult = false;
+            //this.DialogResult = false;
+            this.Close();
+        }
+
+        protected override void OnClosing(System.ComponentModel.CancelEventArgs e)
+        {
+            Hide();
+            e.Cancel = true;
+            base.OnClosing(e);
         }
     }
 }

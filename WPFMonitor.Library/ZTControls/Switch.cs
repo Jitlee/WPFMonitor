@@ -8,17 +8,19 @@ using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Animation;
 using System.Windows.Shapes;
-using WPFMonitor.Library.MonitorSystemGlobal;
+using MonitorSystem.MonitorSystemGlobal;
 using System.ComponentModel;
 using WPFMonitor.Model;
+using WPFMonitor;
+using WPFMonitor.Model.ZTControls;
 
-namespace WPFMonitor.Library.ZTControls
+namespace MonitorSystem.ZTControls
 {
     public class Switch : MonitorControl
     {
         public override void SetChannelValue(float fValue)
         {
-            OpenOrNot = Common.ConvertToBool(fValue.ToString());
+            OpenOrNot = Common1.ConvertToBool(fValue.ToString());
         }
 
         public override void DesignMode()
@@ -126,8 +128,8 @@ namespace WPFMonitor.Library.ZTControls
             this.Height = (double)ScreenElement.Height;
             Transparent = ScreenElement.Transparent.Value;
 
-            BackColor = Common.StringToColor(ScreenElement.BackColor);
-            ForeColor = Common.StringToColor(ScreenElement.ForeColor); 
+            BackColor = Common1.StringToColor(ScreenElement.BackColor);
+            ForeColor = Common1.StringToColor(ScreenElement.ForeColor); 
         }
 
         private string[] _browsableProperties = new[] { "Width", "Height", "Left", "Top", "FontFamily", "FontSize",

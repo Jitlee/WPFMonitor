@@ -13,7 +13,7 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using WPFMonitor.Model.ZTControls;
 
-namespace WPFMonitor.Library.MonitorSystemGlobal
+namespace MonitorSystem.MonitorSystemGlobal
 {
     public class MonitorRectangle : MonitorControl
     {

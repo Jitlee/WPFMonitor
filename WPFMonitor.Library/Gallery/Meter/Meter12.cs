@@ -8,12 +8,13 @@ using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Animation;
 using System.Windows.Shapes;
-using WPFMonitor.Library.MonitorSystemGlobal;
+using MonitorSystem.MonitorSystemGlobal;
 using WPFMonitor.Model;
 using System.ComponentModel;
-using WPFMonitor.Library.ZTControls;
+using MonitorSystem.ZTControls;
+using WPFMonitor.Model.ZTControls;
 
-namespace WPFMonitor.Library.Gallery.Meter
+namespace MonitorSystem.Gallery.Meter
 {
     /// <summary>
     /// 仪表12
@@ -140,31 +141,31 @@ namespace WPFMonitor.Library.Gallery.Meter
                 }
                 else if (name == "LabelColor")
                 {
-                    LabelColor = Common.StringToColor(value);
+                    LabelColor = Common1.StringToColor(value);
                 }
                 else if (name == "DialPlateBackColor")
                 {
-                    DialPlateBackColor = Common.StringToColor(value);
+                    DialPlateBackColor = Common1.StringToColor(value);
                 }
                 else if (name == "CalibrationColor")
                 {
-                    CalibrationColor = Common.StringToColor(value);
+                    CalibrationColor = Common1.StringToColor(value);
                 }
                 else if (name == "BackColor")
                 {
-                    BackColor = Common.StringToColor(value);
+                    BackColor = Common1.StringToColor(value);
                 }
                 else if (name == "DialPlateBorlderColor")
                 {
-                    DialPlateBorlderColor = Common.StringToColor(value);
+                    DialPlateBorlderColor = Common1.StringToColor(value);
                 }
                 else if (name == "CalibrationStroke")
                 {
-                    CalibrationStroke = Common.StringToColor(value);
+                    CalibrationStroke = Common1.StringToColor(value);
                 }
                 else if (name == "ScaleColor")
                 {
-                    ScaleColor = Common.StringToColor(value);
+                    ScaleColor = Common1.StringToColor(value);
                 }
             }
         }
@@ -177,8 +178,8 @@ namespace WPFMonitor.Library.Gallery.Meter
             this.Width = (double)ScreenElement.Width;
             this.Height = (double)ScreenElement.Height;
 
-            //BackColor = Common.StringToColor(ScreenElement.BackColor);
-            //ForeColor = Common.StringToColor(ScreenElement.ForeColor);
+            //BackColor = Common1.StringToColor(ScreenElement.BackColor);
+            //ForeColor = Common1.StringToColor(ScreenElement.ForeColor);
             //Transparent = ScreenElement.Transparent.Value;
         }
 

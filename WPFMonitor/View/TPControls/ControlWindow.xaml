@@ -4,7 +4,7 @@
         xmlns:dock="clr-namespace:DockingLibrary;assembly=DockingLibrary"
         xmlns:libs="http://www.monitor.com/wpf/library"
         xmlns:layout="clr-namespace:System.Windows.Controls;assembly=System.Windows.Controls.Layout.Toolkit"
-        Title="ControlWindow" Height="300" Width="300">
+        Title="设计" Height="300" Width="300">
     <dock:DockableContent.Resources>
         <Style TargetType="ListBox">
             <Setter Property="ItemContainerStyle">
@@ -39,7 +39,7 @@
         </Style>
     </dock:DockableContent.Resources>
     <Grid>
-        <layout:Accordion VerticalAlignment="Stretch" VerticalContentAlignment="Stretch"  HorizontalAlignment="Stretch" HorizontalContentAlignment="Stretch">
+        <layout:Accordion x:Name="accordion" VerticalAlignment="Stretch" VerticalContentAlignment="Stretch"  HorizontalAlignment="Stretch" HorizontalContentAlignment="Stretch" SelectionChanged="accordion_SelectionChanged">
             <layout:AccordionItem Header="拓扑控件" HorizontalAlignment="Stretch" HorizontalContentAlignment="Stretch">
                 <ListBox x:Name="tpListBox" SelectionChanged="Control_SelectionChanged" ItemsSource="{Binding TPControls}"/>
             </layout:AccordionItem>

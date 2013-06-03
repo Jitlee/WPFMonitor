@@ -6,6 +6,7 @@ using System.Data;
 using System.Data.SqlClient;
 using DBUtility;
 using WPFMonitor.Model.ZTControls;
+using System.Linq;
 
 namespace WPFMonitor.DAL.ZTControls
 {
@@ -16,6 +17,20 @@ namespace WPFMonitor.DAL.ZTControls
     {
         
 		#region 查询
+
+        public List<t_Element_RealTimeLine> SelectBy(int elementId)
+        {
+            return db.ExecuteQuery("select * from t_Element_RealTimeLine where ElementID = @ElementID",
+                new[]
+                {
+                    new SqlParameter("@ElementID", elementId),
+                })
+                .Rows
+                .OfType<DataRow>()
+                .Select(r => new t_Element_RealTimeLine(r))
+                .ToList();
+        }
+
 public DataTable selectAllDateByWhere(int pageCrrent, int pageSize, out int pageCount, string where)
 {
 string sql = "select * from t_Element_RealTimeLine";
@@ -57,7 +72,7 @@ t_Element_RealTimeLine m_Elem=new t_Element_RealTimeLine(dr);
 }
 
 
-        public ObservableCollection<t_Element_RealTimeLine> selectAllDate()
+        public List<t_Element_RealTimeLine> selectAllDate()
         {
             string sql = "select * from t_Element_RealTimeLine";
            
@@ -70,7 +85,7 @@ t_Element_RealTimeLine m_Elem=new t_Element_RealTimeLine(dr);
             {
                 throw ex;
             }
-            ObservableCollection<t_Element_RealTimeLine> _List = new ObservableCollection<t_Element_RealTimeLine>();
+            List<t_Element_RealTimeLine> _List = new List<t_Element_RealTimeLine>();
             foreach (DataRow dr in dt.Rows)
             {
                 t_Element_RealTimeLine obj = new t_Element_RealTimeLine(dr);
@@ -169,6 +184,12 @@ t_Element_RealTimeLine m_Elem=new t_Element_RealTimeLine(dr);
             }
             return db.ExecuteNoQueryTranPro(listcmd);
 }
+
+        public virtual bool Delete(string id)
+        {
+            string sql = string.Format(" delete from t_Element_RealTimeLine where  Id = '{0}'", id);
+            return db.ExecuteNoQuery(sql) > 0;
+        }
 		#endregion
     }
 }

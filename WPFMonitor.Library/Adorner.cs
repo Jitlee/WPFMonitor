@@ -13,12 +13,12 @@ using System.Windows.Media;
 using System.Windows.Media.Animation;
 using System.Windows.Shapes;
 
-using WPFMonitor.Library.MonitorSystemGlobal;
+using MonitorSystem.MonitorSystemGlobal;
 using WPFMonitor.Model;
 using WPFMonitor.Model.ZTControls;
 using WPFMonitor.DAL.ZTControls;
 
-namespace WPFMonitor.Library
+namespace MonitorSystem
 {
     [TemplatePart(Name = "BackgroundAdorner", Type = typeof(FrameworkElement))]
     [TemplatePart(Name = "ContentAdorner", Type = typeof(FrameworkElement))]
@@ -224,25 +224,25 @@ namespace WPFMonitor.Library
                 if (newValue)
                 {
                     _backgroundAdorner.Visibility = Visibility.Collapsed;
-                    _backgroundAdorner.MouseLeftButtonDown -= BackgroundAdorner_MouseLeftButtonDown;
-                    _backgroundAdorner.MouseLeftButtonUp -= BackgroundAdorner_MouseLeftButtonUp;
+                    _backgroundAdorner.PreviewMouseLeftButtonDown -= BackgroundAdorner_MouseLeftButtonDown;
+                    _backgroundAdorner.PreviewMouseLeftButtonUp -= BackgroundAdorner_MouseLeftButtonUp;
 
-                    _associatedElement.MouseLeftButtonDown -= BackgroundAdorner_MouseLeftButtonDown;
-                    _associatedElement.MouseLeftButtonDown += BackgroundAdorner_MouseLeftButtonDown;
-                    _associatedElement.MouseLeftButtonUp -= BackgroundAdorner_MouseLeftButtonUp;
-                    _associatedElement.MouseLeftButtonUp += BackgroundAdorner_MouseLeftButtonUp;
+                    _associatedElement.PreviewMouseLeftButtonDown -= BackgroundAdorner_MouseLeftButtonDown;
+                    _associatedElement.PreviewMouseLeftButtonDown += BackgroundAdorner_MouseLeftButtonDown;
+                    _associatedElement.PreviewMouseLeftButtonUp -= BackgroundAdorner_MouseLeftButtonUp;
+                    _associatedElement.PreviewMouseLeftButtonUp += BackgroundAdorner_MouseLeftButtonUp;
                 }
                 else
                 {
                     _backgroundAdorner.Visibility = Visibility.Visible;
 
-                    _associatedElement.MouseLeftButtonDown -= BackgroundAdorner_MouseLeftButtonDown;
-                    _associatedElement.MouseLeftButtonUp -= BackgroundAdorner_MouseLeftButtonUp;
+                    _associatedElement.PreviewMouseLeftButtonDown -= BackgroundAdorner_MouseLeftButtonDown;
+                    _associatedElement.PreviewMouseLeftButtonUp -= BackgroundAdorner_MouseLeftButtonUp;
 
-                    _backgroundAdorner.MouseLeftButtonDown -= BackgroundAdorner_MouseLeftButtonDown;
-                    _backgroundAdorner.MouseLeftButtonDown += BackgroundAdorner_MouseLeftButtonDown;
-                    _backgroundAdorner.MouseLeftButtonUp -= BackgroundAdorner_MouseLeftButtonUp;
-                    _backgroundAdorner.MouseLeftButtonUp += BackgroundAdorner_MouseLeftButtonUp;
+                    _backgroundAdorner.PreviewMouseLeftButtonDown -= BackgroundAdorner_MouseLeftButtonDown;
+                    _backgroundAdorner.PreviewMouseLeftButtonDown += BackgroundAdorner_MouseLeftButtonDown;
+                    _backgroundAdorner.PreviewMouseLeftButtonUp -= BackgroundAdorner_MouseLeftButtonUp;
+                    _backgroundAdorner.PreviewMouseLeftButtonUp += BackgroundAdorner_MouseLeftButtonUp;
                 }
             }
         }
@@ -319,7 +319,13 @@ namespace WPFMonitor.Library
         //    SetSelect();
         //}
 
-        protected override void OnMouseLeftButtonDown(MouseButtonEventArgs e)
+        //protected override void OnPreviewMouseLeftButtonDown(MouseButtonEventArgs e)
+        //{
+        //    _SetSelect();
+        //    base.OnPreviewMouseLeftButtonDown(e);
+        //}
+
+        private void _SetSelect()
         {
             if ((Keyboard.Modifiers & ModifierKeys.Control) == ModifierKeys.Control)
             {
@@ -336,7 +342,6 @@ namespace WPFMonitor.Library
             {
                 SetSelect();
             }
-            base.OnMouseLeftButtonDown(e);
         }
 
         //protected override void OnLostFocus(RoutedEventArgs e)
@@ -506,8 +511,8 @@ namespace WPFMonitor.Library
             }
             if (null != _contentAdorner)
             {
-                _contentAdorner.MouseLeftButtonDown -= BackgroundAdorner_MouseLeftButtonDown;
-                _contentAdorner.MouseLeftButtonUp -= BackgroundAdorner_MouseLeftButtonUp;
+                _contentAdorner.PreviewMouseLeftButtonDown -= BackgroundAdorner_MouseLeftButtonDown;
+                _contentAdorner.PreviewMouseLeftButtonUp -= BackgroundAdorner_MouseLeftButtonUp;
             }
             //_associatedElement.SizeChanged -= _associatedElement_SizeChanged;
             if (null != _parent)
@@ -531,43 +536,43 @@ namespace WPFMonitor.Library
             //_contentAdorner.IsHitTestVisible = AllowMove;
 
             _topLeftAdorner = base.GetTemplateChild("TopLeftAdorner") as FrameworkElement;
-            _topLeftAdorner.MouseLeftButtonDown += TopLeftAdorner_MouseLeftButtonDown;
-            _topLeftAdorner.MouseLeftButtonUp += TopLeftAdorner_MouseLeftButtonUp;
+            _topLeftAdorner.PreviewMouseLeftButtonDown += TopLeftAdorner_MouseLeftButtonDown;
+            _topLeftAdorner.PreviewMouseLeftButtonUp += TopLeftAdorner_MouseLeftButtonUp;
             _topLeftAdorner.Visibility = Visibility.Collapsed;
 
             _topCenterAdorner = base.GetTemplateChild("TopCenterAdorner") as FrameworkElement;
-            _topCenterAdorner.MouseLeftButtonDown += TopCenterAdorner_MouseLeftButtonDown;
-            _topCenterAdorner.MouseLeftButtonUp += TopCenterAdorner_MouseLeftButtonUp;
+            _topCenterAdorner.PreviewMouseLeftButtonDown += TopCenterAdorner_MouseLeftButtonDown;
+            _topCenterAdorner.PreviewMouseLeftButtonUp += TopCenterAdorner_MouseLeftButtonUp;
             _topCenterAdorner.Visibility = Visibility.Collapsed;
 
             _topRightAdorner = base.GetTemplateChild("TopRightAdorner") as FrameworkElement;
-            _topRightAdorner.MouseLeftButtonDown += TopRightAdorner_MouseLeftButtonDown;
-            _topRightAdorner.MouseLeftButtonUp += TopRightAdorner_MouseLeftButtonUp;
+            _topRightAdorner.PreviewMouseLeftButtonDown += TopRightAdorner_MouseLeftButtonDown;
+            _topRightAdorner.PreviewMouseLeftButtonUp += TopRightAdorner_MouseLeftButtonUp;
             _topRightAdorner.Visibility = Visibility.Collapsed;
 
             _centerLeftAdorner = base. GetTemplateChild("CenterLeftAdorner") as FrameworkElement;
-            _centerLeftAdorner.MouseLeftButtonDown += CenterLeftAdorner_MouseLeftButtonDown;
-            _centerLeftAdorner.MouseLeftButtonUp += CenterLeftAdorner_MouseLeftButtonUp;
+            _centerLeftAdorner.PreviewMouseLeftButtonDown += CenterLeftAdorner_MouseLeftButtonDown;
+            _centerLeftAdorner.PreviewMouseLeftButtonUp += CenterLeftAdorner_MouseLeftButtonUp;
             _centerLeftAdorner.Visibility = Visibility.Collapsed;
 
             _centerRightAdorner = base.GetTemplateChild("CenterRightAdorner") as FrameworkElement;
-            _centerRightAdorner.MouseLeftButtonDown += CenterRightAdorner_MouseLeftButtonDown;
-            _centerRightAdorner.MouseLeftButtonUp += CenterRightAdorner_MouseLeftButtonUp;
+            _centerRightAdorner.PreviewMouseLeftButtonDown += CenterRightAdorner_MouseLeftButtonDown;
+            _centerRightAdorner.PreviewMouseLeftButtonUp += CenterRightAdorner_MouseLeftButtonUp;
             _centerRightAdorner.Visibility = Visibility.Collapsed;
 
             _bottomLeftAdorner = base.GetTemplateChild("BottomLeftAdorner") as FrameworkElement;
-            _bottomLeftAdorner.MouseLeftButtonDown += BottomLeftAdorner_MouseLeftButtonDown;
-            _bottomLeftAdorner.MouseLeftButtonUp += BottomLeftAdorner_MouseLeftButtonUp;
+            _bottomLeftAdorner.PreviewMouseLeftButtonDown += BottomLeftAdorner_MouseLeftButtonDown;
+            _bottomLeftAdorner.PreviewMouseLeftButtonUp += BottomLeftAdorner_MouseLeftButtonUp;
             _bottomLeftAdorner.Visibility = Visibility.Collapsed;
 
             _bottomCenterAdorner = base.GetTemplateChild("BottomCenterAdorner") as FrameworkElement;
-            _bottomCenterAdorner.MouseLeftButtonDown += BottomCenterAdorner_MouseLeftButtonDown;
-            _bottomCenterAdorner.MouseLeftButtonUp += BottomCenterAdorner_MouseLeftButtonUp;
+            _bottomCenterAdorner.PreviewMouseLeftButtonDown += BottomCenterAdorner_MouseLeftButtonDown;
+            _bottomCenterAdorner.PreviewMouseLeftButtonUp += BottomCenterAdorner_MouseLeftButtonUp;
             _bottomCenterAdorner.Visibility = Visibility.Collapsed;
 
             _bottomRightAdorner = base.GetTemplateChild("BottomRightAdorner") as FrameworkElement;
-            _bottomRightAdorner.MouseLeftButtonDown += BottomRightAdorner_MouseLeftButtonDown;
-            _bottomRightAdorner.MouseLeftButtonUp += BottomRightAdorner_MouseLeftButtonUp;
+            _bottomRightAdorner.PreviewMouseLeftButtonDown += BottomRightAdorner_MouseLeftButtonDown;
+            _bottomRightAdorner.PreviewMouseLeftButtonUp += BottomRightAdorner_MouseLeftButtonUp;
             _bottomRightAdorner.Visibility = Visibility.Collapsed;
 
             _toolTipButton = base.GetTemplateChild("ToolTipButton") as Button;
@@ -588,52 +593,52 @@ namespace WPFMonitor.Library
 
         public void ToggleToolTip()
         {
-            throw new Exception();
-            //var target = _associatedElement as MonitorControl;
-            //if (null != target)
-            //{
-            //    var toolTipControl = target.ToolTipControl;
-            //    if (null == toolTipControl)
-            //    {
-            //        Debug.Assert(null != target.ScreenElement, "MonitorControl 的 ScreenElement 属性不能为null.");
-            //        var parentID = target.ScreenElement.ElementID;
-            //        //LoadScreen._DataContext.Load<t_Element>(LoadScreen._DataContext.GetT_ElementsByScreenIDQuery(screenID), LoadToolTipCallback, null);
-            //        LoadToolTip(LoadScreen._DataContext.t_Elements.Where(el => el.ParentID == parentID && el.ElementType == "ToolTip").ToList());
-            //    }
-            //    else if (toolTipControl.Visibility == Visibility.Collapsed)
-            //    {
-            //        if (null != CurrenttoolTipControl)
-            //        {
-            //            CurrenttoolTipControl.IsOpen = false;
-            //            Adorner.RemoveMutiSelected(CurrenttoolTipControl.AdornerLayer);
-            //        }
-            //        CurrenttoolTipControl = toolTipControl;
+            var target = _associatedElement as MonitorControl;
+            if (null != target)
+            {
+                var toolTipControl = target.ToolTipControl;
+                if (null == toolTipControl)
+                {
+                    Debug.Assert(null != target.ScreenElement, "MonitorControl 的 ScreenElement 属性不能为null.");
+                    var parentID = target.ScreenElement.ElementID;
+                    //LoadScreen._DataContext.Load<t_Element>(LoadScreen._DataContext.GetT_ElementsByScreenIDQuery(screenID), LoadToolTipCallback, null);
+                    //LoadToolTip(LoadScreen._DataContext.t_Elements.Where(el => el.ParentID == parentID && el.ElementType == "ToolTip").ToList());
+                    LoadToolTip(new ElementDA().SelectBy(parentID, "ToolTip"));
+                }
+                else if (toolTipControl.Visibility == Visibility.Collapsed)
+                {
+                    if (null != CurrenttoolTipControl)
+                    {
+                        CurrenttoolTipControl.IsOpen = false;
+                        Adorner.RemoveMutiSelected(CurrenttoolTipControl.AdornerLayer);
+                    }
+                    CurrenttoolTipControl = toolTipControl;
 
-            //        ToolTipLayoutUpdate();
-            //        toolTipControl.IsOpen = true;
-            //        var children = toolTipControl.ToolTipCanvas.Children.ToArray();
-            //        foreach (var child in children)
-            //        {
-            //            var monitor = child as MonitorControl;
-            //            if (null != monitor)
-            //            {
-            //                monitor.ParentControl = toolTipControl;
-            //                monitor.AllowToolTip = false;
-            //                monitor.DesignMode();
-            //                monitor.ClearValue(Canvas.ZIndexProperty);
-            //                if (null != monitor.AdornerLayer)
-            //                {
-            //                    monitor.AdornerLayer.AllToolTip = false;
-            //                }
-            //            }
-            //        }
-            //    }
-            //    else
-            //    {
-            //        toolTipControl.IsOpen = false;
-            //        CurrenttoolTipControl = null;
-            //    }
-            //}
+                    ToolTipLayoutUpdate();
+                    toolTipControl.IsOpen = true;
+                    var children = toolTipControl.ToolTipCanvas.Children.OfType<MonitorControl>().ToList();
+                    foreach (var child in children)
+                    {
+                        var monitor = child as MonitorControl;
+                        if (null != monitor)
+                        {
+                            monitor.ParentControl = toolTipControl;
+                            monitor.AllowToolTip = false;
+                            monitor.DesignMode();
+                            monitor.ClearValue(Canvas.ZIndexProperty);
+                            if (null != monitor.AdornerLayer)
+                            {
+                                monitor.AdornerLayer.AllToolTip = false;
+                            }
+                        }
+                    }
+                }
+                else
+                {
+                    toolTipControl.IsOpen = false;
+                    CurrenttoolTipControl = null;
+                }
+            }
         }
 
         private static t_Control _t_toolTipControl = null;
@@ -650,8 +655,9 @@ namespace WPFMonitor.Library
             }
             else
             {
-                throw new Exception();
                 //LoadScreen._DataContext.Load(LoadScreen._DataContext.GetT_ControlByTypeQuery(-1), LoadControlsByTypeCallback, null);
+                _t_toolTipControl = new ControlDA().SelectBy(-1).FirstOrDefault();
+                CreateToolTip(_t_toolTipControl);
             }
         }
 
@@ -720,53 +726,52 @@ namespace WPFMonitor.Library
         /// <param name="result"></param>
         private void LoadToolTipProperty(List<t_Element> elements)
         {
-            throw new Exception();
-            //var target = _associatedElement as MonitorControl;
-            //if (null != target)
-            //{
-            //    target.IsToolTipLoaded = true;
-            //    var toolTipControlElement = elements.FirstOrDefault(t => t.ControlID == -9999);
-            //    if (null != toolTipControlElement)
-            //    {
-            //        var toolTipControl = new ToolTipControl(target);
-            //        toolTipControl.Width = toolTipControlElement.Width.HasValue ? toolTipControlElement.Width.Value : 300d;
-            //        toolTipControl.Height = toolTipControlElement.Height.HasValue ? toolTipControlElement.Height.Value : 200d;
-            //        toolTipControl.SetValue(Canvas.ZIndexProperty, 10000);
-            //        toolTipControl.ScreenElement = toolTipControlElement;
-            //        toolTipControl.ListElementProp = LoadScreen._DataContext.t_ElementProperties.Where(p => p.ElementID == toolTipControlElement.ElementID).ToList();
-            //        toolTipControl.ElementState = ElementSate.Save;
-            //        toolTipControl.SetPropertyValue();
-            //        toolTipControl.SetCommonPropertyValue();
-            //        _parent.Children.Add(toolTipControl);
-            //        toolTipControl.DesignMode();
-            //        toolTipControl.SetPosition();
-            //        target.ToolTipControl = toolTipControl;
-            //        if (null != CurrenttoolTipControl)
-            //        {
-            //            CurrenttoolTipControl.IsOpen = false;
-            //            Adorner.RemoveMutiSelected(CurrenttoolTipControl.AdornerLayer);
-            //        }
-            //        CurrenttoolTipControl = toolTipControl;
-            //        toolTipControl.IsOpen = true;
-            //        var childElements = elements.Where(t => t.ControlID != -9999);
-            //        foreach (var childElement in childElements)
-            //        {
-            //            var poperties = LoadScreen._DataContext.t_ElementProperties.Where(p => p.ElementID == childElement.ElementID).ToList();
-            //            var monitor = LoadScreen._instance.ShowElement(toolTipControl.ToolTipCanvas, childElement, ElementSate.Save, poperties);
-            //            if (null != monitor)
-            //            {
-            //                monitor.ParentControl = toolTipControl;
-            //                monitor.DesignMode();
-            //                monitor.AllowToolTip = false;
-            //                monitor.ClearValue(Canvas.ZIndexProperty);
-            //                if (null != monitor.AdornerLayer)
-            //                {
-            //                    monitor.AdornerLayer.AllToolTip = false;
-            //                }
-            //            }
-            //        }
-            //    }
-            //}
+            var target = _associatedElement as MonitorControl;
+            if (null != target)
+            {
+                target.IsToolTipLoaded = true;
+                var toolTipControlElement = elements.FirstOrDefault(t => t.ControlID == -9999);
+                if (null != toolTipControlElement)
+                {
+                    var toolTipControl = new ToolTipControl(target);
+                    toolTipControl.Width = toolTipControlElement.Width.HasValue ? toolTipControlElement.Width.Value : 300d;
+                    toolTipControl.Height = toolTipControlElement.Height.HasValue ? toolTipControlElement.Height.Value : 200d;
+                    toolTipControl.SetValue(Canvas.ZIndexProperty, 10000);
+                    toolTipControl.ScreenElement = toolTipControlElement;
+                    toolTipControl.ListElementProp = new ElementPropertyDA().SelectBy(toolTipControlElement.ElementID);
+                    toolTipControl.ElementState = ElementSate.Save;
+                    toolTipControl.SetPropertyValue();
+                    toolTipControl.SetCommonPropertyValue();
+                    _parent.Children.Add(toolTipControl);
+                    toolTipControl.DesignMode();
+                    toolTipControl.SetPosition();
+                    target.ToolTipControl = toolTipControl;
+                    if (null != CurrenttoolTipControl)
+                    {
+                        CurrenttoolTipControl.IsOpen = false;
+                        Adorner.RemoveMutiSelected(CurrenttoolTipControl.AdornerLayer);
+                    }
+                    CurrenttoolTipControl = toolTipControl;
+                    toolTipControl.IsOpen = true;
+                    var childElements = elements.Where(t => t.ControlID != -9999);
+                    foreach (var childElement in childElements)
+                    {
+                        var poperties = new ElementPropertyDA().SelectBy(childElement.ElementID);
+                        var monitor = target.OnLoadElement(toolTipControl.ToolTipCanvas, childElement, ElementSate.Save, poperties);
+                        if (null != monitor)
+                        {
+                            monitor.ParentControl = toolTipControl;
+                            monitor.DesignMode();
+                            monitor.AllowToolTip = false;
+                            monitor.ClearValue(Canvas.ZIndexProperty);
+                            if (null != monitor.AdornerLayer)
+                            {
+                                monitor.AdornerLayer.AllToolTip = false;
+                            }
+                        }
+                    }
+                }
+            }
         }
 
         private void ToolTipLayoutUpdate()
@@ -843,12 +848,14 @@ namespace WPFMonitor.Library
 
         private void BackgroundAdorner_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
         {
+            _SetSelect();
             var source = sender as FrameworkElement;
             source.CaptureMouse();
             source.MouseMove -= BackgroundAdorner_MouseMove;
             source.MouseMove += BackgroundAdorner_MouseMove;
             _initialPoint = e.GetPosition(_parent);
             _originPoints = _selectedAdorners.Select(a => new Point((double)a.GetValue(Canvas.LeftProperty) + _offsetLeft, (double)a.GetValue(Canvas.TopProperty) + _offsetTop));
+            e.Handled = true;
         }
 
         private void BackgroundAdorner_MouseLeftButtonUp(object sender, MouseButtonEventArgs e)
@@ -857,6 +864,7 @@ namespace WPFMonitor.Library
             source.ReleaseMouseCapture();
             source.MouseMove -= BackgroundAdorner_MouseMove;
             OnSelected();
+            //e.Handled = true;
         }
 
         private void BackgroundAdorner_MouseMove(object sender, MouseEventArgs e)
@@ -875,6 +883,7 @@ namespace WPFMonitor.Library
                 i++;
             });
             _initialPoint = mousePoint;
+            //e.Handled = true;
         }
 
         #endregion
@@ -890,6 +899,7 @@ namespace WPFMonitor.Library
             _initialPoint = e.GetPosition(_parent);
             _initialTop = (double)this.GetValue(Canvas.TopProperty);
             _initialLeft = (double)this.GetValue(Canvas.LeftProperty);
+            e.Handled = true;
         }
 
         private void TopLeftAdorner_MouseLeftButtonUp(object sender, MouseButtonEventArgs e)
@@ -982,6 +992,7 @@ namespace WPFMonitor.Library
 
             _initialPoint = e.GetPosition(_parent);
             _initialTop = (double)this.GetValue(Canvas.TopProperty);
+            e.Handled = true;
         }
 
         private void TopRightAdorner_MouseLeftButtonUp(object sender, MouseButtonEventArgs e)
@@ -1027,6 +1038,7 @@ namespace WPFMonitor.Library
 
             _initialPoint = e.GetPosition(_parent);
             _initialLeft = (double)this.GetValue(Canvas.LeftProperty);
+            e.Handled = true;
         }
 
         private void CenterLeftAdorner_MouseLeftButtonUp(object sender, MouseButtonEventArgs e)
@@ -1070,6 +1082,7 @@ namespace WPFMonitor.Library
 
             _initialPoint = e.GetPosition(_parent);
             _initialLeft = (double)this.GetValue(Canvas.LeftProperty);
+            e.Handled = true;
         }
 
         private void CenterRightAdorner_MouseLeftButtonUp(object sender, MouseButtonEventArgs e)
@@ -1110,6 +1123,7 @@ namespace WPFMonitor.Library
 
             _initialPoint = e.GetPosition(_parent);
             _initialLeft = (double)this.GetValue(Canvas.LeftProperty);
+            e.Handled = true;
         }
 
         private void BottomLeftAdorner_MouseLeftButtonUp(object sender, MouseButtonEventArgs e)
@@ -1155,6 +1169,7 @@ namespace WPFMonitor.Library
             _bottomCenterAdorner.MouseMove += BottomCenterAdorner_MouseMove;
 
             _initialPoint = e.GetPosition(_parent);
+            e.Handled = true;
         }
 
         private void BottomCenterAdorner_MouseLeftButtonUp(object sender, MouseButtonEventArgs e)
@@ -1196,6 +1211,7 @@ namespace WPFMonitor.Library
             _initialPoint = e.GetPosition(_parent);
             _initialTop = (double)this.GetValue(Canvas.TopProperty);
             _initialLeft = (double)this.GetValue(Canvas.LeftProperty);
+            e.Handled = true;
         }
 
         private void BottomRightAdorner_MouseLeftButtonUp(object sender, MouseButtonEventArgs e)
@@ -1323,7 +1339,7 @@ namespace WPFMonitor.Library
                     }).ToList();
         }
 
-        internal static void SelectAll()
+        public static void SelectAll()
         {
             foreach (var monitorControl in MonitorControl.OnGetMainCanvas().Children.OfType<MonitorControl>())
             {

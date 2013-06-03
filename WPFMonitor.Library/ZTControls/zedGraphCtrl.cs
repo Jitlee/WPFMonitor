@@ -6,12 +6,12 @@ using System.Windows.Controls;
 using System.Windows.Controls.DataVisualization.Charting;
 using System.Windows.Documents;
 using System.Windows.Media;
-using WPFMonitor.Library.GetData;
-using WPFMonitor.Library.MonitorSystemGlobal;
+using MonitorSystem.GetData;
+using MonitorSystem.MonitorSystemGlobal;
 using WPFMonitor.Model.ZTControls;
 using System.Data.SqlClient;
 
-namespace WPFMonitor.Library.ZTControls
+namespace MonitorSystem.ZTControls
 {
     /// <summary>
     /// 58	zedGraphCtrl	2	Text.jpg	组态控件	柱状图

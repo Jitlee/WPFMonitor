@@ -6,7 +6,7 @@ namespace WPFMonitor.Model.ZTControls
     /// <summary>
     /// 
     /// </summary>
-    public class t_ElementLibrary: ORBase
+    public class t_Element_Library: ORBase
     {
        
 		private int _Elementid;
@@ -276,7 +276,7 @@ NotifyPropertyChanged("Totallength");}
 		/// <summary>
 		/// ElementLibrary构造函数
 		/// </summary>
-		public t_ElementLibrary()
+		public t_Element_Library()
 		{
 
 		}
@@ -284,7 +284,7 @@ NotifyPropertyChanged("Totallength");}
 		/// <summary>
 		/// ElementLibrary构造函数
 		/// </summary>
-		public t_ElementLibrary(DataRow row)
+		public t_Element_Library(DataRow row)
 		{
 			// 
 			_Elementid = Convert.ToInt32(row["ElementID"]);
@@ -319,24 +319,24 @@ NotifyPropertyChanged("Totallength");}
 			// 
 			_Backcolor = row["BackColor"].ToString().Trim();
 			// 
-			_Transparent = Convert.ToInt32(row["Transparent"]);
+            _Transparent = Converter.ToInt32(row["Transparent"]);
 			// 
-			_Oldx = Convert.ToInt32(row["oldX"]);
+            _Oldx = Converter.ToInt32(row["oldX"]);
 			// 
-			_Oldy = Convert.ToInt32(row["oldY"]);
+            _Oldy = Converter.ToInt32(row["oldY"]);
 			// 
-			_Method = Convert.ToInt32(row["Method"]);
+            _Method = Converter.ToInt32(row["Method"]);
 			// 
-			_Minfloat = float.Parse(row["MinFloat"].ToString());
+			_Minfloat = Converter.ToFloat(row["MinFloat"].ToString());
 			// 
-			_Maxfloat = float.Parse(row["MaxFloat"].ToString());
+            _Maxfloat = Converter.ToFloat(row["MaxFloat"].ToString());
 			// 
-			_Serialnum = Convert.ToInt32(row["SerialNum"]);
+            _Serialnum = Converter.ToInt32(row["SerialNum"]);
 			// 
-			_Totallength = float.Parse(row["TotalLength"].ToString());
+            _Totallength = Converter.ToFloat(row["TotalLength"].ToString());
 		}
 
-	public void Clone(t_ElementLibrary obj){
+	public void Clone(t_Element_Library obj){
 //
 Elementid = obj.Elementid;
 //

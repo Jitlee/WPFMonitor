@@ -1,9 +1,9 @@
 ﻿using System;
 using System.Globalization;
 using System.Windows.Data;
-using WPFMonitor.Library.Controls.Converters;
+using MonitorSystem.Controls.Converters;
 
-namespace WPFMonitor.Library.Controls.Converters
+namespace MonitorSystem.Controls.Converters
 {
 	public class EnumTypeConverter : IValueConverter
 	{
