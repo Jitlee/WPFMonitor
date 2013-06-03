@@ -114,6 +114,7 @@
     <Compile Include="Core\ViewModel\SerMonitor\DailyreportViewModel.cs" />
     <Compile Include="Core\ViewModel\SerMonitor\HistoryValueViewModel.cs" />
     <Compile Include="Core\ViewModel\SerMonitor\IntervalReport_fanViewModel.cs" />
+    <Compile Include="Core\ViewModel\TPControls\ScreenViewModel.cs" />
     <Compile Include="Global.cs" />
     <Compile Include="GlobalData.cs" />
     <Compile Include="test.xaml.cs">
@@ -248,6 +249,12 @@
     </Compile>
     <Compile Include="View\TPControls\PropertyWindow.xaml.cs">
       <DependentUpon>PropertyWindow.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="View\TPControls\ScreenCopy.xaml.cs">
+      <DependentUpon>ScreenCopy.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="View\TPControls\ScreenEdit.xaml.cs">
+      <DependentUpon>ScreenEdit.xaml</DependentUpon>
     </Compile>
     <Compile Include="View\TPControls\ScreenTreeWindow.xaml.cs">
       <DependentUpon>ScreenTreeWindow.xaml</DependentUpon>
@@ -491,6 +498,14 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="View\TPControls\PropertyWindow.xaml">
+	<SubType>Designer</SubType>
+        <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="View\TPControls\ScreenCopy.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="View\TPControls\ScreenEdit.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

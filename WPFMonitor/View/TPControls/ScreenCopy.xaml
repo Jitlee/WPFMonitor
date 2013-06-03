@@ -1,0 +1,31 @@
+﻿<Window x:Class="WPFMonitor.View.TPControls.ScreenCopy"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        Title="ScreenCopy" Height="152" Width="385">
+    <Grid Name="gridContent">
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="120"/>
+            <ColumnDefinition/>
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="25"/>
+            <RowDefinition Height="30"/>
+       
+            <RowDefinition/>
+            <RowDefinition Height="30"/>
+        </Grid.RowDefinitions>
+
+        <TextBlock  Text="目标场景：" Style="{StaticResource lblStyle}" Grid.Row="1"/>
+        <ComboBox ItemsSource="{Binding StationORList}"  SelectedItem="{Binding SelectStationOR, Mode=TwoWay}" Grid.Row="1"
+                Grid.Column="1" DisplayMemberPath="ScreenName"  Style="{StaticResource EditCBStyle}"  x:Name="cbStation" />
+
+        <WrapPanel Grid.Row="5" Grid.ColumnSpan="2"  HorizontalAlignment="Center" VerticalAlignment="Center">
+            <Button  x:Name="OKButton" Command="{Binding OKCommand}" Style="{StaticResource editButtonStyle}" Height="23" Width="65" 
+                     IsDefault="True" Content="确定" Click="OKButton_Click" />
+
+            <Button  x:Name="CancelButton"    Style="{StaticResource editButtonStyle}"
+                 Height="23" Width="65" IsCancel="True" Content="取消" />
+        </WrapPanel>
+
+    </Grid>
+</Window>

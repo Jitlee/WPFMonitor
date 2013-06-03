@@ -30,7 +30,9 @@ namespace WPFMonitor.Core.ViewModel.Sys
         {
             UserDA _staDA = new UserDA();
             if (null != _UserORList)
-                _UserORList.Clear(); 
+                _UserORList.Clear();
+            else
+                _UserORList = new ObservableCollection<UserOR>();
 
             var vList = _staDA.selectAllDate();
             foreach (UserOR obj in vList)

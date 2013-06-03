@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Collections.ObjectModel;
+using System.Windows;
 
 namespace WPFMonitor
 {
@@ -36,6 +37,30 @@ namespace WPFMonitor
        ,"48","49","50","51","52","53"
        ,"54","55","56","57","58","59"
        };
+
+       public static void ShowMsgError(string msg)
+       {
+           MessageBox.Show(msg, "温馨提示", MessageBoxButton.OK, MessageBoxImage.Error);
+       }
+
+       public static string GetStartpath()
+       {
+           string temp = AppDomain.CurrentDomain.BaseDirectory;
+           if (!temp.EndsWith("\\"))
+           {
+               temp += "\\";
+           }
+           return temp;
+       }
+
+       /// <summary>
+       /// 项目背景起动路径
+       /// </summary>
+       /// <returns></returns>
+       public static string GetAppBgPath()
+       {
+         return   GlobalData.GetStartpath() + "Upload\\ImageMap\\";
+       }
 
     }
 }

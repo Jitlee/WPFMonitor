@@ -9,8 +9,10 @@
         </HierarchicalDataTemplate>
     </dock:DockableContent.Resources>
     <Grid>
-        <TreeView
+        <TreeView Name="trList"
             ItemsSource="{Binding Screens}"
             ItemTemplate="{StaticResource ScreenTreeTemplate}"/>
+        
+        
     </Grid>
 </dock:DockableContent>

@@ -1,0 +1,44 @@
+﻿<Window x:Class="WPFMonitor.View.TPControls.ScreenEdit"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        Title="场景信息" Height="201" Width="362" WindowStartupLocation="CenterOwner" 
+        ShowInTaskbar="False" ResizeMode="NoResize">
+    <Grid Name="gridContent">
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="120"/>
+            <ColumnDefinition/>
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="10"/>
+            <RowDefinition Height="30"/>
+            <RowDefinition Height="30"/>
+            <RowDefinition Height="30"/>            
+            <RowDefinition/>
+            <RowDefinition Height="30"/>
+        </Grid.RowDefinitions>
+
+        <TextBlock  Text="场景名称：" Style="{StaticResource lblStyle}" Grid.Row="1"/>
+        <TextBox   Style="{StaticResource txtStyle}" Text="{Binding ScreenObj.ScreenName, Mode=TwoWay}"
+                   Grid.Row="1"  Grid.Column="1"></TextBox>
+
+        <TextBlock  Text="场景背影图片：" Style="{StaticResource lblStyle}" Grid.Row="2"/>
+        <WrapPanel Grid.Row="2"  Grid.Column="1">
+            <TextBox   Style="{StaticResource txtStyle}" Text="{Binding ScreenObj.ImageURL, Mode=TwoWay}"
+                   IsReadOnly="True" ></TextBox>
+            <Button     Content="..." Width="30" Command="{Binding SelectImageCommand}" Height="15"></Button>
+        </WrapPanel>
+
+        <TextBlock  Text="站点名称：" Style="{StaticResource lblStyle}" Grid.Row="3"/>
+        <ComboBox ItemsSource="{Binding StationORList}"  SelectedItem="{Binding SelectStationOR, Mode=TwoWay}" Grid.Row="3"
+                Grid.Column="1" DisplayMemberPath="Stationname"  Style="{StaticResource EditCBStyle}"  x:Name="cbStation" />
+
+        <WrapPanel Grid.Row="5" Grid.ColumnSpan="2"  HorizontalAlignment="Center" VerticalAlignment="Center">
+            <Button  x:Name="OKButton" Command="{Binding OKCommand}" Style="{StaticResource editButtonStyle}" Height="23" Width="65" 
+                     IsDefault="True" Content="确定" />
+
+            <Button  x:Name="CancelButton"    Style="{StaticResource editButtonStyle}"
+                 Height="23" Width="65" IsCancel="True" Content="取消" />
+        </WrapPanel>
+
+    </Grid>
+</Window>
