@@ -949,6 +949,7 @@ namespace MonitorSystem
 
             _initialPoint = e.GetPosition(_parent);
             _initialTop = (double)this.GetValue(Canvas.TopProperty);
+            e.Handled = true;
         }
 
         private void TopCenterAdorner_MouseLeftButtonUp(object sender, MouseButtonEventArgs e)

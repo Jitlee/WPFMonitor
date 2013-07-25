@@ -514,7 +514,7 @@ namespace WPFMonitor.View.TPControls
             {
                 AddElementCanvas.SetValue(CustomCursor.CustomProperty, true);
                 AddElementCanvas.Visibility = Visibility.Visible;
-                GridScreen.PreviewMouseLeftButtonDown -= GridScreen_MouseLeftButtonDown;
+                GridScreen.MouseLeftButtonDown -= GridScreen_MouseLeftButtonDown;
                 GridScreen.PreviewMouseLeftButtonDown -= AddElementCanvas_MouseLeftButtonDown;
                 GridScreen.PreviewMouseLeftButtonDown += AddElementCanvas_MouseLeftButtonDown;
                 GridScreen.PreviewMouseLeftButtonUp -= AddElementCanvas_MouseLeftButtonUp;
@@ -532,8 +532,8 @@ namespace WPFMonitor.View.TPControls
             {
                 AddElementCanvas.Visibility = Visibility.Collapsed;
                 AddElementCanvas.SetValue(CustomCursor.CustomProperty, false);
-                GridScreen.PreviewMouseLeftButtonDown -= GridScreen_MouseLeftButtonDown;
-                GridScreen.PreviewMouseLeftButtonDown += GridScreen_MouseLeftButtonDown;
+                GridScreen.MouseLeftButtonDown -= GridScreen_MouseLeftButtonDown;
+                GridScreen.MouseLeftButtonDown += GridScreen_MouseLeftButtonDown;
                 GridScreen.PreviewMouseLeftButtonDown -= AddElementCanvas_MouseLeftButtonDown;
                 GridScreen.PreviewMouseLeftButtonUp -= AddElementCanvas_MouseLeftButtonUp;
                 GridScreen.MouseRightButtonDown += GridScreen_MouseRightButtonDown;
@@ -2084,7 +2084,7 @@ AND [t_Element].ScreenID=@ScreenID)",
 
         private void GridScreen_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
         {
-            if (!AutoSize)
+            if (!AutoSize && !(e.Source is MonitorSystem.Adorner))
             {
                 GridScreen.CaptureMouse();
 
