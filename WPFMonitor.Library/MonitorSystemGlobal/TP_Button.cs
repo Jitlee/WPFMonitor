@@ -229,7 +229,7 @@ namespace MonitorSystem.MonitorSystemGlobal
                 AdornerLayer = new Adorner(this);
                 var menu = new ContextMenu();
                 var menuItem = new MenuItem() { Header = "属性" };
-                menuItem.Click += PropertyMenuItem_Click;
+                menuItem.Click += PropertyMenuItemSet_Click;
                 AdornerLayer.Selected += OnSelected;
                 menu.Items.Add(menuItem);
                 AdornerLayer.SetValue(ContextMenuService.ContextMenuProperty, menu);
@@ -255,11 +255,12 @@ namespace MonitorSystem.MonitorSystemGlobal
             }
         }
 
-        TP_ButtonSetProperty tpp; 
-        private void PropertyMenuItem_Click(object sender, RoutedEventArgs e)
+        TP_ButtonSetProperty tppSet; 
+        private void PropertyMenuItemSet_Click(object sender, RoutedEventArgs e)
         {
-          tpp=  new TP_ButtonSetProperty(this);           
-          tpp.Show();
+            tppSet = new TP_ButtonSetProperty(this);
+            tppSet.Owner = Common1.MainWin;
+            tppSet.Show();
         }
 
         public override void SetPropertyValue()

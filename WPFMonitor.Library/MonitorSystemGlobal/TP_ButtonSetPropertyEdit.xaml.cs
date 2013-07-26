@@ -77,13 +77,13 @@ namespace MonitorSystem.MonitorSystemGlobal
                 _ContentX.BindList();
                 //_ContentX.gvList.sh
             }
-            this.DialogResult = true;
+             
             Close();
         }
 
         private void CancelButton_Click(object sender, RoutedEventArgs e)
         {
-            this.DialogResult = false;
+            
             Close();
         }
     }

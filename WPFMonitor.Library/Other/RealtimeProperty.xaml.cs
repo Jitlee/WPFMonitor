@@ -255,13 +255,13 @@ namespace MonitorSystem.Other
             _RealTimeData._CanvasPoint.Children.Clear();
             _RealTimeData.PaintBasicInfo();
 
-            this.DialogResult = true;
+            this.Close();
         }
 
 
         private void CancelButton_Click(object sender, RoutedEventArgs e)
         {
-            this.DialogResult = false;
+            this.Close();
         }
 
         #region 鼠标移动处理

@@ -6,7 +6,7 @@
              xmlns:sdk="http://schemas.microsoft.com/winfx/2006/xaml/presentation/sdk"
               xmlns:toolkit="http://schemas.xceed.com/wpf/xaml/toolkit"
               xmlns:my="clr-namespace:MonitorSystem.Controls"
-    mc:Ignorable="d"
+    mc:Ignorable="d" 
     d:DesignHeight="202" d:DesignWidth="589">
     
     <Grid x:Name="LayoutRoot" Height="230" Width="620">

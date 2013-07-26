@@ -76,7 +76,6 @@ namespace MonitorSystem.Other
         private void CancelButton_Click(object sender, RoutedEventArgs e)
         {
             _InputObj.SetBorderHide();
-            this.DialogResult = false;
         }
 
         private void OKButton_Click(object sender, RoutedEventArgs e)
@@ -124,7 +123,7 @@ namespace MonitorSystem.Other
             }
             _InputObj.SetBorderHide();
             _InputObj.tbShowInfo.Text = _DataValue.ToString();
-            this.DialogResult = true;
+            this.Close();
         }
 
         private void ShowMsg(string msg)

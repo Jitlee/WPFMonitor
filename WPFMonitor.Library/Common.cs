@@ -10,6 +10,7 @@ namespace MonitorSystem
 {
     public static class Common1
     {
+        public static System.Windows.Window MainWin { get; set; }
         public static Color StringToColor(string htmlColr, Color defualtColor = default(Color))
         {
             try

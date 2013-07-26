@@ -70,35 +70,7 @@ namespace MonitorSystem.ZTControls
            RefBackground();
         }
 
-        #region 属性设置
-        SetSingleProperty tpp = new SetSingleProperty();
-        private void PropertyMenuItem_Click(object sender, RoutedEventArgs e)
-        {
-            tpp = new SetSingleProperty();
-            if (ScreenElement != null)
-            {
-                tpp.Closing += tpp_Closing;
-                tpp.DeviceID = this.ScreenElement.DeviceID.Value;
-                tpp.ChanncelID = this.ScreenElement.ChannelNo.Value;
-                tpp.LevelNo = this.ScreenElement.LevelNo.Value;
-                tpp.ComputeStr = this.ScreenElement.ComputeStr;
-            }
-            tpp.Init();
-            tpp.Show();
-        }
-
-        protected void tpp_Closing(object sender, System.ComponentModel.CancelEventArgs e)
-        {
-            if (tpp.IsOK && ScreenElement != null)
-            {   
-                this.ScreenElement.DeviceID = tpp.DeviceID;
-                this.ScreenElement.ChannelNo = tpp.ChanncelID;
-                this.ScreenElement.LevelNo = tpp.LevelNo;
-                this.ScreenElement.ComputeStr = tpp.ComputeStr;
-            }
-        }
-
-        #endregion
+      
         
         #region 控件公共属性
         public override event EventHandler Selected;

@@ -42,6 +42,7 @@ namespace WPFMonitor
 
             InitializeComponent();
             Global._MainWindow = this;
+            MonitorSystem.Common1.MainWin = Global._MainWindow;
             ThemeFactory.ChangeTheme("Leather");
             return;
         }

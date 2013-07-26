@@ -132,7 +132,7 @@ namespace MonitorSystem.MonitorSystemGlobal
 
                 var menu = new ContextMenu();
                 var menuItem = new MenuItem() { Header = "属性" };
-                menuItem.Click += PropertyMenuItem_Click;
+                menuItem.Click += PropertyMenuItemSet_Click;
                 menu.Items.Add(menuItem);
                 AdornerLayer.SetValue(ContextMenuService.ContextMenuProperty, menu);
             }
@@ -157,20 +157,20 @@ namespace MonitorSystem.MonitorSystemGlobal
             }
         }
 
-        TPSetProperty tpp = new TPSetProperty();
-        private void PropertyMenuItem_Click(object sender, RoutedEventArgs e)
+        TPSetProperty tppSet = new TPSetProperty();
+        private void PropertyMenuItemSet_Click(object sender, RoutedEventArgs e)
         {
-            tpp.Closing += tpp_Closing;
-            tpp.Screen = GetChildScreenID();
-            tpp.Show();
+            tppSet.Closing += tppSet_Closing;
+            tppSet.Screen = GetChildScreenID();
+            tppSet.Show();
         }
 
-        protected void tpp_Closing(object sender, System.ComponentModel.CancelEventArgs e)
+        protected void tppSet_Closing(object sender, System.ComponentModel.CancelEventArgs e)
         {
-            if (tpp.IsOK)
+            if (tppSet.IsOK)
             {
-                this.ScreenElement.ChildScreenID = string.Format("{0}#{1};", tpp.Screen.ScreenName, 
-                    tpp.Screen.ScreenID);
+                this.ScreenElement.ChildScreenID = string.Format("{0}#{1};", tppSet.Screen.ScreenName,
+                    tppSet.Screen.ScreenID);
                 //MessageBox.Show(tpp.Screen.ScreenName);
             }
         }

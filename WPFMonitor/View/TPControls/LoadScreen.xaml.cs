@@ -34,6 +34,7 @@ namespace WPFMonitor.View.TPControls
         {
             InitializeComponent();
 
+          
             //wrapPanel1.SetValue(Canvas.ZIndexProperty, 999);
             //tbWait.IsBusy = true;
 

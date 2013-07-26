@@ -45,12 +45,12 @@ namespace MonitorSystem.Other
             _RealTimeData._CanvasPoint.Children.Clear();            
 
             _RealLineOr.LineInfo = lineProperty1.SaveRealTimeLineOR();
-            this.DialogResult = true;
+            this.Close();
         }
 
         private void CancelButton_Click(object sender, RoutedEventArgs e)
         {
-            this.DialogResult = false;
+            this.Close();
         }
     }
 }

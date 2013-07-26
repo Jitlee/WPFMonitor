@@ -4,7 +4,9 @@
            Width="624" Height="477" 
            Title="属性" xmlns:my="clr-namespace:MonitorSystem.Controls"
            xmlns:sdk="http://schemas.microsoft.com/winfx/2006/xaml/presentation/sdk"
-           xmlns:toolkit="http://schemas.microsoft.com/winfx/2006/xaml/presentation/toolkit" xmlns:my1="clr-namespace:MonitorSystem.Other">
+           xmlns:toolkit="http://schemas.microsoft.com/winfx/2006/xaml/presentation/toolkit" 
+        WindowStartupLocation="CenterOwner" ShowInTaskbar="False" ResizeMode="NoResize"
+        xmlns:my1="clr-namespace:MonitorSystem.Other">
     <Grid x:Name="LayoutRoot" >
         <Grid.RowDefinitions>
             <RowDefinition Height="450" />

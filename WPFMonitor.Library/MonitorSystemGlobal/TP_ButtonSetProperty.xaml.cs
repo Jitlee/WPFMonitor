@@ -32,7 +32,6 @@ namespace MonitorSystem.MonitorSystemGlobal
         private void OKButton_Click(object sender, RoutedEventArgs e)
         {
             BaseCtl.SetChildScreen(ListScreenShow);
-            this.DialogResult = true;
             Close();
         }
 
@@ -43,13 +42,13 @@ namespace MonitorSystem.MonitorSystemGlobal
 
         private void CancelButton_Click(object sender, RoutedEventArgs e)
         {
-            this.DialogResult = false;
             Close();
         }
 
         private void btnAdd_Click(object sender, RoutedEventArgs e)
         {
             TP_ButtonSetPropertyEdit _Win = new TP_ButtonSetPropertyEdit(this,OpType.Add);
+            _Win.Owner = this;
             _Win.Show();
         }
 
@@ -61,6 +60,7 @@ namespace MonitorSystem.MonitorSystemGlobal
                 return;
             }
             TP_ButtonSetPropertyEdit _Win = new TP_ButtonSetPropertyEdit(this, OpType.Alert);
+            _Win.Owner = this;
             _Win.Show();
         }
 

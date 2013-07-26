@@ -1,7 +1,7 @@
 ﻿<Window x:Class="MonitorSystem.MonitorSystemGlobal.TPSetProperty"
            xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation" 
            xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-           Width="347" Height="136" 
+           Width="347" Height="136"  WindowStartupLocation="CenterOwner" ShowInTaskbar="False" ResizeMode="NoResize"
            Title="拓扑关系">
     <Grid x:Name="LayoutRoot" Margin="2">
         <Grid.RowDefinitions>

@@ -226,8 +226,6 @@ namespace MonitorSystem.ZTControls
             _ChanncelID = ((t_Channel)cbChanncel.SelectedValue).ChannelNo;
             _LevelNo =int.Parse( ((ComboBoxItem)cbLayer.SelectedItem).Content.ToString());
             _ComputeStr = txtBDS.Text;
-
-            //this.DialogResult = true;
             _IsOK = true;
             Close();
         }
@@ -235,7 +233,6 @@ namespace MonitorSystem.ZTControls
         private void CancelButton_Click(object sender, RoutedEventArgs e)
         {
             _IsOK = false;
-            //this.DialogResult = false;
             Close();
         }
 

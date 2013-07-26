@@ -50,14 +50,12 @@ namespace MonitorSystem.MonitorSystemGlobal
             _Screen = (t_Screen)cbScreenList.SelectedItem;
             
             _IsOK = true;
-            //this.DialogResult = true;
             this.Close();
         }
 
         private void CancelButton_Click(object sender, RoutedEventArgs e)
         {
             _IsOK = false;
-            //this.DialogResult = false;
             this.Close();
         }
 

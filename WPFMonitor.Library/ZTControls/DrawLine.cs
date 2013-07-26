@@ -48,38 +48,38 @@ namespace MonitorSystem.ZTControls
         }
 
         #region 属性设置
-        SetSinglePropertyDrawLine tpp = new SetSinglePropertyDrawLine();
-        private void PropertyMenuItem_Click(object sender, RoutedEventArgs e)
+        SetSinglePropertyDrawLine tppLine = new SetSinglePropertyDrawLine();
+        private void PropertyMenuItemLine_Click(object sender, RoutedEventArgs e)
         {
-            tpp = new SetSinglePropertyDrawLine();
+            tppLine = new SetSinglePropertyDrawLine();
             if (ScreenElement != null)
             {
-                tpp.Closing += tpp_Closing;
-                tpp.DeviceID = this.ScreenElement.DeviceID.Value;
-                tpp.ChanncelID = this.ScreenElement.ChannelNo.Value;
-                tpp.LevelNo = this.ScreenElement.LevelNo.Value;
-                tpp.ComputeStr = this.ScreenElement.ComputeStr;
+                tppLine.Closing += tpp_Closing;
+                tppLine.DeviceID = this.ScreenElement.DeviceID.Value;
+                tppLine.ChanncelID = this.ScreenElement.ChannelNo.Value;
+                tppLine.LevelNo = this.ScreenElement.LevelNo.Value;
+                tppLine.ComputeStr = this.ScreenElement.ComputeStr;
 
-                tpp.Method = this.ScreenElement.Method;
-                tpp.MinFloat = this.ScreenElement.MinFloat.Value;
-                tpp.MaxFloat = this.ScreenElement.MaxFloat.Value;
+                tppLine.Method = this.ScreenElement.Method;
+                tppLine.MinFloat = this.ScreenElement.MinFloat.Value;
+                tppLine.MaxFloat = this.ScreenElement.MaxFloat.Value;
             }
-            tpp.Init();
-            tpp.Show();
+            tppLine.Init();
+            tppLine.Show();
         }
 
         protected void tpp_Closing(object sender, System.ComponentModel.CancelEventArgs e)
         {
-            if (tpp.IsOK && ScreenElement != null)
+            if (tppLine.IsOK && ScreenElement != null)
             {
-                this.ScreenElement.DeviceID = tpp.DeviceID;
-                this.ScreenElement.ChannelNo = tpp.ChanncelID;
-                this.ScreenElement.LevelNo = tpp.LevelNo;
-                this.ScreenElement.ComputeStr = tpp.ComputeStr;
+                this.ScreenElement.DeviceID = tppLine.DeviceID;
+                this.ScreenElement.ChannelNo = tppLine.ChanncelID;
+                this.ScreenElement.LevelNo = tppLine.LevelNo;
+                this.ScreenElement.ComputeStr = tppLine.ComputeStr;
 
-                this.ScreenElement.Method = tpp.Method;
-                this.ScreenElement.MinFloat = tpp.MinFloat;
-                this.ScreenElement.MaxFloat = tpp.MaxFloat;
+                this.ScreenElement.Method = tppLine.Method;
+                this.ScreenElement.MinFloat = tppLine.MinFloat;
+                this.ScreenElement.MaxFloat = tppLine.MaxFloat;
             }
         }
 
@@ -107,7 +107,7 @@ namespace MonitorSystem.ZTControls
 
                 var menu = new ContextMenu();
                 var menuItem = new MenuItem() { Header = "属性" };
-                menuItem.Click += PropertyMenuItem_Click;
+                menuItem.Click += PropertyMenuItemLine_Click;
                 menu.Items.Add(menuItem);
                 AdornerLayer.SetValue(ContextMenuService.ContextMenuProperty, menu);
             }
