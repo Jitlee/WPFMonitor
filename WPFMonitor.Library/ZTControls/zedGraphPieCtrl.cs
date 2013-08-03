@@ -13,10 +13,10 @@ using WPFMonitor.Model;
 using System.Collections.Generic;
 using System.Windows.Controls.DataVisualization.Charting;
 using System.Collections;
-using MonitorSystem.GetData;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
 using WPFMonitor.Model.ZTControls;
+using System.Data;
 
 namespace MonitorSystem.ZTControls
 {
@@ -229,18 +229,48 @@ namespace MonitorSystem.ZTControls
             //添加top 100主要是为了防止，表的数据太多，程序无法加载而死掉
             string strSql =  string.Format("select top 100 * from {0}",  _TalbeName);
 
-            GetData(strSql, "Data");
+            GetData(strSql);
         }
-
-        //ObservableCollection<MyDataService.DataTableInfo> _tables;
-        private void GetData(string sql, object userState)
+        private void GetData(string sql)
         {
-            //throw new Exception();
-            //var ws = WCF.GetService();
-            //ws.GetDataSetDataCompleted += new EventHandler<MyDataService.GetDataSetDataCompletedEventArgs>(ws_GetDataSetDataCompleted);
-            //ws.GetDataSetDataAsync(_ConnectString, sql, userState);
+            DataTable dt=   LoadDataDA.GetDataBySql(_ConnectString, sql);
+            if (dt != null)
+            {
+                Bind(dt);
+            }
         }
 
+        private void Bind(DataTable dt)
+        {
+            //var _ColumnSeri = new PieSeries();
+            //_ColumnSeri.ItemsSource = dt;
+            //// _ColumnSeri.Title = _BarName;
+            //if (e.Result.Tables.Count > 0)
+            //{
+            //    int Number = 0;
+            //    if (e.Result.Tables[0].Columns.Count >= 2)
+            //    {
+            //        foreach (MyDataService.DataColumnInfo column in e.Result.Tables[0].Columns)
+            //        {
+            //            if (Number == 0)
+            //                _ColumnSeri.IndependentValuePath = column.ColumnName;
+            //            else if (Number == 1)
+            //            {
+            //                if (column.DataTypeName == "System.String")
+            //                {
+            //                    return;
+            //                }
+            //                _ColumnSeri.DependentValuePath = column.ColumnName;
+            //            }
+            //            Number++;
+            //        }
+            //    }
+            //}
+
+            //_Chart.Title = _TitleName;
+            //_Chart.Series.Clear();
+            //_Chart.Series.Add(_ColumnSeri);
+        }
 
         //void ws_GetDataSetDataCompleted(object sender, MyDataService.GetDataSetDataCompletedEventArgs e)
         //{

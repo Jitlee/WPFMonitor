@@ -17,6 +17,7 @@ using WPFMonitor.DAL;
 using MonitorSystem.MonitorSystemGlobal;
 using WPFMonitor.Model;
 using WPFMonitor.Model.ZTControls;
+using System.Data;
 
 namespace MonitorSystem.ZTControls
 {
@@ -32,7 +33,7 @@ namespace MonitorSystem.ZTControls
             theGrid.Background = new SolidColorBrush(Colors.White);
             theGrid.IsReadOnly = true;
             this.Content = theGrid;
-
+            theGrid.AutoGenerateColumns = true;
             LoadData();
             this.SizeChanged += new SizeChangedEventHandler(TableCtrl_SizeChanged);
         }
@@ -256,14 +257,7 @@ namespace MonitorSystem.ZTControls
              }
          }
       #region 从wcf中加载数据
-        private void GetData(string sql, object userState)
-        {
-            //throw new Exception();
-            //var ws = WCF.GetService();
-
-            //ws.GetDataSetDataCompleted += new EventHandler<MyDataService.GetDataSetDataCompletedEventArgs>(ws_GetDataSetDataCompleted);
-            //ws.GetDataSetDataAsync( _ConnectString, sql , userState);
-        }
+        
 
 
         /// <summary>
@@ -280,21 +274,26 @@ namespace MonitorSystem.ZTControls
 
             string strSql = string.Format("select top 1000 {0} from {1}", _ColumnsName, _TalbeName);
 
-            GetData(strSql,  "Data");
+            GetData(strSql);
         }
 
-        //void ws_GetDataSetDataCompleted(object sender, MyDataService.GetDataSetDataCompletedEventArgs e)
-        //{
-        //    if (e.Error != null)
-        //        return;
-        //    else if (e.ServiceError != null)
-        //        return;
 
-        //    IEnumerable list = DynamicDataBuilder.GetDataList(e.Result);
-        //    theGrid.Columns.Clear();
-        //    theGrid.ItemsSource = DynamicDataBuilder.GetDataList(e.Result);
-        //    theGrid.HorizontalContentAlignment = HorizontalAlignment.Center;
-        //}
+        private void GetData(string sql)
+        {
+            DataTable dt = LoadDataDA.GetDataBySql(_ConnectString, sql);
+            if (dt != null)
+            {
+                Bind(dt);
+            }
+        }
+        private void Bind(DataTable dt)
+        {
+            IEnumerable list = dt.Rows;
+            theGrid.Columns.Clear();
+            theGrid.AutoGenerateColumns = true;
+            theGrid.ItemsSource = dt.AsDataView();
+            theGrid.HorizontalContentAlignment = HorizontalAlignment.Center;
+        }
         #endregion
 
     }

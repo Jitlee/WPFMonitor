@@ -79,10 +79,6 @@
     <Compile Include="AlertAdmin\MainteDA.cs" />
     <Compile Include="AlertAdmin\SchedulingDA.cs" />
     <Compile Include="DALBase.cs" />
-    <Compile Include="GetData\CustomException.cs" />
-    <Compile Include="GetData\DataColunmInfo.cs" />
-    <Compile Include="GetData\DataSetData.cs" />
-    <Compile Include="GetData\DataTableInfo.cs" />
     <Compile Include="GetData\GetData.cs" />
     <Compile Include="ZTControls\ChannelDA.cs" />
     <Compile Include="ZTControls\DeviceDA.cs" />

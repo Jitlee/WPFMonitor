@@ -13,10 +13,10 @@ using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Animation;
 using System.Windows.Shapes;
-using MonitorSystem.GetData;
 using MonitorSystem.MonitorSystemGlobal;
 using WPFMonitor.Model;
 using WPFMonitor.Model.ZTControls;
+using System.Data;
 
 namespace MonitorSystem.ZTControls
 {
@@ -276,19 +276,22 @@ namespace MonitorSystem.ZTControls
             //添加top 100主要是为了防止，表的数据太多，程序无法加载而死掉
             string strSql =  string.Format("select top 100 * from {0}",  _TalbeName);
 
-            GetData(strSql, "Data");
+            GetData(strSql);       
         }
 
-       // ObservableCollection<MyDataService.DataTableInfo> _tables;
-        private void GetData(string sql, object userState)
+       
+        private void GetData(string sql)
         {
-            //throw new Exception();
-            //var ws = WCF.GetService();
-            ////string _ConnectString = "server=.;database=MonitorDemo2;uid=sa;pwd=sa";
-            //ws.GetDataSetDataCompleted += new EventHandler<MyDataService.GetDataSetDataCompletedEventArgs>(ws_GetDataSetDataCompleted);
-            //ws.GetDataSetDataAsync(_ConnectString, sql, userState);
+            DataTable dt = LoadDataDA.GetDataBySql(_ConnectString, sql);
+            if (dt != null)
+            {
+                Bind(dt);
+            }
         }
+        private void Bind(DataTable dt)
+        {
 
+        }
 
         //void ws_GetDataSetDataCompleted(object sender, MyDataService.GetDataSetDataCompletedEventArgs e)
         //{

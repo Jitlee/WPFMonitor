@@ -6,10 +6,10 @@ using System.Windows.Controls;
 using System.Windows.Controls.DataVisualization.Charting;
 using System.Windows.Documents;
 using System.Windows.Media;
-using MonitorSystem.GetData;
 using MonitorSystem.MonitorSystemGlobal;
 using WPFMonitor.Model.ZTControls;
 using System.Data.SqlClient;
+using System.Data;
 
 namespace MonitorSystem.ZTControls
 {
@@ -267,31 +267,21 @@ namespace MonitorSystem.ZTControls
                 return;
             //添加top 100主要是为了防止，表的数据太多，程序无法加载而死掉
             string strSql =  string.Format("select top 100 * from {0}",  _TalbeName);
-
-            GetData(strSql, "Data");
+            GetData(strSql);
         }
 
-        private void GetData(string sql, object userState)
-        {
-            try
-            {
-                using (SqlConnection conn = new SqlConnection(_ConnectString))
-                {
-                    using (SqlCommand cmd = new SqlCommand(sql, conn))
-                    {
-                        using (SqlDataReader reader = cmd.ExecuteReader())
-                        {
-                            while (reader.Read())
-                            {
 
-                            }
-                        }
-                    }
-                }
-            }
-            catch
+        private void GetData(string sql)
+        {
+            DataTable dt = LoadDataDA.GetDataBySql(_ConnectString, sql);
+            if (dt != null)
             {
+                Bind(dt);
             }
+        }
+        private void Bind(DataTable dt)
+        {
+
         }
 
         //ObservableCollection<MyDataService.DataTableInfo> _tables;

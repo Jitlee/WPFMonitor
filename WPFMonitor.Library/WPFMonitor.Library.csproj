@@ -209,9 +209,6 @@
     <Compile Include="Gallery\PointerControl.xaml.cs">
       <DependentUpon>PointerControl.xaml</DependentUpon>
     </Compile>
-    <Compile Include="GetData\DataObject.cs" />
-    <Compile Include="GetData\DynamicDataBuilder.cs" />
-    <Compile Include="GetData\TemplateManager.cs" />
     <Compile Include="MonitorSystemGlobal\BackgroundControl.cs" />
     <Compile Include="MonitorSystemGlobal\DelegateCommand.cs" />
     <Compile Include="MonitorSystemGlobal\LoadScreenEventArgs.cs" />
@@ -277,6 +274,7 @@
     <Compile Include="ZTControls\DrawLine.cs" />
     <Compile Include="ZTControls\ExtProControl.cs" />
     <Compile Include="ZTControls\InputTextBox.cs" />
+    <Compile Include="ZTControls\LoadDataDA.cs" />
     <Compile Include="ZTControls\MonitorVedioClient.cs" />
     <Compile Include="ZTControls\MyLine.cs" />
     <Compile Include="ZTControls\PicBox.cs" />

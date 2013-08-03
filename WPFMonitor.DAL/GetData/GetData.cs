@@ -10,19 +10,22 @@ namespace WPFMonitor.DAL.GetData
 {
     public class GetData
     {
-        public DataSetData GetDataSetData(string ConnStr, string SQL, out CustomException ServiceError)
+        public DataTable GetDataSetData(string ConnStr, string SQL)
         {
+            if (string.IsNullOrEmpty(ConnStr))
+                return null;
+            if (string.IsNullOrEmpty(SQL))
+                return null;
+
             try
             {
                 DataSet ds = GetDataSet(ConnStr, SQL);
-                ServiceError = null;
-                return DataSetData.FromDataSet(ds);
+                return ds.Tables[0];
             }
             catch (Exception ex)
             {
-                ServiceError = new CustomException(ex);
+                throw ex;
             }
-            return null;
         }
 
         private DataSet GetDataSet(string connectionString, string SQL)
