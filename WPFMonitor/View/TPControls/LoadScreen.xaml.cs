@@ -23,6 +23,7 @@ using WPFMonitor.Model.ZTControls;
 using DBUtility;
 using System.Data.SqlClient;
 
+
 namespace WPFMonitor.View.TPControls
 {
     /// <summary>
@@ -1641,158 +1642,203 @@ namespace WPFMonitor.View.TPControls
         List<MonitorControl> listMonitorAddElement = new List<MonitorControl>();
         List<MonitorControl> listMonitorModifiedElement = new List<MonitorControl>();
         List<t_Element> listElementAdd = new List<t_Element>();
-        //int AddElementNumber = 0;
+        int AddElementNumber = 0;
         private void SaveElement()
         {
-            if (tbWait.IsBusy)
+            try
             {
-                return;
-            }
-            tbWait.IsBusy = true;
-            Task.Factory.StartNew(() =>
+                //保存背景图片
+                //var vScreen = _DataContext.t_Screens.Where(a => a.ScreenID == _CurrentScreen.ScreenID);
+                //if (vScreen.Count() > 0)
+                //{
+                //    t_Screen m_screen = vScreen.First();
+                //    m_screen.ImageURL = BackgroundPanel.BgImagePath;
+                //}
+                AddElementNumber = 0;
+
+                //循环所有存在元素
+                listMonitorAddElement.Clear();
+                listMonitorModifiedElement.Clear();
+                tbWait.IsBusy = true;
+                for (int i = 0; i < csScreen.Children.Count; i++)
                 {
-                        try
+                    var m = csScreen.Children[i] as MonitorControl;
+
+                    if (null != m && !m.IsToolTip)
+                    {
+                        var el = m.ElementState;
+                        var meleObj = m.ScreenElement;
+                        meleObj.Width = Convert.ToInt32(m.Width);
+                        meleObj.Height = Convert.ToInt32(m.Height);
+                        meleObj.ScreenX = Convert.ToInt32(m.GetValue(Canvas.LeftProperty));
+                        meleObj.ScreenY = Convert.ToInt32(m.GetValue(Canvas.TopProperty));
+
+                        if (el == ElementSate.New)
                         {
-                            SqlHelper sqlHelper = new SqlHelper();
-                            List<CommandList> cmdList = new List<CommandList>();
-//                            // 1.删除场景相关的 t_ElementProperty 表数据
-//                            cmdList.Add(new CommandList(@"DELETE FROM [t_Element_Library] WHERE EXISTS(SELECT 0
-//FROM [t_Element] WHERE [t_Element].ElementID = [t_Element_Library].ElementID
-//AND [t_Element].ScreenID=@ScreenID)",
-//                                    new SqlParameter[] { new SqlParameter("@ScreenID", _CurrentScreen.ScreenID) }));
+                            m.ScreenElement = meleObj;
+                            listMonitorAddElement.Add(m);
+                            AddElementNumber++;
+                        }
+                        else
+                        {
+                            //CheckElementChange(meleObj);
 
-                            // 2.删除场景相关的 t_Element_RealTimeLine 表数据
-                            cmdList.Add(new CommandList(@"DELETE FROM [t_Element_RealTimeLine] WHERE EXISTS(SELECT 0
-FROM [t_Element] WHERE [t_Element].ElementID = [t_Element_RealTimeLine].ElementID
-AND [t_Element].ScreenID=@ScreenID)",
-                                    new SqlParameter[] { new SqlParameter("@ScreenID", _CurrentScreen.ScreenID) }));
+                            //var removeProperties = _DataContext.t_ElementProperties.Where(p => p.ElementID == meleObj.ElementID).ToList();
+                            //foreach (var removeProperty in removeProperties)
+                            //{
+                            //    _DataContext.t_ElementProperties.Remove(removeProperty);
+                            //}
 
-                            // 3.删除场景相关的 t_ElementProperty 表数据
-                            cmdList.Add(new CommandList(@"DELETE FROM [t_ElementProperty] WHERE EXISTS(SELECT 0
-FROM [t_Element] WHERE [t_Element].ElementID = [t_ElementProperty].ElementID
-AND [t_Element].ScreenID=@ScreenID)",
-                                    new SqlParameter[] { new SqlParameter("@ScreenID", _CurrentScreen.ScreenID) }));
+                            // 删除子属性
+                            if (m is RealTimeT)
+                            {
+                              //( m as RealTimeT).ListRealTimeLine
+                                //var removeElements = _DataContext.t_Element_RealTimeLines.Where(r => r.ElementID == meleObj.ElementID).ToList();
+                                //foreach (var removeElement in removeElements)
+                                //{
+                                //    _DataContext.t_Element_RealTimeLines.Remove(removeElement);
+                                //}
+                            }
 
-//                            // 3.删除场景相关的 t_ElementProperty_Library 表数据
-//                            cmdList.Add(new CommandList(@"DELETE FROM [t_ElementProperty_Library] WHERE EXISTS(SELECT 0
-//FROM [t_Element] WHERE [t_Element].ElementID = [t_ElementProperty_Library].ElementID
-//AND [t_Element].ScreenID=@ScreenID)",
-//                                    new SqlParameter[] { new SqlParameter("@ScreenID", _CurrentScreen.ScreenID) }));
+                            listMonitorModifiedElement.Add(m); // 同修改同步
+                        }
 
-                            // 4.删除场景相关的 t_Element 表数据
-                            cmdList.Add(new CommandList(@"DELETE FROM [t_Element] WHERE [t_Element].ScreenID=@ScreenID",
-                                    new SqlParameter[] { new SqlParameter("@ScreenID", _CurrentScreen.ScreenID) }));
+                        #region ToolTip
 
-                            Dispatcher.Invoke(new Action(() => {
-                                List<MonitorControl> controls = csScreen.Children.OfType<MonitorControl>().ToList();
+                        var toolTipControl = m.ToolTipControl;
+                        if (null != toolTipControl && toolTipControl.ToolTipCanvas.Children.Count > 0)
+                        {
+                            //Debug.Assert(null != toolTipControl.Target, "ToolTipControl 的 Target 属性不能为null.");
+                            //Debug.Assert(null != toolTipControl.Target.ScreenElement, "ToolTipControl 的 Target.ScreenElement 属性不能为null.");
 
-                                int idSeed = Converter.ToInt32(sqlHelper.ExecuteScalar("SELECT MAX(ElementID) FROM t_Element"));
-                                int elementID;
-                                string intsertElementSQL = @"insert into t_Element (ElementID, ElementName, ControlID, ScreenX, ScreenY, TxtInfo, Width, Height, ImageURL, ForeColor, Font, ChildScreenID, DeviceID, ChannelNo, ScreenID, BackColor, Transparent, oldX, oldY, Method, MinFloat, MaxFloat, SerialNum, TotalLength, LevelNo, ComputeStr, ElementType, ParentID) values (@ElementID, @ElementName, @ControlID, @ScreenX, @ScreenY, @TxtInfo, @Width, @Height, @ImageURL, @ForeColor, @Font, @ChildScreenID, @DeviceID, @ChannelNo, @ScreenID, @BackColor, @Transparent, @oldX, @oldY, @Method, @MinFloat, @MaxFloat, @SerialNum, @TotalLength, @LevelNo, @ComputeStr, @ElementType, @ParentID)";
-                                string intsertElementPropertySQL = "insert into t_ElementProperty (ElementID, PropertyNo, PropertyValue, Caption, PropertyName) values (@ElementID, @PropertyNo, @PropertyValue, @Caption, @PropertyName)";
-                                string intsertRealtimeTSQL = "insert into t_Element_RealTimeLine (ID, ScreenID, ElementID, LineType, LineName, LineCZ, LineShowType, LineStyle, LinePointBJ, LineColor, MinValue, MaxValue, ValueDecimal, ShowFormat, TimeLen, TimeLenType, LineCYZQLent, LineCYZQType, DeviceID, ChannelNo, ComputeStr, StartTime) values (@ID, @ScreenID, @ElementID, @LineType, @LineName, @LineCZ, @LineShowType, @LineStyle, @LinePointBJ, @LineColor, @MinValue, @MaxValue, @ValueDecimal, @ShowFormat, @TimeLen, @TimeLenType, @LineCYZQLent, @LineCYZQType, @DeviceID, @ChannelNo, @ComputeStr, @StartTime)";
-                                foreach (MonitorControl control in controls)
+                            var toolTipElement = toolTipControl.ScreenElement.Clone();
+
+                            toolTipElement.Width = Convert.ToInt32(toolTipControl.Width);
+                            toolTipElement.Height = Convert.ToInt32(toolTipControl.Height);
+                             
+                            if (el != ElementSate.New)
+                            {    
+                                toolTipElement.ParentID = meleObj.ElementID;
+                                toolTipElement.ScreenID = meleObj.ScreenID;
+                                listMonitorAddElement.Add(toolTipControl);
+                            }
+                            else
+                            {
+                                listMonitorModifiedElement.Add(toolTipControl);
+                            }
+                            
+                        }
+
+                        #endregion
+
+                        #region 背景框
+                        if (m is BackgroundControl)
+                        {
+                            var backgroundControl = m as BackgroundControl;
+                            foreach (var child in backgroundControl.BackgroundCanvas.Children)
+                            {
+                                var childMoinitor = child as MonitorControl;
+                                if (null != childMoinitor)
                                 {
-                                    elementID = ++idSeed;
-                                    t_Element element = control.ScreenElement;
-                                    // 5.添加 t_Element 元素
-                                    cmdList.Add(new CommandList(intsertElementSQL,
-                                        new SqlParameter[]
-			                            {
-				                            new SqlParameter("@ElementID", elementID),
-				                            new SqlParameter("@ElementName", element.ElementName),
-				                            new SqlParameter("@ControlID", element.ControlID),
-				                            new SqlParameter("@ScreenX", control.Left),
-				                            new SqlParameter("@ScreenY", control.Top),
-				                            new SqlParameter("@TxtInfo", element.TxtInfo),
-				                            new SqlParameter("@Width", control.Width),
-				                            new SqlParameter("@Height", control.Height),
-				                            new SqlParameter("@ImageURL", element.ImageURL),
-				                            new SqlParameter("@ForeColor", element.ForeColor),
-				                            new SqlParameter("@Font", element.Font),
-				                            new SqlParameter("@ChildScreenID", element.ChildScreenID),
-				                            new SqlParameter("@DeviceID", element.DeviceID),
-				                            new SqlParameter("@ChannelNo", element.ChannelNo),
-				                            new SqlParameter("@ScreenID", element.ScreenID),
-				                            new SqlParameter("@BackColor", element.BackColor),
-				                            new SqlParameter("@Transparent", control.Translate),
-				                            new SqlParameter("@oldX", element.oldX),
-				                            new SqlParameter("@oldY", element.oldY),
-				                            new SqlParameter("@Method", element.Method),
-				                            new SqlParameter("@MinFloat", element.MinFloat),
-				                            new SqlParameter("@MaxFloat", element.MaxFloat),
-				                            new SqlParameter("@SerialNum", ConvertToDbNull(element.SerialNum)),
-				                            new SqlParameter("@TotalLength", element.TotalLength),
-				                            new SqlParameter("@LevelNo", ConvertToDbNull(element.LevelNo)),
-				                            new SqlParameter("@ComputeStr", ConvertToDbNull(element.ComputeStr)),
-				                            new SqlParameter("@ElementType", ConvertToDbNull(element.ElementType)),
-				                            new SqlParameter("@ParentID", ConvertToDbNull(element.ParentID))
-			                            }));
-
-                                    foreach (t_ElementProperty elementProperty in control.ListElementProp)
+                                    // 保存ToolTip 子控件
+                                    var childElement = childMoinitor.ScreenElement.Clone();
+                                    childElement.Width = Convert.ToInt32(childMoinitor.Width);
+                                    childElement.Height = Convert.ToInt32(childMoinitor.Height);
+                                    childElement.ScreenX = (int)Canvas.GetLeft(childMoinitor);
+                                    childElement.ScreenY = (int)Canvas.GetTop(childMoinitor);
+                                    if (childMoinitor.ElementState != ElementSate.New)
                                     {
-                                        cmdList.Add(new CommandList(intsertElementPropertySQL,
-                                            new SqlParameter[]
-			                                {
-				                                new SqlParameter("@ElementID", elementID),
-				                                new SqlParameter("@PropertyNo", elementProperty.PropertyNo),
-				                                new SqlParameter("@PropertyValue", elementProperty.PropertyValue),
-				                                new SqlParameter("@Caption", elementProperty.Caption),
-				                                new SqlParameter("@PropertyName", elementProperty.PropertyName)
-			                                }));
+                                        childElement.ParentID = meleObj.ElementID;
+                                        childElement.ScreenID = meleObj.ScreenID;
+                                        listMonitorAddElement.Add(childMoinitor);// 2个必须同步添加
+                                        AddElementNumber++;
                                     }
-                                    if (control is RealTimeT)
+                                    else
                                     {
-                                        var realtimeT = control as RealTimeT;
-                                        foreach (RealTimeLineOR line in realtimeT.ListRealTimeLine)
-                                        {
-                                            t_Element_RealTimeLine elementRealTimeLine = line.LineInfo;
-                                            cmdList.Add(new CommandList(intsertRealtimeTSQL,
-                                            new SqlParameter[]
-			                                    {
-				                                    new SqlParameter("@ID", Guid.NewGuid().ToString("N")),
-				                                    new SqlParameter("@ScreenID",_CurrentScreen.ScreenID),
-				                                    new SqlParameter("@ElementID", elementID),
-				                                    new SqlParameter("@LineType",  elementRealTimeLine.LineType),
-				                                    new SqlParameter("@LineName",  elementRealTimeLine.LineName),
-				                                    new SqlParameter("@LineCZ", elementRealTimeLine.LineCZ),
-				                                    new SqlParameter("@LineShowType",  elementRealTimeLine.LineShowType),
-				                                    new SqlParameter("@LineStyle", elementRealTimeLine.LineStyle),
-				                                    new SqlParameter("@LinePointBJ",elementRealTimeLine.LinePointBJ),
-				                                    new SqlParameter("@LineColor", elementRealTimeLine.LineColor),
-				                                    new SqlParameter("@MinValue",  elementRealTimeLine.MinValue),
-				                                    new SqlParameter("@MaxValue",elementRealTimeLine.MaxValue),
-				                                    new SqlParameter("@ValueDecimal",elementRealTimeLine.ValueDecimal),
-				                                    new SqlParameter("@ShowFormat",elementRealTimeLine.ShowFormat),
-				                                    new SqlParameter("@TimeLen", elementRealTimeLine.TimeLen),
-				                                    new SqlParameter("@TimeLenType", elementRealTimeLine.TimeLenType),
-				                                    new SqlParameter("@LineCYZQLent", elementRealTimeLine.LineCYZQLent),
-				                                    new SqlParameter("@LineCYZQType",elementRealTimeLine.LineCYZQType),
-				                                    new SqlParameter("@DeviceID",ConvertToDbNull(elementRealTimeLine.DeviceID)),
-				                                    new SqlParameter("@ChannelNo",ConvertToDbNull(elementRealTimeLine.ChannelNo)),
-				                                    new SqlParameter("@ComputeStr", ConvertToDbNull(elementRealTimeLine.ComputeStr)),
-				                                    new SqlParameter("@StartTime", ConvertToDbNull(elementRealTimeLine.StartTime))
-			                                    }));
-                                        }
+                                        listMonitorModifiedElement.Add(childMoinitor);
+
                                     }
                                 }
-                            }));
-
-                            sqlHelper.ExecuteNoQueryTranPro(cmdList);
-
-                            Dispatcher.Invoke(new Action(() => {
-                                tbWait.IsBusy = false;
-                                MessageBox.Show(string.Format("保存场景成功！"));
-                            }));
+                            }
                         }
-                        catch (Exception ex)
+                        #endregion
+                    }
+                }
+
+                //循环已添加的属性
+                List<t_Element> ListRemoveItem = new List<t_Element>();
+                foreach (t_Element mEle in ScreenAllElement)
+                {
+                    bool IsHaveIn = false;
+                    foreach (var obj in csScreen.Children)
+                    {
+                        var  mItem=obj as MonitorControl;
+                        if (mItem!= null)
                         {
-                            Dispatcher.Invoke(new Action(() => {
-                                tbWait.IsBusy = false;
-                                MessageBox.Show(string.Format("保存场景失败，错误信息：{0}", ex.Message));
-                            }));
+                            if (mItem.ScreenElement.ElementID > 0 && mItem.ScreenElement.ElementID == mEle.ElementID)
+                            {
+                                IsHaveIn = true;
+                                break;
+                            }
                         }
-                });
+                    }
+                   if(!IsHaveIn){
+                            ListRemoveItem.Add(mEle);
+                    }
+                   IsHaveIn = false;
+                }
+
+                ElementEditDA EleDA = new ElementEditDA();
+               int MaxElementID= EleDA.GetMaxElementID();
+                foreach (MonitorControl obj in listMonitorAddElement)
+                {
+                    MaxElementID++;
+                    obj.ScreenElement.ElementID = MaxElementID;
+                    EleDA.InsertElement(obj.ScreenElement);
+                    foreach(t_ElementProperty elePro in obj.ListElementProp)
+                    {
+                        elePro.ElementID = MaxElementID;
+                        EleDA.InsertPropert(elePro);
+                    }
+                }
+
+                foreach (MonitorControl obj in listMonitorModifiedElement)
+                {
+                    EleDA.UpdateElement(obj.ScreenElement);
+                    foreach (t_ElementProperty elePro in obj.ListElementProp)
+                    {
+                        EleDA.UpdatePropert(elePro);
+                    }
+                }
+
+                foreach (t_Element obj in ListRemoveItem)
+                {
+                    EleDA.DeleteElement(obj.ElementID);
+                }
+
+
+                if (ScreenAllElement.Count == 0 && csScreen.Children.Count == 0)
+                {
+                    tbWait.IsBusy = false;
+                }
+                if (EleDA.CmdList.Count > 0)
+                {
+                    if (EleDA.ExcutCmd())
+                    {
+                        tbWait.IsBusy = false;
+                        MessageBox.Show("保存场景成功！","提示");
+                        if (AddElementNumber > 0)
+                        {
+                            LoadScreenData(_CurrentScreen);
+                        }
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(string.Format("保存场景失败，错误信息：{0}", ex.Message));
+                tbWait.IsBusy = false;
+            }
         }
 
         private object ConvertToDbNull(object value)
@@ -1803,60 +1849,60 @@ AND [t_Element].ScreenID=@ScreenID)",
         /// 检查更新字段并赋值
         /// </summary>
         /// <param name="mobj"></param>
-        private void CheckElementChange(t_Element mobj)
-        {
-            var vobj = new ElementDA().SelectBy(mobj.ElementID);
-            if (vobj.Count() == 0)
-                return;
-            t_Element saveEle = vobj.First();
+        //private void CheckElementChange(t_Element mobj)
+        //{
+        //    var vobj = new ElementDA().SelectBy(mobj.ElementID);
+        //    if (vobj.Count() == 0)
+        //        return;
+        //    t_Element saveEle = vobj.First();
 
-            if (saveEle.ScreenX != mobj.ScreenX)
-                saveEle.ScreenX = mobj.ScreenX;
-            if (saveEle.ScreenY != mobj.ScreenY)
-                saveEle.ScreenY = mobj.ScreenY;
-            if (saveEle.TxtInfo != mobj.TxtInfo)
-                saveEle.TxtInfo = mobj.TxtInfo;
-            if (saveEle.Width != mobj.Width)
-                saveEle.Width = mobj.Width;
-            if (saveEle.Height != mobj.Height)
-                saveEle.Height = mobj.Height;
-            if (saveEle.ImageURL != mobj.ImageURL)
-                saveEle.ImageURL = mobj.ImageURL;
-            if (saveEle.ForeColor != mobj.ForeColor)
-                saveEle.ForeColor = mobj.ForeColor;
-            if (saveEle.Font != mobj.Font)
-                saveEle.Font = mobj.Font;
-            if (saveEle.ChildScreenID != mobj.ChildScreenID)
-                saveEle.ChildScreenID = mobj.ChildScreenID;
-            if (saveEle.DeviceID != mobj.DeviceID)
-                saveEle.DeviceID = mobj.DeviceID;
-            if (saveEle.ChannelNo != mobj.ChannelNo)
-                saveEle.ChannelNo = mobj.ChannelNo;
-            if (saveEle.ScreenID != mobj.ScreenID)
-                saveEle.ScreenID = mobj.ScreenID;
-            if (saveEle.BackColor != mobj.BackColor)
-                saveEle.BackColor = mobj.BackColor;
-            if (saveEle.Transparent != mobj.Transparent)
-                saveEle.Transparent = mobj.Transparent;
-            if (saveEle.oldX != mobj.oldX)
-                saveEle.oldX = mobj.oldX;
-            if (saveEle.oldY != mobj.oldY)
-                saveEle.oldY = mobj.oldY;
-            if (saveEle.Method != mobj.Method)
-                saveEle.Method = mobj.Method;
-            if (saveEle.MinFloat != mobj.MinFloat)
-                saveEle.MinFloat = mobj.MinFloat;
-            if (saveEle.MaxFloat != mobj.MaxFloat)
-                saveEle.MaxFloat = mobj.MaxFloat;
-            if (saveEle.SerialNum != mobj.SerialNum)
-                saveEle.SerialNum = mobj.SerialNum;
-            if (saveEle.TotalLength != mobj.TotalLength)
-                saveEle.TotalLength = mobj.TotalLength;
-            if (saveEle.LevelNo != mobj.LevelNo)
-                saveEle.LevelNo = mobj.LevelNo;
-            if (saveEle.ComputeStr != mobj.ComputeStr)
-                saveEle.ComputeStr = mobj.ComputeStr;
-        }
+        //    if (saveEle.ScreenX != mobj.ScreenX)
+        //        saveEle.ScreenX = mobj.ScreenX;
+        //    if (saveEle.ScreenY != mobj.ScreenY)
+        //        saveEle.ScreenY = mobj.ScreenY;
+        //    if (saveEle.TxtInfo != mobj.TxtInfo)
+        //        saveEle.TxtInfo = mobj.TxtInfo;
+        //    if (saveEle.Width != mobj.Width)
+        //        saveEle.Width = mobj.Width;
+        //    if (saveEle.Height != mobj.Height)
+        //        saveEle.Height = mobj.Height;
+        //    if (saveEle.ImageURL != mobj.ImageURL)
+        //        saveEle.ImageURL = mobj.ImageURL;
+        //    if (saveEle.ForeColor != mobj.ForeColor)
+        //        saveEle.ForeColor = mobj.ForeColor;
+        //    if (saveEle.Font != mobj.Font)
+        //        saveEle.Font = mobj.Font;
+        //    if (saveEle.ChildScreenID != mobj.ChildScreenID)
+        //        saveEle.ChildScreenID = mobj.ChildScreenID;
+        //    if (saveEle.DeviceID != mobj.DeviceID)
+        //        saveEle.DeviceID = mobj.DeviceID;
+        //    if (saveEle.ChannelNo != mobj.ChannelNo)
+        //        saveEle.ChannelNo = mobj.ChannelNo;
+        //    if (saveEle.ScreenID != mobj.ScreenID)
+        //        saveEle.ScreenID = mobj.ScreenID;
+        //    if (saveEle.BackColor != mobj.BackColor)
+        //        saveEle.BackColor = mobj.BackColor;
+        //    if (saveEle.Transparent != mobj.Transparent)
+        //        saveEle.Transparent = mobj.Transparent;
+        //    if (saveEle.oldX != mobj.oldX)
+        //        saveEle.oldX = mobj.oldX;
+        //    if (saveEle.oldY != mobj.oldY)
+        //        saveEle.oldY = mobj.oldY;
+        //    if (saveEle.Method != mobj.Method)
+        //        saveEle.Method = mobj.Method;
+        //    if (saveEle.MinFloat != mobj.MinFloat)
+        //        saveEle.MinFloat = mobj.MinFloat;
+        //    if (saveEle.MaxFloat != mobj.MaxFloat)
+        //        saveEle.MaxFloat = mobj.MaxFloat;
+        //    if (saveEle.SerialNum != mobj.SerialNum)
+        //        saveEle.SerialNum = mobj.SerialNum;
+        //    if (saveEle.TotalLength != mobj.TotalLength)
+        //        saveEle.TotalLength = mobj.TotalLength;
+        //    if (saveEle.LevelNo != mobj.LevelNo)
+        //        saveEle.LevelNo = mobj.LevelNo;
+        //    if (saveEle.ComputeStr != mobj.ComputeStr)
+        //        saveEle.ComputeStr = mobj.ComputeStr;
+        //}
         #endregion
 
         //private void Image_MouseLeftButtonUp(object sender, MouseButtonEventArgs e)

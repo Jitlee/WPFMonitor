@@ -82,6 +82,7 @@
     <Compile Include="GetData\GetData.cs" />
     <Compile Include="ZTControls\ChannelDA.cs" />
     <Compile Include="ZTControls\DeviceDA.cs" />
+    <Compile Include="ZTControls\ElementEditDA.cs" />
     <Compile Include="ZTControls\ElementPropertyLibraryDA.cs" />
     <Compile Include="ZTControls\ElementLibraryDA.cs" />
     <Compile Include="ZTControls\ElementRealTimeLineDA.cs" />
