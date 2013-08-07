@@ -1137,13 +1137,13 @@ namespace MonitorSystem.Other
         {
             if (null == _lines)
             {
-                _lines = new ElementRealTimeLineDA().selectAllDate();
+				_lines = new ElementRealTimeLineDA().SelectBy(this.ScreenElement.ElementID);
 
             }
-            var vLine = _lines.Where(a => a.ElementID == this.ScreenElement.ElementID);
-            if (vLine.Count() > 0)
+           // var vLine = _lines.Where(a => a.ElementID == this.ScreenElement.ElementID);
+			if (_lines != null && _lines.Count() > 0)
             {
-                foreach (t_Element_RealTimeLine tLine in vLine)
+				foreach (t_Element_RealTimeLine tLine in _lines)
                 {
                     RealTimeLineOR obj = new RealTimeLineOR(tLine);
                     _listRealTimeLine.Add(obj);
