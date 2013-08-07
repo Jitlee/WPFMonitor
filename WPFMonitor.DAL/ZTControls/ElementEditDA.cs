@@ -160,14 +160,23 @@ WHERE ElementID=@ElementID
             CmdList.Add(new CommandList() { strCommandText = intsertElementSQL, Params = parameters });
             return true;
         }
+		public bool DeleteRealTimeLine(int ElementID)
+		{
+			string sqlR = string.Format("DELETE t_Element_RealTimeLine  WHERE ElementID={0}", ElementID);
+			CmdList.Add(new CommandList() { strCommandText = sqlR, Type = CommandType.Text });
+			return true;
+		}
+
         public bool DeleteElement(int ElementID)
         {
             string sqlE = string.Format("DELETE t_Element  WHERE ElementID={0}", ElementID);
+			CmdList.Add(new CommandList() { strCommandText = sqlE, Type = CommandType.Text });
             string sqlP = string.Format("DELETE t_ElementProperty  WHERE ElementID={0}", ElementID);
-            string sqlR = string.Format("DELETE t_Element_RealTimeLine  WHERE ElementID={0}", ElementID);
-            CmdList.Add(new CommandList() { strCommandText = sqlE, Type = CommandType.Text });
-            CmdList.Add(new CommandList() { strCommandText = sqlP, Type = CommandType.Text });
+			CmdList.Add(new CommandList() { strCommandText = sqlP, Type = CommandType.Text });
+			string sqlR = string.Format("DELETE t_Element_RealTimeLine  WHERE ElementID={0}", ElementID);
             CmdList.Add(new CommandList() { strCommandText = sqlR, Type = CommandType.Text });
+			string sqlChild = string.Format("DELETE t_Element WHERE ParentID={0}", ElementID);
+			CmdList.Add(new CommandList() { strCommandText = sqlChild, Type = CommandType.Text });
             return true;
         }
         public virtual bool UpdatePropert(t_ElementProperty elementProperty)
@@ -226,9 +235,21 @@ ChannelNo=@ChannelNo, ComputeStr=@ComputeStr, StartTime= @StartTime WHERE ID=@ID
             return null == value ? DBNull.Value : value;
         }
 
+		/// <summary>
+		/// 保存
+		/// </summary>
+		/// <returns></returns>
         public bool ExcutCmd()
         {
-            return db.ExecuteNoQueryTranPro(CmdList);
+			if (CmdList == null)
+				return false;
+			if (CmdList.Count == 0)
+				return false;
+
+			string strSql="select * from t_ElementProperty where ElementID not in (Select ElementID from t_Element)";
+			CmdList.Add(new CommandList() { strCommandText = strSql, Type = CommandType.Text });			 
+            
+			return db.ExecuteNoQueryTranPro(CmdList);
         }
     }
 }

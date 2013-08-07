@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.IO;
 using System.Linq;
@@ -20,8 +19,6 @@ using MonitorSystem.Other;
 using MonitorSystem.ZTControls;
 using WPFMonitor.DAL.ZTControls;
 using WPFMonitor.Model.ZTControls;
-using DBUtility;
-using System.Data.SqlClient;
 
 
 namespace WPFMonitor.View.TPControls
@@ -751,7 +748,10 @@ namespace WPFMonitor.View.TPControls
                     return;
                 }
             }
-            SetDefultScreen();
+			if (!SetDefultScreen())
+			{
+				return;
+			}
             //初使化定时器
             int MonitorTime = SystemParam.MonitorRefreshTime;
             if (MonitorTime <= 0)
@@ -922,28 +922,29 @@ namespace WPFMonitor.View.TPControls
         /// <summary>
         /// 从listScreen中选择默认场景 
         /// </summary>
-        public void SetDefultScreen()
+        public bool SetDefultScreen()
         {
             if (listScreen == null)
-                return;
+                return false;
             if (listScreen.Count() == 0)
             {
                 _CurrentScreen = null;
-                return;
+				return false;
             }
             if (SystemParam == null)
             {
                 MessageBox.Show("加载系统参数出错，无法显示！", "温馨提示:", MessageBoxButton.OK);
-                return;
+				return false;
             }
             var v = listScreen.Where(a => a.ScreenID == SystemParam.StartScreenID);
             if (v.Count() == 0)
             {
                 _CurrentScreen = listScreen.First();
-                return;
+				return false;
             }
             _CurrentScreen = v.First();
             MainPage = _CurrentScreen;
+			return true;
         }
 
         /// <summary>
@@ -1062,16 +1063,28 @@ namespace WPFMonitor.View.TPControls
         }
         #endregion
 
-        //ScreenView _ScreenView = new ScreenView();
+		#region  测试加载速度慢的问题
+		DateTime mStartTime = DateTime.Now;
+		private void ShowLoadTimeLen(string Index)
+		{
+			TimeSpan t =DateTime.Now- mStartTime;
+			//t.Seconds
+			Console.WriteLine(string.Format(Index+"		ss:{0}	mm:{1}", t.Seconds, t.Milliseconds));
+		}
+		#endregion 
+		//ScreenView _ScreenView = new ScreenView();
         /// <summary>
         /// 加载场景
         /// </summary>
         /// <param name="_Screen"></param>
         private void LoadScreenData(t_Screen _Screen)
         {
+			mStartTime = DateTime.Now;
+
+			tbWait.IsBusy = true;
             //每次在数据库中去查询次
             var v = listScreen.Where(a => a.ScreenID == _Screen.ScreenID);
-
+			ShowLoadTimeLen("0");
             if (v.Count() > 0)
             {
                 _Screen = v.First();
@@ -1097,11 +1110,9 @@ namespace WPFMonitor.View.TPControls
             {
                 ReturnScreen = _Screen;
             }
-
-
-            tbWait.IsBusy = true;
             
             _ScreenView.ScreenInit(_Screen);
+			ShowLoadTimeLen("1");
 
             csScreen.Children.OfType<MonitorControl>().ToList().ForEach(mc => mc.UnDesignMode());
 
@@ -1120,10 +1131,13 @@ namespace WPFMonitor.View.TPControls
 
             SetScreenImg(_Screen.ImageURL);
 
+			ShowLoadTimeLen("2");
+
             AddElementCanvas.Width = csScreen.Width = _Screen.Width > 100d ? _Screen.Width : 1920;
             AddElementCanvas.Height = csScreen.Height =  _Screen.Height > 100d ? _Screen.Height : 1024;
             UpdateThumbnail();
 
+			ShowLoadTimeLen("3");
             //_DataContext.Load(_DataContext.GetT_Element_RealTimeLineQuery().Where(a => a.ScreenID == _Screen.ScreenID)
             //    , LoadElementRealtimeLineCompleted, null);
             ////加载元素
@@ -1170,6 +1184,8 @@ namespace WPFMonitor.View.TPControls
             //暂未做处理
         }
 
+		List<t_ElementProperty> ElementProperties { get; set; }
+		List<t_Element> ScreenElement { get; set; }
         /// <summary>
         /// 加载，元素属性完成
         /// </summary>
@@ -1179,23 +1195,27 @@ namespace WPFMonitor.View.TPControls
             try
             {
                 var screenId = (int)state;
-                List<t_Element> lsitElement = new ElementDA().SelectBy(screenId); ;
-
+				ScreenElement = new ElementDA().SelectBy(screenId); ;
+				ShowLoadTimeLen("4");
                 //_ScreenView.Width = 200;
                 //_ScreenView.Height = 200;
                 //csScreen.Children.Add(_ScreenView);
 
                 //如果不是组态，打开定时器
                 //if (CBIsztControl.IsChecked == false)
-                if (IsZT)
-                {
-                    timerRefrshValue.Start();
-                }
+				ElementProperties = new ElementPropertyDA().selectByScreenID(_CurrentScreen.ScreenID);
+				var TopElement = ScreenElement.Where(m => m.ParentID==0).ToList();
                 Dispatcher.Invoke(new Action(() =>
                 {
-                    ShowElements(lsitElement, csScreen);
+					ShowElements(TopElement, csScreen);
                     tbWait.IsBusy = false;
                 }));
+				ShowLoadTimeLen("5");
+				if (IsZT)
+                {
+                   // timerRefrshValue.Start();
+                }
+
             }
             catch (Exception ex)
             {
@@ -1209,10 +1229,9 @@ namespace WPFMonitor.View.TPControls
 
         private void ShowElements(List<t_Element> lsitElement, Canvas canvas, MonitorControl parentContol = null)
         {
-            List<t_ElementProperty> _elementProperties = new ElementPropertyDA().selectByScreenID(_CurrentScreen.ScreenID);
             foreach (t_Element el in lsitElement)
             {
-                var list = _elementProperties.Where(a => a.ElementID == el.ElementID);
+                var list = ElementProperties.Where(a => a.ElementID == el.ElementID);
                 var monitorControl = ShowElement(canvas, el, ElementSate.Save, list.ToList());
 
                 _ScreenView.ShowElement(el, ElementSate.Save, list.ToList());
@@ -1383,7 +1402,7 @@ namespace WPFMonitor.View.TPControls
                         case "BackgroundControl":
                             BackgroundControl backgroundControl = new BackgroundControl();
                             SetEletemt(canvas, backgroundControl, obj, eleStae, listObj);
-                            var childElements = new ElementDA().SelectBy(obj.ElementID, "Background");
+                            var childElements = ScreenElement.Where(m=> m.ParentID== obj.ElementID).ToList();    //new ElementDA().SelectBy(obj.ElementID, "Background");
                             ShowElements(childElements, backgroundControl.BackgroundCanvas, backgroundControl);
                             return backgroundControl;
                         default:
@@ -1660,6 +1679,9 @@ namespace WPFMonitor.View.TPControls
                 listMonitorAddElement.Clear();
                 listMonitorModifiedElement.Clear();
                 tbWait.IsBusy = true;
+
+				ElementEditDA EleDA = new ElementEditDA();
+				int MaxElementID = EleDA.GetMaxElementID();
                 for (int i = 0; i < csScreen.Children.Count; i++)
                 {
                     var m = csScreen.Children[i] as MonitorControl;
@@ -1667,39 +1689,22 @@ namespace WPFMonitor.View.TPControls
                     if (null != m && !m.IsToolTip)
                     {
                         var el = m.ElementState;
-                        var meleObj = m.ScreenElement;
-                        meleObj.Width = Convert.ToInt32(m.Width);
-                        meleObj.Height = Convert.ToInt32(m.Height);
-                        meleObj.ScreenX = Convert.ToInt32(m.GetValue(Canvas.LeftProperty));
-                        meleObj.ScreenY = Convert.ToInt32(m.GetValue(Canvas.TopProperty));
+                        //var meleObj = m.ScreenElement;
+						m.ScreenElement.Width = Convert.ToInt32(m.Width);
+						m.ScreenElement.Height = Convert.ToInt32(m.Height);
+						m.ScreenElement.ScreenX = Convert.ToInt32(m.GetValue(Canvas.LeftProperty));
+						m.ScreenElement.ScreenY = Convert.ToInt32(m.GetValue(Canvas.TopProperty));
 
                         if (el == ElementSate.New)
                         {
-                            m.ScreenElement = meleObj;
+                           // m.ScreenElement = meleObj;
+							MaxElementID++;
+							m.ScreenElement.ElementID = MaxElementID;
                             listMonitorAddElement.Add(m);
                             AddElementNumber++;
                         }
                         else
-                        {
-                            //CheckElementChange(meleObj);
-
-                            //var removeProperties = _DataContext.t_ElementProperties.Where(p => p.ElementID == meleObj.ElementID).ToList();
-                            //foreach (var removeProperty in removeProperties)
-                            //{
-                            //    _DataContext.t_ElementProperties.Remove(removeProperty);
-                            //}
-
-                            // 删除子属性
-                            if (m is RealTimeT)
-                            {
-                              //( m as RealTimeT).ListRealTimeLine
-                                //var removeElements = _DataContext.t_Element_RealTimeLines.Where(r => r.ElementID == meleObj.ElementID).ToList();
-                                //foreach (var removeElement in removeElements)
-                                //{
-                                //    _DataContext.t_Element_RealTimeLines.Remove(removeElement);
-                                //}
-                            }
-
+                        { 
                             listMonitorModifiedElement.Add(m); // 同修改同步
                         }
 
@@ -1715,17 +1720,30 @@ namespace WPFMonitor.View.TPControls
 
                             toolTipElement.Width = Convert.ToInt32(toolTipControl.Width);
                             toolTipElement.Height = Convert.ToInt32(toolTipControl.Height);
-                             
-                            if (el != ElementSate.New)
-                            {    
-                                toolTipElement.ParentID = meleObj.ElementID;
-                                toolTipElement.ScreenID = meleObj.ScreenID;
-                                listMonitorAddElement.Add(toolTipControl);
-                            }
-                            else
-                            {
-                                listMonitorModifiedElement.Add(toolTipControl);
-                            }
+							foreach (var child in toolTipControl.ToolTipCanvas.Children)
+							{
+								var childMoinitor = child as MonitorControl;
+								if (null != childMoinitor)
+								{
+									childMoinitor.ScreenElement.Width = Convert.ToInt32(childMoinitor.Width);
+									childMoinitor.ScreenElement.Height = Convert.ToInt32(childMoinitor.Height);
+									childMoinitor.ScreenElement.ScreenX = (int)Canvas.GetLeft(childMoinitor);
+									childMoinitor.ScreenElement.ScreenY = (int)Canvas.GetTop(childMoinitor);
+									if (childMoinitor.ElementState == ElementSate.New)
+									{
+										MaxElementID++;
+										childMoinitor.ScreenElement.ElementID = MaxElementID;
+										childMoinitor.ScreenElement.ParentID = m.ScreenElement.ElementID;
+										childMoinitor.ScreenElement.ScreenID = _CurrentScreen.ScreenID;
+										listMonitorAddElement.Add(childMoinitor);
+										AddElementNumber++;
+									}
+									else
+									{
+										listMonitorModifiedElement.Add(childMoinitor);
+									}
+								}
+							}
                             
                         }
 
@@ -1741,22 +1759,23 @@ namespace WPFMonitor.View.TPControls
                                 if (null != childMoinitor)
                                 {
                                     // 保存ToolTip 子控件
-                                    var childElement = childMoinitor.ScreenElement.Clone();
-                                    childElement.Width = Convert.ToInt32(childMoinitor.Width);
-                                    childElement.Height = Convert.ToInt32(childMoinitor.Height);
-                                    childElement.ScreenX = (int)Canvas.GetLeft(childMoinitor);
-                                    childElement.ScreenY = (int)Canvas.GetTop(childMoinitor);
-                                    if (childMoinitor.ElementState != ElementSate.New)
+                                    //var childElement = childMoinitor.ScreenElement.Clone();
+                                    childMoinitor.ScreenElement.Width = Convert.ToInt32(childMoinitor.Width);
+                                    childMoinitor.ScreenElement.Height = Convert.ToInt32(childMoinitor.Height);
+                                    childMoinitor.ScreenElement.ScreenX = (int)Canvas.GetLeft(childMoinitor);
+                                    childMoinitor.ScreenElement.ScreenY = (int)Canvas.GetTop(childMoinitor);
+                                    if (childMoinitor.ElementState == ElementSate.New)
                                     {
-                                        childElement.ParentID = meleObj.ElementID;
-                                        childElement.ScreenID = meleObj.ScreenID;
-                                        listMonitorAddElement.Add(childMoinitor);// 2个必须同步添加
+										MaxElementID++;
+										childMoinitor.ScreenElement.ElementID = MaxElementID;
+										childMoinitor.ScreenElement.ParentID = m.ScreenElement.ElementID;
+										childMoinitor.ScreenElement.ScreenID = _CurrentScreen.ScreenID;
+                                        listMonitorAddElement.Add(childMoinitor);
                                         AddElementNumber++;
                                     }
                                     else
                                     {
                                         listMonitorModifiedElement.Add(childMoinitor);
-
                                     }
                                 }
                             }
@@ -1770,36 +1789,50 @@ namespace WPFMonitor.View.TPControls
                 foreach (t_Element mEle in ScreenAllElement)
                 {
                     bool IsHaveIn = false;
-                    foreach (var obj in csScreen.Children)
-                    {
-                        var  mItem=obj as MonitorControl;
-                        if (mItem!= null)
-                        {
-                            if (mItem.ScreenElement.ElementID > 0 && mItem.ScreenElement.ElementID == mEle.ElementID)
-                            {
-                                IsHaveIn = true;
-                                break;
-                            }
-                        }
-                    }
+					foreach (var obj in csScreen.Children)
+					{
+						var mItem = obj as MonitorControl;
+						if (mItem != null)
+						{
+							if (mItem.ScreenElement.ElementID > 0 && mItem.ScreenElement.ElementID == mEle.ElementID)
+							{
+								IsHaveIn = true;
+								break;
+							}
+							if (mItem is BackgroundControl)
+							{
+								var tempBack = mItem as BackgroundControl;
+								if (IsHaveExists(tempBack.BackgroundCanvas, mEle.ElementID))
+								{
+									IsHaveIn = true;
+									break;
+								}
+							}
+						}
+					}
                    if(!IsHaveIn){
                             ListRemoveItem.Add(mEle);
                     }
                    IsHaveIn = false;
                 }
 
-                ElementEditDA EleDA = new ElementEditDA();
-               int MaxElementID= EleDA.GetMaxElementID();
+              
                 foreach (MonitorControl obj in listMonitorAddElement)
                 {
-                    MaxElementID++;
-                    obj.ScreenElement.ElementID = MaxElementID;
                     EleDA.InsertElement(obj.ScreenElement);
                     foreach(t_ElementProperty elePro in obj.ListElementProp)
                     {
-                        elePro.ElementID = MaxElementID;
+						elePro.ElementID = obj.ScreenElement.ElementID;
                         EleDA.InsertPropert(elePro);
                     }
+					if (obj is RealTimeT)
+					{
+						EleDA.DeleteRealTimeLine(obj.ScreenElement.ElementID);
+						foreach (RealTimeLineOR LineObj in (obj as RealTimeT).ListRealTimeLine)
+						{
+							EleDA.InsertRealTimeT(LineObj.LineInfo);
+						}
+					}
                 }
 
                 foreach (MonitorControl obj in listMonitorModifiedElement)
@@ -1809,14 +1842,21 @@ namespace WPFMonitor.View.TPControls
                     {
                         EleDA.UpdatePropert(elePro);
                     }
+					if (obj is RealTimeT)
+					{
+						EleDA.DeleteRealTimeLine(obj.ScreenElement.ElementID);
+						foreach (RealTimeLineOR LineObj in (obj as RealTimeT).ListRealTimeLine)
+						{
+							EleDA.InsertRealTimeT(LineObj.LineInfo);
+						}
+					}
                 }
 
                 foreach (t_Element obj in ListRemoveItem)
                 {
                     EleDA.DeleteElement(obj.ElementID);
                 }
-
-
+				
                 if (ScreenAllElement.Count == 0 && csScreen.Children.Count == 0)
                 {
                     tbWait.IsBusy = false;
@@ -1841,6 +1881,24 @@ namespace WPFMonitor.View.TPControls
             }
         }
 
+		private bool IsHaveExists(Canvas can, int ElementID)
+		{
+			if (can.Children.Count > 0)
+			{
+				foreach (var backObj in can.Children)
+				{
+					var mbackItem = backObj as MonitorControl;
+					if (mbackItem != null)
+					{
+						if (mbackItem.ScreenElement.ElementID > 0 && mbackItem.ScreenElement.ElementID == ElementID)
+						{
+							return true;
+						}
+					}
+				}// end foreach
+			}
+			return false;
+		}
         private object ConvertToDbNull(object value)
         {
             return null == value ? DBNull.Value : value;
