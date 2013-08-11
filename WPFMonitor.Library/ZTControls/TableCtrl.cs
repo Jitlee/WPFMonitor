@@ -288,7 +288,7 @@ namespace MonitorSystem.ZTControls
         }
         private void Bind(DataTable dt)
         {
-            IEnumerable list = dt.Rows;
+            //IEnumerable list = dt.Rows;
             theGrid.Columns.Clear();
             theGrid.AutoGenerateColumns = true;
             theGrid.ItemsSource = dt.AsDataView();

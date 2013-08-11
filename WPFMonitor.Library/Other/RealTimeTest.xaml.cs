@@ -533,7 +533,8 @@ namespace MonitorSystem.Other
         {
             if (null == _lines)
             {
-                _lines = new ElementRealTimeLineDA().selectAllDate();
+				
+                //_lines = new ElementRealTimeLineDA().selectAllDate();
             }
             var vLine = _lines;
            if (vLine.Count() > 0)
