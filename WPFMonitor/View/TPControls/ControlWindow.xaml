@@ -14,7 +14,7 @@
                             <Setter.Value>
                                 <ControlTemplate TargetType="ListBoxItem">
                                     <Border
-                                        Background="{TemplateBinding Background}"
+                                        Background="Transparent"
                                         BorderBrush="{TemplateBinding BorderBrush}"
                                         BorderThickness="1">
                                         <StackPanel Orientation="Horizontal">

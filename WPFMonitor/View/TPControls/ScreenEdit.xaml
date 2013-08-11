@@ -2,7 +2,9 @@
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         Title="场景信息" Height="201" Width="362" WindowStartupLocation="CenterOwner" 
-        ShowInTaskbar="False" ResizeMode="NoResize">
+        ShowInTaskbar="False" ResizeMode="NoResize"
+        xmlns:custom="clr-namespace:DockingLibrary;assembly=DockingLibrary"
+        Background="{DynamicResource {ComponentResourceKey {x:Type custom:DockingManager}, {x:Static custom:DockingLibraryBrushes.DefaultBackgroundBrush}}}">
     <Grid Name="gridContent">
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="120"/>

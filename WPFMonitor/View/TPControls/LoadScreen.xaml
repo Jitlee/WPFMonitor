@@ -14,11 +14,11 @@
     <Grid>
         <Grid x:Name="gdContent" Background="Beige" ShowGridLines="False" Margin="0">
             <Grid.RowDefinitions >
-                <RowDefinition Height="30"  />
+                <RowDefinition Height="0"  />
                 <RowDefinition Height="35"  />
                 <RowDefinition Height="*"/>
             </Grid.RowDefinitions>
-            <Border Grid.Row="0">
+            <!--<Border Grid.Row="0">
                 <Border.Background>
                     <LinearGradientBrush StartPoint="0,0" EndPoint="0,1">
                         <GradientStop Color="#FFFAFAFA" Offset="0"/>
@@ -35,7 +35,7 @@
                     </MenuItem>
                     <MenuItem x:Name="AllSencesMenuScriptItem" Header="所有场景"/>
                 </Menu>
-            </Border>
+            </Border>-->
             <TextBox Opacity="0" Height="0" Width="0" x:Name="HideFocusElement"/>
             <Grid  Background="#e5eff8" Name="wrapPanel1"  Grid.Row="1">
                 <StackPanel  HorizontalAlignment="Left" VerticalAlignment="Center" Orientation="Horizontal">

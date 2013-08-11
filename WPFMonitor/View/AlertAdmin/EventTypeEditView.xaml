@@ -3,7 +3,9 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
          xmlns:vr="clr-namespace:WPFMonitor.Core.Uitl"
          Title="事件定义管理" Height="428" Width="413" WindowStartupLocation="CenterOwner" 
-        ShowInTaskbar="False" ResizeMode="NoResize">
+        ShowInTaskbar="False" ResizeMode="NoResize"
+        xmlns:custom="clr-namespace:DockingLibrary;assembly=DockingLibrary"
+        Background="{DynamicResource {ComponentResourceKey {x:Type custom:DockingManager}, {x:Static custom:DockingLibraryBrushes.DefaultBackgroundBrush}}}">
 
     <Window.Resources>
         <Style x:Key="kk" TargetType="{x:Type ListBox}">

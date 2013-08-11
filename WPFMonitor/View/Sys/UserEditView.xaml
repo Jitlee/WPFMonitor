@@ -4,7 +4,9 @@
          xmlns:vr="clr-namespace:WPFMonitor.Core.Uitl"
         xmlns:Helpers="clr-namespace:WPFMonitor.View.Sys"
          Title="站点信息" Height="192" Width="317" WindowStartupLocation="CenterOwner" 
-        ShowInTaskbar="False" ResizeMode="NoResize">
+        ShowInTaskbar="False" ResizeMode="NoResize"
+        xmlns:custom="clr-namespace:DockingLibrary;assembly=DockingLibrary"
+        Background="{DynamicResource {ComponentResourceKey {x:Type custom:DockingManager}, {x:Static custom:DockingLibraryBrushes.DefaultBackgroundBrush}}}">
 
     <Grid Name="gridContent">
         <Grid.ColumnDefinitions>

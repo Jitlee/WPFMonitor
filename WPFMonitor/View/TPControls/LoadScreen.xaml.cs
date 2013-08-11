@@ -49,6 +49,13 @@ namespace WPFMonitor.View.TPControls
             csScreen.VerticalAlignment = VerticalAlignment.Top;
             csScreen.HorizontalAlignment = HorizontalAlignment.Left;
             GridScreen.MouseLeftButtonDown += GridScreen_MouseLeftButtonDown;
+
+            this.Loaded += LoadScreen_Loaded;
+        }
+
+        void LoadScreen_Loaded(object sender, RoutedEventArgs e)
+        {
+            Application.Current.MainWindow.PreviewKeyDown += CsScreen_KeyDown;
         }
 
         public Action ResetSelected { get; set; }
@@ -293,6 +300,10 @@ namespace WPFMonitor.View.TPControls
 
         private void CsScreen_KeyDown(object sender, KeyEventArgs e)
         {
+            if (!IsZT)
+            {
+                return;
+            }
             if (e.Key == Key.V)
             {
                 if ((Keyboard.Modifiers & ModifierKeys.Control) == ModifierKeys.Control)
@@ -882,11 +893,11 @@ namespace WPFMonitor.View.TPControls
 
         private void InitMenuScript()
         {
-            AllSencesMenuScriptItem.Items.Clear();
+            Global._MainWindow.AllSencesMenuScriptItem.Items.Clear();
             var roots = listScreen.Where(s => s.ParentScreenID == 0);
             foreach (var s in roots)
             {
-                AllSencesMenuScriptItem.Items.Add(InitMenuScriptItem(s));
+                Global._MainWindow.AllSencesMenuScriptItem.Items.Add(InitMenuScriptItem(s));
             }
         }
 
@@ -1877,12 +1888,12 @@ AND [t_Element].ScreenID=@ScreenID)",
 
         #region 菜单事件
         public Action TP { get; set; }
-        private void TP_Click(object sender, RoutedEventArgs e)
+        public void TP_Click(object sender, RoutedEventArgs e)
         {
             // 组态设计
-            OpartionMenuScriptItem.Visibility = Visibility.Visible;
-            ZTMenuScriptItem.Visibility = Visibility.Collapsed;
-            AllSencesMenuScriptItem.Visibility = Visibility.Collapsed;
+            //OpartionMenuScriptItem.Visibility = Visibility.Visible;
+            //ZTMenuScriptItem.Visibility = Visibility.Collapsed;
+            //AllSencesMenuScriptItem.Visibility = Visibility.Collapsed;
             GalleryButton.Visibility = Visibility.Visible;
             DesignButton.Visibility = Visibility.Visible;
             if (null != TP)
@@ -1900,7 +1911,6 @@ AND [t_Element].ScreenID=@ScreenID)",
             //prop.ChangeScreen += new EventHandler(prop_ChangeScreen);
             //fwProperty.Show();
             //鼠标事件
-            this.PreviewKeyDown += CsScreen_KeyDown;
 
             var children = csScreen.Children.OfType<MonitorControl>().ToArray();
             foreach (var child in children)
@@ -1929,7 +1939,7 @@ AND [t_Element].ScreenID=@ScreenID)",
             timerRefrshValue.Stop();
         }
 
-        private void SaveCurrentSence_Click(object sender, RoutedEventArgs e)
+        public void SaveCurrentSence_Click(object sender, RoutedEventArgs e)
         {
             // 保存当前场景
             IsShowSaveToot = true;//显示保存成功提示
@@ -1937,12 +1947,12 @@ AND [t_Element].ScreenID=@ScreenID)",
         }
 
         public Action ZTExit { get; set; }
-        private void ZTExit_Click(object sender, RoutedEventArgs e)
+        public void ZTExit_Click(object sender, RoutedEventArgs e)
         {
-            // 退出组态
-            OpartionMenuScriptItem.Visibility = Visibility.Collapsed;
-            ZTMenuScriptItem.Visibility = Visibility.Visible;
-            AllSencesMenuScriptItem.Visibility = Visibility.Visible;
+            //// 退出组态
+            //OpartionMenuScriptItem.Visibility = Visibility.Collapsed;
+            //ZTMenuScriptItem.Visibility = Visibility.Visible;
+            //AllSencesMenuScriptItem.Visibility = Visibility.Visible;
             GalleryButton.Visibility = Visibility.Collapsed;
             DesignButton.Visibility = Visibility.Collapsed;
 
@@ -1955,7 +1965,6 @@ AND [t_Element].ScreenID=@ScreenID)",
 
             GridScreen.MouseRightButtonDown -= GridScreen_MouseRightButtonDown;
 
-            this.PreviewKeyDown -= CsScreen_KeyDown;
 
             if (MessageBox.Show("是否保存对场景的修改！\r\n确定：保存。\r\n取消：不保存，修改的内容将被取消。", "", MessageBoxButton.OKCancel) == MessageBoxResult.OK)
             {

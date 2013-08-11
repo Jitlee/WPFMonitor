@@ -28,11 +28,11 @@ namespace WPFMonitor
     /// </summary>
     public partial class MainWindow : Window
     {
-        readonly ScreenTreeWindow _screenTreeWindow = new ScreenTreeWindow();
-        readonly ControlWindow _controlWindow = new ControlWindow();
-        readonly LoadScreen _loadScreen = new LoadScreen();
-        readonly PropertyWindow _propertyWindow = new PropertyWindow();
-        readonly GalleryWindow _galleryWindow = new GalleryWindow() { FloatingWindowSize = new Size(600, 200),};
+        public readonly ScreenTreeWindow _screenTreeWindow = new ScreenTreeWindow();
+        public readonly ControlWindow _controlWindow = new ControlWindow();
+        public readonly LoadScreen _loadScreen = new LoadScreen();
+        public readonly PropertyWindow _propertyWindow = new PropertyWindow();
+        public readonly GalleryWindow _galleryWindow = new GalleryWindow() { FloatingWindowSize = new Size(600, 200),};
 
         public MainWindow()
         {
@@ -106,25 +106,25 @@ namespace WPFMonitor
             };
 
             _loadScreen.DesignVisilityChanged = () => {
-                //if (_galleryWindow.Visibility != Visibility.Visible)
-                //{
-                //    _galleryWindow.ShowAsFloatingWindow(dockManager, true);
-                //}
-                //else
-                //{
-                //    _galleryWindow.Hide();
-                //}
+                if (_galleryWindow.State != DockableContentState.Docked)
+                {
+                    _galleryWindow.Show(dockManager, AnchorStyle.Left);
+                }
+                else
+                {
+                    _galleryWindow.Hide();
+                }
             };
 
             _loadScreen.GalleryVisibilityChanged = () => {
-                //if (_galleryWindow.Visibility != Visibility.Visible)
-                //{
-                //    _galleryWindow.ShowAsFloatingWindow(dockManager, true);
-                //}
-                //else
-                //{
-                //    _galleryWindow.Hide();
-                //}
+                if (_galleryWindow.State != DockableContentState.Docked)
+                {
+                    _galleryWindow.Show(dockManager, AnchorStyle.Bottom);
+                }
+                else
+                {
+                    _galleryWindow.Hide();
+                }
             };
         }
 
@@ -305,6 +305,34 @@ namespace WPFMonitor
         {
             ThemeFactory.ChangeTheme((string)((MenuItem)sender).Tag);
         }
+
+        #region 场景菜单
+        private void TP_Click(object sender, RoutedEventArgs e)
+        {
+            // 组态设计
+            OpartionMenuScriptItem.Visibility = Visibility.Visible;
+            ZTMenuScriptItem.Visibility = Visibility.Collapsed;
+            AllSencesMenuScriptItem.Visibility = Visibility.Collapsed;
+
+            LoadScreen._instance.TP_Click(null, null);
+        }
+
+        private void SaveCurrentSence_Click(object sender, RoutedEventArgs e)
+        {
+            LoadScreen._instance.SaveCurrentSence_Click(null, null);
+        }
+
+        private void ZTExit_Click(object sender, RoutedEventArgs e)
+        {
+            // 退出组态
+            OpartionMenuScriptItem.Visibility = Visibility.Collapsed;
+            ZTMenuScriptItem.Visibility = Visibility.Visible;
+            AllSencesMenuScriptItem.Visibility = Visibility.Visible;
+
+            LoadScreen._instance.TP_Click(null, null);
+        }
+
+        #endregion
 
     }
 }
