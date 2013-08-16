@@ -107,6 +107,7 @@
     <Compile Include="ZTControls\GalleryClassificationDA.cs" />
     <Compile Include="ZTControls\ScreenDA.cs" />
     <Compile Include="ZTControls\ScreenMonitorValueDA.cs" />
+    <Compile Include="ZTControls\ScreenShortcutDA.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Ref\DBUtility.dll" />
