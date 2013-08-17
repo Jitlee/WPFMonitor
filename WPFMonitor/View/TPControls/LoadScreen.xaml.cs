@@ -1250,11 +1250,11 @@ namespace WPFMonitor.View.TPControls
                 if (null != monitorControl && null != parentContol)
                 {
                     monitorControl.ParentControl = parentContol;
-                    monitorControl.AllowToolTip = false;
+                    monitorControl.AllowToolTip = true;
                     monitorControl.ClearValue(Canvas.ZIndexProperty);
                     if (null != monitorControl.AdornerLayer)
                     {
-                        monitorControl.AdornerLayer.AllToolTip = false;
+                        monitorControl.AdornerLayer.AllToolTip = true;
                     }
                 }
                 //_ScreenView.AddEletemt(monitorControl);
