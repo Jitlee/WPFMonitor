@@ -12,6 +12,7 @@ using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
+using WPFMonitor.Core.TPControls;
 using WPFMonitor.DAL.ZTControls;
 using WPFMonitor.Model.ZTControls;
 
@@ -30,18 +31,28 @@ namespace WPFMonitor.View.TPControls
         public ScreenShortcutEdit()
         {
             InitializeComponent();
+            this.Title = "添加设备信息";
             this.DataContext = _shortcut;
+            this.ScreenCombobox.ItemsSource = ScreenTreeVM.Instance.AllScreens;
         }
 
         public ScreenShortcutEdit(t_ScreenShortcut shortcut)
             : this()
         {
+            this.Title = "编辑设备信息";
             _shortcut = shortcut;
+            this.DataContext = _shortcut;
+            this.ScreenCombobox.SelectedItem = ScreenTreeVM.Instance.AllScreens.FirstOrDefault(s => s.ScreenID == _shortcut.ScreenId);
             _isNew = false;
         }
 
         private void OKButton_Click(object sender, RoutedEventArgs e)
         {
+            if (_shortcut.ScreenId <= 0)
+            {
+                MessageBox.Show(this, "请选择场景");
+                return;
+            }
             try
             {
                 ScreenShortcutDA da = new ScreenShortcutDA();
@@ -53,6 +64,7 @@ namespace WPFMonitor.View.TPControls
                 {
                     da.Update(_shortcut);
                 }
+                this.DialogResult = true;
                 this.Close();
             }
             catch (Exception ex)
@@ -70,6 +82,18 @@ namespace WPFMonitor.View.TPControls
             {
                 string fileName = openFileDialog.FileName;
                 _shortcut.ImageBuffer = File.ReadAllBytes(fileName);
+            }
+        }
+
+        private void ScreenCombobox_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            if (ScreenCombobox.SelectedIndex > -1)
+            {
+                _shortcut.ScreenId = Converter.ToInt32((ScreenCombobox.SelectedItem as t_Screen).ScreenID);
+            }
+            else
+            {
+                _shortcut.ScreenId = 0;
             }
         }
     }

@@ -1413,7 +1413,7 @@ namespace WPFMonitor.View.TPControls
                         case "BackgroundControl":
                             BackgroundControl backgroundControl = new BackgroundControl();
                             SetEletemt(canvas, backgroundControl, obj, eleStae, listObj);
-                            var childElements = ScreenElement.Where(m=> m.ParentID== obj.ElementID).ToList();    //new ElementDA().SelectBy(obj.ElementID, "Background");
+                            var childElements = ScreenElement.Where(m=> m.ParentID== obj.ElementID && m.ParentID != 0).ToList();    //new ElementDA().SelectBy(obj.ElementID, "Background");
                             ShowElements(childElements, backgroundControl.BackgroundCanvas, backgroundControl);
                             return backgroundControl;
                         default:

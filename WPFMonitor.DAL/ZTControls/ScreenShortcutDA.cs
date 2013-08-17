@@ -13,7 +13,7 @@ namespace WPFMonitor.DAL.ZTControls
     {
         public ObservableCollection<t_ScreenShortcut> Select()
         {
-            DataTable dt = base.db.ExecuteQuery("SELECT ID, SCREENID, SCREENNAME, SCREENDESCRIPTION, SCREENIMAGE FROM T_SCREENSHORTCUT");
+            DataTable dt = base.db.ExecuteQuery("SELECT ID, SCREENID, SCREENNAME, SCREENDESCRIPTION, SCREENIMAGE FROM T_SCREEN_SHORTCUT");
             ObservableCollection<t_ScreenShortcut> result = new ObservableCollection<t_ScreenShortcut>();
 
             foreach(DataRow row in dt.Rows)
@@ -25,20 +25,20 @@ namespace WPFMonitor.DAL.ZTControls
 
         public void Insert(t_ScreenShortcut shortcut)
         {
-            string sql = "INSERT INTO T_SCREENSHORTCUT(SCREENID, SCREENNAME, SCREENDESCRIPTION, SCREENIMAGE) VALUES(@SCREENID, @SCREENNAME, @SCREENSCRIPTION, @SCREENIMAGE)";
+            string sql = "INSERT INTO T_SCREEN_SHORTCUT(SCREENID, SCREENNAME, SCREENDESCRIPTION, SCREENIMAGE) VALUES(@SCREENID, @SCREENNAME, @SCREENDESCRIPTION, @SCREENIMAGE)";
             base.db.ExecuteNoQuery(
                 sql,
                 new SqlParameter[]{
                     new SqlParameter("@SCREENID", shortcut.ScreenId),
-                    new SqlParameter("@SCREENNAME", shortcut.ScreenName),
-                    new SqlParameter("@SCREENDESCRIPTION", shortcut.ScreenDescription),
-                    new SqlParameter("@SCREENIMAGE", shortcut.ImageBuffer)
+                    new SqlParameter("@SCREENNAME", shortcut.ScreenName ?? string.Empty),
+                    new SqlParameter("@SCREENDESCRIPTION", shortcut.ScreenDescription ?? string.Empty),
+                    new SqlParameter("@SCREENIMAGE", shortcut.ImageBuffer ?? new byte[0])
                 });
         }
 
         public void Update(t_ScreenShortcut shortcut)
         {
-            string sql = "UPDATE T_SCREENSHORTCUT SET SCREENID = @SCREENID, SCREENNAME = @SCREENNAME, SCREENDESCRIPTION = @SCREENDESCRIPTION, SCREENIMAGE = @SCREENIMAGE WHERE ID = @ID";
+            string sql = "UPDATE T_SCREEN_SHORTCUT SET SCREENID = @SCREENID, SCREENNAME = @SCREENNAME, SCREENDESCRIPTION = @SCREENDESCRIPTION, SCREENIMAGE = @SCREENIMAGE WHERE ID = @ID";
             base.db.ExecuteNoQuery(
                 sql,
                 new SqlParameter[]{
@@ -48,6 +48,12 @@ namespace WPFMonitor.DAL.ZTControls
                     new SqlParameter("@SCREENDESCRIPTION", shortcut.ScreenDescription),
                     new SqlParameter("@SCREENIMAGE", shortcut.ImageBuffer)
                 });
+        }
+
+        public void Delete(int id)
+        {
+            string sql = "DELETE T_SCREEN_SHORTCUT WHERE ID = @ID";
+            base.db.ExecuteNoQuery(sql, new SqlParameter("@ID", id));
         }
     }
 }

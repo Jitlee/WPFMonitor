@@ -33,6 +33,7 @@ namespace WPFMonitor
         public readonly LoadScreen _loadScreen = new LoadScreen();
         public readonly PropertyWindow _propertyWindow = new PropertyWindow();
         public readonly GalleryWindow _galleryWindow = new GalleryWindow() { FloatingWindowSize = new Size(600, 200),};
+        public readonly ScreenShortcutWindow _shrotcutWindow = new ScreenShortcutWindow();
 
         public MainWindow()
         {
@@ -126,6 +127,8 @@ namespace WPFMonitor
                     _galleryWindow.Hide();
                 }
             };
+
+            _shrotcutWindow.Show(dockManager, AnchorStyle.Left);
         }
 
         #region 菜单事件

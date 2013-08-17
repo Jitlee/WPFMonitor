@@ -407,7 +407,7 @@ namespace MonitorSystem.ZTControls
             var fScale = Math.Min(finalSize.Width / sizef.X, finalSize.Height / sizef.Y) * 0.75d;
             sizef.X *= fScale;
             sizef.Y *= fScale;
-            ssd.DrawString(formatNum, sizef.Y, (finalSize.Width - sizef.X * 1.45d) / 2d, (finalSize.Height - sizef.Y * 1.35d) / 2d);
+            ssd.DrawString(formatNum, sizef.Y * 0.08, (finalSize.Width - sizef.X * 1.7d) / 2d, (finalSize.Height - sizef.Y) / 2d);
         }
 
         //protected override Size MeasureOverride(Size availableSize)

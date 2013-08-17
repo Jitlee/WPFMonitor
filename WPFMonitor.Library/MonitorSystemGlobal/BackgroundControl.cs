@@ -312,7 +312,7 @@ namespace MonitorSystem.MonitorSystemGlobal
             _layoutRoot.Children.Add(_toolTipButton);
             UpdateBackground();
             Content = _layoutRoot;
-            Background = new SolidColorBrush(Colors.Red);
+            //Background = new SolidColorBrush(Colors.Red);
             this.SizeChanged += BackgroundControl_SizeChanged;
             this.Selected += BackgroundControl_Selected;
             _toolTipButton.Click += ToolTipButton_Click;
