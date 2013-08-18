@@ -348,11 +348,17 @@ namespace MonitorSystem.MonitorSystemGlobal
                             parent.Children.Add(ToolTipControl);
                             SetToolTipPosition();
 
-                            var childElements = new ElementDA().SelectBy(-9999, parentID, "ToolTip");
+                            var childElements = new ElementDA().SelectByParentId(parentID);
+                            if (ToolTipControl.ListAllElement == null)
+                            {
+                                ToolTipControl.ListAllElement = new List<t_Element>();
+                            }
                             foreach (var childElement in childElements)
                             {
                                 var poperties = ElementPropertyDA.SelectByElementID(childElement.ElementID);
                                 OnLoadElement(ToolTipControl.ToolTipCanvas, childElement, ElementSate.Save, poperties);
+
+                                ToolTipControl.ListAllElement.Add(childElement);
                             }
                         }
                     }
