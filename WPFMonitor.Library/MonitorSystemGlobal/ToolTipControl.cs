@@ -33,6 +33,8 @@ namespace MonitorSystem.MonitorSystemGlobal
 
         public MonitorControl Target { get; private set; }
 
+        public List<t_Element> ListAllElement { get; set; }
+
         #region 属性
 
         public PointPlace PointPlace
