@@ -256,6 +256,12 @@
     <Compile Include="View\TPControls\ScreenEdit.xaml.cs">
       <DependentUpon>ScreenEdit.xaml</DependentUpon>
     </Compile>
+    <Compile Include="View\TPControls\ScreenShortcutWindow.xaml.cs">
+      <DependentUpon>ScreenShortcutWindow.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="View\TPControls\ScreenShortcutEdit.xaml.cs">
+      <DependentUpon>ScreenShortcutEdit.xaml</DependentUpon>
+    </Compile>
     <Compile Include="View\TPControls\ScreenTreeWindow.xaml.cs">
       <DependentUpon>ScreenTreeWindow.xaml</DependentUpon>
     </Compile>
@@ -498,14 +504,22 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="View\TPControls\PropertyWindow.xaml">
-	<SubType>Designer</SubType>
-        <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="View\TPControls\ScreenCopy.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="View\TPControls\ScreenEdit.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="View\TPControls\ScreenShortcutWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="View\TPControls\ScreenShortcutEdit.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

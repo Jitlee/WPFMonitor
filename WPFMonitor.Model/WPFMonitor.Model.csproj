@@ -54,6 +54,7 @@
     <Compile Include="AlertAdmin\LightAlarmOR.cs" />
     <Compile Include="AlertAdmin\MainteOR.cs" />
     <Compile Include="AlertAdmin\SchedulingOR.cs" />
+    <Compile Include="ZTControls\t_ScreenShortcut.cs" />
     <Compile Include="ZTControls\V_ScreenMonitorValue.cs" />
     <Compile Include="ZTControls\t_MonitorSystemParam.cs" />
     <Compile Include="ZTControls\t_Channel.cs" />

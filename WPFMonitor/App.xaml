@@ -4,6 +4,7 @@
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:shell="http://schemas.microsoft.com/winfx/2006/xaml/presentation/shell"
     xmlns:controls="http://www.monitor.com/wpf/library"
+    xmlns:custom="clr-namespace:DockingLibrary;assembly=DockingLibrary"
     StartupUri="MainWindow.xaml"
     ShutdownMode="OnMainWindowClose">
     <Application.Resources>
@@ -13,8 +14,6 @@
                 <ResourceDictionary Source="/MonitorSystem;component/Controls/ColorPicker/Themes/Generic.xaml"/>
                 <!--<ResourceDictionary Source="/MonitorSystem;component/Controls/PopupMenu/Themes/Generic.xaml"/>-->
             </ResourceDictionary.MergedDictionaries>
-
-
 
             <!--编辑窗口 标签 文档本框-->
             <Style x:Key="txtStyle" TargetType="TextBox">
@@ -64,8 +63,8 @@
                 <Setter Property="Height" Value="24"/>
                 <Setter Property="Width" Value="24"/>
                 <Setter Property="Margin" Value="0,10,12,0"/>
-                <Setter Property="HorizontalAlignment" Value="Center"/>
-                <Setter Property="VerticalAlignment" Value="Center"/>
+                <Setter Property="HorizontalAlignment" Value="Right"/>
+                <Setter Property="VerticalAlignment" Value="Top"/>
                 <Setter Property="Template">
                     <Setter.Value>
                         <ControlTemplate
@@ -75,13 +74,13 @@
                                 VerticalAlignment="Center"
                                 x:Name="Background">
                                 <Image
-                                    Source="Images/tip.png">
+                                    Source="Resources/Images/tip.png">
                                     <Image.Effect>
                                         <BlurEffect/>
                                     </Image.Effect>
                                 </Image>
                                 <Image
-                                    Source="Images/tip.png"/>
+                                    Source="Resources/Images/tip.png"/>
                             </Grid>
                             <ControlTemplate.Triggers>
                                 <Trigger Property="IsMouseOver" Value="True">
@@ -499,6 +498,11 @@
                         </ControlTemplate>
                     </Setter.Value>
                 </Setter>
+            </Style>
+            
+            <Style TargetType="MenuItem">
+                <Setter Property="Background" Value="{DynamicResource {ComponentResourceKey {x:Type custom:DockingManager}, {x:Static custom:DockingLibraryBrushes.DefaultBackgroundBrush}}}"/>
+                <Setter Property="Foreground" Value="White"/>
             </Style>
         </ResourceDictionary>
     </Application.Resources>

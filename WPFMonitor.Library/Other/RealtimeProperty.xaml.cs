@@ -161,10 +161,10 @@ namespace MonitorSystem.Other
             //移出
             if (DeleteRealTime.Count > 0)
             {
-                if (null == _lines)
-                {
-                    _lines = da.selectAllDate();
-                }
+				//if (null == _lines)
+				//{
+				//    _lines = da.selectAllDate();
+				//}
                 foreach (t_Element_RealTimeLine obj in DeleteRealTime)
                 {
                     //_RealTimeData.
@@ -173,15 +173,15 @@ namespace MonitorSystem.Other
                     {
                         _RealTimeData.ListRealTimeLine.Remove(_line);
                         _RealTimeData._CanvasLine.Children.Remove(_line.PolyLine);
-                        if (_RealTimeData.ElementState == MonitorSystemGlobal.ElementSate.Save)
-                        {
-                            var v = _lines.Where(a => a.ID == obj.ID).FirstOrDefault();
-                            if (null != v)
-                            {
-                                _lines.Remove(v);
-                                da.Delete(v.ID);
-                            }
-                        }
+						//if (_RealTimeData.ElementState == MonitorSystemGlobal.ElementSate.Save)
+						//{
+						//    var v = _lines.Where(a => a.ID == obj.ID).FirstOrDefault();
+						//    if (null != v)
+						//    {
+						//        _lines.Remove(v);
+						//        da.Delete(v.ID);
+						//    }
+						//}
                     }
                 }
             }
@@ -195,14 +195,11 @@ namespace MonitorSystem.Other
                 }
                 else
                 {
+					obj.ScreenID = _RealTimeData.ScreenElement.ScreenID;
                     RealTimeLineOR _data = new RealTimeLineOR(obj);
                     _RealTimeData.ListRealTimeLine.Add(_data);
-                    if (_RealTimeData.ElementState == MonitorSystemGlobal.ElementSate.Save)
-                    {
-                        obj.ScreenID = _RealTimeData.ScreenElement.ScreenID;
-                        obj.ElementID = _RealTimeData.ScreenElement.ElementID;
-                        da.Insert(obj);
-                    }
+					//obj.ElementID = _RealTimeData.ScreenElement.ElementID;
+					//da.Insert(obj);
                 }
             }
         }
@@ -221,10 +218,10 @@ namespace MonitorSystem.Other
         {
             AdminLine();
 
-            if (null == _lines)
-            {
-                _lines = new ElementRealTimeLineDA().selectAllDate();
-            }
+			//if (null == _lines)
+			//{
+			//    _lines = new ElementRealTimeLineDA().selectAllDate();
+			//}
 
             if (_lines.Count > 1)
             {

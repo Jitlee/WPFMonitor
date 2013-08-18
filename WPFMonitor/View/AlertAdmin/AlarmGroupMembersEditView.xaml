@@ -3,7 +3,9 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
          xmlns:vr="clr-namespace:WPFMonitor.Core.Uitl"
          Title="报警组员管理" Height="345" Width="355" WindowStartupLocation="CenterOwner" 
-        ShowInTaskbar="False" ResizeMode="NoResize">
+        ShowInTaskbar="False" ResizeMode="NoResize"
+        xmlns:custom="clr-namespace:DockingLibrary;assembly=DockingLibrary"
+        Background="{DynamicResource {ComponentResourceKey {x:Type custom:DockingManager}, {x:Static custom:DockingLibraryBrushes.DefaultBackgroundBrush}}}">
 
     <Grid Name="gridContent">
         <Grid.ColumnDefinitions>

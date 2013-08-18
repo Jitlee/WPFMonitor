@@ -56,8 +56,6 @@ namespace WPFMonitor.View.TPControls
         void trList_ContextMenuOpening(object sender, ContextMenuEventArgs e)
         {
             _select = (e.OriginalSource as FrameworkElement).DataContext as t_Screen;
-            
-
             if (null != _select)
             {
                 t_Screen _TreeSelect = trList.SelectedItem as t_Screen;
@@ -75,7 +73,6 @@ namespace WPFMonitor.View.TPControls
             {
                 MenuStatus(false);
             }
-           
         }
 
         private void MenuStatus(bool isEnable)
@@ -87,7 +84,6 @@ namespace WPFMonitor.View.TPControls
                     continue;
                 }
                 mitem.IsEnabled = isEnable;
-
             }
         }
 
@@ -146,7 +142,7 @@ namespace WPFMonitor.View.TPControls
             }
             else if (mi.Name == "miOpen")
             {
-
+				LoadScreen._instance.LoadSence(_select);
             }
             else if (mi.Name == "miCopy")
             {

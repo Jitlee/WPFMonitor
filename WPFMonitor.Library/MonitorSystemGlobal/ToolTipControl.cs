@@ -190,7 +190,7 @@ namespace MonitorSystem.MonitorSystemGlobal
 
         private void UpdateBackground()
         {
-            if (string.IsNullOrEmpty(BackImage) && System.IO.File.Exists(BackImage))
+            if (string.IsNullOrEmpty(BackImage) && !System.IO.File.Exists(BackImage))
             {
                 var brush = new LinearGradientBrush();
                 if (ColorDirection == Orientation.Horizontal)
