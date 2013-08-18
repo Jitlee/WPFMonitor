@@ -107,13 +107,13 @@ namespace WPFMonitor
             };
 
             _loadScreen.DesignVisilityChanged = () => {
-                if (_galleryWindow.State != DockableContentState.Docked)
+                if (_controlWindow.State != DockableContentState.Docked)
                 {
-                    _galleryWindow.Show(dockManager, AnchorStyle.Left);
+                    _controlWindow.Show(dockManager, AnchorStyle.Left);
                 }
                 else
                 {
-                    _galleryWindow.Hide();
+                    _controlWindow.Hide();
                 }
             };
 
@@ -332,7 +332,7 @@ namespace WPFMonitor
             ZTMenuScriptItem.Visibility = Visibility.Visible;
             AllSencesMenuScriptItem.Visibility = Visibility.Visible;
 
-            LoadScreen._instance.TP_Click(null, null);
+            LoadScreen._instance.ZTExit_Click(null, null);
         }
 
         #endregion
