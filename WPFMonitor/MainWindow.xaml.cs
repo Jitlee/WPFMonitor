@@ -33,6 +33,7 @@ namespace WPFMonitor
         public readonly LoadScreen _loadScreen = new LoadScreen();
         public readonly PropertyWindow _propertyWindow = new PropertyWindow();
         public readonly GalleryWindow _galleryWindow = new GalleryWindow() { FloatingWindowSize = new Size(600, 200),};
+        public readonly ScreenShortcutWindow _shrotcutWindow = new ScreenShortcutWindow();
 
         public MainWindow()
         {
@@ -106,13 +107,13 @@ namespace WPFMonitor
             };
 
             _loadScreen.DesignVisilityChanged = () => {
-                if (_galleryWindow.State != DockableContentState.Docked)
+                if (_controlWindow.State != DockableContentState.Docked)
                 {
-                    _galleryWindow.Show(dockManager, AnchorStyle.Left);
+                    _controlWindow.Show(dockManager, AnchorStyle.Left);
                 }
                 else
                 {
-                    _galleryWindow.Hide();
+                    _controlWindow.Hide();
                 }
             };
 
@@ -126,6 +127,8 @@ namespace WPFMonitor
                     _galleryWindow.Hide();
                 }
             };
+
+            _shrotcutWindow.Show(dockManager, AnchorStyle.Left);
         }
 
         #region 菜单事件
@@ -329,7 +332,7 @@ namespace WPFMonitor
             ZTMenuScriptItem.Visibility = Visibility.Visible;
             AllSencesMenuScriptItem.Visibility = Visibility.Visible;
 
-            LoadScreen._instance.TP_Click(null, null);
+            LoadScreen._instance.ZTExit_Click(null, null);
         }
 
         #endregion

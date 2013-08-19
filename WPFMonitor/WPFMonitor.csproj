@@ -256,8 +256,8 @@
     <Compile Include="View\TPControls\ScreenEdit.xaml.cs">
       <DependentUpon>ScreenEdit.xaml</DependentUpon>
     </Compile>
-    <Compile Include="View\TPControls\ScreenShortcut.xaml.cs">
-      <DependentUpon>ScreenShortcut.xaml</DependentUpon>
+    <Compile Include="View\TPControls\ScreenShortcutWindow.xaml.cs">
+      <DependentUpon>ScreenShortcutWindow.xaml</DependentUpon>
     </Compile>
     <Compile Include="View\TPControls\ScreenShortcutEdit.xaml.cs">
       <DependentUpon>ScreenShortcutEdit.xaml</DependentUpon>
@@ -515,7 +515,7 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="View\TPControls\ScreenShortcut.xaml">
+    <Page Include="View\TPControls\ScreenShortcutWindow.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

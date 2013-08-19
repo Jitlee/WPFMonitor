@@ -4,17 +4,19 @@
         xmlns:dock="clr-namespace:DockingLibrary;assembly=DockingLibrary"
         xmlns:libs="http://www.monitor.com/wpf/library"
         xmlns:layout="clr-namespace:System.Windows.Controls;assembly=System.Windows.Controls.Layout.Toolkit"
-        Title="设计" Height="300" Width="300">
+        Title="设计" Height="300" Width="300" Background="{x:Null}">
     <dock:DockableContent.Resources>
         <Style TargetType="ListBox">
+            <Setter Property="Background" Value="White"/>
             <Setter Property="ItemContainerStyle">
                 <Setter.Value>
                     <Style TargetType="ListBoxItem">
+                        <Setter Property="Background" Value="Transparent"/>
                         <Setter Property="Template">
                             <Setter.Value>
                                 <ControlTemplate TargetType="ListBoxItem">
                                     <Border
-                                        Background="Transparent"
+                                        Background="{TemplateBinding Background}"
                                         BorderBrush="{TemplateBinding BorderBrush}"
                                         BorderThickness="1">
                                         <StackPanel Orientation="Horizontal">
@@ -24,10 +26,10 @@
                                     </Border>
                                     <ControlTemplate.Triggers>
                                         <Trigger Property="IsMouseOver" Value="True">
-                                            <Setter Property="Background" Value="#FFBADDE9"/>
+                                            <Setter Property="BorderBrush" Value="#FFBADDE9"/>
                                         </Trigger>
                                         <Trigger Property="IsSelected" Value="True">
-                                            <Setter Property="Background" Value="#FFBADDE9"/>
+                                            <Setter Property="BorderBrush" Value="#FFBADDE9"/>
                                         </Trigger>
                                     </ControlTemplate.Triggers>
                                 </ControlTemplate>
@@ -47,7 +49,11 @@
                 <ListBox x:Name="ztListBox" SelectionChanged="Control_SelectionChanged" ItemsSource="{Binding ZTControls}"/>
             </layout:AccordionItem>
             <layout:AccordionItem Header="公共控件" HorizontalAlignment="Stretch" HorizontalContentAlignment="Stretch">
-                <ListBox x:Name="ggListBox" SelectionChanged="Control_SelectionChanged" ItemsSource="{Binding GGControls}"/>
+                <Grid HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Background="White" 
+                Width="{Binding RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type Grid}}, Path=ActualWidth}"
+                Height="{Binding RelativeSource={RelativeSource FindAncestor,AncestorType={x:Type Grid}}, Path=ActualHeight}">
+                    <ListBox x:Name="ggListBox" SelectionChanged="Control_SelectionChanged" ItemsSource="{Binding GGControls}"/>
+                </Grid>
             </layout:AccordionItem>
         </layout:Accordion>
     </Grid>

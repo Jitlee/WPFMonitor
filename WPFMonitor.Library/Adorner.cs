@@ -603,7 +603,7 @@ namespace MonitorSystem
                     var parentID = target.ScreenElement.ElementID;
                     //LoadScreen._DataContext.Load<t_Element>(LoadScreen._DataContext.GetT_ElementsByScreenIDQuery(screenID), LoadToolTipCallback, null);
                     //LoadToolTip(LoadScreen._DataContext.t_Elements.Where(el => el.ParentID == parentID && el.ElementType == "ToolTip").ToList());
-                    LoadToolTip(new ElementDA().SelectBy(parentID, "ToolTip"));
+                    LoadToolTip(new ElementDA().SelectByParentId(parentID));
                 }
                 else if (toolTipControl.Visibility == Visibility.Collapsed)
                 {
@@ -731,9 +731,12 @@ namespace MonitorSystem
             {
                 target.IsToolTipLoaded = true;
                 var toolTipControlElement = elements.FirstOrDefault(t => t.ControlID == -9999);
+                
                 if (null != toolTipControlElement)
                 {
                     var toolTipControl = new ToolTipControl(target);
+                    toolTipControl.ListAllElement = new List<t_Element>();
+
                     toolTipControl.Width = toolTipControlElement.Width.HasValue ? toolTipControlElement.Width.Value : 300d;
                     toolTipControl.Height = toolTipControlElement.Height.HasValue ? toolTipControlElement.Height.Value : 200d;
                     toolTipControl.SetValue(Canvas.ZIndexProperty, 10000);
@@ -769,6 +772,7 @@ namespace MonitorSystem
                                 monitor.AdornerLayer.AllToolTip = false;
                             }
                         }
+                        toolTipControl.ListAllElement.Add(childElement);
                     }
                 }
             }

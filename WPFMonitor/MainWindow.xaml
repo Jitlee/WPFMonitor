@@ -9,8 +9,7 @@
             <RowDefinition Height="Auto" />
             <RowDefinition Height="*"/>
         </Grid.RowDefinitions>
-        <Menu Grid.Row="0" Height="Auto" HorizontalAlignment="Stretch"  Name="menu1" VerticalAlignment="Stretch"
-              Background="{DynamicResource {ComponentResourceKey {x:Type custom:DockingManager}, {x:Static custom:DockingLibraryBrushes.DefaultBackgroundBrush}}}">
+        <Menu Grid.Row="0" Height="Auto" HorizontalAlignment="Stretch"  Name="menu1" VerticalAlignment="Stretch">
             <MenuItem x:Name="ZTMenuScriptItem" Header="组态设计">
                 <MenuItem x:Name="TPMenuScriptItem" Header="拓扑组态" Click="TP_Click"/>
             </MenuItem>

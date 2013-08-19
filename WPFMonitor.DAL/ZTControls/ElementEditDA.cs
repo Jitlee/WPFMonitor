@@ -163,7 +163,7 @@ WHERE ElementID=@ElementID
 		public bool DeleteRealTimeLine(int ElementID)
 		{
 			string sqlR = string.Format("DELETE t_Element_RealTimeLine  WHERE ElementID={0}", ElementID);
-			CmdList.Add(new CommandList() { strCommandText = sqlR, Type = CommandType.Text });
+			CmdList.Add(new CommandList() { strCommandText = sqlR});
 			return true;
 		}
 
