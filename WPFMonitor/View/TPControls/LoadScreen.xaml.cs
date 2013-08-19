@@ -1693,11 +1693,13 @@ namespace WPFMonitor.View.TPControls
                 List<t_Element> ListRemoveItem = new List<t_Element>();
 
                 //保存背景图片
-                //var vScreen = _DataContext.t_Screens.Where(a => a.ScreenID == _CurrentScreen.ScreenID);
+                //var vScreen = listScreen.Where(a => a.ScreenID == _CurrentScreen.ScreenID);
                 //if (vScreen.Count() > 0)
                 //{
                 //    t_Screen m_screen = vScreen.First();
-                //    m_screen.ImageURL = BackgroundPanel.BgImagePath;
+                //    m_screen.ImageURL = BgImagePath;// BackgroundPanel.BgImagePath;
+                //    m_screen.AutoSize = AutoSize;
+                //    //m_screen.Width
                 //}
                 AddElementNumber = 0;
 
@@ -1708,7 +1710,10 @@ namespace WPFMonitor.View.TPControls
 
 				ElementEditDA EleDA = new ElementEditDA();
 				int MaxElementID = EleDA.GetMaxElementID();
-                
+                _CurrentScreen.Width = CanvasWidth;
+                _CurrentScreen.Height = CanvasHeight;
+                EleDA.UpdateScreen(_CurrentScreen);
+
                 for (int i = 0; i < csScreen.Children.Count; i++)
                 {
                     var m = csScreen.Children[i] as MonitorControl;

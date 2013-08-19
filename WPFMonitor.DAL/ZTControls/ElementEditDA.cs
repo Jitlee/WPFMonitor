@@ -14,6 +14,20 @@ namespace WPFMonitor.DAL.ZTControls
     public class ElementEditDA : DALBase
     {
 
+        public void UpdateScreen(t_Screen obj)
+        {
+            string strSQL = "update t_Screen set Width=@Width,Height=@Height,AutoSize=@AutoSize,ImageURL=@ImageURL where ScreenID=@ScreenID";
+            SqlParameter[] parameters = new SqlParameter[]
+                                                    {
+                                                            new SqlParameter("@ScreenID", obj.ScreenID),
+                                                            new SqlParameter("@Width", obj.Width),
+                                                            new SqlParameter("@Height", obj.Height),
+                                                            new SqlParameter("@AutoSize", obj.AutoSize),
+                                                            new SqlParameter("@ImageURL", obj.ImageURL)
+                                                    };
+            CmdList.Add(new CommandList() { strCommandText = strSQL, Params = parameters });
+        }
+
         public List<CommandList> CmdList { get; set; }
         public ElementEditDA()
         {
