@@ -49,7 +49,11 @@
                 <ListBox x:Name="ztListBox" SelectionChanged="Control_SelectionChanged" ItemsSource="{Binding ZTControls}"/>
             </layout:AccordionItem>
             <layout:AccordionItem Header="公共控件" HorizontalAlignment="Stretch" HorizontalContentAlignment="Stretch">
-                <ListBox x:Name="ggListBox" SelectionChanged="Control_SelectionChanged" ItemsSource="{Binding GGControls}"/>
+                <Grid HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Background="White" 
+                Width="{Binding RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type Grid}}, Path=ActualWidth}"
+                Height="{Binding RelativeSource={RelativeSource FindAncestor,AncestorType={x:Type Grid}}, Path=ActualHeight}">
+                    <ListBox x:Name="ggListBox" SelectionChanged="Control_SelectionChanged" ItemsSource="{Binding GGControls}"/>
+                </Grid>
             </layout:AccordionItem>
         </layout:Accordion>
     </Grid>

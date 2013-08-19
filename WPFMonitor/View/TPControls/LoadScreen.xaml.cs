@@ -139,10 +139,10 @@ namespace WPFMonitor.View.TPControls
 
         public void SetScreenImg(string strImg, bool resize = false)
         {
-            var gbUrl = Common.GetAppPath("Upload\\ImageMap\\", strImg);
-            if (File.Exists(gbUrl))
+            string url = System.IO.Path.Combine(AppDomain.CurrentDomain.BaseDirectory, PATH, strImg);
+            if (File.Exists(url))
             {
-                var bitmap = new BitmapImage(new Uri(gbUrl, UriKind.Absolute));
+                var bitmap = new BitmapImage(new Uri(url, UriKind.Absolute));
                 if (resize && !_CurrentScreen.AutoSize)
                 {
                     bitmap.DownloadCompleted += Screen_ImageOpened;
@@ -1125,7 +1125,16 @@ namespace WPFMonitor.View.TPControls
             _ScreenView.ScreenInit(_Screen);
 			ShowLoadTimeLen("1");
 
-            csScreen.Children.OfType<MonitorControl>().ToList().ForEach(mc => mc.UnDesignMode());
+            var lst = new List<MonitorControl>();
+            foreach (var mc in csScreen.Children.OfType<MonitorControl>())
+            {
+                lst.Add(mc);
+            }
+            for (int i = 0; i < lst.Count; i++)
+            {
+                lst[i].DesignMode();
+            }
+            
 
             ScreenAllElement.Clear();
             csScreen.Children.Clear();
@@ -1206,25 +1215,29 @@ namespace WPFMonitor.View.TPControls
             try
             {
                 var screenId = (int)state;
-				ScreenElement = new ElementDA().SelectBy(screenId); ;
-				ShowLoadTimeLen("4");
+                ScreenElement = new ElementDA().SelectBy(screenId); ;
+                ShowLoadTimeLen("4");
                 //_ScreenView.Width = 200;
                 //_ScreenView.Height = 200;
                 //csScreen.Children.Add(_ScreenView);
 
                 //如果不是组态，打开定时器
                 //if (CBIsztControl.IsChecked == false)
-				ElementProperties = new ElementPropertyDA().selectByScreenID(_CurrentScreen.ScreenID);
-				var TopElement = ScreenElement.Where(m => m.ParentID==0).ToList();
+                ElementProperties = new ElementPropertyDA().selectByScreenID(_CurrentScreen.ScreenID);
+                var TopElement = ScreenElement.Where(m => m.ParentID == 0).ToList();//|| m.ControlID ==-9999
                 Dispatcher.Invoke(new Action(() =>
                 {
-					ShowElements(TopElement, csScreen);
+                    ShowElements(TopElement, csScreen);
                     tbWait.IsBusy = false;
                 }));
-				ShowLoadTimeLen("5");
-				if (IsZT)
+                //var ToolElement = ScreenElement.Where(m => m.ControlID == -9999);
+                //{
+
+                //}
+                ShowLoadTimeLen("5");
+                if (IsZT)
                 {
-                   // timerRefrshValue.Start();
+                    // timerRefrshValue.Start();
                 }
 
             }
@@ -1677,6 +1690,8 @@ namespace WPFMonitor.View.TPControls
         {
             try
             {
+                List<t_Element> ListRemoveItem = new List<t_Element>();
+
                 //保存背景图片
                 //var vScreen = _DataContext.t_Screens.Where(a => a.ScreenID == _CurrentScreen.ScreenID);
                 //if (vScreen.Count() > 0)
@@ -1693,10 +1708,11 @@ namespace WPFMonitor.View.TPControls
 
 				ElementEditDA EleDA = new ElementEditDA();
 				int MaxElementID = EleDA.GetMaxElementID();
+                
                 for (int i = 0; i < csScreen.Children.Count; i++)
                 {
                     var m = csScreen.Children[i] as MonitorControl;
-
+                    
                     if (null != m && !m.IsToolTip)
                     {
                         var el = m.ElementState;
@@ -1722,15 +1738,51 @@ namespace WPFMonitor.View.TPControls
                         #region ToolTip
 
                         var toolTipControl = m.ToolTipControl;
+                        if (toolTipControl != null && toolTipControl.ListAllElement != null)
+                        {
+                            foreach (t_Element obj in toolTipControl.ListAllElement)
+                            {
+                                bool isExists = false;
+                                if (obj.ControlID != -9999)
+                                {
+                                    foreach (var child in toolTipControl.ToolTipCanvas.Children)
+                                    {
+                                        var childMoinitor = child as MonitorControl;
+                                        if (childMoinitor != null && childMoinitor.ScreenElement.ElementID == obj.ElementID)
+                                        {
+                                            isExists = true;
+                                            break;
+                                        }
+                                    }
+                                    if (!isExists)
+                                    {
+                                        ListRemoveItem.Add(obj);
+                                    }
+                                }
+                            }
+                        }
                         if (null != toolTipControl && toolTipControl.ToolTipCanvas.Children.Count > 0)
                         {
                             //Debug.Assert(null != toolTipControl.Target, "ToolTipControl 的 Target 属性不能为null.");
                             //Debug.Assert(null != toolTipControl.Target.ScreenElement, "ToolTipControl 的 Target.ScreenElement 属性不能为null.");
 
-                            var toolTipElement = toolTipControl.ScreenElement.Clone();
-
+                            var toolTipElement = toolTipControl.ScreenElement;
+                            toolTipElement.ControlID = -9999;
                             toolTipElement.Width = Convert.ToInt32(toolTipControl.Width);
                             toolTipElement.Height = Convert.ToInt32(toolTipControl.Height);
+                            toolTipElement.ParentID = m.ScreenElement.ElementID;
+                            toolTipElement.ScreenID = _CurrentScreen.ScreenID;
+                            if (toolTipControl.ElementState == ElementSate.New)
+                            {
+                                MaxElementID++;
+                                toolTipElement.ElementID = MaxElementID;
+                                listMonitorAddElement.Add(toolTipControl);
+                                AddElementNumber++;
+                            }
+                            else
+                            {
+                                listMonitorModifiedElement.Add(toolTipControl);
+                            }
 							foreach (var child in toolTipControl.ToolTipCanvas.Children)
 							{
 								var childMoinitor = child as MonitorControl;
@@ -1743,8 +1795,8 @@ namespace WPFMonitor.View.TPControls
 									if (childMoinitor.ElementState == ElementSate.New)
 									{
 										MaxElementID++;
-										childMoinitor.ScreenElement.ElementID = MaxElementID;
-										childMoinitor.ScreenElement.ParentID = m.ScreenElement.ElementID;
+                                        childMoinitor.ScreenElement.ElementID = MaxElementID;
+                                        childMoinitor.ScreenElement.ParentID = m.ScreenElement.ElementID; //toolTipElement.ElementID;
 										childMoinitor.ScreenElement.ScreenID = _CurrentScreen.ScreenID;
 										listMonitorAddElement.Add(childMoinitor);
 										AddElementNumber++;
@@ -1795,8 +1847,7 @@ namespace WPFMonitor.View.TPControls
                     }
                 }
 
-                //循环已添加的属性
-                List<t_Element> ListRemoveItem = new List<t_Element>();
+                //循环已添加的属性                
                 foreach (t_Element mEle in ScreenAllElement)
                 {
                     bool IsHaveIn = false;

@@ -62,7 +62,18 @@ namespace WPFMonitor.DAL.ZTControls
                 .Select(r => new t_Element(r))
                 .ToList();
         }
-
+        public List<t_Element> SelectByParentId(int parentId)
+        {
+            return db.ExecuteQuery("select * from t_Element where ParentID = @ParentID and ParentID <>0",
+                new[]
+                {                    
+                    new SqlParameter("@ParentID", parentId)                    
+                })
+                .Rows
+                .OfType<DataRow>()
+                .Select(r => new t_Element(r))
+                .ToList();
+        }
         public List<t_Element> SelectBy(int parentId, string elementType)
         {
             return db.ExecuteQuery("select * from t_Element where ParentID = @ParentID AND ElementType = @ElementType",

@@ -148,7 +148,8 @@ namespace MonitorSystem.MonitorSystemGlobal
 
         private void UpdateBackground()
         {
-            if (string.IsNullOrEmpty(BackImage))
+            string url = System.IO.Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "PIC", BackImage);
+            if (string.IsNullOrEmpty(BackImage) && System.IO.File.Exists(url))
             {
                 var brush = new LinearGradientBrush();
                 if (ColorDirection == Orientation.Horizontal)
@@ -169,7 +170,7 @@ namespace MonitorSystem.MonitorSystemGlobal
             {
                 _border.Background = new ImageBrush() {
                     Stretch= Stretch.UniformToFill,
-                    //ImageSource = new BitmapImage(new Uri(string.Concat(AppDomain.CurrentDomain.BaseDirectory, string.Concat("../Upload/Pic/", BackImage.Trim('/')))))
+                    ImageSource = new BitmapImage(new Uri(url, UriKind.Absolute))
                 };
             }
         }

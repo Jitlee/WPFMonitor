@@ -33,6 +33,8 @@ namespace MonitorSystem.MonitorSystemGlobal
 
         public MonitorControl Target { get; private set; }
 
+        public List<t_Element> ListAllElement { get; set; }
+
         #region 属性
 
         public PointPlace PointPlace
@@ -190,7 +192,8 @@ namespace MonitorSystem.MonitorSystemGlobal
 
         private void UpdateBackground()
         {
-            if (string.IsNullOrEmpty(BackImage) && !System.IO.File.Exists(BackImage))
+            string url = System.IO.Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "PIC", BackImage);
+            if (string.IsNullOrEmpty(BackImage) && !System.IO.File.Exists(url))
             {
                 var brush = new LinearGradientBrush();
                 if (ColorDirection == Orientation.Horizontal)
@@ -212,7 +215,7 @@ namespace MonitorSystem.MonitorSystemGlobal
                 _borderPath.Fill = new ImageBrush()
                 {
                     Stretch = Stretch.UniformToFill,
-                    ImageSource = new BitmapImage(new Uri(BackImage, UriKind.Absolute)),
+                    ImageSource = new BitmapImage(new Uri(url, UriKind.Absolute)),
                 };
             }
         }
