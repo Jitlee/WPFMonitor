@@ -227,17 +227,15 @@ namespace MonitorSystem.ZTControls
 
         private void FullRect()
         {
-            if (!System.IO.File.Exists(_BackImageName))
+           string url = System.IO.Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "PIC\\ButtonImage", _BackImageName);
+            if (System.IO.File.Exists(url))
             {
-                return;
+                BitmapImage bitmap = new BitmapImage(new Uri(url, UriKind.Absolute));
+                ImageBrush img = new ImageBrush();
+                img.ImageSource = bitmap;
+                img.Stretch = Stretch.Fill;
+                mRect.Background = img;
             }
-            //显示背景
-            string gbUrl = _BackImageName;
-            BitmapImage bitmap = new BitmapImage(new Uri(gbUrl, UriKind.Absolute));
-            ImageBrush img = new ImageBrush();
-            img.ImageSource = bitmap;
-            img.Stretch = Stretch.Fill;
-            mRect.Background = img;
         }
         
 

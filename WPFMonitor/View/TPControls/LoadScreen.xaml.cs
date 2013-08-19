@@ -139,10 +139,10 @@ namespace WPFMonitor.View.TPControls
 
         public void SetScreenImg(string strImg, bool resize = false)
         {
-            var gbUrl = Common.GetAppPath("Upload\\ImageMap\\", strImg);
-            if (File.Exists(gbUrl))
+            string url = System.IO.Path.Combine(AppDomain.CurrentDomain.BaseDirectory, PATH, strImg);
+            if (File.Exists(url))
             {
-                var bitmap = new BitmapImage(new Uri(gbUrl, UriKind.Absolute));
+                var bitmap = new BitmapImage(new Uri(url, UriKind.Absolute));
                 if (resize && !_CurrentScreen.AutoSize)
                 {
                     bitmap.DownloadCompleted += Screen_ImageOpened;

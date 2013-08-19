@@ -420,9 +420,10 @@ namespace MonitorSystem.ZTControls
 
         public void OnBackImageNameChanged(string oldValue, string newValue)
         {
-            if (System.IO.File.Exists(newValue))
+            string url = System.IO.Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "PIC", newValue);
+            if (System.IO.File.Exists(url))
             {
-                _image.Source = new BitmapImage(new Uri(newValue, UriKind.Absolute));
+                _image.Source = new BitmapImage(new Uri(url, UriKind.Absolute));
             }
         }
 

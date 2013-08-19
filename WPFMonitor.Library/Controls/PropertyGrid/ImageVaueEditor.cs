@@ -7,11 +7,12 @@ using System.Windows.Ink;
 using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Animation;
-using System.Windows.Shapes;
 using System.Text.RegularExpressions;
 using WPFMonitor.DAL;
 using WPFMonitor.Library.Controls.ImagesManager;
 using Microsoft.Win32;
+using System.IO;
+using System.Windows.Media.Imaging;
 
 namespace MonitorSystem.Controls
 {
@@ -74,14 +75,14 @@ namespace MonitorSystem.Controls
         {
             if (null != value)
             {
-                var url = value.ToString();
-                _text.Text = url;
+                string url = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, _attribute.Path, value.ToString());
+                _text.Text = value.ToString();
                 _text.Foreground = _blackBrush;
                 _removeButton.IsEnabled = true;
-                if (!string.IsNullOrEmpty(_attribute.Path))
+                if (!string.IsNullOrEmpty(_attribute.Path) && File.Exists(url))
                 {
                     // 文件夹固定
-                    _image.Source = ImagePathConverter.Convert(string.Concat(_attribute.Path, "\\", url));
+                    _image.Source = new BitmapImage(new Uri(url, UriKind.Absolute));
                     return;
                 }
             }
@@ -114,9 +115,41 @@ namespace MonitorSystem.Controls
             dlg.Filter = "图片(*.jpg;*.bmp;*.png)|*.jpg;*.bmp;*.png";
             if (dlg.ShowDialog() == true)
             {
-                Property.Value = dlg.FileName;
+                Property.Value = CopyFile(dlg.FileName, Path.Combine(AppDomain.CurrentDomain.BaseDirectory, _attribute.Path, new FileInfo(dlg.FileName).Name));
             }
             _removeButton.IsEnabled = true;
+        }
+
+        public static string CopyFile(string from, string to)
+        {
+            FileInfo info = new FileInfo(to);
+            if (info.Exists)
+            {
+                string patten = @"(?<=\()[0-9]+(?=\)\.\w+$)";
+                Match match = Regex.Match(info.Name, patten);
+                if (match.Success)
+                {
+                    to = Regex.Replace(to, patten, (Convert.ToInt32(match.Value) + 1).ToString());
+                }
+                else
+                {
+                    to = to.Insert(to.Length - info.Extension.Length, "(1)");
+                }
+                return CopyFile(from, to);
+            }
+            try
+            {
+                if (!Directory.Exists(info.DirectoryName))
+                {
+                    info.Directory.Create();
+                }
+                File.Copy(from, to);
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message, "设置图片出错", MessageBoxButton.OK, MessageBoxImage.Warning);
+            }
+            return info.Name;
         }
 
         void RemoveButton_Click(object sender, RoutedEventArgs e)

@@ -255,22 +255,16 @@ namespace MonitorSystem.ZTControls
             string gbUrl = "";//
             if (_WhichBackImage)
             {
-                if (System.IO.File.Exists(_BackImageName1))
-                {
-                    gbUrl = _BackImageName1;
-                }
+                System.IO.Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "PIC", _BackImageName1);
                 _WhichBackImage = false;
             }
             else
             {
-                if (System.IO.File.Exists(_BackImageName2))
-                {
-                    gbUrl = _BackImageName2;
-                }
+                System.IO.Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "PIC", _BackImageName2);
                 _WhichBackImage = true;
             }
             //显示背景
-            if (gbUrl == "")
+            if (!System.IO.File.Exists(gbUrl))
             {
                 PaintBackground();
             }
