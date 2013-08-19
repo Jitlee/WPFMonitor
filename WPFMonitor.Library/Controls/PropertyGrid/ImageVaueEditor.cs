@@ -13,6 +13,7 @@ using WPFMonitor.Library.Controls.ImagesManager;
 using Microsoft.Win32;
 using System.IO;
 using System.Windows.Media.Imaging;
+using System.Security.Cryptography;
 
 namespace MonitorSystem.Controls
 {
@@ -113,6 +114,7 @@ namespace MonitorSystem.Controls
             //new ImagesBrowseWindow(ImageSelection_Changed, _attribute.Path, _attribute.OnlyImage).Show();
             OpenFileDialog dlg = new OpenFileDialog();
             dlg.Filter = "图片(*.jpg;*.bmp;*.png)|*.jpg;*.bmp;*.png";
+            dlg.InitialDirectory = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, _attribute.Path);
             if (dlg.ShowDialog() == true)
             {
                 Property.Value = CopyFile(dlg.FileName, Path.Combine(AppDomain.CurrentDomain.BaseDirectory, _attribute.Path, new FileInfo(dlg.FileName).Name));
@@ -120,11 +122,15 @@ namespace MonitorSystem.Controls
             _removeButton.IsEnabled = true;
         }
 
-        public static string CopyFile(string from, string to)
+        public string CopyFile(string from, string to)
         {
             FileInfo info = new FileInfo(to);
             if (info.Exists)
             {
+                if (IsValidFileContent(from, to))
+                {
+                    return info.Name;
+                }
                 string patten = @"(?<=\()[0-9]+(?=\)\.\w+$)";
                 Match match = Regex.Match(info.Name, patten);
                 if (match.Success)
@@ -150,6 +156,26 @@ namespace MonitorSystem.Controls
                 MessageBox.Show(ex.Message, "设置图片出错", MessageBoxButton.OK, MessageBoxImage.Warning);
             }
             return info.Name;
+        }
+
+        public bool IsValidFileContent(string filePath1, string filePath2)
+        {
+            if (string.Compare(filePath1, filePath2, true) == 0)
+            {
+                return true;
+            }
+            //创建一个哈希算法对象 
+            using (HashAlgorithm hash = HashAlgorithm.Create())
+            {
+                using (FileStream file1 = new FileStream(filePath1, FileMode.Open), file2 = new FileStream(filePath2, FileMode.Open))
+                {
+                    byte[] hashByte1 = hash.ComputeHash(file1);//哈希算法根据文本得到哈希码的字节数组 
+                    byte[] hashByte2 = hash.ComputeHash(file2);
+                    string str1 = BitConverter.ToString(hashByte1);//将字节数组装换为字符串 
+                    string str2 = BitConverter.ToString(hashByte2);
+                    return (str1 == str2);//比较哈希码 
+                }
+            }
         }
 
         void RemoveButton_Click(object sender, RoutedEventArgs e)

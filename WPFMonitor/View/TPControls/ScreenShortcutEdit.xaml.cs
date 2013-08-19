@@ -90,6 +90,7 @@ namespace WPFMonitor.View.TPControls
             if (ScreenCombobox.SelectedIndex > -1)
             {
                 _shortcut.ScreenId = Converter.ToInt32((ScreenCombobox.SelectedItem as t_Screen).ScreenID);
+                _shortcut.ScreenName = (ScreenCombobox.SelectedItem as t_Screen).ScreenName;
             }
             else
             {

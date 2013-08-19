@@ -340,8 +340,8 @@ namespace MonitorSystem.ZTControls
 
         public void OnBackImageNameChanged(string oldValue, string newValue)
         {
-            string url = System.IO.Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "PIC\\ButtonImage", newValue);
-            if (System.IO.File.Exists(url))
+            string url = System.IO.Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "PIC\\ButtonImage", newValue  ?? "undefined.tmp");
+            if (null != newValue && System.IO.File.Exists(url))
             {
                 _image.Source = new BitmapImage(new Uri(url, UriKind.Absolute));
             }

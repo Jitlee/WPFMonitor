@@ -15,7 +15,9 @@
                 <MenuItem x:Name="RemoveDeviceMenuItem" Header="删除设备" Click="RemoveDevice_Click"/>
             </ContextMenu>
         </Grid.ContextMenu>
-        <ListBox x:Name="ScreenShortcutListBox" Background="{x:Null}" ScrollViewer.HorizontalScrollBarVisibility="Disabled">
+        <ListBox x:Name="ScreenShortcutListBox" Background="{x:Null}"
+                 PreviewMouseLeftButtonUp="ScreenShortcutListBox_PreviewMouseLeftButtonUp"
+                 ScrollViewer.HorizontalScrollBarVisibility="Disabled">
             <ListBox.ItemsPanel>
                 <ItemsPanelTemplate>
                     <WrapPanel/>
@@ -30,7 +32,7 @@
                     <Setter Property="Template">
                         <Setter.Value>
                             <ControlTemplate TargetType="ListBoxItem">
-                                <Border Width="60" Height="60" BorderThickness="1" BorderBrush="{TemplateBinding BorderBrush}" CornerRadius="10">
+                                <Border Width="80" Height="80" BorderThickness="1" BorderBrush="{TemplateBinding BorderBrush}" CornerRadius="10">
                                     <Border.Background>
                                         <LinearGradientBrush StartPoint="0,0" EndPoint="0,1">
                                             <GradientStop Color="#FF4D505F"/>
@@ -43,7 +45,9 @@
                                             <RowDefinition/>
                                         </Grid.RowDefinitions>
                                         <TextBlock Text="{Binding ScreenName}" TextAlignment="Center" Margin="0,3" FontFamily="黑体" Foreground="{TemplateBinding Foreground}" FontSize="14"/>
-                                        <Image Grid.Row="1" Margin="3" Source="{Binding ImageBuffer, Converter={x:Static lib:ImageBufferConverter.Instance}}" Height="28" Width="28" Stretch="UniformToFill" />
+                                        <Image Grid.Row="1" Margin="3"
+                                               Source="{Binding ImageBuffer, Converter={x:Static lib:ImageBufferConverter.Instance}}"
+                                               Height="48" Width="48" Stretch="UniformToFill" />
                                     </Grid>
                                 </Border>
                                 <ControlTemplate.Triggers>

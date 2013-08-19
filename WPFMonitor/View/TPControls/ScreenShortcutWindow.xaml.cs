@@ -13,6 +13,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using WPFMonitor.Core.TPControls;
 using WPFMonitor.DAL.ZTControls;
 using WPFMonitor.Model.ZTControls;
 
@@ -76,6 +77,15 @@ namespace WPFMonitor.View.TPControls
             {
                 EditDeviceMenuItem.IsEnabled = false;
                 RemoveDeviceMenuItem.IsEnabled = false;
+            }
+        }
+
+        private void ScreenShortcutListBox_PreviewMouseLeftButtonUp(object sender, MouseButtonEventArgs e)
+        {
+            if ((e.OriginalSource as FrameworkElement).DataContext is t_ScreenShortcut)
+            {
+                var shortcut = (e.OriginalSource as FrameworkElement).DataContext as t_ScreenShortcut;
+                LoadScreen._instance.LoadSence(ScreenTreeVM.Instance.AllScreens.FirstOrDefault(s => s.ScreenID == shortcut.ScreenId));
             }
         }
     }

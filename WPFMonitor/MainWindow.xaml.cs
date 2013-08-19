@@ -54,10 +54,10 @@ namespace WPFMonitor
 
             _loadScreen.ShowAsDocument(dockManager);
 
-            MonitorControl.UpdatePropertyGrid = (properties, o) => 
+            MonitorControl.UpdatePropertyGrid = (properties, o) =>
             {
-                _propertyWindow.ControlPropertyGrid.SelectedObject = o;
                 _propertyWindow.ControlPropertyGrid.BrowsableProperties = properties;
+                _propertyWindow.ControlPropertyGrid.SelectedObject = o;
             };
             MonitorControl.GetMainCanvas = () =>
                 {

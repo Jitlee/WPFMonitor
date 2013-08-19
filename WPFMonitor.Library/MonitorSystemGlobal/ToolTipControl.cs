@@ -192,8 +192,8 @@ namespace MonitorSystem.MonitorSystemGlobal
 
         private void UpdateBackground()
         {
-            string url = System.IO.Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "PIC", BackImage);
-            if (string.IsNullOrEmpty(BackImage) && !System.IO.File.Exists(url))
+            string url = System.IO.Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "PIC", BackImage  ?? "undefined.tmp");
+            if (string.IsNullOrEmpty(BackImage) || !System.IO.File.Exists(url))
             {
                 var brush = new LinearGradientBrush();
                 if (ColorDirection == Orientation.Horizontal)
