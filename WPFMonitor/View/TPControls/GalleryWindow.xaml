@@ -3,8 +3,10 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:dock="clr-namespace:DockingLibrary;assembly=DockingLibrary"
     xmlns:xceed="clr-namespace:Xceed.Wpf.Toolkit;assembly=Xceed.Wpf.Toolkit"
-        Title="图库" Height="300" Width="600">
-    <Grid x:Name="LayoutRoot" Background="White">
+        Title="图库" Height="300" Width="600"
+        Background="{DynamicResource {ComponentResourceKey {x:Type dock:DockingManager}, {x:Static dock:DockingLibraryBrushes.DefaultBackgroundBrush}}}"
+        >
+    <Grid x:Name="LayoutRoot">
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="150"/>
             <ColumnDefinition Width="*"/>
@@ -12,18 +14,51 @@
         <ListBox
             x:Name="GalleryClassificationListBox"
             DisplayMemberPath="Name"
+            Background="{x:Null}"
+            Foreground="{DynamicResource {ComponentResourceKey {x:Type dock:DockingManager}, {x:Static dock:DockingLibraryBrushes.DockablePaneTitleForeground}}}"
             SelectionChanged="GalleryClassificationListBox_SelectionChanged"/>
         <ListBox
             x:Name="GalleryListBox"
             Grid.Column="1"
             SelectionChanged="GalleryListBox_SelectionChanged"
             MouseDoubleClick="GalleryListBox_MouseDoubleClick"
+            Background="{x:Null}"
+            Foreground="{DynamicResource {ComponentResourceKey {x:Type dock:DockingManager}, {x:Static dock:DockingLibraryBrushes.DockablePaneTitleForeground}}}"
             ScrollViewer.HorizontalScrollBarVisibility="Disabled">
             <ListBox.ItemsPanel>
                 <ItemsPanelTemplate>
                     <WrapPanel/>
                 </ItemsPanelTemplate>
             </ListBox.ItemsPanel>
+            <ListBox.ItemContainerStyle>
+                <Style TargetType="ListBoxItem">
+                    <Setter Property="Background" Value="#55FFFFFF"/>
+                    <Setter Property="BorderBrush" Value="#55CCCCCC"/>
+                    <Setter Property="BorderThickness" Value="1"/>
+                    <Setter Property="Margin" Value="5"/>
+                    <Setter Property="Template">
+                        <Setter.Value>
+                            <ControlTemplate TargetType="ListBoxItem">
+                                <Border
+                                    CornerRadius="5"
+                                    BorderBrush="{TemplateBinding BorderBrush}"
+                                    BorderThickness="{TemplateBinding BorderThickness}"
+                                    Background="{TemplateBinding Background}">
+                                    <ContentPresenter/>
+                                </Border>
+                                <ControlTemplate.Triggers>
+                                    <Trigger Property="IsMouseOver" Value="True">
+                                        <Setter Property="BorderBrush" Value="Wheat"/>
+                                    </Trigger>
+                                    <Trigger Property="IsSelected" Value="True">
+                                        <Setter Property="BorderBrush" Value="#FFBADDE9"/>
+                                    </Trigger>
+                                </ControlTemplate.Triggers>
+                            </ControlTemplate>
+                        </Setter.Value>
+                    </Setter>
+                </Style>
+            </ListBox.ItemContainerStyle>
         </ListBox>
         <xceed:BusyIndicator
             x:Name="LoadingBusyIndicator"

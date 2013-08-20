@@ -3,7 +3,10 @@
            xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" 
            xmlns:controls="clr-namespace:System.Windows.Controls;assembly=System.Windows.Controls"
            Width="513" Height="318"  WindowStartupLocation="CenterOwner" ShowInTaskbar="False" ResizeMode="NoResize"
-           Title="拓扑关联" xmlns:sdk="http://schemas.microsoft.com/winfx/2006/xaml/presentation/sdk">
+           Title="拓扑关联" xmlns:sdk="http://schemas.microsoft.com/winfx/2006/xaml/presentation/sdk"
+        
+        xmlns:custom="clr-namespace:DockingLibrary;assembly=DockingLibrary"
+        Background="{DynamicResource {ComponentResourceKey {x:Type custom:DockingManager}, {x:Static custom:DockingLibraryBrushes.DefaultBackgroundBrush}}}">
     <Grid x:Name="LayoutRoot" Margin="2">
         <Grid.RowDefinitions>
             <RowDefinition />
@@ -11,7 +14,8 @@
         </Grid.RowDefinitions>
 
 
-        <DataGrid AutoGenerateColumns="False"  Name="gvList">
+        <DataGrid AutoGenerateColumns="False"  Name="gvList"
+                  Style="{DynamicResource ListDataGridStyle}">
                 <DataGrid.Columns>
                 <DataGridTextColumn   Binding="{Binding ScreenShowName}"     Header="显示名称" Width="180" />
                 <DataGridTextColumn   Binding="{Binding ScreenName}"     Header="关联场景" Width="180" />

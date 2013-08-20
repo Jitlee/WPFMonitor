@@ -32,7 +32,7 @@
                 <Setter  Property="HorizontalAlignment" Value="Right"></Setter>
                 <Setter Property="VerticalAlignment" Value="Center"></Setter>
                 <Setter  Property="Margin" Value="10 0"></Setter>
-                <Setter Property="Foreground" Value="{DynamicResource {ComponentResourceKey {x:Type custom:DockingManager}, {x:Static custom:DockingLibraryBrushes.DocumentHeaderForeground}}}"/>
+                <Setter Property="Foreground" Value="{DynamicResource {ComponentResourceKey {x:Type custom:DockingManager}, {x:Static custom:DockingLibraryBrushes.DockablePaneTitleForeground}}}"/>
             </Style>
             <!--按钮-->
             <Style x:Key="editButtonStyle" TargetType="Button">
@@ -42,10 +42,10 @@
             </Style>
 
             <Style TargetType="CheckBox">
-                <Setter Property="Foreground" Value="{DynamicResource {ComponentResourceKey {x:Type custom:DockingManager}, {x:Static custom:DockingLibraryBrushes.DocumentHeaderForeground}}}"/>
+                <Setter Property="Foreground" Value="{DynamicResource {ComponentResourceKey {x:Type custom:DockingManager}, {x:Static custom:DockingLibraryBrushes.DockablePaneTitleForeground}}}"/>
             </Style>
             <Style TargetType="GroupBox">
-                <Setter Property="Foreground" Value="{DynamicResource {ComponentResourceKey {x:Type custom:DockingManager}, {x:Static custom:DockingLibraryBrushes.DocumentHeaderForeground}}}"/>
+                <Setter Property="Foreground" Value="{DynamicResource {ComponentResourceKey {x:Type custom:DockingManager}, {x:Static custom:DockingLibraryBrushes.DockablePaneTitleForeground}}}"/>
             </Style>
             
             <!--列表GridView样式-->
@@ -65,12 +65,14 @@
             
             <Style x:Key="ListDataGridStyle"  TargetType="DataGrid">
                 <Setter Property="CanUserAddRows" Value="False"></Setter>
+                <Setter Property="CanUserDeleteRows" Value="False"></Setter>
+                <Setter Property="IsReadOnly" Value="True"></Setter>
                 <Setter Property="HeadersVisibility" Value="Column"></Setter>
                 <Setter Property="AutoGenerateColumns" Value="False"></Setter>
                 <Setter Property="Background" Value="{x:Null}"/>
                 <Setter Property="RowBackground" Value="{x:Null}"/>
-                <Setter Property="VerticalGridLinesBrush" Value="{DynamicResource {ComponentResourceKey {x:Type custom:DockingManager}, {x:Static custom:DockingLibraryBrushes.DocumentHeaderForeground}}}"/>
-                <Setter Property="HorizontalGridLinesBrush" Value="{DynamicResource {ComponentResourceKey {x:Type custom:DockingManager}, {x:Static custom:DockingLibraryBrushes.DocumentHeaderForeground}}}"/>
+                <Setter Property="VerticalGridLinesBrush" Value="{DynamicResource {ComponentResourceKey {x:Type custom:DockingManager}, {x:Static custom:DockingLibraryBrushes.DockablePaneTitleForeground}}}"/>
+                <Setter Property="HorizontalGridLinesBrush" Value="{DynamicResource {ComponentResourceKey {x:Type custom:DockingManager}, {x:Static custom:DockingLibraryBrushes.DockablePaneTitleForeground}}}"/>
                 <Setter Property="RowHeaderStyle">
                     <Setter.Value>
                         <Style TargetType="DataGridRowHeader">
@@ -90,7 +92,7 @@
                                                 x:Name="columnHeaderBorder"
                                                 BorderThickness="0,1,1,1"
                                                 Padding="3,0,3,0"
-                                                BorderBrush="{DynamicResource {ComponentResourceKey {x:Type custom:DockingManager}, {x:Static custom:DockingLibraryBrushes.DocumentHeaderForeground}}}">
+                                                BorderBrush="{DynamicResource {ComponentResourceKey {x:Type custom:DockingManager}, {x:Static custom:DockingLibraryBrushes.DockablePaneTitleForeground}}}">
                                                 <Border.Background>
                                                     <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
                                                         <GradientStop Color="#36FFFFFF" Offset="0" />
@@ -110,7 +112,7 @@
                         </Style>
                     </Setter.Value>
                 </Setter>
-                <Setter Property="Foreground" Value="{DynamicResource {ComponentResourceKey {x:Type custom:DockingManager}, {x:Static custom:DockingLibraryBrushes.DocumentHeaderForeground}}}"/>
+                <Setter Property="Foreground" Value="{DynamicResource {ComponentResourceKey {x:Type custom:DockingManager}, {x:Static custom:DockingLibraryBrushes.DockablePaneTitleForeground}}}"/>
             </Style>
 
             <!-- 没有任何样式的按钮样式 -->
@@ -571,11 +573,11 @@
             </Style>
             <Style TargetType="MenuItem">
                 <Setter Property="Background" Value="{DynamicResource {ComponentResourceKey {x:Type custom:DockingManager}, {x:Static custom:DockingLibraryBrushes.DefaultBackgroundBrush}}}"/>
-                <Setter Property="Foreground" Value="{DynamicResource {ComponentResourceKey {x:Type custom:DockingManager}, {x:Static custom:DockingLibraryBrushes.DocumentHeaderForeground}}}"/>
+                <Setter Property="Foreground" Value="{DynamicResource {ComponentResourceKey {x:Type custom:DockingManager}, {x:Static custom:DockingLibraryBrushes.DockablePaneTitleForeground}}}"/>
             </Style>
 
             <Style TargetType="custom:DockableContent">
-                <Setter Property="Foreground" Value="{DynamicResource {ComponentResourceKey {x:Type custom:DockingManager}, {x:Static custom:DockingLibraryBrushes.DocumentHeaderForeground}}}"/>
+                <Setter Property="Foreground" Value="{DynamicResource {ComponentResourceKey {x:Type custom:DockingManager}, {x:Static custom:DockingLibraryBrushes.DockablePaneTitleForeground}}}"/>
             </Style>
         </ResourceDictionary>
     </Application.Resources>
