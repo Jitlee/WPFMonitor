@@ -227,7 +227,7 @@ namespace MonitorSystem.ZTControls
 
         private void FullRect()
         {
-            string url = System.IO.Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "PIC\\ButtonImage", _BackImageName  ?? "undefined.tmp");
+            string url = System.IO.Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "PIC", _BackImageName  ?? "undefined.tmp");
             if (!string.IsNullOrEmpty(_BackImageName) && System.IO.File.Exists(url))
             {
                 BitmapImage bitmap = new BitmapImage(new Uri(url, UriKind.Absolute));

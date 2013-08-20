@@ -143,22 +143,25 @@ namespace WPFMonitor.View.TPControls
             if (File.Exists(url))
             {
                 var bitmap = new BitmapImage(new Uri(url, UriKind.Absolute));
-                if (resize && !_CurrentScreen.AutoSize)
-                {
-                    bitmap.DownloadCompleted += Screen_ImageOpened;
-                }
-                else
-                {
-                    AutoSize = true;
-                }
+                //if (resize && !_CurrentScreen.AutoSize)
+                //{
+                //    bitmap.DownloadCompleted += Screen_ImageOpened;
+                //}
+                //else
+                //{
+                //    AutoSize = true;
+                //}
                 bitmap.DownloadFailed += Screen_ImageFailed;
 
                 var imgB = new ImageBrush() { Stretch = Stretch.Uniform, AlignmentX = AlignmentX.Left, AlignmentY = AlignmentY.Top };
                 imgB.ImageSource = bitmap;
                 csScreen.Background = imgB;
-
                 //_ScreenView.SetScreenImg(strImg);
-
+            }
+            else
+            {
+                var imgB = new ImageBrush();
+                csScreen.Background = imgB;
             }
         }
 
