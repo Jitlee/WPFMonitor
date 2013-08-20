@@ -478,8 +478,9 @@ namespace MonitorSystem.ZTControls
             //string word = currenValue.ToString().Trim() + title;
             //int len = ((word.Trim().Length) * (myFont.Height)) / 2;
             //g.DrawString(word.Trim(), myFont, Brushes.Red, new PointF(-len / 2, -MyHeight / 2 - myFont.Height / 2));
-            _text.SetValue(Canvas.LeftProperty, centerX- _text.ActualWidth / 2d);
-            _text.SetValue(Canvas.TopProperty, centerY - (height - heightSpan - _text.ActualHeight) / 2d);
+            Size textSize = _text.MeasureTextSize();
+            _text.SetValue(Canvas.LeftProperty, centerX - textSize.Width / 2d);
+            _text.SetValue(Canvas.TopProperty, centerY - (height - heightSpan - textSize.Height) / 2d);
 
             //g.RotateTransform(startDegree);
             //绘制刻度标记
@@ -547,10 +548,10 @@ namespace MonitorSystem.ZTControls
                 label.FontFamily = this.FontFamily;
                 //label.Foreground = calibrationBrush;
                 label.Foreground = this.Foreground;
-
-                grid.SetValue(Canvas.LeftProperty, centerX - label.ActualWidth / 2d);
+                Size labelSize = label.MeasureTextSize();
+                grid.SetValue(Canvas.LeftProperty, centerX - labelSize.Width / 2d);
                 grid.SetValue(Canvas.TopProperty, labelTop);
-                grid.RenderTransformOrigin = new Point(0.5d, (centerY - labelTop) / label.ActualHeight);
+                grid.RenderTransformOrigin = new Point(0.5d, (centerY - labelTop) / labelSize.Height);
                 grid.RenderTransform = new RotateTransform() { Angle = lableLineDegree, };
                 grid.Children.Add(label);
                 _calibrationCanvas.Children.Add(grid);

@@ -1,7 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Globalization;
 using System.Linq;
 using System.Text;
+using System.Windows;
+using System.Windows.Controls;
 using System.Windows.Media;
 using WPFMonitor.Model;
 using WPFMonitor.Model.ZTControls;
@@ -252,6 +255,60 @@ namespace MonitorSystem
                 TimeLenType = source.TimeLenType,
                 ValueDecimal = source.ValueDecimal
             };
+        }
+
+        public static Size MeasureTextSize(this TextBlock self)
+        {
+            return MeasureTextSize(self.Text, self.FontFamily, self.FontStyle, self.FontWeight, self.FontStretch, self.FontSize);
+        }
+
+        /// <summary>
+        /// Get the required height and width of the specified text. Uses Glyph's
+        /// </summary>
+        public static Size MeasureText(string text, FontFamily fontFamily, FontStyle fontStyle, FontWeight fontWeight, FontStretch fontStretch, double fontSize)
+        {
+            Typeface typeface = new Typeface(fontFamily, fontStyle, fontWeight, fontStretch);
+            GlyphTypeface glyphTypeface;
+
+            if (!typeface.TryGetGlyphTypeface(out glyphTypeface))
+            {
+                return MeasureTextSize(text, fontFamily, fontStyle, fontWeight, fontStretch, fontSize);
+            }
+
+            double totalWidth = 0;
+            double height = 0;
+
+            for (int n = 0; n < text.Length; n++)
+            {
+                ushort glyphIndex = glyphTypeface.CharacterToGlyphMap[text[n]];
+
+                double width = glyphTypeface.AdvanceWidths[glyphIndex] * fontSize;
+
+                double glyphHeight = glyphTypeface.AdvanceHeights[glyphIndex] * fontSize;
+
+                if (glyphHeight > height)
+                {
+                    height = glyphHeight;
+                }
+
+                totalWidth += width;
+            }
+
+            return new Size(totalWidth, height);
+        }
+
+        /// <summary>
+        /// Get the required height and width of the specified text. Uses FortammedText
+        /// </summary>
+        public static Size MeasureTextSize(string text, FontFamily fontFamily, FontStyle fontStyle, FontWeight fontWeight, FontStretch fontStretch, double fontSize)
+        {
+            FormattedText ft = new FormattedText(text,
+                                                 CultureInfo.CurrentCulture,
+                                                 FlowDirection.LeftToRight,
+                                                 new Typeface(fontFamily, fontStyle, fontWeight, fontStretch),
+                                                 fontSize,
+                                                 Brushes.Black);
+            return new Size(ft.Width, ft.Height);
         }
     }
 
