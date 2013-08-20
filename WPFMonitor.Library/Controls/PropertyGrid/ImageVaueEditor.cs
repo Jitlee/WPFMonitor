@@ -114,7 +114,8 @@ namespace MonitorSystem.Controls
             //new ImagesBrowseWindow(ImageSelection_Changed, _attribute.Path, _attribute.OnlyImage).Show();
             OpenFileDialog dlg = new OpenFileDialog();
             dlg.Filter = "图片(*.jpg;*.bmp;*.png)|*.jpg;*.bmp;*.png";
-            dlg.InitialDirectory = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, _attribute.Path);
+            string imgPath= Path.Combine(AppDomain.CurrentDomain.BaseDirectory, _attribute.Path);
+            dlg.InitialDirectory = imgPath;
             if (dlg.ShowDialog() == true)
             {
                 Property.Value = CopyFile(dlg.FileName, Path.Combine(AppDomain.CurrentDomain.BaseDirectory, _attribute.Path, new FileInfo(dlg.FileName).Name));

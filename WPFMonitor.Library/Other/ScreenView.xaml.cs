@@ -49,13 +49,18 @@ namespace MonitorSystem.Other
         }
         private void SetScreenImg(string strImg, bool resize = false)
         {
-            var gbUrl = Common.GetAppPath("Upload\\ImageMap", strImg);
+            var gbUrl = Common.GetAppPath("ImageMap", strImg);
             if (File.Exists(gbUrl))
             {
                 var bitmap = new BitmapImage(new Uri(gbUrl, UriKind.Absolute));
 
                 var imgB = new ImageBrush() { Stretch = Stretch.UniformToFill };
                 imgB.ImageSource = bitmap;
+                csScreen.Background = imgB;
+            }
+            else
+            {
+                var imgB = new ImageBrush();
                 csScreen.Background = imgB;
             }
         }
