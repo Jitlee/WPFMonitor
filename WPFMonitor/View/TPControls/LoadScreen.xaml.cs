@@ -436,6 +436,8 @@ namespace WPFMonitor.View.TPControls
 
         #region 右键框选
 
+        private Point _addPoint;
+
         private void GridScreen_MouseRightButtonDown(object sender, MouseButtonEventArgs e)
         {
             if (e.Source is MonitorSystem.Adorner)
@@ -444,6 +446,7 @@ namespace WPFMonitor.View.TPControls
                 return;
             }
             GridScreen.CaptureMouse();
+            _addPoint = e.GetPosition(AddElementCanvas);
             _originPoint = e.GetPosition(csScreen);
             AddElementRectangle.SetValue(Canvas.LeftProperty, _originPoint.X);
             AddElementRectangle.SetValue(Canvas.TopProperty, _originPoint.Y);
@@ -472,14 +475,17 @@ namespace WPFMonitor.View.TPControls
 
         private void GridScreen_MouseRightMove(object sender, MouseEventArgs e)
         {
-            var transform = csScreen.TransformToVisual(GridScreen).Transform(new Point());
-            var point = e.GetPosition(csScreen);
-            var offsetX = point.X - _originPoint.X;
-            var offsetY = point.Y - _originPoint.Y;
-            AddElementRectangle.SetValue(Canvas.LeftProperty, (offsetX < 0 ? point.X : _originPoint.X));
-            AddElementRectangle.SetValue(Canvas.TopProperty, (offsetY < 0 ? point.Y : _originPoint.Y));
-            AddElementRectangle.SetValue(WidthProperty, Math.Abs(offsetX));
-            AddElementRectangle.SetValue(HeightProperty, Math.Abs(offsetY));
+            var point = e.GetPosition(AddElementCanvas);
+            var offsetX = point.X - _addPoint.X;
+            var offsetY = point.Y - _addPoint.Y;
+            var left = offsetX < 0 ? point.X : _addPoint.X;
+            var top = offsetY < 0 ? point.Y : _addPoint.Y;
+            var width = Math.Abs(offsetX);
+            var height = Math.Abs(offsetY);
+            AddElementRectangle.SetValue(Canvas.LeftProperty, left);
+            AddElementRectangle.SetValue(Canvas.TopProperty, top);
+            AddElementRectangle.SetValue(WidthProperty, width);
+            AddElementRectangle.SetValue(HeightProperty, height);
         }
 
         private void GridScreen_MouseRightButtonUp(object sender, MouseButtonEventArgs e)
@@ -555,6 +561,7 @@ namespace WPFMonitor.View.TPControls
         {
             AddElementCanvas.CaptureMouse();
             _originPoint = e.GetPosition(csScreen);
+            _addPoint = e.GetPosition(AddElementCanvas);
             AddElementRectangle.SetValue(Canvas.LeftProperty, _originPoint.X);
             AddElementRectangle.SetValue(Canvas.TopProperty, _originPoint.Y);
             AddElementRectangle.SetValue(HeightProperty, 0d);
@@ -640,14 +647,17 @@ namespace WPFMonitor.View.TPControls
 
         private void AddElementCanvas_MouseMove(object sender, MouseEventArgs e)
         {
-            var transform = csScreen.TransformToVisual(GridScreen).Transform(new Point());
-            var point = e.GetPosition(csScreen);
-            var offsetX = point.X - _originPoint.X;
-            var offsetY = point.Y - _originPoint.Y;
-            AddElementRectangle.SetValue(Canvas.LeftProperty, (offsetX < 0 ? point.X : _originPoint.X));
-            AddElementRectangle.SetValue(Canvas.TopProperty, (offsetY < 0 ? point.Y : _originPoint.Y));
-            AddElementRectangle.SetValue(WidthProperty, Math.Abs(offsetX));
-            AddElementRectangle.SetValue(HeightProperty, Math.Abs(offsetY));
+            var point = e.GetPosition(AddElementCanvas);
+            var offsetX = point.X - _addPoint.X;
+            var offsetY = point.Y - _addPoint.Y;
+            var left = offsetX < 0 ? point.X : _addPoint.X;
+            var top = offsetY < 0 ? point.Y : _addPoint.Y;
+            var width = Math.Abs(offsetX);
+            var height = Math.Abs(offsetY);
+            AddElementRectangle.SetValue(Canvas.LeftProperty, left);
+            AddElementRectangle.SetValue(Canvas.TopProperty, top);
+            AddElementRectangle.SetValue(WidthProperty, width);
+            AddElementRectangle.SetValue(HeightProperty, height);
         }
 
         #endregion

@@ -833,8 +833,9 @@ namespace MonitorSystem.Gallery.Meter
                     var text = new TextBlock();
                     text.FontSize = fontSize;
                     text.Text = Math.Round(minimum + i * avg, decimalDigits).ToString();
-                    text.SetValue(Canvas.LeftProperty, width * Math.Sin(mainAngle) * 218d / 518d - text.ActualWidth / 2d + width * 0.5d);
-                    text.SetValue(Canvas.TopProperty, width * Math.Cos(mainAngle) * 218d / 518d - text.ActualHeight / 2d + width * 0.5d);
+                    Size textSize = text.MeasureTextSize();
+                    text.SetValue(Canvas.LeftProperty, width * Math.Sin(mainAngle) * 218d / 518d - textSize.Width / 2d + width * 0.5d);
+                    text.SetValue(Canvas.TopProperty, width * Math.Cos(mainAngle) * 218d / 518d - textSize.Height / 2d + width * 0.5d);
                     _calibrationCanvas.Children.Add(text);
                 }
 

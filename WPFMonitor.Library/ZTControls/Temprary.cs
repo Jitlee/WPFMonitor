@@ -444,8 +444,9 @@ namespace MonitorSystem.ZTControls
             _datazoneEllipse.SetValue(WidthProperty, 2d * circle);
             _datazoneEllipse.SetValue(HeightProperty, 2d * circle);
 
-            _text.SetValue(Canvas.LeftProperty, width / 4d - _text.ActualWidth / 2d);
-            _text.SetValue(Canvas.TopProperty, 9d * height / 10d - _text.ActualHeight + 10d);
+            Size textSize = _text.MeasureTextSize();
+            _text.SetValue(Canvas.LeftProperty, width / 4d - textSize.Width / 2d);
+            _text.SetValue(Canvas.TopProperty, 9d * height / 10d - textSize.Height + 10d);
 
             _calibrationCanvas.Children.Clear();
             var calibrationBrush = new SolidColorBrush(Colors.Green);

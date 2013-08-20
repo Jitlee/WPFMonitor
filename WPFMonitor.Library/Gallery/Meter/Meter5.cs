@@ -546,8 +546,9 @@ namespace MonitorSystem.Gallery.Meter
                     text.FontSize = fontSize;
                     text.Foreground = brush2;
                     text.Text = Math.Round(minimum + i * avg, decimalDigits).ToString();
-                    text.SetValue(Canvas.LeftProperty, width * Math.Sin(mainAngle) * 267d / 633d - text.ActualWidth / 2d + width * 0.5d);
-                    text.SetValue(Canvas.TopProperty, width * Math.Cos(mainAngle) * 267d / 633d - text.ActualHeight / 2d + width * 0.5d);
+                    Size textSize = text.MeasureTextSize();
+                    text.SetValue(Canvas.LeftProperty, width * Math.Sin(mainAngle) * 267d / 633d - textSize.Width / 2d + width * 0.5d);
+                    text.SetValue(Canvas.TopProperty, width * Math.Cos(mainAngle) * 267d / 633d - textSize.Height / 2d + width * 0.5d);
                     _calibrationCanvas.Children.Add(text);
                 }
 

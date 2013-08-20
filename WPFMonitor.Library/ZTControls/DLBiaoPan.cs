@@ -400,8 +400,9 @@ namespace MonitorSystem.ZTControls
             var centerX = (width - widthSpan) / 2d + heightSpan;
             var centerY = height - heightSpan + 10d;
 
-            _text.SetValue(Canvas.LeftProperty, centerX - _text.ActualWidth / 2d);
-            _text.SetValue(Canvas.TopProperty, centerY - (height - heightSpan - _text.ActualHeight) / 2d);
+            Size textSize = _text.MeasureTextSize();
+            _text.SetValue(Canvas.LeftProperty, centerX - textSize.Width / 2d);
+            _text.SetValue(Canvas.TopProperty, centerY - (height - heightSpan - textSize.Height) / 2d);
         }
 
         private void PaintBackground()
