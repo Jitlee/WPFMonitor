@@ -478,12 +478,8 @@ namespace MonitorSystem.ZTControls
             {
                 menu.Items.Add(new MenuItem() { Header = screen.ScreenName, Command = _command, CommandParameter = screen.Screen, });
             }
-            menu.VerticalAlignment = VerticalAlignment.Top;
-            menu.HorizontalAlignment = HorizontalAlignment.Left;
-            var point = e.GetPosition(null);
-            menu.HorizontalOffset = point.X;
-            menu.VerticalOffset = point.Y;
             menu.IsOpen = true;
+			e.Handled = true;
         }
 
         private void ShowName(t_Screen screen)

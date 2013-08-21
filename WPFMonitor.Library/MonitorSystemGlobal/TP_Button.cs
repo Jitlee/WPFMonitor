@@ -68,12 +68,8 @@ namespace MonitorSystem.MonitorSystemGlobal
             {
                 menu.Items.Add(new MenuItem() { Header = screen.ScreenName, Command = _command, CommandParameter = screen.Screen, });
             }
-            menu.VerticalAlignment = VerticalAlignment.Top;
-            menu.HorizontalAlignment = HorizontalAlignment.Left;
-            var point = e.GetPosition(null);
-            menu.HorizontalOffset = point.X;
-            menu.VerticalOffset = point.Y;
             menu.IsOpen = true;
+			e.Handled = true;
         }
         #region 属性
         private string[] m_BrowsableProperties = new string[] { "Left", "Top", "Width", "Height", "FontFamily", "FontSize", "Foreground","Transparent",

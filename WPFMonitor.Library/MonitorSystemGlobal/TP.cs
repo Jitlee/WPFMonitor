@@ -31,7 +31,7 @@ namespace MonitorSystem.MonitorSystemGlobal
         {
             //MessageBox.Show("");
            t_Screen ts= GetChildScreenID();
-           
+		   OnLoadScreen(this, ts);
         }
 
 
