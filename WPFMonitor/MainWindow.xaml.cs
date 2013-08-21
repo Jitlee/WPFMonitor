@@ -71,7 +71,7 @@ namespace WPFMonitor
             var s = ScreenTreeVM.Instance;
 
             _loadScreen.ShowAsDocument(dockManager);
-            _screenTreeWindow.Show(dockManager, AnchorStyle.Left);
+            //_screenTreeWindow.Show(dockManager, AnchorStyle.Left);
 
             MonitorControl.UpdatePropertyGrid = (properties, o) =>
             {
@@ -114,7 +114,7 @@ namespace WPFMonitor
                 _galleryWindow.Show(dockManager, AnchorStyle.Bottom);
                 _propertyWindow.Show(dockManager, AnchorStyle.Left);
                 _controlWindow.Show(dockManager, AnchorStyle.Left);
-                _screenTreeWindow.Hide();
+                _screenTreeWindow.Show(dockManager, AnchorStyle.Left);
                 //_galleryWindow.ShowAsFloatingWindow(dockManager, true);
             };
 
@@ -122,7 +122,7 @@ namespace WPFMonitor
                 _propertyWindow.Hide();
                 _controlWindow.Hide();
                 _galleryWindow.Hide();
-                _screenTreeWindow.Show(dockManager, AnchorStyle.Left);
+                _screenTreeWindow.Hide();
             };
 
             _loadScreen.DesignVisilityChanged = () => {
