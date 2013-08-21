@@ -2,6 +2,8 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using WPFMonitor.DAL.Sys;
+using WPFMonitor.Model.Sys;
 
 
 namespace WPFMonitor.Core
@@ -13,34 +15,25 @@ namespace WPFMonitor.Core
 
         public bool Login(string userid, string password,out string errorMsg)
         {
-            //errorMsg = string.Empty;
-            //using (var client = new QueueClientSoapClient())
-            //{
-            //    try
-            //    {
-            //        string msg = client.getLogin(userid, password, GlobalData.WindowNo);
-            //        if (msg != "0")
-            //        {
-            //            errorMsg = msg;
-            //            return false;
-            //        }
-            //    }
-            //    catch (EndpointNotFoundException exEnd)
-            //    {
-            //        errorMsg = "配置Web服务不存在！";
-            //        return false;
-            //    }
-            //    catch (Exception ex)
-            //    {
-            //        errorMsg = "登录失败！";
-            //        return false;
-            //    }
-            //    EmployeeOR obj = client.GetEmployeeInfo(userid);
-            //    GlobalData.UserID = userid.Trim();
-            //    GlobalData.UserName = obj.Name;
-            //}
-            errorMsg = "";
-            return true;
+            UserOR mUser=new UserDA().Login(userid, password);
+            try
+            {
+                if (mUser != null)
+                {
+                    errorMsg = "登录成功！";
+                    GlobalData.UserName = mUser.Username;
+                    return true;
+                }
+                else
+                {
+                    errorMsg = "用户名或密码错误！";
+                }
+            }
+            catch (Exception ex)
+            {
+                errorMsg = ex.Message;
+            }
+            return false;
         }
     }
 }

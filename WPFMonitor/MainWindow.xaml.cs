@@ -57,7 +57,7 @@ namespace WPFMonitor
 
                 //this.DataContext = ViewModel;
                 //this.Loaded += new RoutedEventHandler(MetroWindow_Loaded);
-                //this.Title = string.Format("{0}-柜员：{1}-窗口：{2}", this.Title, GlobalData.UserName, GlobalData.WindowNo);
+                this.Title = string.Format("机房动力监控系统：{0}",  GlobalData.UserName);
             }
             else
             {
