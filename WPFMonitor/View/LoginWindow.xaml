@@ -1,0 +1,97 @@
+﻿<Window x:Class="WPFMonitor.View.LoginWindow"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:chorme="clr-namespace:CustomChromeLibrary;assembly=CustomChromeLibrary"
+    xmlns:shell="http://schemas.microsoft.com/winfx/2006/xaml/presentation/shell"
+    Title="登陆" Height="240" Width="350"
+    ShowInTaskbar="True" 
+    WindowStartupLocation="CenterScreen"
+    ResizeMode="NoResize"
+    >
+    <Window.Background>
+        <ImageBrush ImageSource="../Resources/Images/background.jpg"/>
+    </Window.Background>
+    <Grid>
+        <TextBlock
+        Margin="0,15,0,10" FontFamily="KaiTi"
+        FontSize="22"
+        Text="柜员叫号客户端"
+        VerticalAlignment="Top"
+        HorizontalAlignment="Center" Foreground="#FF3F00BB"></TextBlock>
+        <Grid
+        Margin="0,20,0,0"
+        HorizontalAlignment="Center"
+        VerticalAlignment="Center">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="Auto"/>
+                <ColumnDefinition/>
+            </Grid.ColumnDefinitions>
+            <Grid.RowDefinitions>
+                <RowDefinition/>
+                <RowDefinition/>
+                <RowDefinition Height="22"/>
+                <RowDefinition/>
+            </Grid.RowDefinitions>
+            <TextBlock
+            Grid.Column="0"
+            Grid.Row="0"
+            VerticalAlignment="Center"
+            HorizontalAlignment="Left"
+            Text="用户名：" Foreground="White" />
+            <TextBlock
+            Grid.Column="0"
+            Grid.Row="1"
+            VerticalAlignment="Center"
+            HorizontalAlignment="Left"
+            Text="密  码：" Foreground="White" />
+            <TextBlock
+            x:Name="MessageTextBlock"
+            Grid.Row="2"
+            Grid.ColumnSpan="2"
+            Foreground="Red"
+            VerticalAlignment="Center"
+            Margin="5"
+            Width="260"
+            TextTrimming="CharacterEllipsis"
+            HorizontalAlignment="Left"/>
+            <TextBox
+            x:Name="UserNameTextBox"
+            Grid.Row="0"
+            Grid.Column="1"
+            VerticalAlignment="Center"
+            HorizontalAlignment="Center"
+            Margin="5"
+            Width="200"/>
+            <PasswordBox
+            x:Name="PasswordBox"
+            Grid.Row="1"
+            Grid.Column="1"
+            VerticalAlignment="Center"
+            HorizontalAlignment="Center"
+            Margin="5"
+            Width="200"/>
+            <Button
+            x:Name="OKButton"
+            Grid.Row="3"
+            Grid.ColumnSpan="2"
+            HorizontalAlignment="Center"
+            VerticalAlignment="Center"
+            Margin="5,5,90,5"
+            Height="23"
+            Width="75"
+            Click="OKButton_Click"
+            IsDefault="True" Content="登陆" />
+
+            <Button
+            x:Name="CancelButton"
+            Grid.Row="3"
+            Grid.ColumnSpan="2"
+            HorizontalAlignment="Center"
+            VerticalAlignment="Center"
+            Margin="90,5,5,5"
+            Height="23"
+            Width="75"
+            IsCancel="True" Content="取消" />
+        </Grid>
+    </Grid>
+</Window>

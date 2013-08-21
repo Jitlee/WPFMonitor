@@ -5,6 +5,7 @@
     xmlns:shell="http://schemas.microsoft.com/winfx/2006/xaml/presentation/shell"
     xmlns:controls="http://www.monitor.com/wpf/library"
     xmlns:custom="clr-namespace:DockingLibrary;assembly=DockingLibrary"
+    xmlns:WpfControls="clr-namespace:WPFMonitor.Controls"
     StartupUri="MainWindow.xaml"
     ShutdownMode="OnMainWindowClose">
     <Application.Resources>
@@ -579,6 +580,17 @@
             <Style TargetType="custom:DockableContent">
                 <Setter Property="Foreground" Value="{DynamicResource {ComponentResourceKey {x:Type custom:DockingManager}, {x:Static custom:DockingLibraryBrushes.DockablePaneTitleForeground}}}"/>
             </Style>
+
+
+
+
+            
+            
+
+
         </ResourceDictionary>
+
+        
+        
     </Application.Resources>
 </Application>

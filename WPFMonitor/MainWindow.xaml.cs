@@ -28,24 +28,42 @@ namespace WPFMonitor
     /// </summary>
     public partial class MainWindow : Window
     {
-        public readonly ScreenTreeWindow _screenTreeWindow = new ScreenTreeWindow();
-        public readonly ControlWindow _controlWindow = new ControlWindow();
-        public readonly LoadScreen _loadScreen = new LoadScreen();
-        public readonly PropertyWindow _propertyWindow = new PropertyWindow();
-        public readonly GalleryWindow _galleryWindow = new GalleryWindow() { FloatingWindowSize = new Size(600, 200),};
-        public readonly ScreenShortcutWindow _shrotcutWindow = new ScreenShortcutWindow();
+        public readonly ScreenTreeWindow _screenTreeWindow = null;
+        public readonly ControlWindow _controlWindow =null;
+        public readonly LoadScreen _loadScreen =null;
+        public readonly PropertyWindow _propertyWindow = null;
+        public readonly GalleryWindow _galleryWindow = null;
+        public readonly ScreenShortcutWindow _shrotcutWindow = null;
 
         public MainWindow()
         {
             //test t = new test();
             //t.ShowDialog();
             //return;
+            var loginWindow = new LoginWindow();
+            if (loginWindow.ShowDialog() == true)
+            {
+                InitializeComponent();
+                Global._MainWindow = this;
+                MonitorSystem.Common1.MainWin = Global._MainWindow;
+                ThemeFactory.ChangeTheme("Leather");
 
-            InitializeComponent();
-            Global._MainWindow = this;
-            MonitorSystem.Common1.MainWin = Global._MainWindow;
-            ThemeFactory.ChangeTheme("Leather");
-            return;
+                _screenTreeWindow = new ScreenTreeWindow();
+                _controlWindow = new ControlWindow();
+                _loadScreen = new LoadScreen();
+                _propertyWindow = new PropertyWindow();                
+                _galleryWindow = new GalleryWindow() { FloatingWindowSize = new Size(600, 200), };
+                _shrotcutWindow = new ScreenShortcutWindow();
+
+                //this.DataContext = ViewModel;
+                //this.Loaded += new RoutedEventHandler(MetroWindow_Loaded);
+                //this.Title = string.Format("{0}-柜员：{1}-窗口：{2}", this.Title, GlobalData.UserName, GlobalData.WindowNo);
+            }
+            else
+            {
+                Application.Current.Shutdown();
+            }
+            //return;
         }
 
         private void dockManager_Loaded(object sender, RoutedEventArgs e)
