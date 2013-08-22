@@ -231,7 +231,10 @@ namespace MonitorSystem.ZTControls
 
         private Grid _grid = new Grid();
         private TextBox _textBox = new TextBox();
-        private Image _moveImage = new Image() { Height = 32d, Width = 32d, Source = new BitmapImage(new Uri("/MonitorSystem;component/Images/ControlsImg/can_move.png", UriKind.RelativeOrAbsolute)), HorizontalAlignment = HorizontalAlignment.Right, VerticalAlignment = VerticalAlignment.Bottom, Margin = new Thickness(3d), Cursor = Cursors.Hand };
+        private Image _moveImage = new Image() { Height = 32d, Width = 32d,
+                                                 Source = new BitmapImage(new Uri("/WPFMonitor;component/Resources/Images/ControlsImg/can_move.png", UriKind.RelativeOrAbsolute)),
+            HorizontalAlignment = HorizontalAlignment.Right, VerticalAlignment = VerticalAlignment.Bottom,
+            Margin = new Thickness(3d), Cursor = Cursors.Hand };
 
         public InputTextBox()
         {

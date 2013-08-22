@@ -375,11 +375,10 @@ namespace MonitorSystem.ZTControls
                 _Canv.Background = new SolidColorBrush(_BackColor);
             }
 
-            string gbUrl = "/MonitorSystem.ZTControls;component/ZTControls/Near2.jpg";
-            BitmapImage bitmap = new BitmapImage(new Uri(gbUrl, UriKind.Relative));
             ImageBrush near = new ImageBrush();
-            near.ImageSource = bitmap;
-
+            //near.ImageSource = new BitmapImage(new Uri(gbUrl, UriKind.RelativeOrAbsolute)); ;
+            near.ImageSource = System.Windows.Interop.Imaging.CreateBitmapSourceFromHBitmap(
+                ResourceImg.Near2.GetHbitmap(), IntPtr.Zero, Int32Rect.Empty, BitmapSizeOptions.FromEmptyOptions());
 
             beeline = false;
 
