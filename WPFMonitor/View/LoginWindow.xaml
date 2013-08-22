@@ -15,7 +15,7 @@
         <TextBlock
         Margin="0,15,0,10" FontFamily="KaiTi"
         FontSize="22"
-        Text="柜员叫号客户端"
+        Text="机房动力监控系统"
         VerticalAlignment="Top"
         HorizontalAlignment="Center" Foreground="#FF3F00BB"></TextBlock>
         <Grid
