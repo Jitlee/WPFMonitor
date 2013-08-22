@@ -47,14 +47,20 @@ namespace WPFMonitor.View.TPControls
             csScreen.VerticalAlignment = VerticalAlignment.Top;
             csScreen.HorizontalAlignment = HorizontalAlignment.Left;
             GridScreen.MouseLeftButtonDown += GridScreen_MouseLeftButtonDown;
+            GridScreen.PreviewMouseLeftButtonDown += GridScreen_PreviewMouseLeftButtonDown;
 
-            this.Loaded += LoadScreen_Loaded;
-        }
-
-        void LoadScreen_Loaded(object sender, RoutedEventArgs e)
-        {
             Application.Current.MainWindow.PreviewKeyDown += CsScreen_KeyDown;
         }
+
+        void GridScreen_PreviewMouseLeftButtonDown(object sender, MouseButtonEventArgs e)
+        {
+            this.HideFocusElement.Focus();
+        }
+
+        //void LoadScreen_Loaded(object sender, RoutedEventArgs e)
+        //{
+        //    //Application.Current.MainWindow.PreviewKeyDown += CsScreen_KeyDown;
+        //}
 
         public Action ResetSelected { get; set; }
 
@@ -301,10 +307,11 @@ namespace WPFMonitor.View.TPControls
 
         private void CsScreen_KeyDown(object sender, KeyEventArgs e)
         {
-            if (!IsZT)
+            if (!IsZT || e.Source != this.HideFocusElement)
             {
                 return;
             }
+
             if (e.Key == Key.V)
             {
                 if ((Keyboard.Modifiers & ModifierKeys.Control) == ModifierKeys.Control)
