@@ -56,8 +56,11 @@
                 <MenuItem x:Name="GrainTheme" Header="木纹" Click="ChangeTheme" Tag="grain"></MenuItem>
                 <MenuItem x:Name="LeopardTheme" Header="水滴" Click="ChangeTheme" Tag="theme1"></MenuItem>
             </MenuItem>
-            <MenuItem Header="窗口"/>
-        </Menu>
+			<MenuItem Header="窗口">
+				<MenuItem x:Name="miLoadScreen" Header="场景" Click="LoadScreen_Click"></MenuItem>
+				
+			</MenuItem>
+		</Menu>
 
         <custom:DockingManager x:Name="dockManager" Grid.Row="1" Loaded="dockManager_Loaded">
             <custom:ResizingPanel>

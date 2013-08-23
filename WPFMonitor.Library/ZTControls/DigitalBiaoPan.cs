@@ -44,6 +44,7 @@ namespace MonitorSystem.ZTControls
                 menuItem.Click += PropertyMenuItem_Click;
                 menu.Items.Add(menuItem);
                 AdornerLayer.SetValue(ContextMenuService.ContextMenuProperty, menu);
+				//AdornerLayer.IsLockScale = true;
             }
         }
 
@@ -404,10 +405,10 @@ namespace MonitorSystem.ZTControls
             //text.Text = "8";
             //text.FontSize = 10.0d;
             var sizef = ssd.MeasureString(formatNum, 12d * 0.5d);
-            var fScale = Math.Min(finalSize.Width / sizef.X, finalSize.Height / sizef.Y) * 0.75d;
+            var fScale = Math.Min(finalSize.Width / sizef.X, finalSize.Height / sizef.Y) * 0.48d;
             sizef.X *= fScale;
             sizef.Y *= fScale;
-            ssd.DrawString(formatNum, sizef.Y * 0.08, (finalSize.Width - sizef.X * 1.7d) / 2d, (finalSize.Height - sizef.Y) / 2d);
+            ssd.DrawString(formatNum, sizef.Y * 0.08, (finalSize.Width - sizef.X * 2.15d) / 2d, (finalSize.Height - sizef.Y) / 2d);
         }
 
         //protected override Size MeasureOverride(Size availableSize)

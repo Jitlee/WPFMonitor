@@ -37,12 +37,9 @@ namespace WPFMonitor
 
         public MainWindow()
         {
-            //test t = new test();
-            //t.ShowDialog();
-            //return;
-            var loginWindow = new LoginWindow();
-            if (loginWindow.ShowDialog() == true)
-            {
+			//var loginWindow = new LoginWindow();
+			//if (loginWindow.ShowDialog() == true)
+			//{
                 InitializeComponent();
                 Global._MainWindow = this;
                 MonitorSystem.Common1.MainWin = Global._MainWindow;
@@ -54,16 +51,12 @@ namespace WPFMonitor
                 _propertyWindow = new PropertyWindow();                
                 _galleryWindow = new GalleryWindow() { FloatingWindowSize = new Size(600, 200), };
                 _shrotcutWindow = new ScreenShortcutWindow();
-
-                //this.DataContext = ViewModel;
-                //this.Loaded += new RoutedEventHandler(MetroWindow_Loaded);
                 this.Title = string.Format("机房动力监控系统：{0}",  GlobalData.UserName);
-            }
-            else
-            {
-                Application.Current.Shutdown();
-            }
-            //return;
+			//}
+			//else
+			//{
+			//    Application.Current.Shutdown();
+			//}
         }
 
         private void dockManager_Loaded(object sender, RoutedEventArgs e)
@@ -319,6 +312,10 @@ namespace WPFMonitor
                 }
             }
         }
+
+		protected void LoadScreen_Click(object sender, RoutedEventArgs e){
+			_loadScreen.ShowAsDocument(dockManager);
+		}
         #endregion
 
 
