@@ -65,7 +65,7 @@
         <custom:DockingManager x:Name="dockManager" Grid.Row="1" Loaded="dockManager_Loaded">
             <custom:ResizingPanel>
                 <custom:DocumentPane>
-                    <custom:DocumentContent x:Name="EquipmentLog" Title="监控场景">
+                    <!--custom:DocumentContent x:Name="EquipmentLog" Title="监控场景">
                         <Border CornerRadius="6,6,0,0" >
                             <Border.Background>
                                 <LinearGradientBrush 
@@ -85,7 +85,7 @@
                                 </Grid.Background>
                             </Grid>
                         </Border>
-                    </custom:DocumentContent>
+                    </custom:DocumentContent>-->
                 </custom:DocumentPane>
             </custom:ResizingPanel>
         </custom:DockingManager>

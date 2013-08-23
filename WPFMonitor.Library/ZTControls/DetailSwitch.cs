@@ -256,8 +256,9 @@ namespace MonitorSystem.ZTControls
 
         private void Paint()
         {
-            var iOpen = "/MonitorSystem;component/Images/ControlsImg/Open.jpg";
-            var iClose = "/MonitorSystem;component/Images/ControlsImg/Close.jpg";
+            var iOpen = "/WPFMonitor;component/Resources/Images/ControlsImg/Open.jpg";
+            var iClose = "/WPFMonitor;component/Resources/Images/ControlsImg/Close.jpg";
+            
             _image.Source = new BitmapImage(new Uri(iOpen, UriKind.RelativeOrAbsolute));
             if (IsRightDirect)
             {

@@ -37,26 +37,26 @@ namespace WPFMonitor
 
         public MainWindow()
         {
-			//var loginWindow = new LoginWindow();
-			//if (loginWindow.ShowDialog() == true)
-			//{
-                InitializeComponent();
-                Global._MainWindow = this;
-                MonitorSystem.Common1.MainWin = Global._MainWindow;
-                ThemeFactory.ChangeTheme("Leather");
+			var loginWindow = new LoginWindow();
+			if (loginWindow.ShowDialog() == true)
+			{
+				InitializeComponent();
+				Global._MainWindow = this;
+				MonitorSystem.Common1.MainWin = Global._MainWindow;
+				ThemeFactory.ChangeTheme("Leather");
 
-                _screenTreeWindow = new ScreenTreeWindow();
-                _controlWindow = new ControlWindow();
-                _loadScreen = new LoadScreen();
-                _propertyWindow = new PropertyWindow();                
-                _galleryWindow = new GalleryWindow() { FloatingWindowSize = new Size(600, 200), };
-                _shrotcutWindow = new ScreenShortcutWindow();
-                this.Title = string.Format("机房动力监控系统：{0}",  GlobalData.UserName);
-			//}
-			//else
-			//{
-			//    Application.Current.Shutdown();
-			//}
+				_screenTreeWindow = new ScreenTreeWindow();
+				_controlWindow = new ControlWindow();
+				_loadScreen = new LoadScreen();
+				_propertyWindow = new PropertyWindow();
+				_galleryWindow = new GalleryWindow() { FloatingWindowSize = new Size(600, 200), };
+				_shrotcutWindow = new ScreenShortcutWindow();
+				this.Title = string.Format("机房动力监控系统：{0}", GlobalData.UserName);
+			}
+			else
+			{
+				Application.Current.Shutdown();
+			}
         }
 
         private void dockManager_Loaded(object sender, RoutedEventArgs e)
