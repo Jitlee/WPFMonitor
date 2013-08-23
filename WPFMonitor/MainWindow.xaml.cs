@@ -34,7 +34,7 @@ namespace WPFMonitor
         public readonly PropertyWindow _propertyWindow = null;
         public readonly GalleryWindow _galleryWindow = null;
         public readonly ScreenShortcutWindow _shrotcutWindow = null;
-
+		public readonly AlertLogAdminWindow _AlertLogWindow = null;
         public MainWindow()
         {
 			var loginWindow = new LoginWindow();
@@ -51,6 +51,7 @@ namespace WPFMonitor
 				_propertyWindow = new PropertyWindow();
 				_galleryWindow = new GalleryWindow() { FloatingWindowSize = new Size(600, 200), };
 				_shrotcutWindow = new ScreenShortcutWindow();
+				_AlertLogWindow = new AlertLogAdminWindow() { FloatingWindowSize = new Size(600, 200) };
 				this.Title = string.Format("机房动力监控系统：{0}", GlobalData.UserName);
 			}
 			else
@@ -105,6 +106,7 @@ namespace WPFMonitor
             _loadScreen.TP = () =>
             {
                 _galleryWindow.Show(dockManager, AnchorStyle.Bottom);
+				_AlertLogWindow.Hide();
                 _propertyWindow.Show(dockManager, AnchorStyle.Left);
                 _controlWindow.Show(dockManager, AnchorStyle.Left);
                 _screenTreeWindow.Show(dockManager, AnchorStyle.Left);
@@ -116,6 +118,7 @@ namespace WPFMonitor
                 _controlWindow.Hide();
                 _galleryWindow.Hide();
                 _screenTreeWindow.Hide();
+				_AlertLogWindow.Show(dockManager, AnchorStyle.Bottom);
             };
 
             _loadScreen.DesignVisilityChanged = () => {
@@ -140,7 +143,9 @@ namespace WPFMonitor
                 }
             };
 
-            _shrotcutWindow.Show(dockManager, AnchorStyle.Left);
+            
+			_AlertLogWindow.Show(dockManager, AnchorStyle.Bottom);
+			_shrotcutWindow.Show(dockManager, AnchorStyle.Left);
         }
 
         #region 菜单事件

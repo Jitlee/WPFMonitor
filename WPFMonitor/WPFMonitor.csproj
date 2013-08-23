@@ -256,6 +256,9 @@
     <Compile Include="View\Sys\UserListView.xaml.cs">
       <DependentUpon>UserListView.xaml</DependentUpon>
     </Compile>
+    <Compile Include="View\TPControls\AlertLogAdminWindow.xaml.cs">
+      <DependentUpon>AlertLogAdminWindow.xaml</DependentUpon>
+    </Compile>
     <Compile Include="View\TPControls\ControlWindow.xaml.cs">
       <DependentUpon>ControlWindow.xaml</DependentUpon>
     </Compile>
@@ -512,6 +515,10 @@
     <Page Include="View\Sys\UserListView.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
+    </Page>
+    <Page Include="View\TPControls\AlertLogAdminWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="View\TPControls\ControlWindow.xaml">
       <SubType>Designer</SubType>
