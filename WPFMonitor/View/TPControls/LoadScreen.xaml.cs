@@ -1924,6 +1924,7 @@ namespace WPFMonitor.View.TPControls
 						EleDA.DeleteRealTimeLine(obj.ScreenElement.ElementID);
 						foreach (RealTimeLineOR LineObj in (obj as RealTimeT).ListRealTimeLine)
 						{
+                            LineObj.LineInfo.StartTime = DateTime.Now;
 							EleDA.InsertRealTimeT(LineObj.LineInfo);
 						}
 					}
@@ -2150,8 +2151,13 @@ namespace WPFMonitor.View.TPControls
 
         private readonly double[] ScaleArray = new[] { 0.1d, 0.15d, 0.25d, 0.5d, 0.75d, 1.0d, 1.25d, 1.50d, 2.0d, 3.0d, 5.0d };
         private int _sacleIndex = 5;
+        DateTime StartTimeWheel = DateTime.Now;
         private void GridScreen_MouseWheel(object sender, MouseWheelEventArgs e)
         {
+            TimeSpan t = DateTime.Now - StartTimeWheel;
+            if (t.Seconds == 0 && t.Milliseconds < 100)
+                return;
+
             var point = e.GetPosition(GridScreen);
             if (e.Delta > 0 && _sacleIndex < ScaleArray.Length - 1)
             {

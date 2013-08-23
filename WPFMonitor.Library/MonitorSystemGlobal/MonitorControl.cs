@@ -139,13 +139,13 @@ namespace MonitorSystem.MonitorSystemGlobal
             get
             {
 
-                //SetFont();
+                SetFont();
                 return _ScreenElement;
             }
             set
             {
                 _ScreenElement = value;
-                //GetFont(value.Font);
+                GetFont(value.Font);
             }
         }
         #region 字体处理
@@ -164,7 +164,7 @@ namespace MonitorSystem.MonitorSystemGlobal
             if (strFont == null)
             {
                 this.FontSize = 12f;
-                //this.FontFamily = new FontFamily("Simsun");
+                this.FontFamily = new FontFamily("Simsun");
             }
             else
             {

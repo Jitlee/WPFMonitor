@@ -17,8 +17,6 @@ namespace MonitorSystem.Controls.Converters
 		{
 			if (value is string)
 			{
-               
-
 				string str = ((string)value).Trim();
                 str = Common1.GetFontEn(str);
 				try
