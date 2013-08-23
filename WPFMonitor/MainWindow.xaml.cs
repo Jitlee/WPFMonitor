@@ -343,12 +343,11 @@ namespace WPFMonitor
 
         private void ZTExit_Click(object sender, RoutedEventArgs e)
         {
-            // 退出组态
-            OpartionMenuScriptItem.Visibility = Visibility.Collapsed;
-            ZTMenuScriptItem.Visibility = Visibility.Visible;
-            AllSencesMenuScriptItem.Visibility = Visibility.Visible;
-
             LoadScreen._instance.ZTExit_Click(null, null);
+			// 退出组态
+			OpartionMenuScriptItem.Visibility = Visibility.Collapsed;
+			ZTMenuScriptItem.Visibility = Visibility.Visible;
+			AllSencesMenuScriptItem.Visibility = Visibility.Visible;
         }
 
         #endregion

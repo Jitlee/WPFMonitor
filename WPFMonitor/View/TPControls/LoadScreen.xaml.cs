@@ -19,6 +19,7 @@ using MonitorSystem.Other;
 using MonitorSystem.ZTControls;
 using WPFMonitor.DAL.ZTControls;
 using WPFMonitor.Model.ZTControls;
+using System.Threading;
 
 
 namespace WPFMonitor.View.TPControls
@@ -56,11 +57,6 @@ namespace WPFMonitor.View.TPControls
         {
             this.HideFocusElement.Focus();
         }
-
-        //void LoadScreen_Loaded(object sender, RoutedEventArgs e)
-        //{
-        //    //Application.Current.MainWindow.PreviewKeyDown += CsScreen_KeyDown;
-        //}
 
         public Action ResetSelected { get; set; }
 
@@ -1020,37 +1016,70 @@ namespace WPFMonitor.View.TPControls
 
         private void LoadChanncelValue()
         {
-            //EntityQuery<V_ScreenMonitorValue> v = _DataContext.GetScreenMonitorValueQuery(_CurrentScreen.ScreenID);
-
-            //_DataContext.Load(v, ValueLoadComplete, null);
             Task.Factory.StartNew(ValueLoadComplete);
         }
 
         public void ValueLoadComplete()
-        {
+		{
+			float digitalValue = 0f;
             try
-            {
-                float digitalValue = 0f;
-                List<V_ScreenMonitorValue> values = new ScreenMonitorValueDA().selectAllDate();
-                foreach (V_ScreenMonitorValue obj in values)
-                {
-                    var vobj = (MonitorControl)this.csScreen.FindName(obj.ElementID.ToString());
-                    if (null != vobj)
-                    {
-                        SetChannelValue(digitalValue, obj, vobj);
-                        if (vobj.ToolTipControl != null)
-                        {
-                            var child = (MonitorControl)vobj.ToolTipControl.ToolTipCanvas.FindName(obj.ElementID.ToString());
-                            SetChannelValue(digitalValue, obj, child);
-                        }
-                        if (vobj is BackgroundControl)
-                        {
-                            var backgroundControl = vobj as BackgroundControl;
-                            var child = (MonitorControl)backgroundControl.BackgroundCanvas.FindName(obj.ElementID.ToString());
-                            SetChannelValue(digitalValue, obj, child);
-                        }
-                    }
-                }
+            {				
+			   this.Dispatcher.BeginInvoke(DispatcherPriority.Normal,(ThreadStart)delegate()
+			   {
+				  
+				   List<V_ScreenMonitorValue> values = new ScreenMonitorValueDA().selectAllDate(_CurrentScreen.ScreenID);
+				   foreach (V_ScreenMonitorValue obj in values)
+				   {
+					   //循环元素
+					   for (int i = 0; i < csScreen.Children.Count; i++)
+					   {
+						   var m = csScreen.Children[i] as MonitorControl;
+
+						   if (null != m && !m.IsToolTip)
+						   {
+							   if (m.ScreenElement.ElementID == obj.ElementID)
+							   {
+								   SetChannelValue(digitalValue, obj, m);
+							   }
+							   #region ToolTip
+							   var toolTipControl = m.ToolTipControl;
+							   if (null != toolTipControl && toolTipControl.ToolTipCanvas.Children.Count > 0)
+							   {
+								   foreach (var child in toolTipControl.ToolTipCanvas.Children)
+								   {
+									   var childMoinitor = child as MonitorControl;
+									   if (null != childMoinitor)
+									   {
+										   if (childMoinitor.ScreenElement.ElementID == obj.ElementID)
+										   {
+											   SetChannelValue(digitalValue, obj, childMoinitor);
+										   }
+									   }
+								   }
+							   }
+							   #endregion
+
+							   #region 背景框
+							   if (m is BackgroundControl)
+							   {
+								   var backgroundControl = m as BackgroundControl;
+								   foreach (var child in backgroundControl.BackgroundCanvas.Children)
+								   {
+									   var childMoinitor = child as MonitorControl;
+									   if (null != childMoinitor)
+									   {
+										   if (childMoinitor.ScreenElement.ElementID == obj.ElementID)
+										   {
+											   SetChannelValue(digitalValue, obj, childMoinitor);
+										   }
+									   }
+								   }
+							   }
+							   #endregion
+						   }
+					   }
+				   }
+			   });
             }
             catch (Exception ex)
             {
@@ -1477,18 +1506,18 @@ namespace WPFMonitor.View.TPControls
                 MonitorControl.UpdatePropertyGrid(mControl.BrowsableProperties, null);
                 MonitorControl.UpdatePropertyGrid(mControl.BrowsableProperties, mControl);
             };
-            if (eleStae == ElementSate.Save)
-            {
-                mControl.ID = obj.ElementID;
-            }
+			if (eleStae == ElementSate.Save)
+			{
+				mControl.ID = obj.ElementID;
+			}
             mControl.ScreenElement = obj;
             mControl.ListElementProp = listObj;
             mControl.ElementState = eleStae;
 
-            //if (eleStae == ElementSate.Save)
-            //{
-            //    mControl.Name = obj.ElementID.ToString();
-            //}
+			if (eleStae == ElementSate.Save)
+			{
+			    mControl.Name ="Name"+ obj.ElementID.ToString();
+			}
             mControl.SetPropertyValue();
             mControl.SetCommonPropertyValue();
             //添加到场景
@@ -1604,15 +1633,7 @@ namespace WPFMonitor.View.TPControls
         }
         #endregion
 
-        ///// <summary>
-        ///// 属性窗口改变大小时发生
-        ///// </summary>
-        ///// <param name="sender"></param>
-        ///// <param name="e"></param>
-        //protected void f_SizeChanged(object sender, SizeChangedEventArgs e)
-        //{
-        //    prop.ChangeSize(e.NewSize.Height, e.NewSize.Width);
-        //}
+      
         private void btnSave_Click(object sender, RoutedEventArgs e)
         {
             IsShowSaveToot = true;//显示保存成功提示
@@ -1710,19 +1731,8 @@ namespace WPFMonitor.View.TPControls
         {
             try
             {
-                List<t_Element> ListRemoveItem = new List<t_Element>();
-
-                //保存背景图片
-                //var vScreen = listScreen.Where(a => a.ScreenID == _CurrentScreen.ScreenID);
-                //if (vScreen.Count() > 0)
-                //{
-                //    t_Screen m_screen = vScreen.First();
-                //    m_screen.ImageURL = BgImagePath;// BackgroundPanel.BgImagePath;
-                //    m_screen.AutoSize = AutoSize;
-                //    //m_screen.Width
-                //}
+                List<t_Element> ListRemoveItem = new List<t_Element>();				               
                 AddElementNumber = 0;
-
                 //循环所有存在元素
                 listMonitorAddElement.Clear();
                 listMonitorModifiedElement.Clear();
@@ -1788,9 +1798,6 @@ namespace WPFMonitor.View.TPControls
                         }
                         if (null != toolTipControl && toolTipControl.ToolTipCanvas.Children.Count > 0)
                         {
-                            //Debug.Assert(null != toolTipControl.Target, "ToolTipControl 的 Target 属性不能为null.");
-                            //Debug.Assert(null != toolTipControl.Target.ScreenElement, "ToolTipControl 的 Target.ScreenElement 属性不能为null.");
-
                             var toolTipElement = toolTipControl.ScreenElement;
                             toolTipElement.ControlID = -9999;
                             toolTipElement.Width = Convert.ToInt32(toolTipControl.Width);
@@ -1990,90 +1997,13 @@ namespace WPFMonitor.View.TPControls
         {
             return null == value ? DBNull.Value : value;
         }
-        /// <summary>
-        /// 检查更新字段并赋值
-        /// </summary>
-        /// <param name="mobj"></param>
-        //private void CheckElementChange(t_Element mobj)
-        //{
-        //    var vobj = new ElementDA().SelectBy(mobj.ElementID);
-        //    if (vobj.Count() == 0)
-        //        return;
-        //    t_Element saveEle = vobj.First();
-
-        //    if (saveEle.ScreenX != mobj.ScreenX)
-        //        saveEle.ScreenX = mobj.ScreenX;
-        //    if (saveEle.ScreenY != mobj.ScreenY)
-        //        saveEle.ScreenY = mobj.ScreenY;
-        //    if (saveEle.TxtInfo != mobj.TxtInfo)
-        //        saveEle.TxtInfo = mobj.TxtInfo;
-        //    if (saveEle.Width != mobj.Width)
-        //        saveEle.Width = mobj.Width;
-        //    if (saveEle.Height != mobj.Height)
-        //        saveEle.Height = mobj.Height;
-        //    if (saveEle.ImageURL != mobj.ImageURL)
-        //        saveEle.ImageURL = mobj.ImageURL;
-        //    if (saveEle.ForeColor != mobj.ForeColor)
-        //        saveEle.ForeColor = mobj.ForeColor;
-        //    if (saveEle.Font != mobj.Font)
-        //        saveEle.Font = mobj.Font;
-        //    if (saveEle.ChildScreenID != mobj.ChildScreenID)
-        //        saveEle.ChildScreenID = mobj.ChildScreenID;
-        //    if (saveEle.DeviceID != mobj.DeviceID)
-        //        saveEle.DeviceID = mobj.DeviceID;
-        //    if (saveEle.ChannelNo != mobj.ChannelNo)
-        //        saveEle.ChannelNo = mobj.ChannelNo;
-        //    if (saveEle.ScreenID != mobj.ScreenID)
-        //        saveEle.ScreenID = mobj.ScreenID;
-        //    if (saveEle.BackColor != mobj.BackColor)
-        //        saveEle.BackColor = mobj.BackColor;
-        //    if (saveEle.Transparent != mobj.Transparent)
-        //        saveEle.Transparent = mobj.Transparent;
-        //    if (saveEle.oldX != mobj.oldX)
-        //        saveEle.oldX = mobj.oldX;
-        //    if (saveEle.oldY != mobj.oldY)
-        //        saveEle.oldY = mobj.oldY;
-        //    if (saveEle.Method != mobj.Method)
-        //        saveEle.Method = mobj.Method;
-        //    if (saveEle.MinFloat != mobj.MinFloat)
-        //        saveEle.MinFloat = mobj.MinFloat;
-        //    if (saveEle.MaxFloat != mobj.MaxFloat)
-        //        saveEle.MaxFloat = mobj.MaxFloat;
-        //    if (saveEle.SerialNum != mobj.SerialNum)
-        //        saveEle.SerialNum = mobj.SerialNum;
-        //    if (saveEle.TotalLength != mobj.TotalLength)
-        //        saveEle.TotalLength = mobj.TotalLength;
-        //    if (saveEle.LevelNo != mobj.LevelNo)
-        //        saveEle.LevelNo = mobj.LevelNo;
-        //    if (saveEle.ComputeStr != mobj.ComputeStr)
-        //        saveEle.ComputeStr = mobj.ComputeStr;
-        //}
         #endregion
-
-        //private void Image_MouseLeftButtonUp(object sender, MouseButtonEventArgs e)
-        //{
-        //    try
-        //    {
-        //        if (null == HtmlPage.Window.Invoke("fullScreen"))
-        //        {
-        //            System.Windows.Application.Current.Host.Content.IsFullScreen =
-        //                !System.Windows.Application.Current.Host.Content.IsFullScreen;
-        //        }
-        //    }
-        //    catch (InvalidOperationException ie)
-        //    {
-        //        MessageBox.Show(ie.Message);
-        //    }
-        //}
-
+		
         #region 菜单事件
         public Action TP { get; set; }
         public void TP_Click(object sender, RoutedEventArgs e)
         {
-            // 组态设计
-            //OpartionMenuScriptItem.Visibility = Visibility.Visible;
-            //ZTMenuScriptItem.Visibility = Visibility.Collapsed;
-            //AllSencesMenuScriptItem.Visibility = Visibility.Collapsed;
+            // 组态设计         
             GalleryButton.Visibility = Visibility.Visible;
             DesignButton.Visibility = Visibility.Visible;
             if (null != TP)
@@ -2086,12 +2016,7 @@ namespace WPFMonitor.View.TPControls
             GridScreen.MouseRightButtonDown -= GridScreen_MouseRightButtonDown;
             GridScreen.MouseRightButtonDown += GridScreen_MouseRightButtonDown;
 
-            //加截属性窗口
-            //fwProperty.SizeChanged += new SizeChangedEventHandler(f_SizeChanged);
-            //prop.ChangeScreen += new EventHandler(prop_ChangeScreen);
-            //fwProperty.Show();
-            //鼠标事件
-
+         
             var children = csScreen.Children.OfType<MonitorControl>().ToArray();
             foreach (var child in children)
             {
@@ -2105,16 +2030,6 @@ namespace WPFMonitor.View.TPControls
                     }
                 }
             }
-
-            //for (int i = 0; i < csScreen.Children.Count; i++)
-            //{
-            //    var ui = csScreen.Children[i];
-            //    if (ui is MonitorControl)
-            //    {
-            //        MonitorControl mControl = ui as MonitorControl;
-            //        mControl.DesignMode();
-            //    }
-            //}
             //定时更新值关闭
             timerRefrshValue.Stop();
         }
@@ -2129,10 +2044,7 @@ namespace WPFMonitor.View.TPControls
         public Action ZTExit { get; set; }
         public void ZTExit_Click(object sender, RoutedEventArgs e)
         {
-            //// 退出组态
-            //OpartionMenuScriptItem.Visibility = Visibility.Collapsed;
-            //ZTMenuScriptItem.Visibility = Visibility.Visible;
-            //AllSencesMenuScriptItem.Visibility = Visibility.Visible;
+            //// 退出组态          
             GalleryButton.Visibility = Visibility.Collapsed;
             DesignButton.Visibility = Visibility.Collapsed;
 
@@ -2168,19 +2080,11 @@ namespace WPFMonitor.View.TPControls
                         mControl.ToolTipControl.UnDesignMode();
                     }
                 }
-            }
-            //fwProperty.SizeChanged -= new SizeChangedEventHandler(f_SizeChanged);
-            //prop.ChangeScreen -= new EventHandler(prop_ChangeScreen);
-            //fwProperty.Close();
+            }         
 
             //定时更新值开启
             timerRefrshValue.Start();
         }
-
-        //private void Top_Click(object sender, MouseButtonEventArgs e)
-        //{
-        //    MainScript.CloseAllItems();
-        //}
 
         private void Home_Click(object sender, RoutedEventArgs e)
         {

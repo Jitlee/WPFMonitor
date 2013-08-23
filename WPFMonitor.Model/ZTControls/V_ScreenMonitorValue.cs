@@ -4,23 +4,23 @@ using WPFMonitor.Model;
 
 namespace WPFMonitor.Model.ZTControls
 {
-    /// <summary>
-    /// 
-    /// </summary>
-    public class V_ScreenMonitorValue: ORBase
-    {
-       
-		private string _ID;
-		/// <summary>
-		/// 
-		/// </summary>
-		public string ID
-		{
-			get { return _ID; }
-			set { _ID = value;
-            NotifyPropertyChanged("ID");
-            }
-		}
+	/// <summary>
+	/// 
+	/// </summary>
+	public class V_ScreenMonitorValue : ORBase
+	{
+
+		//private string _ID;
+		///// <summary>
+		///// 
+		///// </summary>
+		//public string ID
+		//{
+		//    get { return _ID; }
+		//    set { _ID = value;
+		//    NotifyPropertyChanged("ID");
+		//    }
+		//}
 
 		private int _ElementID;
 		/// <summary>
@@ -29,8 +29,11 @@ namespace WPFMonitor.Model.ZTControls
 		public int ElementID
 		{
 			get { return _ElementID; }
-			set { _ElementID = value;
-NotifyPropertyChanged("ElementID");}
+			set
+			{
+				_ElementID = value;
+				NotifyPropertyChanged("ElementID");
+			}
 		}
 
 		private int _Screenid;
@@ -40,8 +43,11 @@ NotifyPropertyChanged("ElementID");}
 		public int ScreenID
 		{
 			get { return _Screenid; }
-			set { _Screenid = value;
-NotifyPropertyChanged("ScreenID");}
+			set
+			{
+				_Screenid = value;
+				NotifyPropertyChanged("ScreenID");
+			}
 		}
 
 		private int _DeviceID;
@@ -51,8 +57,11 @@ NotifyPropertyChanged("ScreenID");}
 		public int DeviceID
 		{
 			get { return _DeviceID; }
-			set { _DeviceID = value;
-NotifyPropertyChanged("DeviceID");}
+			set
+			{
+				_DeviceID = value;
+				NotifyPropertyChanged("DeviceID");
+			}
 		}
 
 		private int _ChannelNo;
@@ -62,8 +71,11 @@ NotifyPropertyChanged("DeviceID");}
 		public int ChannelNo
 		{
 			get { return _ChannelNo; }
-			set { _ChannelNo = value;
-NotifyPropertyChanged("ChannelNo");}
+			set
+			{
+				_ChannelNo = value;
+				NotifyPropertyChanged("ChannelNo");
+			}
 		}
 
 		private string _ComputeStr;
@@ -73,8 +85,11 @@ NotifyPropertyChanged("ChannelNo");}
 		public string ComputeStr
 		{
 			get { return _ComputeStr; }
-			set { _ComputeStr = value;
-NotifyPropertyChanged("ComputeStr");}
+			set
+			{
+				_ComputeStr = value;
+				NotifyPropertyChanged("ComputeStr");
+			}
 		}
 
 		private int _StationID;
@@ -84,8 +99,11 @@ NotifyPropertyChanged("ComputeStr");}
 		public int StationID
 		{
 			get { return _StationID; }
-			set { _StationID = value;
-NotifyPropertyChanged("StationID");}
+			set
+			{
+				_StationID = value;
+				NotifyPropertyChanged("StationID");
+			}
 		}
 
 		private int _ChanenlSubNo;
@@ -95,9 +113,11 @@ NotifyPropertyChanged("StationID");}
 		public int ChanenlSubNo
 		{
 			get { return _ChanenlSubNo; }
-			set { _ChanenlSubNo = value;
-            NotifyPropertyChanged("ChanenlSubNo");
-            }
+			set
+			{
+				_ChanenlSubNo = value;
+				NotifyPropertyChanged("ChanenlSubNo");
+			}
 		}
 
 		private float _MonitorValue;
@@ -107,9 +127,11 @@ NotifyPropertyChanged("StationID");}
 		public float MonitorValue
 		{
 			get { return _MonitorValue; }
-			set { _MonitorValue = value;
-            NotifyPropertyChanged("MonitorValue");
-            }
+			set
+			{
+				_MonitorValue = value;
+				NotifyPropertyChanged("MonitorValue");
+			}
 		}
 
 		private int _Flag;
@@ -119,8 +141,11 @@ NotifyPropertyChanged("StationID");}
 		public int Flag
 		{
 			get { return _Flag; }
-			set { _Flag = value;
-NotifyPropertyChanged("Flag");}
+			set
+			{
+				_Flag = value;
+				NotifyPropertyChanged("Flag");
+			}
 		}
 
 		/// <summary>
@@ -137,7 +162,7 @@ NotifyPropertyChanged("Flag");}
 		public V_ScreenMonitorValue(DataRow row)
 		{
 			// 
-			_ID = row["id"].ToString().Trim();
+			//_ID = row["id"].ToString().Trim();
 			// 
 			_ElementID = Convert.ToInt32(row["ElementID"]);
 			// 
@@ -158,30 +183,31 @@ NotifyPropertyChanged("Flag");}
 			_Flag = Convert.ToInt32(row["flag"]);
 		}
 
-	public void Clone(V_ScreenMonitorValue obj){
-//
-ID = obj.ID;
-//
-ElementID = obj.ElementID;
-//
-ScreenID = obj.ScreenID;
-//
-DeviceID = obj.DeviceID;
-//
-ChannelNo = obj.ChannelNo;
-//
-ComputeStr = obj.ComputeStr;
-//
-StationID = obj.StationID;
-//
-ChanenlSubNo = obj.ChanenlSubNo;
-//
-MonitorValue = obj.MonitorValue;
-//
-Flag = obj.Flag;
+		public void Clone(V_ScreenMonitorValue obj)
+		{
+			//
+			//ID = obj.ID;
+			//
+			ElementID = obj.ElementID;
+			//
+			ScreenID = obj.ScreenID;
+			//
+			DeviceID = obj.DeviceID;
+			//
+			ChannelNo = obj.ChannelNo;
+			//
+			ComputeStr = obj.ComputeStr;
+			//
+			StationID = obj.StationID;
+			//
+			ChanenlSubNo = obj.ChanenlSubNo;
+			//
+			MonitorValue = obj.MonitorValue;
+			//
+			Flag = obj.Flag;
 
-}
+		}
 
-    }
+	}
 }
 
