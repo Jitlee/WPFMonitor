@@ -11,6 +11,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
 using DockingLibrary;
+using WPFMonitor.Core.ViewModel;
 
 namespace WPFMonitor.View.TPControls
 {
@@ -22,6 +23,7 @@ namespace WPFMonitor.View.TPControls
 		public AlertLogAdminWindow()
 		{
 			InitializeComponent();
+			this.DataContext = new AlertLogAdminViewModel();
 		}
 	}
 }

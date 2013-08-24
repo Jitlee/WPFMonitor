@@ -6,6 +6,21 @@
         Title="告警管理" Height="300" Width="300"
 		Background="{DynamicResource {ComponentResourceKey {x:Type dock:DockingManager}, {x:Static dock:DockingLibraryBrushes.DefaultBackgroundBrush}}}">
     <Grid>
-        
-    </Grid>
+		<DataGrid Name="dg"  Grid.Row="1"  Style="{StaticResource ListDataGridStyle}"  ItemsSource="{Binding AlarmORList}">
+			<DataGrid.Columns>
+				<DataGridTemplateColumn Header="处理" Width="80">
+					<DataGridTemplateColumn.CellTemplate>
+						<DataTemplate>
+							<Button  Command="{Binding Path=DataContext.UpdateCommand, RelativeSource={RelativeSource AncestorType={x:Type DataGrid}}}" 
+								Content="确认报警"	CommandParameter="{Binding Path=AlarmLogID}"></Button>
+						</DataTemplate>
+					</DataGridTemplateColumn.CellTemplate>
+				</DataGridTemplateColumn>
+				<DataGridTextColumn Header="站点" Width="80*" Binding="{Binding Path=StationName}"/>
+				<DataGridTextColumn Header="告警级别" Width="160*" Binding="{Binding Path=AlarmLevel}"/>
+				<DataGridTextColumn Header="内容" Width="80*" Binding="{Binding Path=Content}"/>
+				<DataGridTextColumn Header="发生时间" Width="80*" Binding="{Binding Path=HappenTime}"/>
+			</DataGrid.Columns>
+		</DataGrid>
+	</Grid>
 </dock:DockableContent>

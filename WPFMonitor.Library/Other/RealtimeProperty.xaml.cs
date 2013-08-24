@@ -157,31 +157,19 @@ namespace MonitorSystem.Other
         List<t_Element_RealTimeLine> _lines;
         private void AdminLine()
         {
-            ElementRealTimeLineDA da = new ElementRealTimeLineDA();
+            //ElementRealTimeLineDA da = new ElementRealTimeLineDA();
             //移出
+			_lines = new List<t_Element_RealTimeLine>();
+
             if (DeleteRealTime.Count > 0)
             {
-				//if (null == _lines)
-				//{
-				//    _lines = da.selectAllDate();
-				//}
                 foreach (t_Element_RealTimeLine obj in DeleteRealTime)
                 {
-                    //_RealTimeData.
                     RealTimeLineOR _line = GetRealLine(obj);
                     if (_line != null)
                     {
                         _RealTimeData.ListRealTimeLine.Remove(_line);
                         _RealTimeData._CanvasLine.Children.Remove(_line.PolyLine);
-						//if (_RealTimeData.ElementState == MonitorSystemGlobal.ElementSate.Save)
-						//{
-						//    var v = _lines.Where(a => a.ID == obj.ID).FirstOrDefault();
-						//    if (null != v)
-						//    {
-						//        _lines.Remove(v);
-						//        da.Delete(v.ID);
-						//    }
-						//}
                     }
                 }
             }
@@ -192,14 +180,14 @@ namespace MonitorSystem.Other
                 if (_line != null)
                 {
                     _line.LineInfo = obj;
+					_lines.Add(obj);
                 }
                 else
                 {
 					obj.ScreenID = _RealTimeData.ScreenElement.ScreenID;
                     RealTimeLineOR _data = new RealTimeLineOR(obj);
                     _RealTimeData.ListRealTimeLine.Add(_data);
-					//obj.ElementID = _RealTimeData.ScreenElement.ElementID;
-					//da.Insert(obj);
+					_lines.Add(obj);
                 }
             }
         }
@@ -218,18 +206,12 @@ namespace MonitorSystem.Other
         {
             AdminLine();
 
-			//if (null == _lines)
-			//{
-			//    _lines = new ElementRealTimeLineDA().selectAllDate();
-			//}
-
             if (_lines.Count > 1)
             {
                 t_Element_RealTimeLine obj = _lines.First();
                 foreach (t_Element_RealTimeLine t in _lines)
                 {
-                    //RealTimeLineOR _line = GetRealLine(obj);
-                   
+                    //RealTimeLineOR _line = GetRealLine(obj);                   
                         if (!_RealTimeData.MultiXZShow)
                         {
                             t.TimeLen = obj.TimeLen;
