@@ -7,7 +7,7 @@
         Title="设计" Height="300" Width="300" Background="{x:Null}">
     <dock:DockableContent.Resources>
         <Style TargetType="ListBox">
-            <Setter Property="Background" Value="{DynamicResource {ComponentResourceKey {x:Type dock:DockingManager}, {x:Static dock:DockingLibraryBrushes.DefaultBackgroundBrush}}}"/>
+            <Setter Property="Background" Value="{x:Null}"/>
             <Setter Property="Foreground" Value="{DynamicResource {ComponentResourceKey {x:Type dock:DockingManager}, {x:Static dock:DockingLibraryBrushes.DockablePaneTitleForeground}}}"/>
             <Setter Property="ItemContainerStyle">
                 <Setter.Value>
@@ -40,26 +40,58 @@
                 </Setter.Value>
             </Setter>
         </Style>
+        <Style TargetType="ToggleButton">
+            <Setter Property="Height" Value="23"/>
+            <Setter Property="HorizontalAlignment" Value="Stretch"/>
+            <Setter Property="Background" Value="White"/>
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="ToggleButton">
+                        <Border Background="{TemplateBinding Background}"
+                                BorderBrush="{TemplateBinding BorderBrush}"
+                                BorderThickness="1">
+                            <StackPanel Orientation="Horizontal">
+                                <Path VerticalAlignment="Center" Margin="5,5,10,5"
+                                      x:Name="Arrow" Height="8" Width="5" Stroke="{TemplateBinding Foreground}"
+                                      StrokeThickness="2"
+                                      RenderTransformOrigin="0.5,0.5"
+                                      Data="M0,0 L5,4 L0,8"/>
+                                <ContentPresenter VerticalAlignment="Center"/>
+                            </StackPanel>
+                        </Border>
+                        <ControlTemplate.Triggers>
+                            <Trigger Property="IsMouseOver" Value="True">
+                                <Setter Property="Background" Value="#FFDDEEF4"/>
+                            </Trigger>
+                            <Trigger Property="IsChecked" Value="True">
+                                <Setter TargetName="Arrow" Property="RenderTransform">
+                                    <Setter.Value>
+                                        <RotateTransform Angle="90"/>
+                                    </Setter.Value>
+                                </Setter>
+                                <Setter Property="IsHitTestVisible" Value="False"/>
+                                <Setter Property="Background" Value="#FFDDEEF4"/>
+                            </Trigger>
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
     </dock:DockableContent.Resources>
     <Grid>
-        <layout:Accordion x:Name="accordion" VerticalAlignment="Stretch" VerticalContentAlignment="Stretch"  HorizontalAlignment="Stretch" HorizontalContentAlignment="Stretch" SelectionChanged="accordion_SelectionChanged">
-            <layout:AccordionItem Header="拓扑控件" HorizontalAlignment="Stretch" HorizontalContentAlignment="Stretch">
-                
-                    <ListBox x:Name="tpListBox" SelectionChanged="Control_SelectionChanged" ItemsSource="{Binding TPControls}"/>
-               
-            </layout:AccordionItem>
-            <layout:AccordionItem Header="组态控件" HorizontalAlignment="Stretch" HorizontalContentAlignment="Stretch" >
-                  
-                    <ListBox x:Name="ztListBox" SelectionChanged="Control_SelectionChanged" ItemsSource="{Binding ZTControls}"/>
-                
-            </layout:AccordionItem>
-            <layout:AccordionItem Header="公共控件" HorizontalAlignment="Stretch" HorizontalContentAlignment="Stretch">
-                <Grid HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Background="{DynamicResource {ComponentResourceKey {x:Type dock:DockingManager}, {x:Static dock:DockingLibraryBrushes.DefaultBackgroundBrush}}}"
-                Width="{Binding RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type Grid}}, Path=ActualWidth}"
-                Height="{Binding RelativeSource={RelativeSource FindAncestor,AncestorType={x:Type Grid}}, Path=ActualHeight}">
-                    <ListBox x:Name="ggListBox" SelectionChanged="Control_SelectionChanged" ItemsSource="{Binding GGControls}"/>
-                </Grid>
-            </layout:AccordionItem>
-        </layout:Accordion>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition x:Name="TPRow" Height="*"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition x:Name="ZTRow" Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition x:Name="GGRow" Height="Auto"/>
+        </Grid.RowDefinitions>
+        <ToggleButton Content="拓扑控件" x:Name="TPButton" Grid.Row="0" Checked="TPButton_Checked"/>
+        <ListBox Grid.Row="1" x:Name="tpListBox" SelectionChanged="Control_SelectionChanged" ItemsSource="{Binding TPControls}"/>
+        <ToggleButton Content="组态控件" x:Name="ZTButton" Grid.Row="2" Checked="ZTButton_Checked"/>
+        <ListBox Grid.Row="3" x:Name="ztListBox" Visibility="Collapsed" SelectionChanged="Control_SelectionChanged" ItemsSource="{Binding ZTControls}"/>
+        <ToggleButton Content="公共控件" x:Name="GGButton" Grid.Row="4" Checked="GGButton_Checked"/>
+        <ListBox Grid.Row="5" x:Name="ggListBox" Visibility="Collapsed" SelectionChanged="Control_SelectionChanged" ItemsSource="{Binding GGControls}"/>
     </Grid>
 </dock:DockableContent>
