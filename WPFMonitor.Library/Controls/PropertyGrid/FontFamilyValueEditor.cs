@@ -24,20 +24,20 @@ using System.Collections.Generic;
 
             _combox.SelectionChanged += ComboBox_SelectionChanged;
             var fontFamily = property.Value as FontFamily;
-            _combox.SelectedItem = new Font(fontFamily.Source, fontFamily);
+            _combox.SelectedItem = new Font(Common1.GetFontCN(fontFamily.Source), fontFamily);
         }
 
         public IEnumerable<Font> Fonts
         {
             get
             {
-                yield return new Font("宋体", new FontFamily("STSong"));              
+                yield return new Font("宋体", new FontFamily("STSong"));
                 yield return new Font("隶书", new FontFamily("LiSu"));
                 yield return new Font("幼圆", new FontFamily("YouYuan"));
                 yield return new Font("舒体", new FontFamily("FZShuTi"));
-                yield return new Font("姚体", new FontFamily("FZYaoti"));               
+                yield return new Font("姚体", new FontFamily("FZYaoti"));
                 yield return new Font("仿宋", new FontFamily("STFangsong"));
-                yield return new Font("彩云", new FontFamily("STCaiyun"));              
+                yield return new Font("彩云", new FontFamily("STCaiyun"));
                 yield return new Font("行楷", new FontFamily("STXingkai"));
                 yield return new Font("新魏", new FontFamily("STXinwei"));
                 yield return new Font("细黑", new FontFamily("STXihei"));
@@ -83,7 +83,7 @@ using System.Collections.Generic;
             if (e.PropertyName == "Value")
             {
                 var fontFamily = this.Property.Value as FontFamily;
-                _combox.SelectedItem = new Font(fontFamily.Source, fontFamily);
+                _combox.SelectedItem = new Font(Common1.GetFontCN(fontFamily.Source), fontFamily);
             }
         }
 

@@ -48,6 +48,7 @@
     <Compile Include="AlertAdmin\AlarmGroupMembersOR.cs" />
     <Compile Include="AlertAdmin\AlarmGroupsOR.cs" />
     <Compile Include="AlertAdmin\AlarmLevelSetOR.cs" />
+    <Compile Include="AlertAdmin\AlarmLogOR.cs" />
     <Compile Include="AlertAdmin\AlarmPolicyManagementOR.cs" />
     <Compile Include="AlertAdmin\DisarmTimeOR.cs" />
     <Compile Include="AlertAdmin\EventTypeOR.cs" />

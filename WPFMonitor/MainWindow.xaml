@@ -2,7 +2,7 @@
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:custom="clr-namespace:DockingLibrary;assembly=DockingLibrary"
-        xmlns:local="clr-namespace:WPFMonitor"  
+        xmlns:local="clr-namespace:WPFMonitor"  Icon="/WPFMonitor;component/Monitor.ico"
         Title="MainWindow" Height="700" Width="1000" WindowStartupLocation="CenterScreen">
     <Grid>
         <Grid.RowDefinitions >
@@ -56,13 +56,16 @@
                 <MenuItem x:Name="GrainTheme" Header="木纹" Click="ChangeTheme" Tag="grain"></MenuItem>
                 <MenuItem x:Name="LeopardTheme" Header="水滴" Click="ChangeTheme" Tag="theme1"></MenuItem>
             </MenuItem>
-            <MenuItem Header="窗口"/>
-        </Menu>
+			<MenuItem Header="窗口">
+				<MenuItem x:Name="miLoadScreen" Header="场景" Click="LoadScreen_Click"></MenuItem>
+				
+			</MenuItem>
+		</Menu>
 
         <custom:DockingManager x:Name="dockManager" Grid.Row="1" Loaded="dockManager_Loaded">
             <custom:ResizingPanel>
                 <custom:DocumentPane>
-                    <custom:DocumentContent x:Name="EquipmentLog" Title="监控场景">
+                    <!--custom:DocumentContent x:Name="EquipmentLog" Title="监控场景">
                         <Border CornerRadius="6,6,0,0" >
                             <Border.Background>
                                 <LinearGradientBrush 
@@ -82,7 +85,7 @@
                                 </Grid.Background>
                             </Grid>
                         </Border>
-                    </custom:DocumentContent>
+                    </custom:DocumentContent>-->
                 </custom:DocumentPane>
             </custom:ResizingPanel>
         </custom:DockingManager>

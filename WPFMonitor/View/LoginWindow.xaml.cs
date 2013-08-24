@@ -24,16 +24,6 @@ namespace WPFMonitor.View
         {
             InitializeComponent();
             this.Loaded += LoginWindow_Loaded;
-
-            try
-            {
-               
-                //GlobalData.WindowNo = windowNo;
-            }
-            catch (Exception cex)
-            {
-                MessageBox.Show(cex.Message);
-            }
         }
 
         private void LoginWindow_Loaded(object sender, RoutedEventArgs e)

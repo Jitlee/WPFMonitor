@@ -15,9 +15,9 @@ namespace WPFMonitor.Core
 
         public bool Login(string userid, string password,out string errorMsg)
         {
-            UserOR mUser=new UserDA().Login(userid, password);
             try
             {
+                UserOR mUser = new UserDA().Login(userid, password);
                 if (mUser != null)
                 {
                     errorMsg = "登录成功！";

@@ -79,9 +79,6 @@ namespace MonitorSystem.Other
                 ShowCurve();
             }; 
             timerSetValue.Start();
-
-
-            
         }
 
         public void SetYValue(double mYValue)

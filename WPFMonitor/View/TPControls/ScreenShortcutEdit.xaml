@@ -21,21 +21,21 @@
             <RowDefinition Height="Auto"/>
             <RowDefinition Height="Auto"/>
         </Grid.RowDefinitions>
-        
-        <TextBlock Grid.Row="0" Grid.Column="0" Text="关联场景" Margin="3" VerticalAlignment="Center" HorizontalAlignment="Right"/>
+
+		<TextBlock Grid.Row="0" Grid.Column="0" Text="关联场景"  Style="{StaticResource lblStyle}" Margin="3" VerticalAlignment="Center" HorizontalAlignment="Right"/>
         <ComboBox Grid.Row="0" Grid.Column="1" SelectionChanged="ScreenCombobox_SelectionChanged" x:Name="ScreenCombobox" DisplayMemberPath="ScreenName" SelectedValuePath="ScreenId" VerticalAlignment="Center" Margin="3"/>
-        <TextBlock Grid.Row="1" Grid.Column="0" Text="名称" Margin="3" VerticalAlignment="Center" HorizontalAlignment="Right"/>
+		<TextBlock Grid.Row="1" Grid.Column="0" Text="名称"  Style="{StaticResource lblStyle}" Margin="3" VerticalAlignment="Center" HorizontalAlignment="Right"/>
         <TextBox Grid.Row="1" Grid.Column="1" Text="{Binding ScreenName}" x:Name="ScreenNameTextBox" VerticalAlignment="Center" Margin="3"/>
-        <TextBlock Grid.Row="2" Grid.Column="0" Text="描述" Margin="3" VerticalAlignment="Center" HorizontalAlignment="Right"/>
+		<TextBlock Grid.Row="2" Grid.Column="0" Text="描述"  Style="{StaticResource lblStyle}" Margin="3" VerticalAlignment="Center" HorizontalAlignment="Right"/>
         <TextBox Grid.Row="2" Grid.Column="1" Text="{Binding ScreenDescription}" x:Name="ScreenDescriptionTextBox" VerticalAlignment="Center" Margin="3" AcceptsReturn="True" Height="50"/>
-        <TextBlock Grid.Row="3" Grid.Column="0" Text="图标" Margin="3" VerticalAlignment="Center" HorizontalAlignment="Right"/>
+		<TextBlock Grid.Row="3" Grid.Column="0" Text="图标"  Style="{StaticResource lblStyle}" Margin="3" VerticalAlignment="Center" HorizontalAlignment="Right"/>
         <StackPanel Grid.Row="3" Grid.Column="1" VerticalAlignment="Center" Margin="3" Orientation="Horizontal">
             <Image x:Name="ScreenImage" Source="{Binding ImageBuffer, Converter={x:Static lib:ImageBufferConverter.Instance}}" Stretch="UniformToFill" Height="48" Width="48" Margin="3"/>
-            <Button x:Name="BrowserButton" Content="浏览" Height="23" Width="75" VerticalAlignment="Center" Margin="3" Click="BrowserButton_Click"/>
+			<Button x:Name="BrowserButton" Content="浏览"  Style="{StaticResource editButtonStyle}" Height="23" Width="75" VerticalAlignment="Center" Margin="3" Click="BrowserButton_Click"/>
         </StackPanel>
         <StackPanel Grid.Row="4" Grid.ColumnSpan="2" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="3" Orientation="Horizontal">
-            <Button x:Name="OKButton" Content="确定" IsDefault="True" Height="23" Width="75" VerticalAlignment="Center" Margin="5" Click="OKButton_Click"/>
-            <Button x:Name="CancelButton"  Content="取消" IsCancel="True" Height="23" Width="75" VerticalAlignment="Center" Margin="5"/>
+			<Button x:Name="OKButton" Content="确定" Style="{StaticResource editButtonStyle}" IsDefault="True" Height="23" Width="75" VerticalAlignment="Center" Margin="5" Click="OKButton_Click"/>
+			<Button x:Name="CancelButton"  Content="取消" Style="{StaticResource editButtonStyle}" IsCancel="True" Height="23" Width="75" VerticalAlignment="Center" Margin="5"/>
         </StackPanel>
     </Grid>
 </Window>

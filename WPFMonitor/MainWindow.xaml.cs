@@ -34,36 +34,30 @@ namespace WPFMonitor
         public readonly PropertyWindow _propertyWindow = null;
         public readonly GalleryWindow _galleryWindow = null;
         public readonly ScreenShortcutWindow _shrotcutWindow = null;
-
+		public readonly AlertLogAdminWindow _AlertLogWindow = null;
         public MainWindow()
         {
-            //test t = new test();
-            //t.ShowDialog();
-            //return;
-            var loginWindow = new LoginWindow();
-            if (loginWindow.ShowDialog() == true)
-            {
-                InitializeComponent();
-                Global._MainWindow = this;
-                MonitorSystem.Common1.MainWin = Global._MainWindow;
-                ThemeFactory.ChangeTheme("Leather");
+			var loginWindow = new LoginWindow();
+			if (loginWindow.ShowDialog() == true)
+			{
+				InitializeComponent();
+				Global._MainWindow = this;
+				MonitorSystem.Common1.MainWin = Global._MainWindow;
+				ThemeFactory.ChangeTheme("Leather");
 
-                _screenTreeWindow = new ScreenTreeWindow();
-                _controlWindow = new ControlWindow();
-                _loadScreen = new LoadScreen();
-                _propertyWindow = new PropertyWindow();                
-                _galleryWindow = new GalleryWindow() { FloatingWindowSize = new Size(600, 200), };
-                _shrotcutWindow = new ScreenShortcutWindow();
-
-                //this.DataContext = ViewModel;
-                //this.Loaded += new RoutedEventHandler(MetroWindow_Loaded);
-                this.Title = string.Format("机房动力监控系统：{0}",  GlobalData.UserName);
-            }
-            else
-            {
-                Application.Current.Shutdown();
-            }
-            //return;
+				_screenTreeWindow = new ScreenTreeWindow();
+				_controlWindow = new ControlWindow();
+				_loadScreen = new LoadScreen();
+				_propertyWindow = new PropertyWindow();
+				_galleryWindow = new GalleryWindow() { FloatingWindowSize = new Size(600, 200), };
+				_shrotcutWindow = new ScreenShortcutWindow();
+				_AlertLogWindow = new AlertLogAdminWindow() { FloatingWindowSize = new Size(600, 200) };
+				this.Title = string.Format("机房动力监控系统：{0}", GlobalData.UserName);
+			}
+			else
+			{
+				Application.Current.Shutdown();
+			}
         }
 
         private void dockManager_Loaded(object sender, RoutedEventArgs e)
@@ -112,6 +106,7 @@ namespace WPFMonitor
             _loadScreen.TP = () =>
             {
                 _galleryWindow.Show(dockManager, AnchorStyle.Bottom);
+				_AlertLogWindow.Hide();
                 _propertyWindow.Show(dockManager, AnchorStyle.Left);
                 _controlWindow.Show(dockManager, AnchorStyle.Left);
                 _screenTreeWindow.Show(dockManager, AnchorStyle.Left);
@@ -123,6 +118,7 @@ namespace WPFMonitor
                 _controlWindow.Hide();
                 _galleryWindow.Hide();
                 _screenTreeWindow.Hide();
+				_AlertLogWindow.Show(dockManager, AnchorStyle.Bottom);
             };
 
             _loadScreen.DesignVisilityChanged = () => {
@@ -147,7 +143,9 @@ namespace WPFMonitor
                 }
             };
 
-            _shrotcutWindow.Show(dockManager, AnchorStyle.Left);
+            
+			_AlertLogWindow.Show(dockManager, AnchorStyle.Bottom);
+			_shrotcutWindow.Show(dockManager, AnchorStyle.Left);
         }
 
         #region 菜单事件
@@ -319,6 +317,10 @@ namespace WPFMonitor
                 }
             }
         }
+
+		protected void LoadScreen_Click(object sender, RoutedEventArgs e){
+			_loadScreen.ShowAsDocument(dockManager);
+		}
         #endregion
 
 
@@ -346,12 +348,11 @@ namespace WPFMonitor
 
         private void ZTExit_Click(object sender, RoutedEventArgs e)
         {
-            // 退出组态
-            OpartionMenuScriptItem.Visibility = Visibility.Collapsed;
-            ZTMenuScriptItem.Visibility = Visibility.Visible;
-            AllSencesMenuScriptItem.Visibility = Visibility.Visible;
-
             LoadScreen._instance.ZTExit_Click(null, null);
+			// 退出组态
+			OpartionMenuScriptItem.Visibility = Visibility.Collapsed;
+			ZTMenuScriptItem.Visibility = Visibility.Visible;
+			AllSencesMenuScriptItem.Visibility = Visibility.Visible;
         }
 
         #endregion

@@ -28,11 +28,14 @@ namespace MonitorSystem.Converters
             var img = new BitmapImage();
             if (value is byte[])
             {
-                img.BeginInit();
+				if ((value as byte[]).Length > 0)
+				{
+					img.BeginInit();
 
-                img.StreamSource = new MemoryStream((byte[])value);
+					img.StreamSource = new MemoryStream((byte[])value);
 
-                img.EndInit();
+					img.EndInit();
+				}
             }
             return img;
         }

@@ -3,11 +3,9 @@
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:chorme="clr-namespace:CustomChromeLibrary;assembly=CustomChromeLibrary"
     xmlns:shell="http://schemas.microsoft.com/winfx/2006/xaml/presentation/shell"
-    Title="登陆" Height="240" Width="350"
-    ShowInTaskbar="True" 
+    Title="登陆" Height="240" Width="350" ShowInTaskbar="True" 
     WindowStartupLocation="CenterScreen"
-    ResizeMode="NoResize"
-    >
+    ResizeMode="NoResize" Icon="/WPFMonitor;component/Monitor.ico">
     <Window.Background>
         <ImageBrush ImageSource="../Resources/Images/background.jpg"/>
     </Window.Background>
