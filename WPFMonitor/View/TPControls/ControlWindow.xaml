@@ -7,7 +7,7 @@
         Title="设计" Height="300" Width="300" Background="{x:Null}">
     <dock:DockableContent.Resources>
         <Style TargetType="ListBox">
-            <Setter Property="Background" Value="{x:Null}"/>
+            <Setter Property="Background" Value="{DynamicResource {ComponentResourceKey {x:Type dock:DockingManager}, {x:Static dock:DockingLibraryBrushes.DefaultBackgroundBrush}}}"/>
             <Setter Property="Foreground" Value="{DynamicResource {ComponentResourceKey {x:Type dock:DockingManager}, {x:Static dock:DockingLibraryBrushes.DockablePaneTitleForeground}}}"/>
             <Setter Property="ItemContainerStyle">
                 <Setter.Value>
@@ -44,18 +44,14 @@
     <Grid>
         <layout:Accordion x:Name="accordion" VerticalAlignment="Stretch" VerticalContentAlignment="Stretch"  HorizontalAlignment="Stretch" HorizontalContentAlignment="Stretch" SelectionChanged="accordion_SelectionChanged">
             <layout:AccordionItem Header="拓扑控件" HorizontalAlignment="Stretch" HorizontalContentAlignment="Stretch">
-                <Grid HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Background="{DynamicResource {ComponentResourceKey {x:Type dock:DockingManager}, {x:Static dock:DockingLibraryBrushes.DefaultBackgroundBrush}}}"
-                Width="{Binding RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type Grid}}, Path=ActualWidth}"
-                Height="{Binding RelativeSource={RelativeSource FindAncestor,AncestorType={x:Type Grid}}, Path=ActualHeight}">
+                
                     <ListBox x:Name="tpListBox" SelectionChanged="Control_SelectionChanged" ItemsSource="{Binding TPControls}"/>
-                </Grid>
+               
             </layout:AccordionItem>
             <layout:AccordionItem Header="组态控件" HorizontalAlignment="Stretch" HorizontalContentAlignment="Stretch" >
-                <Grid HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Background="{DynamicResource {ComponentResourceKey {x:Type dock:DockingManager}, {x:Static dock:DockingLibraryBrushes.DefaultBackgroundBrush}}}"
-                    Width="{Binding RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type Grid}}, Path=ActualWidth}"
-                    Height="{Binding RelativeSource={RelativeSource FindAncestor,AncestorType={x:Type Grid}}, Path=ActualHeight}">
+                  
                     <ListBox x:Name="ztListBox" SelectionChanged="Control_SelectionChanged" ItemsSource="{Binding ZTControls}"/>
-                </Grid>
+                
             </layout:AccordionItem>
             <layout:AccordionItem Header="公共控件" HorizontalAlignment="Stretch" HorizontalContentAlignment="Stretch">
                 <Grid HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Background="{DynamicResource {ComponentResourceKey {x:Type dock:DockingManager}, {x:Static dock:DockingLibraryBrushes.DefaultBackgroundBrush}}}"
