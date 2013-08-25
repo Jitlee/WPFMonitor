@@ -110,6 +110,7 @@ namespace MonitorSystem.Other
                 RealtimeProperty rp = new RealtimeProperty();
                 rp.RealTimeData = this;
                 rp.Init();
+                rp.Owner = Common1.MainWin;
                 rp.Show();
                 Number = 0;
             }
@@ -258,6 +259,7 @@ namespace MonitorSystem.Other
             RealtimeProperty rp = new RealtimeProperty();
             rp.RealTimeData = this;
             rp.Init();
+            rp.Owner = Common1.MainWin;
             rp.Show();
         }
 
@@ -1182,6 +1184,7 @@ namespace MonitorSystem.Other
 
             _CanvasLine.Children.Clear();
             _CanvasPoint.Children.Clear();
+            
             if (IsShowLegend)
             {
                 LineList.Visibility = System.Windows.Visibility.Visible;
@@ -1916,6 +1919,7 @@ namespace MonitorSystem.Other
             }
 
             CWLineProperty cwline = new CWLineProperty(selectLine,this);
+            cwline.Owner = Common1.MainWin;
             cwline.Show();
         }
 
@@ -1935,6 +1939,7 @@ namespace MonitorSystem.Other
             }
 
             CWLineProperty cwline = new CWLineProperty(selectLine,true);
+            cwline.Owner = Common1.MainWin;
             cwline.Show();
         }
 

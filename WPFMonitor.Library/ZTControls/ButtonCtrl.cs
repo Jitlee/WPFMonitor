@@ -117,6 +117,7 @@ namespace MonitorSystem.ZTControls
         private void PropertyMenuItem_Click(object sender, RoutedEventArgs e)
         {
             var tpp = new TP_ButtonSetProperty(this);
+            tpp.Owner = Common1.MainWin;
             tpp.Show();
         }
         #endregion

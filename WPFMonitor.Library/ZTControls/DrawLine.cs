@@ -65,6 +65,7 @@ namespace MonitorSystem.ZTControls
                 tppLine.MaxFloat = this.ScreenElement.MaxFloat.Value;
             }
             tppLine.Init();
+            tppLine.Owner = Common1.MainWin;
             tppLine.Show();
         }
 

@@ -162,6 +162,7 @@ namespace MonitorSystem.MonitorSystemGlobal
         {
             tppSet.Closing += tppSet_Closing;
             tppSet.Screen = GetChildScreenID();
+            tppSet.Owner = Common1.MainWin;
             tppSet.Show();
         }
 

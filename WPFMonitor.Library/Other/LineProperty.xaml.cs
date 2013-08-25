@@ -13,6 +13,7 @@ using System.Collections.ObjectModel;
 using System.ComponentModel;
 using WPFMonitor.Model.ZTControls;
 using WPFMonitor.DAL.ZTControls;
+using System.Threading.Tasks;
 
 namespace MonitorSystem.Other
 {
@@ -154,58 +155,78 @@ namespace MonitorSystem.Other
             t_Device d = (t_Device)cbDeviceID.Items[cbDeviceID.SelectedIndex];
             LoadChanncel(d.DeviceID);
         }
-        private void LoadChanncel(int deviceid, int ChanncelID)
-        {
-            //_DataCV.Load(_DataCV.GetT_ChannelQuery().Where(a => a.DeviceID == deviceid),
-            //    LoadChanncelCommplete, ChanncelID);
-        }
         private void LoadChanncel(int deviceid)
         {
-            //_DataCV.Load(_DataCV.GetT_ChannelQuery().Where(a => a.DeviceID == deviceid),
-            //    LoadChanncelCommplete, null);
-        }
-
-
-        private void LoadChanncelCommplete(int deviceid, int ChanncelID)
-        {
-            try
-            {
-                ObservableCollection<t_Channel> result = new ChannelDA().selectAllDate();
-                if (result.Count > 0)
+            
+                try
                 {
-                    Channels = result;
-                    cbChanncel.ItemsSource = Channels;
-                    var vc = result.Where(a => a.ChannelNo == Convert.ToInt32(ChanncelID));
-                    if (vc.Count() > 0)
-                    {
-                        cbChanncel.SelectedItem = vc.First();
-                    }
+                    var channels = new ChannelDA().selectBy(deviceid);                   
+                    //LoadChanncelCommplete(channels);
+                    cbChanncel.ItemsSource = channels;
                 }
-            }
-            catch (Exception ex)
-            {
-                MessageBox.Show(ex.Message, "出错啦！", MessageBoxButton.OK);
-                return;
-            }
+                catch (Exception ex)
+                {
+                    MessageBox.Show("LoadChanncel出错了" + ex.Message);
+                }
+           
         }
 
-        private void LoadChanncelCommplete(int deviceid)
-        {
-            try
-            {
-                ObservableCollection<t_Channel> result = new ChannelDA().selectAllDate();
-                if (result.Count > 0)
-                {
-                    Channels = result;
-                    cbChanncel.ItemsSource = Channels;
-                }
-            }
-            catch (Exception ex)
-            {
-                MessageBox.Show(ex.Message, "出错啦！", MessageBoxButton.OK);
-                return;
-            }
-        }
+        //private void LoadChanncelCommplete(List<t_Channel> result)
+        //{
+        //    var v = result;
+        //    if (v.Count() > 0)
+        //    {                
+        //        Channels = new ObservableCollection<t_Channel>(v);
+        //        var vc = v.Where(a => a.ChannelNo == _ChanncelID);
+        //        if (vc.Count() > 0)
+        //        {
+                    
+        //            // cbChanncel.DisplayMemberPath = "ChannelName";
+        //        }
+        //    }
+        //}
+
+
+        //private void LoadChanncelCommplete(int deviceid, int ChanncelID)
+        //{
+        //    try
+        //    {
+        //        ObservableCollection<t_Channel> result = new ChannelDA().selectAllDate();
+        //        if (result.Count > 0)
+        //        {
+        //            Channels = result;
+        //            cbChanncel.ItemsSource = Channels;
+        //            var vc = result.Where(a => a.ChannelNo == Convert.ToInt32(ChanncelID));
+        //            if (vc.Count() > 0)
+        //            {
+        //                cbChanncel.SelectedItem = vc.First();
+        //            }
+        //        }
+        //    }
+        //    catch (Exception ex)
+        //    {
+        //        MessageBox.Show(ex.Message, "出错啦！", MessageBoxButton.OK);
+        //        return;
+        //    }
+        //}
+
+        //private void LoadChanncelCommplete(int deviceid)
+        //{
+        //    try
+        //    {
+        //        ObservableCollection<t_Channel> result = new ChannelDA().selectAllDate();
+        //        if (result.Count > 0)
+        //        {
+        //            Channels = result;
+        //            cbChanncel.ItemsSource = Channels;
+        //        }
+        //    }
+        //    catch (Exception ex)
+        //    {
+        //        MessageBox.Show(ex.Message, "出错啦！", MessageBoxButton.OK);
+        //        return;
+        //    }
+        //}
         #endregion
 
        
@@ -285,7 +306,7 @@ namespace MonitorSystem.Other
 
                 if (null != v)
                 {
-                    LoadChanncel(v.DeviceID, obj.ChannelNo);
+                    LoadChanncel(v.DeviceID);
                 }
                 //}
                 //else

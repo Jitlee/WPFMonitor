@@ -1942,6 +1942,8 @@ namespace WPFMonitor.View.TPControls
 						EleDA.DeleteRealTimeLine(obj.ScreenElement.ElementID);
 						foreach (RealTimeLineOR LineObj in (obj as RealTimeT).ListRealTimeLine)
 						{
+                            LineObj.LineInfo.ScreenID = _CurrentScreen.ScreenID;
+                            LineObj.LineInfo.ElementID = obj.ScreenElement.ElementID;
 							EleDA.InsertRealTimeT(LineObj.LineInfo);
 						}
 					}
