@@ -446,7 +446,7 @@ namespace WPFMonitor.View.TPControls
 
         private void GridScreen_MouseRightButtonDown(object sender, MouseButtonEventArgs e)
         {
-            if (e.Source is MonitorSystem.Adorner)
+            if (e.Source is MonitorSystem.Adorner || e.Source is ToolTipControl || e.Source is BackgroundControl)
             {
                 GridScreen.MouseRightButtonUp -= GridScreen_MouseRightButtonUp;
                 return;
