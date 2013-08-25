@@ -68,7 +68,7 @@ namespace MonitorSystem.Other
             _PolyLine.StrokeThickness = 0.5;
             _PolyLine.Points = pc;
             _PolyLine.SetValue(Canvas.ZIndexProperty, 999);
-            _PolyLine.Name = _LineInfo.ID;
+            _PolyLine.Name = "Name"+ _LineInfo.ID;
             SetPolyLine();
             //曲线点
             noteMessages = new CoordinatesValue[maxNote];
@@ -722,7 +722,7 @@ namespace MonitorSystem.Other
                 if (_RealtimeObj._CanvasPoint.Children[c] is Rectangle)
                 {
                     Rectangle ee = _RealtimeObj._CanvasPoint.Children[c] as Rectangle;
-                    if (ee.Name.IndexOf(_LineInfo.ID) == 0)
+                    if (ee.Name.IndexOf("Name" + _LineInfo.ID) == 0)
                     {
                         removeEll.Add(ee);
                     }

@@ -17,7 +17,9 @@
 					</DataGridTemplateColumn.CellTemplate>
 				</DataGridTemplateColumn>
 				<DataGridTextColumn Header="站点" Width="80*" Binding="{Binding Path=StationName}"/>
-				<DataGridTextColumn Header="告警级别" Width="160*" Binding="{Binding Path=AlarmLevel}"/>
+                <DataGridTextColumn Header="设备" Width="80*" Binding="{Binding Path=DeviceName}"/>
+                <DataGridTextColumn Header="告警类型" Width="100" Binding="{Binding Path=AlarmType}"/>
+				<DataGridTextColumn Header="告警级别" Width="80" Binding="{Binding Path=AlarmLevel}"/>
 				<DataGridTextColumn Header="内容" Width="80*" Binding="{Binding Path=Content}"/>
 				<DataGridTextColumn Header="发生时间" Width="80*" Binding="{Binding Path=HappenTime}"/>
 			</DataGrid.Columns>
