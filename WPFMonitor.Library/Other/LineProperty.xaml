@@ -14,19 +14,19 @@
         <TabControl Margin="0,0,41,35">
             <TabItem  x:Name="tbItemInfo" Header="画笔">
                 <Grid x:Name="GridItemInfo">
-                    <Label Content="名称：" Height="28" Margin="32,10,502,120" />
+					<Label Content="名称："   Height="28" Margin="21,10,502,120" />
                     <TextBox Height="22" HorizontalAlignment="Right" Margin="0,10,376,0" Name="LineName" VerticalAlignment="Top" Width="120" />
-                    <Label Content="取值：" Height="24" Margin="223,14,310,0" VerticalAlignment="Top" />
+					<Label Content="取值："  Height="24" Margin="212,14,310,0" VerticalAlignment="Top" />
                     <ComboBox Height="23" HorizontalAlignment="Left" Margin="264,14,0,0" Name="LineCZ" VerticalAlignment="Top" Width="120">
                         <ComboBoxItem Content="瞬时取值" />
                     </ComboBox>
-                    <Label Content="类型：" Height="28" Margin="427,10,112,120" />
+					<Label Content="类型："  Height="28" Margin="416,10,106,120" />
                     <ComboBox Height="23" HorizontalAlignment="Left" Margin="469,12,0,0" Name="LineShowType" VerticalAlignment="Top" Width="93">
                         <ComboBoxItem Content="直连线" />
                         <!--<ComboBoxItem Content="阶梯线" />-->
                         <ComboBoxItem />
                     </ComboBox>
-                    <Label Content="样式：" Height="28" Margin="31,49,500,81" />
+					<Label Content="样式："   Height="28" Margin="21,49,500,81" />
                     <ComboBox Height="28" HorizontalAlignment="Left" Margin="72,48,0,0" Name="LineStyle" VerticalAlignment="Top" Width="120">
                         <ComboBoxItem>
                             <ComboBoxItem.Content>
@@ -71,7 +71,7 @@
                         <ComboBoxItem Content="不显示线">
                         </ComboBoxItem>
                     </ComboBox>
-                    <Label Content="标记：" Height="28" Margin="223,46,318,84" />
+					<Label Content="标记：" Height="28" Margin="212,46,310,84" />
                     <ComboBox Height="23" HorizontalAlignment="Left" Margin="264,51,0,0" Name="LinePointBJ" VerticalAlignment="Top" Width="120">
                         <ComboBoxItem Content="不画点" />
                         <ComboBoxItem>
@@ -91,22 +91,22 @@
                             </ComboBoxItem.Content>
                         </ComboBoxItem>
                     </ComboBox>
-                    <Label Content="颜色：" Height="28" Margin="427,46,112,84" />
+					<Label Content="颜色："  Height="28" Margin="417,46,105,84" />
                     <my:ColorPicker FontSize="12" Height="25" HorizontalAlignment="Left" Margin="469,46,0,0" x:Name="LineColor" VerticalAlignment="Top" Width="45" />
-                    <Label Content="低限：" Height="28" Margin="31,81,503,49" />
+					<Label Content="低限："  Height="28" Margin="21,81,499,49" />
                     <TextBox Height="23" HorizontalAlignment="Right" Margin="0,83,375,52" Name="MinValue" Width="120" />
-                    <Label Content="高限：" Height="28" Margin="223,81,318,49" />
+					<Label Content="高限："  Height="28" Margin="212,81,310,49" />
                     <TextBox Height="23" HorizontalAlignment="Right" Margin="0,83,183,52" Name="MaxValue" Width="120" />
-                    <Label Content="小数：" Height="28" HorizontalAlignment="Left" Margin="427,83,0,47" Width="37" />
+					<Label Content="小数：" Height="28" HorizontalAlignment="Left" Margin="418,83,0,47" Width="46" />
                     <toolkit:DoubleUpDown Height="22" HorizontalAlignment="Left" Margin="469,82,0,0" Maximum="31" Minimum="0" Name="ValueDecimal" VerticalAlignment="Top" Width="48" />
-                    <TextBlock Height="20" HorizontalAlignment="Right" Margin="0,125,502,13" Text="关联设备：" />
+					<Label HorizontalAlignment="Right" Margin="0,125,502,6" Content="关联设备：" />
                     <ComboBox Height="29" HorizontalAlignment="Left" ItemsSource="{Binding Devices}" Margin="71,116,0,13" Name="cbDeviceID"
                               SelectedItem="{Binding SelectedDevices, Mode=TwoWay}" Width="121"  SelectionChanged="cbDeviceID_SelectionChanged" />
-                    
-                    <TextBlock Height="20" HorizontalAlignment="Right" Margin="0,125,309,13" Text="关联通道：" />
+
+					<Label HorizontalAlignment="Right" Margin="0,125,309,6" Content="关联通道：" />
                     <ComboBox DisplayMemberPath="ChannelName" Height="27" HorizontalAlignment="Right" Margin="0,116,182,15" Name="cbChanncel" Width="121" />
-                    <Label Content="逻辑表达式：" Height="28" Margin="401,119,96,11" />
-                    <TextBox Height="23" HorizontalAlignment="Right" Margin="0,121,5,14" Name="ComputeStr" Width="93" />
+                    <Label Content="逻辑表达式：" Margin="393,119,96,6" />
+					<TextBox Height="23"  HorizontalAlignment="Right" Margin="0,121,5,14" Name="ComputeStr" Width="93" />
                 </Grid>
             </TabItem>
             <TabItem Header="时间" x:Name="tbTime">
@@ -122,40 +122,40 @@
                     <Label Content="开始时间：" Height="28" HorizontalAlignment="Left" Margin="25,61,0,0" Name="label3" VerticalAlignment="Top" Width="64" />
                     <toolkit:IntegerUpDown Height="22" HorizontalAlignment="Left" Margin="89,61,0,0" Name="ShowYear" VerticalAlignment="Top"
                                                        Width="57" Minimum="1900" Maximum="2100" />
-                    <Label Content="年" Height="26" HorizontalAlignment="Left" Margin="152,63,0,0" Name="label4" VerticalAlignment="Top" Width="20" />
+                    <Label Content="年" Height="26" HorizontalAlignment="Left" Margin="151,61,0,0" Name="label4" VerticalAlignment="Top" Width="20" />
 
                     <toolkit:IntegerUpDown Height="22" HorizontalAlignment="Left" Margin="171,61,0,0" Name="ShowMonth" VerticalAlignment="Top"
                                                        Minimum="1" Maximum="12"/>
-                    <Label Content="月" Height="26" HorizontalAlignment="Left" Margin="211,62,0,0" Name="label5" VerticalAlignment="Top" Width="20" />
+                    <Label Content="月" Height="26" HorizontalAlignment="Left" Margin="210,61,0,0" Name="label5" VerticalAlignment="Top" Width="20" />
 
                     <toolkit:IntegerUpDown Height="22" HorizontalAlignment="Left" Margin="229,62,0,0" Name="ShowDay" VerticalAlignment="Top" 
                                                        Minimum="1" Maximum="31"/>
-                    <Label Content="日" Height="25" HorizontalAlignment="Left" Margin="271,64,0,0" Name="label6" VerticalAlignment="Top" Width="20" />
+                    <Label Content="日" Height="25" HorizontalAlignment="Left" Margin="271,62,0,0" Name="label6" VerticalAlignment="Top" Width="20" />
 
                     <toolkit:IntegerUpDown Height="22" Margin="309,62,222,0" Name="ShowHH" VerticalAlignment="Top"
                                                        Minimum="0" Maximum="23"/>
-                    <Label Content="时" Height="25" HorizontalAlignment="Left" Margin="351,64,0,0" Name="label7" VerticalAlignment="Top" Width="20" />
+                    <Label Content="时" Height="25" HorizontalAlignment="Left" Margin="350,62,0,0" Name="label7" VerticalAlignment="Top" Width="26" />
 
                     <toolkit:IntegerUpDown Height="22" HorizontalAlignment="Left" Margin="369,64,0,0" Name="ShowMi" VerticalAlignment="Top"
                                                        Minimum="0" Maximum="59"/>
-                    <Label Content="分" Height="23" HorizontalAlignment="Left" Margin="412,66,0,0" Name="label8" VerticalAlignment="Top" Width="20" />
+                    <Label Content="分" Height="23" HorizontalAlignment="Left" Margin="410,64,0,0" Name="label8" VerticalAlignment="Top" Width="20" />
 
                     <toolkit:IntegerUpDown Height="22" HorizontalAlignment="Left" Margin="429,64,0,0" Name="ShowSS" VerticalAlignment="Top" 
                                                        Minimum="0" Maximum="59"/>
-                    <Label Content="秒" Height="23" HorizontalAlignment="Left" Margin="472,66,0,0" Name="label9" VerticalAlignment="Top" Width="25" />
+                    <Label Content="秒" Height="23" HorizontalAlignment="Left" Margin="470,64,0,0" Name="label9" VerticalAlignment="Top" Width="25" />
 
-                    <Label  Name="label10" Content="时间长度：" Height="30" HorizontalAlignment="Left" Margin="29,110,0,0" VerticalAlignment="Top" Width="60" />
+                    <Label  Name="label10" Content="时间长度：" Height="30" HorizontalAlignment="Left" Margin="29,106,0,0" VerticalAlignment="Top" Width="60" />
                     <TextBox HorizontalAlignment="Right"  Name="TimeLen" Width="57" Margin="0,107,421,30" />
-                    <ComboBox Height="23" HorizontalAlignment="Right" Margin="0,106,357,0" Name="TimeLenType" VerticalAlignment="Top" Width="56">
+                    <ComboBox Height="23" HorizontalAlignment="Right" Margin="0,108,357,0" Name="TimeLenType" VerticalAlignment="Top" Width="56">
                         <ComboBoxItem Content="秒" />
                         <ComboBoxItem Content="分" />
                         <ComboBoxItem Content="时" />
                         <ComboBoxItem Content="日" />
                     </ComboBox>
 
-                    <Label Content="采样周期：" Height="22" HorizontalAlignment="Left" Margin="252,109,0,0" Name="label11" VerticalAlignment="Top" Width="60" />
+                    <Label Content="采样周期：" Height="26" HorizontalAlignment="Left" Margin="242,107,0,0" Name="label11" VerticalAlignment="Top" Width="71" />
                     <TextBox HorizontalAlignment="Right"  Name="LineCYZQLent" Width="51" Height="23" Margin="0,106,208,0" VerticalAlignment="Top" />
-                    <ComboBox Height="23" HorizontalAlignment="Left" Margin="368,107,0,0" Name="LineCYZQType" VerticalAlignment="Top" Width="56">
+                    <ComboBox Height="23" HorizontalAlignment="Left" Margin="368,108,0,0" Name="LineCYZQType" VerticalAlignment="Top" Width="56">
                         <ComboBoxItem Content="秒"  />
                         <ComboBoxItem Content="分" />
                         <ComboBoxItem Content="时" />

@@ -35,7 +35,12 @@
                 <Setter  Property="Margin" Value="10 0"></Setter>
                 <Setter Property="Foreground" Value="{DynamicResource {ComponentResourceKey {x:Type custom:DockingManager}, {x:Static custom:DockingLibraryBrushes.DockablePaneTitleForeground}}}"/>
             </Style>
-            <!--按钮-->
+			<Style x:Key="LabelStyle" TargetType="Label">
+				<Setter  Property="HorizontalAlignment" Value="Right"></Setter>
+				<Setter Property="VerticalAlignment" Value="Center"></Setter>
+				<Setter Property="Foreground" Value="{DynamicResource {ComponentResourceKey {x:Type custom:DockingManager}, {x:Static custom:DockingLibraryBrushes.DockablePaneTitleForeground}}}"/>
+			</Style>
+			<!--按钮-->
             <Style x:Key="editButtonStyle" TargetType="Button">
                 <Setter  Property="HorizontalAlignment" Value="Right"></Setter>
                 <Setter Property="VerticalAlignment" Value="Center"></Setter>
@@ -581,16 +586,12 @@
                 <Setter Property="Foreground" Value="{DynamicResource {ComponentResourceKey {x:Type custom:DockingManager}, {x:Static custom:DockingLibraryBrushes.DockablePaneTitleForeground}}}"/>
             </Style>
 
-
-
-
-            
-            
+			<Style TargetType="TabControl">
+				<Setter Property="Background" Value="{DynamicResource {ComponentResourceKey {x:Type custom:DockingManager}, {x:Static custom:DockingLibraryBrushes.DefaultBackgroundBrush}}}"/>
+				<Setter Property="Foreground" Value="{DynamicResource {ComponentResourceKey {x:Type custom:DockingManager}, {x:Static custom:DockingLibraryBrushes.DockablePaneTitleForeground}}}"/>
+			</Style>
 
 
         </ResourceDictionary>
-
-        
-        
     </Application.Resources>
 </Application>
