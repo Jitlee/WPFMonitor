@@ -26,6 +26,7 @@ namespace WPFMonitor.View.TPControls
         {
             InitializeComponent();
             this.Loaded += new RoutedEventHandler(ControlWindow_Loaded);
+            TPButton.IsChecked = true;
             Instance = this;
         }
 
