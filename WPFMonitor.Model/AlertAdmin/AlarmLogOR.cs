@@ -12,6 +12,8 @@ namespace WPFMonitor.Model.AlertAdmin
 		public DateTime HappenTime { get; set; }
 		public int AlarmLevel { get; set; }
 		public string StationName { get; set; }
+        public string DeviceName { get; set; }
+        public string AlarmType { get; set; }
 		public int AlarmLogID { get; set; }
 
 		public AlarmLogOR(DataRow dr)
@@ -21,6 +23,8 @@ namespace WPFMonitor.Model.AlertAdmin
 			HappenTime = Convert.ToDateTime(dr["HappenTime"]);
 			AlarmLevel = Convert.ToInt32(dr["AlarmLevel"]);
 			StationName = dr["StationName"].ToString();
+            DeviceName = dr["DeviceName"].ToString();
+            AlarmType = dr["AlarmType"].ToString();
 		}
 	}
 }

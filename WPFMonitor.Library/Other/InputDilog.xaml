@@ -3,7 +3,7 @@
            xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" 
            Width="402" Height="132"  WindowStartupLocation="CenterOwner" ShowInTaskbar="False" ResizeMode="NoResize"
            Title="数值输入" xmlns:sdk="http://schemas.microsoft.com/winfx/2006/xaml/presentation/sdk" Loaded="ChildWindow_Loaded"
-        xmlns:custom="clr-namespace:DockingLibrary;assembly=DockingLibrary"
+        xmlns:custom="clr-namespace:DockingLibrary;assembly=DockingLibrary" 
         Background="{DynamicResource {ComponentResourceKey {x:Type custom:DockingManager}, {x:Static custom:DockingLibraryBrushes.DefaultBackgroundBrush}}}">
         
     <Grid x:Name="LayoutRoot" Margin="2">

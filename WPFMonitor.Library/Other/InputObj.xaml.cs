@@ -99,7 +99,7 @@ namespace MonitorSystem.Other
             obj.MaxValue = _MaxValue;
             obj.DataType = _DataType;
             obj.InputValueObj = this;
-
+            obj.Owner = Common1.MainWin;
             obj.Show();
         }
     }

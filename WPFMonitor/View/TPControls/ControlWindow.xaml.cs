@@ -50,15 +50,15 @@ namespace WPFMonitor.View.TPControls
         public t_Control GetSelected()
         {
             ListBox listBox = null;
-            if (accordion.SelectedIndex == 0)
+            if (TPButton.IsChecked == true)
             {
                 listBox = tpListBox;
             }
-            else if (accordion.SelectedIndex == 1)
+            else if (ZTButton.IsChecked == true)
             {
                 listBox = ztListBox;
             }
-            else if (accordion.SelectedIndex == 2)
+            else if (GGButton.IsChecked == true)
             {
                 listBox = ggListBox;
             }
@@ -88,6 +88,45 @@ namespace WPFMonitor.View.TPControls
         private void accordion_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
             ResetSelected();
+        }
+
+        private void TPButton_Checked(object sender, RoutedEventArgs e)
+        {
+            tpListBox.Visibility = Visibility.Visible;
+            TPRow.Height = new GridLength(1, GridUnitType.Star);
+            ztListBox.Visibility = Visibility.Collapsed;
+            ggListBox.Visibility = Visibility.Collapsed;
+            ZTRow.Height = new GridLength(1, GridUnitType.Auto);
+            GGRow.Height = new GridLength(1, GridUnitType.Auto);
+
+            ZTButton.IsChecked = false;
+            GGButton.IsChecked = false;
+        }
+
+        private void ZTButton_Checked(object sender, RoutedEventArgs e)
+        {
+            ztListBox.Visibility = Visibility.Visible;
+            ZTRow.Height = new GridLength(1, GridUnitType.Star);
+            tpListBox.Visibility = Visibility.Collapsed;
+            ggListBox.Visibility = Visibility.Collapsed;
+            TPRow.Height = new GridLength(1, GridUnitType.Auto);
+            GGRow.Height = new GridLength(1, GridUnitType.Auto);
+
+            TPButton.IsChecked = false;
+            GGButton.IsChecked = false;
+        }
+
+        private void GGButton_Checked(object sender, RoutedEventArgs e)
+        {
+            ggListBox.Visibility = Visibility.Visible;
+            GGRow.Height = new GridLength(1, GridUnitType.Star);
+            ztListBox.Visibility = Visibility.Collapsed;
+            tpListBox.Visibility = Visibility.Collapsed;
+            ZTRow.Height = new GridLength(1, GridUnitType.Auto);
+            TPRow.Height = new GridLength(1, GridUnitType.Auto);
+
+            ZTButton.IsChecked = false;
+            TPButton.IsChecked = false;
         }
     }
 }

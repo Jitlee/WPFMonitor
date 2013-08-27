@@ -4,6 +4,7 @@
 		Width="605" Height="273"  Title="曲线属性" xmlns:my="clr-namespace:MonitorSystem.Other"
 		xmlns:custom="clr-namespace:DockingLibrary;assembly=DockingLibrary"
 		Background="{DynamicResource {ComponentResourceKey {x:Type custom:DockingManager}, {x:Static custom:DockingLibraryBrushes.DefaultBackgroundBrush}}}">
+
     <Grid x:Name="LayoutRoot" Margin="2">
         <Grid.RowDefinitions>
             <RowDefinition />

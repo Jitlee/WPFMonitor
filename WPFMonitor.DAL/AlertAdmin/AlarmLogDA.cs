@@ -12,26 +12,30 @@ namespace WPFMonitor.DAL.AlertAdmin
 	{
 		public ObservableCollection<AlarmLogOR> SelectAllLog()
 		{
-			string sql = @"SELECT TOP 50 
-	   [AlarmLogID]
-      ,t_Station.[StationID]
-      ,[Content]
-      ,[HappenTime]
-      ,[DeviceID]
-      ,[RelieveTime]
-      ,[AlarmLevel]
-      ,[OperateUserID]
-      ,[MonitorValue]
-      ,[PolicyID]
-      ,AlarmLeftTime
-      ,EventsName
-      ,AlarmType
-      ,LastTime
-      ,t_Station.StationName
-  FROM t_AlarmLog
-  LEFT JOIN  t_Station ON t_Station.StationID= t_AlarmLog.StationID  
-  WHERE RelieveTime IS NULL
-  ORDER BY HappenTime DESC";
+//            string sql = @"SELECT TOP 50 
+//	   [AlarmLogID]
+//      ,t_Station.[StationID]
+//      ,[Content]
+//      ,[HappenTime]
+//      ,[DeviceID]
+//      ,[RelieveTime]
+//      ,[AlarmLevel]
+//      ,[OperateUserID]
+//      ,[MonitorValue]
+//      ,[PolicyID]
+//      ,AlarmLeftTime
+//      ,EventsName
+//      ,AlarmType
+//      ,LastTime
+//      ,t_Station.StationName
+//  FROM t_AlarmLog
+//  LEFT JOIN  t_Station ON t_Station.StationID= t_AlarmLog.StationID  
+//  WHERE RelieveTime IS NULL
+//  ORDER BY HappenTime DESC";
+            string sql = @"select top 50 alrm.*,dev.DeviceName,sta.StationName  from t_AlarmLog 
+alrm,t_Device  dev,t_Station sta
+where  alrm.DeviceID=dev.DeviceID 
+and alrm.stationid= sta.StationID order by HappenTime  desc";
 			DataTable dt = db.ExecuteQuery(sql);
 			if (dt == null)
 				return null;

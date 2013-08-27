@@ -446,7 +446,7 @@ namespace WPFMonitor.View.TPControls
 
         private void GridScreen_MouseRightButtonDown(object sender, MouseButtonEventArgs e)
         {
-            if (e.Source is MonitorSystem.Adorner)
+            if (e.Source is MonitorSystem.Adorner || e.Source is ToolTipControl || e.Source is BackgroundControl)
             {
                 GridScreen.MouseRightButtonUp -= GridScreen_MouseRightButtonUp;
                 return;
@@ -1942,6 +1942,8 @@ namespace WPFMonitor.View.TPControls
 						EleDA.DeleteRealTimeLine(obj.ScreenElement.ElementID);
 						foreach (RealTimeLineOR LineObj in (obj as RealTimeT).ListRealTimeLine)
 						{
+                            LineObj.LineInfo.ScreenID = _CurrentScreen.ScreenID;
+                            LineObj.LineInfo.ElementID = obj.ScreenElement.ElementID;
 							EleDA.InsertRealTimeT(LineObj.LineInfo);
 						}
 					}
