@@ -243,27 +243,8 @@ namespace MonitorSystem.MonitorSystemGlobal
             var property = ListElementProp.FirstOrDefault(p => string.Equals(p.PropertyName, name, StringComparison.CurrentCultureIgnoreCase));
             if (null != property)
             {
-                property.PropertyValue = null == value ? string.Empty : value.ToString();
+                property.PropertyValue =( null == value ? string.Empty : value.ToString());
             }
-            //else if (null != ScreenElement && null != value)
-            //{
-            //    var max = ListElementProp.Max(t => t.PropertyNo);
-            //    ListElementProp.Add(new t_ElementProperty()
-            //    {
-            //        ElementID = ScreenElement.ElementID,
-            //        PropertyName = name,
-            //        PropertyValue = value.ToString(),
-            //        PropertyNo = max
-            //    });
-            //}
-            //foreach (t_ElementProperty ep in ListElementProp)
-            //{
-            //    if (ep.PropertyName.Trim().ToUpper() == name.Trim().ToUpper())
-            //    {
-            //        ep.PropertyValue = value.ToString();
-            //        //break;
-            //    }
-            //}
         }
 
         private string[] m_BrowsableProperties = new string[] { "Left", "Top", "Width", "Height", "FontFamily", "FontSize", "Translate", "Foreground" };

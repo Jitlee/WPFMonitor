@@ -11,7 +11,7 @@
             <RowDefinition />
             <RowDefinition Height="Auto" />
         </Grid.RowDefinitions>
-        <TextBlock Text="请输入：" Margin="12,24,300,11"></TextBlock>
+		<TextBlock Text="请输入："  Style="{StaticResource lblStyle}"  Margin="12,24,300,11"></TextBlock>
         <Button x:Name="CancelButton" Content="取消" Click="CancelButton_Click" Width="75" Height="23" HorizontalAlignment="Right" Margin="0,12,0,0" Grid.Row="1" />
         <Button x:Name="OKButton" Content="确定" Click="OKButton_Click" Width="75" Height="23" HorizontalAlignment="Right" Margin="0,12,79,0" Grid.Row="1" />
         <TextBox Height="23" HorizontalAlignment="Left" Margin="61,24,0,0" Name="txtValue" VerticalAlignment="Top" Width="307" />
