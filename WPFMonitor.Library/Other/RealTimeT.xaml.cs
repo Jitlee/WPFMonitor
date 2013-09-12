@@ -47,7 +47,7 @@ namespace MonitorSystem.Other
 
             this.BackColor = Common1.StringToColor("#FFD5D5FF");
             ForeColor = Common1.StringToColor("#FFD5D5FF");
-            InitBG();
+            //InitBG();
             //this.Width = 400;
             //this.Height = 400;
 
@@ -63,14 +63,14 @@ namespace MonitorSystem.Other
         {
             foreach (RealTimeLineOR line in this._listRealTimeLine)
             {
-                if (line.LineInfo.DeviceID != null && line.LineInfo.ChannelNo != null)
-                {
-                    if (line.LineInfo.DeviceID == obj.DeviceID && line.LineInfo.ChannelNo == obj.ChannelNo
-                        && line.LineInfo.ComputeStr == obj.ComputeStr)
-                    {
-                        line.SetYValue(obj.MonitorValue);
-                    }
-                }
+				if (line.LineInfo.DeviceID != 0 && line.LineInfo.ChannelNo != 0)
+				{
+					if (line.LineInfo.DeviceID == obj.DeviceID && line.LineInfo.ChannelNo == obj.ChannelNo
+						&& line.LineInfo.ComputeStr == obj.ComputeStr)
+					{
+						line.SetYValue(obj.MonitorValue);
+					}
+				}
             }
         }
         private void InitBasicinfo()
@@ -116,15 +116,25 @@ namespace MonitorSystem.Other
             }
         }
 
-        private void InitBG()
-        {
-            //ImageBrush imageBrush = new ImageBrush();
-            //imageBrush.ImageSource = new BitmapImage(new Uri("../Images/RealtimeBG.jpg", UriKind.Relative));
-            //imageBrush.Stretch = Stretch.Uniform;
-            //Canvas _v = new Canvas();
-            //_v.Background = imageBrush;
-            //this.Content = _v;
-        }
+		private void InitBG()
+		{
+			string url = "/WPFMonitor;component/Resources/Images/RealtimeBG.jpg";
+			//ImageBrush imageBrush = new ImageBrush();
+			//imageBrush.ImageSource = new BitmapImage(new Uri(url, UriKind.Relative));
+			//imageBrush.Stretch = Stretch.Uniform;
+
+
+		 
+			//Canvas _v = new Canvas();
+			//_v.Background = imageBrush;
+			//this.Content = _v;
+
+			BitmapImage bitmap = new BitmapImage(new Uri(url, UriKind.Relative));
+			ImageSource mm = bitmap;
+			Image _img = new Image();
+			_img.Source = mm;
+			this.Content = _img;
+		}
 
         private void RealTime_SizeChanged(object sender, SizeChangedEventArgs e)
         {
@@ -134,11 +144,11 @@ namespace MonitorSystem.Other
             this.Width = e.NewSize.Width;
             this.Height = e.NewSize.Height;
 
-            //if (this.Width < 300 || this.Height < 300)
-            //{
-            //    InitBG();
-            //    return;
-            //}
+			if (this.Width < 100 && this.Height < 100)
+			{
+				InitBG();
+				return;
+			}
 
 
             if (double.IsNaN(_Canvas.Width))
