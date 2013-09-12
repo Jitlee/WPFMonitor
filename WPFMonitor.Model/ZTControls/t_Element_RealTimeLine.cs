@@ -257,7 +257,7 @@ NotifyPropertyChanged("StartTime");}
 		/// </summary>
 		public t_Element_RealTimeLine()
 		{
-
+            StartTime = DateTime.Now;
 		}
 
 		/// <summary>

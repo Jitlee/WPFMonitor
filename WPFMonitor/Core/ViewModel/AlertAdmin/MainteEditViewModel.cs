@@ -133,7 +133,7 @@ namespace WPFMonitor.Core.ViewModel.AlertAdmin
             StringBuilder sbError = new StringBuilder();
             if (SelectDeviceOR == null)
             {
-                sbError.Append("没有选择设备!");
+                sbError.AppendLine("没有选择设备;");
             }
             else
             {
@@ -146,7 +146,7 @@ namespace WPFMonitor.Core.ViewModel.AlertAdmin
 
             if (SelectMainteStatus == null)
             {
-                sbError.Append("没选择设备状态；");
+                sbError.AppendLine("没有选择维修状态;");
             }
             else
             {

@@ -37,11 +37,11 @@ namespace WPFMonitor.Model.Sys
             }
         }
 
-        private int _Usertype;
+        private int? _Usertype;
         /// <summary>
         /// 用户类型
         /// </summary>
-        public int Usertype
+        public int? Usertype
         {
             get { return _Usertype; }
             set

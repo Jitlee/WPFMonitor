@@ -141,6 +141,7 @@
     <Compile Include="Core\Uitl\Logger\LoggerFactory.cs" />
     <Compile Include="Core\Uitl\Logger\LoggerLevel.cs" />
     <Compile Include="Core\Uitl\Logger\WriteFileLogger.cs" />
+    <Compile Include="Core\ViewModel\Alarm\AlarmSetRemoveListViewModel.cs" />
     <Compile Include="Core\ViewModel\AlertAdmin\AlarmPolicyManagementEditViewModel.cs" />
     <Compile Include="Core\ViewModel\AlertAdmin\AlarmPolicyManagementListViewModel.cs" />
     <Compile Include="Core\ViewModel\AlertAdmin\EventTypeEditViewModel.cs" />

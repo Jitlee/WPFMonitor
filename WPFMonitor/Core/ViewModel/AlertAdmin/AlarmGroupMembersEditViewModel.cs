@@ -180,7 +180,7 @@ namespace WPFMonitor.Core.ViewModel.AlertAdmin
                 AlarmGroupMembersObj.GroupName = SelectAlarmGroupsOR.Groupname;
             }
 
-            if (SchedulingORList == null)
+            if (SelectSchedulingOR == null)
             {
                 sbError.AppendLine("没有选择 排班；");
             }

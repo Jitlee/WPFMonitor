@@ -11,6 +11,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
 using DockingLibrary;
+using WPFMonitor.Core.ViewModel.Alarm;
 
 namespace WPFMonitor.View.Alarm
 {
@@ -22,6 +23,7 @@ namespace WPFMonitor.View.Alarm
         public AlarmSetRemoveView()
         {
             InitializeComponent();
+            //this.DataContext = new AlarmSetRemoveEditModel();
         }
     }
 }

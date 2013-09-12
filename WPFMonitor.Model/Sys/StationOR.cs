@@ -49,26 +49,28 @@ namespace WPFMonitor.Model.Sys
             }
         }
 
-        private int _Port;
+        private int? _Port;
         /// <summary>
         /// 端口
         /// </summary>
-        public int Port
+        public int? Port
         {
             get { return _Port; }
             set { 
-                _Port = value; NotifyPropertyChanged("Port"); 
+                _Port = value; 
+                NotifyPropertyChanged("Port"); 
             }
         }
 
-        private int _Historyport;
+        private int? _Historyport;
         /// <summary>
         /// 历史端口
         /// </summary>
-        public int Historyport
+        public int? Historyport
         {
             get { return _Historyport; }
-            set { _Historyport = value; NotifyPropertyChanged("Historyport"); }
+            set { _Historyport = value;
+                NotifyPropertyChanged("Historyport"); }
         }
 
         /// <summary>

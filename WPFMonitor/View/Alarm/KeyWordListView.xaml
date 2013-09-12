@@ -18,7 +18,7 @@
                 <DataGridTextColumn Header="关键字" Width="80*" Binding="{Binding Path=Keyword}"/>
                 <DataGridTextColumn Header="关键字名称" Width="80*" Binding="{Binding Path=Keywordname}"/>
                 <DataGridTextColumn Header="替换值" Width="80*" Binding="{Binding Path=Replace}"/>
-                <DataGridTextColumn Header="是否自定义" Width="80*" Binding="{Binding Path=Iscustomize}"/>
+                <DataGridTextColumn Header="是否自定义" Width="80*" Binding="{Binding Path=IscustomizeShow}"/>
 	
             </DataGrid.Columns>
         </DataGrid>

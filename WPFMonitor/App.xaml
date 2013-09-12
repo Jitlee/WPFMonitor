@@ -590,7 +590,10 @@
 				<Setter Property="Background" Value="{DynamicResource {ComponentResourceKey {x:Type custom:DockingManager}, {x:Static custom:DockingLibraryBrushes.DefaultBackgroundBrush}}}"/>
 				<Setter Property="Foreground" Value="{DynamicResource {ComponentResourceKey {x:Type custom:DockingManager}, {x:Static custom:DockingLibraryBrushes.DockablePaneTitleForeground}}}"/>
 			</Style>
-
+            <Style TargetType="ListBox">
+                <Setter Property="Background" Value="{DynamicResource {ComponentResourceKey {x:Type custom:DockingManager}, {x:Static custom:DockingLibraryBrushes.DefaultBackgroundBrush}}}"/>
+                <Setter Property="Foreground" Value="{DynamicResource {ComponentResourceKey {x:Type custom:DockingManager}, {x:Static custom:DockingLibraryBrushes.DockablePaneTitleForeground}}}"/>
+            </Style>
 
         </ResourceDictionary>
     </Application.Resources>

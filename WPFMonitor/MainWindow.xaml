@@ -39,7 +39,7 @@
                 </MenuItem>
                 <MenuItem x:Name="InspectionList" Header="定时巡检设置" Click="AlermAdmin_Click"></MenuItem>
                 <MenuItem x:Name="KeyWordList" Header="关键字配置" Click="AlermAdmin_Click"></MenuItem>
-                <MenuItem x:Name="AlarmSetRemove" Header="声光告警解除" Click="AlermAdmin_Click"></MenuItem>
+                <!--<MenuItem x:Name="AlarmSetRemove" Header="声光告警解除" Click="AlermAdmin_Click"></MenuItem>-->
             </MenuItem>
             <MenuItem Header="联动管理(_L)" x:Name="Linkage">
                 <MenuItem x:Name="LinkageSetList" Header="设备联动设置" Click="TimeLink_Click"></MenuItem>

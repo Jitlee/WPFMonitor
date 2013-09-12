@@ -92,10 +92,11 @@ namespace WPFMonitor.DAL.Alarm
         /// </summary>
         public virtual bool Insert(KeyWordOR keyWord)
         {
-            string sql = "insert into t_KeyWord (KeyWordID, KeyWord, KeyWordName, Replace, IsCustomize) values (@KeyWordID, @KeyWord, @KeyWordName, @Replace, @IsCustomize)";
+            //string sql = "insert into t_KeyWord (KeyWordID, KeyWord, KeyWordName, Replace, IsCustomize) values (@KeyWordID, @KeyWord, @KeyWordName, @Replace, @IsCustomize)";
+            string sql = "insert into t_KeyWord (KeyWord, KeyWordName, Replace, IsCustomize) values (@KeyWord, @KeyWordName, @Replace, @IsCustomize)";
             SqlParameter[] parameters = new SqlParameter[]
 			{
-				new SqlParameter("@KeyWordID", SqlDbType.Int, 4, ParameterDirection.Input, false, 0, 0, "KeyWordID", DataRowVersion.Default, keyWord.Keywordid),
+				//new SqlParameter("@KeyWordID", SqlDbType.Int, 4, ParameterDirection.Input, false, 0, 0, "KeyWordID", DataRowVersion.Default, keyWord.Keywordid),
 				new SqlParameter("@KeyWord", SqlDbType.VarChar, 50, ParameterDirection.Input, false, 0, 0, "KeyWord", DataRowVersion.Default, keyWord.Keyword),
 				new SqlParameter("@KeyWordName", SqlDbType.Char, 10, ParameterDirection.Input, false, 0, 0, "KeyWordName", DataRowVersion.Default, keyWord.Keywordname),
 				new SqlParameter("@Replace", SqlDbType.VarChar, 4000, ParameterDirection.Input, false, 0, 0, "Replace", DataRowVersion.Default, keyWord.Replace),

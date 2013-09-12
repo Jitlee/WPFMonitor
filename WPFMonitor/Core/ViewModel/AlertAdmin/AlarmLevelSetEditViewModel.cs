@@ -5,6 +5,7 @@ using WPFMonitor.DAL.AlertAdmin;
 using WPFMonitor.Core.ViewModel;
 using WPFMonitor.View.AlertAdmin;
 using System.Collections.ObjectModel;
+using System.Text;
 
 
 namespace WPFMonitor.Core.ViewModel.AlertAdmin
@@ -53,7 +54,26 @@ namespace WPFMonitor.Core.ViewModel.AlertAdmin
             OperationType = OpType.Alert;
             AlarmLevelSetObj = _Sta;
         }
+         private bool SetValue()
+        {
+            StringBuilder sbError = new StringBuilder();
+            if (AlarmLevelSetObj.Priority == 0)
+            {
+                sbError.AppendLine("没有选择级别;");
+            }
+            if (string.IsNullOrEmpty(AlarmLevelSetObj.Levelname))
+            {
+                sbError.AppendLine("等级名称不能为空;");
+            }
 
+             string ErrorMsg = sbError.ToString();
+            if (!string.IsNullOrEmpty(ErrorMsg))
+            {
+                ShowMsgError(ErrorMsg);
+                return false;
+            }
+            return true;
+        }
         public override void OK()
         {
             string errMsg = "";
@@ -62,7 +82,8 @@ namespace WPFMonitor.Core.ViewModel.AlertAdmin
                 ShowMsgError(errMsg);
                 return;
             }
-            //
+            if (!SetValue())
+                return;
             try
             {
                 if (OperationType == OpType.Alert)

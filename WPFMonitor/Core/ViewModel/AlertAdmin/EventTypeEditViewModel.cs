@@ -115,9 +115,13 @@ namespace WPFMonitor.Core.ViewModel.AlertAdmin
         private bool SetValue()
         {
             StringBuilder sbError = new StringBuilder();
-                        
+
+            if (string.IsNullOrEmpty(EventTypeObj.Eventname))
+            {
+                sbError.AppendLine("名称不能为空！");
+            }
+
             this.EventTypeObj.Alarmway =SetAlarm();
-            
             //报警组
             string AlarmTarget = "";
             foreach (AlarmGroupsOR li in AlarmGroupsList)
@@ -127,7 +131,7 @@ namespace WPFMonitor.Core.ViewModel.AlertAdmin
                 AlarmTarget = AlarmTarget + li.Alarmgroupsid + "-";
             } 
             EventTypeObj.Alarmtarget = AlarmTarget;
-
+                        
             //撤防时间
             EventTypeObj.Disarmid = "";
             foreach (DisarmTimeOR li in DisarmTimeList)

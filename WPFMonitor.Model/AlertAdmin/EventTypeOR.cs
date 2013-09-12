@@ -183,7 +183,9 @@ namespace WPFMonitor.Model.AlertAdmin
         /// </summary>
         public EventTypeOR()
         {
-
+            _Alarmaudiofile = "";
+            _Disalarmaudiofile = "";
+            _Smsmsg = "";
         }
 
         /// <summary>

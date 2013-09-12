@@ -127,6 +127,9 @@ namespace WPFMonitor.Model.AlertAdmin
         public MainteOR()
         {
             Maintetime = DateTime.Now;
+            _Maintename ="";
+            _Duty = "";
+            _Contentmainte ="";
         }
 
 

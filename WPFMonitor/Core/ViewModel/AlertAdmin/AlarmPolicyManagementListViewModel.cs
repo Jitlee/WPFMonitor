@@ -64,6 +64,7 @@ namespace WPFMonitor.Core.ViewModel.AlertAdmin
         private void Load(string stationID)
         {
             var v = _DeviceDA.GetAllGenerdDevice(stationID);
+            SolidColorBrush WhiteSolid = new SolidColorBrush(Colors.White);
             if (v != null)
             {
                 _Window.listDevices.Items.Clear();
@@ -72,6 +73,7 @@ namespace WPFMonitor.Core.ViewModel.AlertAdmin
                 {
                     TreeViewItem tvi = new TreeViewItem();
                     tvi.Header = obj.Devicename;
+                    tvi.Foreground = WhiteSolid;
                     LoadChannce(obj, tvi);
                     _Window.listDevices.Items.Add(tvi);
                 }
@@ -123,7 +125,7 @@ namespace WPFMonitor.Core.ViewModel.AlertAdmin
                 SelectTreeItem.Foreground = RedSolid;
         }
 
-        #region 数据管理        
+        #region 数据管理
         public void InitData(ChannelManagementOR obj)
         {
             if (obj == null)

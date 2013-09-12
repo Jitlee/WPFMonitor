@@ -116,7 +116,7 @@ namespace WPFMonitor.Model.Linkage
         /// </summary>
         public TimeLinkageOR()
         {
-
+            _Triggertime = "";
         }
 
         /// <summary>
