@@ -3,7 +3,14 @@
          xmlns:custom="clr-namespace:DockingLibrary;assembly=DockingLibrary"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         Title="StationListView" Height="634" Width="882"
-        xmlns:my="clr-namespace:WPFMonitor.View.AlertAdmin">
+        xmlns:my="clr-namespace:WPFMonitor.View.AlertAdmin"
+        Background="{DynamicResource {ComponentResourceKey {x:Type custom:DockingManager}, {x:Static custom:DockingLibraryBrushes.DefaultBackgroundBrush}}}">
+    <custom:DockableContent.Resources>
+        <HierarchicalDataTemplate x:Key="ScreenTreeTemplate" ItemsSource="{Binding Children}">
+            <TextBlock Text="{Binding ScreenName}"
+            Foreground="{DynamicResource {ComponentResourceKey {x:Type custom:DockingManager}, {x:Static custom:DockingLibraryBrushes.DockablePaneTitleForeground}}}"/>
+        </HierarchicalDataTemplate>
+    </custom:DockableContent.Resources>
     <Grid  Background="Transparent" IsManipulationEnabled="False" IsItemsHost="False">
         <Grid.RowDefinitions>
             <RowDefinition Height="30"></RowDefinition>
@@ -15,13 +22,15 @@
         </Grid.ColumnDefinitions>
 
         <WrapPanel Grid.ColumnSpan="2">
-            <TextBlock  Text="站点：" Foreground="White" Style="{StaticResource lblStyle}" Grid.Row="0"/>
+            <TextBlock  Text="站点："   Style="{StaticResource lblStyle}" Grid.Row="0"/>
             <ComboBox ItemsSource="{Binding StationORList}"  SelectedItem="{Binding SelectStationOR, Mode=TwoWay}"
                       Grid.Row="1"  DisplayMemberPath="Stationname"  Style="{StaticResource EditCBStyle}"  x:Name="cbStation" />
         </WrapPanel>
 
         <Grid Grid.Row="1">
-            <TreeView  x:Name="listDevices" >
+            <TreeView x:Name="listDevices"
+                Background="{x:Null}"
+                ItemTemplate="{StaticResource ScreenTreeTemplate}">
                 
             </TreeView>
         </Grid>

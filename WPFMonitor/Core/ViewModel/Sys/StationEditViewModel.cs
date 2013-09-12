@@ -2,6 +2,7 @@
 using WPFMonitor.DAL.Sys;
 using WPFMonitor.Model.Sys;
 using WPFMonitor.View.Sys;
+using System.Text;
 
 namespace WPFMonitor.Core.ViewModel
 {
@@ -41,7 +42,34 @@ namespace WPFMonitor.Core.ViewModel
             OperationType = OpType.Alert;
             StationObj = _Sta;
         }
+        private bool SetValue()
+        {
+            StringBuilder sbError = new StringBuilder();
 
+            if (string.IsNullOrEmpty(StationObj.Stationname))
+            {
+                sbError.AppendLine("名称不能为空；");
+            }
+            if (string.IsNullOrEmpty(StationObj.Ip))
+            {
+                sbError.AppendLine("IP不能为空；");
+            }
+            if (!StationObj.Port.HasValue)
+            {
+                sbError.AppendLine("端口不能为空；");
+            }
+            if (!StationObj.Historyport.HasValue)
+            {
+                sbError.AppendLine("历史端口不能为空；");
+            }
+            string ErrorMsg = sbError.ToString();
+            if (!string.IsNullOrEmpty(ErrorMsg))
+            {
+                ShowMsgError(ErrorMsg);
+                return false;
+            }
+            return true;
+        }
         public override void OK()
         {
             string errMsg = "";
@@ -50,7 +78,8 @@ namespace WPFMonitor.Core.ViewModel
                 ShowMsgError(errMsg);
                 return;
             }
-            //
+            if (!SetValue())
+                return;
             try
             {
                 if (OperationType == OpType.Alert)

@@ -136,19 +136,21 @@ namespace WPFMonitor.Core.ViewModel.Alarm
             {
                 sbError.AppendLine("没有选择正确的通道值；");
             }
-            InspectionObj.Stationid = SelectStationOR.Stationid;
-            InspectionObj.StationName = SelectStationOR.Stationname;
+            else
+            {
+                InspectionObj.Stationid = SelectStationOR.Stationid;
+                InspectionObj.StationName = SelectStationOR.Stationname;
 
-            InspectionObj.Devicetypeid = SelectDeviceTypeOR.Devicetypeid;
-            InspectionObj.TypeName = SelectDeviceTypeOR.Typename;
+                InspectionObj.Devicetypeid = SelectDeviceTypeOR.Devicetypeid;
+                InspectionObj.TypeName = SelectDeviceTypeOR.Typename;
 
-            InspectionObj.Deviceid = SelectDeviceOR.Deviceid;
-            InspectionObj.DeviceName = SelectDeviceOR.Devicename;
+                InspectionObj.Deviceid = SelectDeviceOR.Deviceid;
+                InspectionObj.DeviceName = SelectDeviceOR.Devicename;
 
-            InspectionObj.Channelno = SelectChannelOR.Channelno;
-            InspectionObj.ChannelName = SelectChannelOR.Channelname;
-            
+                InspectionObj.Channelno = SelectChannelOR.Channelno;
+                InspectionObj.ChannelName = SelectChannelOR.Channelname;
 
+            }
             //时间
             InspectionObj.Inspectiontime = string.Format("{0}:{1}", SelectDateTimeHH, SelectDateTimeMi);//巡检时间
 

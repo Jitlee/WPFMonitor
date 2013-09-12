@@ -163,7 +163,10 @@ namespace WPFMonitor.Model.AlertAdmin
         /// </summary>
         public AlarmGroupMembersOR()
         {
-
+            _Name = "";
+            _Mobileno = "";
+            _Telno = "";
+            _Email = "";
         }
 
         /// <summary>

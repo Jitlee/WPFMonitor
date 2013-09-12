@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Windows.Input;
 using System.Windows;
+using System.ComponentModel;
 
 namespace WPFMonitor.Core.ViewModel
 {
@@ -109,5 +110,15 @@ namespace WPFMonitor.Core.ViewModel
         //public abstract void Group(object parameter);
 
         #endregion
+
+        public event PropertyChangedEventHandler PropertyChanged;
+
+        protected void NotifyPropertyChanged(String info)
+        {
+            if (PropertyChanged != null)
+            {
+                PropertyChanged(this, new PropertyChangedEventArgs(info));
+            }
+        }
     }
 }

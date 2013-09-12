@@ -4,6 +4,7 @@ using WPFMonitor.DAL.Sys;
 using WPFMonitor.Core.ViewModel;
 using WPFMonitor.View.Sys;
 using System.Collections.ObjectModel;
+using System.Text;
 
 namespace WPFMonitor.Core.ViewModel.Sys
 {
@@ -52,7 +53,33 @@ namespace WPFMonitor.Core.ViewModel.Sys
             OperationType = OpType.Alert;
             UserObj = _Sta;
         }
-        
+        private bool SetValue()
+        {
+            StringBuilder sbError = new StringBuilder();
+
+            if (string.IsNullOrEmpty(UserObj.Username))
+            {
+                sbError.AppendLine("名称不能为空；");
+            }
+
+            if (string.IsNullOrEmpty(UserObj.Userpsw))
+            {
+                sbError.AppendLine("密码不能为空；");
+            }
+
+            if (UserObj.UserTypeShow == "管理员")
+                UserObj.Usertype = 1;
+            else
+                UserObj.Usertype = 0;
+            
+            string ErrorMsg = sbError.ToString();
+            if (!string.IsNullOrEmpty(ErrorMsg))
+            {
+                ShowMsgError(ErrorMsg);
+                return false;
+            }
+            return true;
+        }
         public override void OK()
         {
             string errMsg = "";
@@ -61,7 +88,8 @@ namespace WPFMonitor.Core.ViewModel.Sys
                 ShowMsgError(errMsg);
                 return;
             }
-            //
+            if (!SetValue())
+                return;
             try
             {
                 if (OperationType == OpType.Alert)

@@ -40,6 +40,7 @@ namespace WPFMonitor.Core.ViewModel
        {
            StringBuilder sb=new StringBuilder();
            bool IsHaveError = false;
+           
            foreach (object child in LogicalTreeHelper.GetChildren(_Element))
            {
                TextBox element = child as TextBox;
@@ -56,7 +57,9 @@ namespace WPFMonitor.Core.ViewModel
                    }
                }
            }
+
            errMsg = sb.ToString();
+
            return IsHaveError;
        }
 

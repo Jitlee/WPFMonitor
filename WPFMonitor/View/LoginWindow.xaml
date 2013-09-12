@@ -3,6 +3,7 @@
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:chorme="clr-namespace:CustomChromeLibrary;assembly=CustomChromeLibrary"
     xmlns:shell="http://schemas.microsoft.com/winfx/2006/xaml/presentation/shell"
+    xmlns:xceed="clr-namespace:Xceed.Wpf.Toolkit;assembly=Xceed.Wpf.Toolkit"
     Title="登陆" Height="240" Width="350" ShowInTaskbar="True" 
     WindowStartupLocation="CenterScreen"
     ResizeMode="NoResize" Icon="/WPFMonitor;component/Monitor.ico">
@@ -90,6 +91,9 @@
             Height="23"
             Width="75"
             IsCancel="True" Content="取消" />
+
+            
         </Grid>
+        <xceed:BusyIndicator   BusyContent="登录中..." IsBusy="false" x:Name="tbWait"/>
     </Grid>
 </Window>

@@ -43,7 +43,13 @@ namespace WPFMonitor.Model.Sys
             : base(dr)
         {
             if (DBNull.Value != dr["ISHavePolice"])
-                ISHavePolice = Convert.ToBoolean(dr["ISHavePolice"]);
+            {
+                if (dr["ISHavePolice"].ToString() == "0")
+                    ISHavePolice = false;
+                else
+                    ISHavePolice = true;
+
+            }
         }
 
         public ChannelManagementOR()
