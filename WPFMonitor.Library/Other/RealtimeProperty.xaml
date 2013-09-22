@@ -29,8 +29,8 @@
                         <RowDefinition Height="140"/>
                         <RowDefinition Height="210" />
                     </Grid.RowDefinitions>
-					<Label  Style="{StaticResource LabelStyle}" Grid.Column="1" Grid.Row="1" Height="28" 
-                               Margin="6,0,237,5" Name="label1"  Content="曲线类型："  Width="57" />
+					<TextBlock  Style="{StaticResource lblStyle}" Grid.Column="1" Grid.Row="1" Height="28" 
+                               Margin="6,0,237,5" Name="label1"  Text="曲线类型："  Width="57" />
                     <ComboBox Grid.Column="1" Grid.Row="1" Height="23" HorizontalAlignment="Right" 
                               Margin="0,2,109,0" Name="LineType" VerticalAlignment="Top" Width="119" >
                         <ComboBoxItem  IsSelected="True" Content="实时趋势"/>
@@ -79,7 +79,7 @@
                     </Grid.RowDefinitions>
                     <!--X轴-->
                     <CheckBox Grid.Row="1" Grid.Column="1" x:Name="XISSGShow"  Content="是否X轴栅格显示"  Height="20" Width="110" Margin="11,9,13,12"></CheckBox>
-					<Label  Style="{StaticResource LabelStyle}" Grid.Row="1" Grid.Column="2" Content="X主分度数"  Height="24" Width="64" Margin="7,10,0,6" HorizontalAlignment="Left"></Label>
+					<TextBlock  Style="{StaticResource lblStyle}" Grid.Row="1" Grid.Column="2" Text="X主分度数"  Height="24" Width="64" Margin="7,10,0,6" HorizontalAlignment="Left"></TextBlock>
                     <ComboBox Grid.Column="2" Grid.Row="1" x:Name="XMainNumber" Width="49"  
                               HorizontalAlignment="Right" Margin="0,9,41,17">
                         <ComboBoxItem  Content="0条"/>
@@ -104,7 +104,7 @@
                         <ComboBoxItem Content="19条"/>
                     </ComboBox>
                     <my:ColorPicker Grid.Column="2" Grid.Row="1" x:Name="XMainColor" HorizontalAlignment="Left" Margin="120,6,0,0"  VerticalAlignment="Top" Width="45" Height="25" FontSize="12" Grid.ColumnSpan="2" />
-					<Label  Style="{StaticResource LabelStyle}" Grid.Row="1" Grid.Column="3" Content="X次分度数：" Margin="6,11,82,12"></Label>
+					<TextBlock  Style="{StaticResource lblStyle}" Grid.Row="1" Grid.Column="3" Text="X次分度数：" Margin="6,11,82,12"></TextBlock>
                     <ComboBox Grid.Column="3"  Grid.Row="1" x:Name="XPriNumber" Margin="68,8,50,17">
                         <ComboBoxItem  Content="0条"/>
                         <ComboBoxItem Content="1条"/>
@@ -130,7 +130,7 @@
                     <my:ColorPicker Grid.Column="3" Grid.Row="1" x:Name="XPriColor" HorizontalAlignment="Left" Margin="128,8,0,0"   VerticalAlignment="Top" Width="45" Height="25" FontSize="12" />
                     <!--Y轴-->
                     <CheckBox Grid.Row="2" Grid.Column="1" x:Name="YISSGShow"  Content="是否Y轴栅格显示" Margin="9,9,13,10" Width="112"></CheckBox>
-					<Label  Style="{StaticResource LabelStyle}" Grid.Row="2" Grid.Column="2" Content="Y主分度数" Margin="3,12,94,8" Width="66"></Label>
+					<TextBlock  Style="{StaticResource lblStyle}" Grid.Row="2" Grid.Column="2" Text="Y主分度数" Margin="3,12,94,8" Width="66"></TextBlock>
                     <ComboBox Grid.Column="2"  Grid.Row="2" x:Name="YMainNumber"  Height="24" Margin="67,10,41,17">
                         <ComboBoxItem  Content="0条"/>
                         <ComboBoxItem Content="1条"/>
@@ -154,7 +154,7 @@
                         <ComboBoxItem Content="19条"/>
                     </ComboBox>
                     <my:ColorPicker Grid.Column="2" Grid.Row="2" x:Name="YMainColor" HorizontalAlignment="Left" Margin="120,10,0,0"   VerticalAlignment="Top" Width="45" Height="25" FontSize="12" Grid.ColumnSpan="2" />
-					<Label  Style="{StaticResource LabelStyle}" Grid.Row="2" Grid.Column="3"  Content="Y次分度数：" Margin="6,12,89,8"></Label>
+					<TextBlock  Style="{StaticResource lblStyle}" Grid.Row="2" Grid.Column="3"  Text="Y次分度数：" Margin="6,12,89,8"></TextBlock>
                     <ComboBox  Grid.Row="2" Grid.Column="3" x:Name="YPriNumber" Margin="68,7,50,17">
                         <ComboBoxItem  Content="0条"/>
                         <ComboBoxItem Content="1条"/>

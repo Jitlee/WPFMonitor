@@ -3,12 +3,12 @@ using System.Data;
 
 namespace WPFMonitor.Model.ZTControls
 {
-    /// <summary>
-    /// 
-    /// </summary>
-    public class t_ElementProperty: ORBase
-    {
-       
+	/// <summary>
+	/// 
+	/// </summary>
+	public class t_ElementProperty : ORBase
+	{
+
 		private int _ElementID;
 		/// <summary>
 		/// 
@@ -16,8 +16,11 @@ namespace WPFMonitor.Model.ZTControls
 		public int ElementID
 		{
 			get { return _ElementID; }
-			set { _ElementID = value;
-NotifyPropertyChanged("ElementID");}
+			set
+			{
+				_ElementID = value;
+				NotifyPropertyChanged("ElementID");
+			}
 		}
 
 		private int _PropertyNo;
@@ -27,8 +30,11 @@ NotifyPropertyChanged("ElementID");}
 		public int PropertyNo
 		{
 			get { return _PropertyNo; }
-			set { _PropertyNo = value;
-NotifyPropertyChanged("PropertyNo");}
+			set
+			{
+				_PropertyNo = value;
+				NotifyPropertyChanged("PropertyNo");
+			}
 		}
 
 		private string _PropertyValue;
@@ -38,8 +44,11 @@ NotifyPropertyChanged("PropertyNo");}
 		public string PropertyValue
 		{
 			get { return _PropertyValue; }
-			set { _PropertyValue = value;
-NotifyPropertyChanged("PropertyValue");}
+			set
+			{
+				_PropertyValue = value;
+				NotifyPropertyChanged("PropertyValue");
+			}
 		}
 
 		private string _Caption;
@@ -49,10 +58,13 @@ NotifyPropertyChanged("PropertyValue");}
 		public string Caption
 		{
 			get { return _Caption; }
-			set { _Caption = value;
-NotifyPropertyChanged("Caption");}
+			set
+			{
+				_Caption = value;
+				NotifyPropertyChanged("Caption");
+			}
 		}
-
+		
 		private string _PropertyName;
 		/// <summary>
 		/// 
@@ -60,8 +72,11 @@ NotifyPropertyChanged("Caption");}
 		public string PropertyName
 		{
 			get { return _PropertyName; }
-			set { _PropertyName = value;
-NotifyPropertyChanged("PropertyName");}
+			set
+			{
+				_PropertyName = value;
+				NotifyPropertyChanged("PropertyName");
+			}
 		}
 
 		/// <summary>
@@ -89,20 +104,21 @@ NotifyPropertyChanged("PropertyName");}
 			_PropertyName = row["PropertyName"].ToString().Trim();
 		}
 
-	public void Clone(t_ElementProperty obj){
-//
-ElementID = obj.ElementID;
-//
-PropertyNo = obj.PropertyNo;
-//
-PropertyValue = obj.PropertyValue;
-//
-Caption = obj.Caption;
-//
-PropertyName = obj.PropertyName;
+		public void Clone(t_ElementProperty obj)
+		{
+			//
+			ElementID = obj.ElementID;
+			//
+			PropertyNo = obj.PropertyNo;
+			//
+			PropertyValue = obj.PropertyValue;
+			//
+			Caption = obj.Caption;
+			//
+			PropertyName = obj.PropertyName;
 
-}
+		}
 
-    }
+	}
 }
 

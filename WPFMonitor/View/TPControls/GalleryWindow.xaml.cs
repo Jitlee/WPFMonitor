@@ -108,22 +108,25 @@ namespace WPFMonitor.View.TPControls
                     item.DataContext = t;
                     try
                     {
-                        if (!string.IsNullOrEmpty(t.ImageURL) && t.ImageURL == "MonitorSystem.Other.RealTimeT")
-                        {
-                            ImageBrush imageBrush = new ImageBrush();
-                            imageBrush.ImageSource = new BitmapImage(new Uri("../../Resources/Images/RealtimeBG.jpg", UriKind.Relative));
-                            imageBrush.Stretch = Stretch.Uniform;
-                            Canvas instance = new Canvas();
-                            instance.Background = imageBrush;
-                            var control = instance as FrameworkElement;
-                            if (null != control)
-                            {
-                                control.Height = 93d;
-                                control.Width = 93d;
-                                item.Content = control;
-                            }
-                        }
-                        else if (!string.IsNullOrEmpty(t.ImageURL))
+						if (!string.IsNullOrEmpty(t.ImageURL) && t.ImageURL == "MonitorSystem.Other.RealTimeT")
+						{
+							string url = "/WPFMonitor;component/Resources/Images/RealtimeBG.jpg";
+							BitmapImage bitmap = new BitmapImage(new Uri(url, UriKind.Relative));
+							ImageSource mm = bitmap;
+							Image _img = new Image();
+
+							_img.Source = mm;
+
+							var control = _img as FrameworkElement;
+							if (null != control)
+							{
+								control.Height = 93d;
+								control.Width = 93d;
+								item.Content = control;
+							}
+						}
+						else 
+						if (!string.IsNullOrEmpty(t.ImageURL))
                         {
                             var instance = Activator.CreateInstance(MonitorControl.GetType(t.ImageURL));
                             var control = instance as FrameworkElement;

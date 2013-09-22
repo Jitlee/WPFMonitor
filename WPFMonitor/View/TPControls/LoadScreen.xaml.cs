@@ -1751,7 +1751,6 @@ namespace WPFMonitor.View.TPControls
                     if (null != m && !m.IsToolTip)
                     {
                         var el = m.ElementState;
-                        //var meleObj = m.ScreenElement;
 						m.ScreenElement.Width = Convert.ToInt32(m.Width);
 						m.ScreenElement.Height = Convert.ToInt32(m.Height);
 						m.ScreenElement.ScreenX = Convert.ToInt32(m.GetValue(Canvas.LeftProperty));
@@ -1759,7 +1758,6 @@ namespace WPFMonitor.View.TPControls
 
                         if (el == ElementSate.New)
                         {
-                           // m.ScreenElement = meleObj;
 							MaxElementID++;
 							m.ScreenElement.ElementID = MaxElementID;
                             listMonitorAddElement.Add(m);
