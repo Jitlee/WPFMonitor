@@ -48,8 +48,9 @@
             </Style>
 
             <Style TargetType="CheckBox">
-                <Setter Property="Foreground" Value="{DynamicResource {ComponentResourceKey {x:Type custom:DockingManager}, {x:Static custom:DockingLibraryBrushes.DockablePaneTitleForeground}}}"/>
+                <Setter Property="Foreground" Value="{DynamicResource {ComponentResourceKey {x:Type custom:DockingManager}, {x:Static custom:DockingLibraryBrushes.DockablePaneTitleForeground}}}"/>                
             </Style>
+            
             <Style TargetType="GroupBox">
                 <Setter Property="Foreground" Value="{DynamicResource {ComponentResourceKey {x:Type custom:DockingManager}, {x:Static custom:DockingLibraryBrushes.DockablePaneTitleForeground}}}"/>
             </Style>
